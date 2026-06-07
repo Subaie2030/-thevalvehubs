@@ -358,29 +358,28 @@
   <!-- ═══════════ STEP 3: IKTVA + CERTIFICATIONS (Suppliers) / CONTACT (Buyers) ═══════════ -->
   <div id="step-3" class="hidden">
 
-    <!-- Supplier: IKTVA + Certs -->
+    <!-- Supplier: Certs + Qualifications (IKTVA removed — use calculator separately) -->
     <div class="role-section" id="supplier-iktva">
       <div class="form-card">
         <div class="form-card-header">
-          <div class="form-card-icon green">📊</div>
+          <div class="form-card-icon green">🏅</div>
           <div>
-            <div class="form-card-title">IKTVA Score & Certifications</div>
-            <div class="form-card-sub">Your IKTVA score is your #1 differentiator for Aramco & SABIC buyers</div>
+            <div class="form-card-title">Qualifications & Certifications</div>
+            <div class="form-card-sub">Tell buyers about your approvals and quality standards</div>
           </div>
         </div>
 
-        <div class="form-group">
-          <label>Current IKTVA Score (%)</label>
-          <input type="range" id="iktvaRange" min="0" max="100" value="0" oninput="updateIktva(this.value)" style="width:100%;margin:8px 0;accent-color:#006C35;"/>
-          <div class="iktva-display">
-            <div class="iktva-score-big" id="iktvaScoreBig">0%</div>
-            <div class="iktva-bar-wrap">
-              <div class="iktva-bar"><div class="iktva-bar-fill" id="iktvaBarFill" style="width:0%"></div></div>
-              <div class="iktva-tier" id="iktvaTier" style="color:#9A9AAA;">Not scored — drag slider to set your score</div>
-              <div style="font-size:.68rem;color:#9A9AAA;margin-top:4px;">Don't know your score? <a href="iktva-calculator.html" target="_blank" style="color:#006C35;">Use our IKTVA Calculator →</a></div>
-            </div>
+        <!-- IKTVA note — no slider, just a link -->
+        <div style="background:#EBF7F0;border:1px solid #A5D6A7;border-radius:12px;padding:14px 18px;margin-bottom:20px;display:flex;gap:12px;align-items:flex-start;">
+          <span style="font-size:1.4rem;">📊</span>
+          <div>
+            <div style="font-size:.83rem;font-weight:800;color:#006C35;margin-bottom:3px;">IKTVA Score — Use the dedicated calculator</div>
+            <div style="font-size:.75rem;color:#3A5A3A;line-height:1.6;">Your IKTVA score is calculated based on Saudi content spending, workforce, and assets. Use our IKTVA Calculator after completing your profile for an accurate score.</div>
+            <a href="iktva-calculator.html" target="_blank" style="display:inline-block;margin-top:8px;font-size:.75rem;font-weight:800;color:#006C35;text-decoration:none;">📊 Open IKTVA Calculator →</a>
           </div>
         </div>
+        <!-- hidden input so saveProfile() doesn't crash looking for iktvaRange -->
+        <input type="hidden" id="iktvaRange" value="0"/>
 
         <div class="form-group">
           <label>Aramco / National Procurement Qualification</label>
@@ -688,28 +687,8 @@ function toggleCert(el, value) {
   else selectedCerts.delete(value);
 }
 
-// ════════════════════════════════════════════════
-// IKTVA SLIDER
-// ════════════════════════════════════════════════
-function updateIktva(val) {
-  val = parseInt(val);
-  document.getElementById('iktvaScoreBig').textContent = val + '%';
-  document.getElementById('iktvaBarFill').style.width  = val + '%';
-
-  let tier, color;
-  if      (val === 0)  { tier = 'Not scored'; color = '#9A9AAA'; }
-  else if (val < 20)   { tier = '🔴 Development Stage'; color = '#C0392B'; }
-  else if (val < 40)   { tier = '🟡 Progressing'; color = '#E67E22'; }
-  else if (val < 60)   { tier = '🟢 Good Standing'; color = '#27AE60'; }
-  else if (val < 80)   { tier = '⭐ Advanced'; color = '#006C35'; }
-  else                 { tier = '🏆 Excellence Tier'; color = '#1A2E50'; }
-
-  const tierEl = document.getElementById('iktvaTier');
-  tierEl.textContent = tier;
-  tierEl.style.color = color;
-  document.getElementById('iktvaScoreBig').style.background =
-    val === 0 ? '#9A9AAA' : `linear-gradient(135deg,${color},${color}CC)`;
-}
+// IKTVA slider removed — score done via calculator page
+function updateIktva(val) { /* no-op */ }
 
 // ════════════════════════════════════════════════
 // REVIEW PAGE
@@ -792,7 +771,7 @@ async function saveProfile() {
 
     if (role === 'SUPPLIER') {
       // Map to exact field names the backend Zod schema expects
-      body.iktvaScore      = parseInt(document.getElementById('iktvaRange').value) || 0;
+      // iktvaScore omitted — set separately via IKTVA Calculator page
       body.aramcoApproved  = document.getElementById('isAramcoApproved')?.checked  || false;
       body.sabicApproved   = document.getElementById('isSabicApproved')?.checked   || false;
 
@@ -863,9 +842,7 @@ function calcCompletionScore() {
   if (document.getElementById('sector').value)       score += 5;
   if (selectedTags.size > 0)                         score += 10;
   if (role === 'SUPPLIER') {
-    const iktva = parseInt(document.getElementById('iktvaRange').value);
-    if (iktva > 0)             score += 10;
-    if (selectedCerts.size > 0) score += 5;
+    if (selectedCerts.size > 0) score += 15;
   }
   return Math.min(score, 100);
 }
