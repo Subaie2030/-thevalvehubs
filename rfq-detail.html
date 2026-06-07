@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>RFQ Details — TheValveHubs</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#F4F7F5;color:#1A2A1A;min-height:100vh;}
+
+.navbar{background:#fff;border-bottom:2px solid #006C35;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.nav-logo img{height:40px;width:auto;display:block;}
+.btn-back{display:inline-flex;align-items:center;gap:6px;background:#F0F5F1;color:#006C35;border:1px solid #C8DDD0;border-radius:8px;padding:8px 16px;font-size:.88rem;font-weight:600;text-decoration:none;}
+.btn-back:hover{background:#E0EDE5;}
+
+.page{max-width:940px;margin:0 auto;padding:36px 20px 80px;}
+
+/* ── Status badges ── */
+.badge{display:inline-block;padding:4px 12px;border-radius:100px;font-size:.78rem;font-weight:700;letter-spacing:.04em;}
+.badge-open{background:#EBF7F0;color:#006C35;border:1px solid #A8D5B8;}
+.badge-awarded{background:#FFF4E0;color:#8A6520;border:1px solid #C8973A;}
+.badge-closed{background:#F0F0F0;color:#666;border:1px solid #ddd;}
+.badge-cancelled{background:#FEF0F0;color:#C0392B;border:1px solid #FCBCBC;}
+
+/* ── Layout ── */
+.layout{display:grid;grid-template-columns:1fr 340px;gap:24px;align-items:start;}
+@media(max-width:760px){.layout{grid-template-columns:1fr;}}
+
+/* ── Cards ── */
+.card{background:#fff;border-radius:16px;border:1px solid #E8F0EB;padding:28px;margin-bottom:20px;}
+.card-title{font-size:1rem;font-weight:800;color:#1A2A1A;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid #F0F5F1;display:flex;align-items:center;gap:8px;}
+.card-title span{font-size:1.1rem;}
+
+/* ── RFQ Header ── */
+.rfq-header{margin-bottom:28px;}
+.rfq-header h1{font-size:1.7rem;font-weight:900;color:#1A2A1A;margin-bottom:10px;line-height:1.3;}
+.rfq-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+.meta-chip{display:inline-flex;align-items:center;gap:5px;background:#F8FAF9;border:1px solid #E8F0EB;border-radius:8px;padding:5px 10px;font-size:.82rem;color:#5A6B62;}
+
+/* ── Info table ── */
+.info-table{width:100%;border-collapse:collapse;}
+.info-table tr:not(:last-child){border-bottom:1px solid #F0F5F1;}
+.info-table td{padding:10px 0;vertical-align:top;}
+.info-table td:first-child{font-weight:700;color:#5A6B62;font-size:.85rem;width:130px;}
+.info-table td:last-child{font-size:.9rem;color:#1A2A1A;}
+
+/* ── Quote cards ── */
+.quote-card{border:1.5px solid #E8F0EB;border-radius:14px;padding:20px;margin-bottom:14px;transition:.2s;position:relative;}
+.quote-card.awarded{border-color:#006C35;background:#F8FAF9;}
+.quote-card .awarded-tag{position:absolute;top:14px;right:14px;background:#006C35;color:#fff;font-size:.72rem;font-weight:700;padding:4px 10px;border-radius:100px;}
+.quote-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px;flex-wrap:wrap;}
+.quote-supplier{font-weight:800;font-size:1rem;color:#1A2A1A;}
+.quote-sub{font-size:.82rem;color:#9CAA9C;margin-top:2px;}
+.quote-price{font-size:1.4rem;font-weight:900;color:#006C35;white-space:nowrap;}
+.quote-price small{font-size:.75rem;font-weight:400;color:#9CAA9C;}
+.quote-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+.q-chip{background:#F8FAF9;border:1px solid #E8F0EB;border-radius:6px;padding:3px 9px;font-size:.78rem;color:#5A6B62;}
+.q-chip.green{background:#EBF7F0;border-color:#A8D5B8;color:#006C35;}
+.quote-notes{font-size:.85rem;color:#5A6B62;line-height:1.6;background:#F8FAF9;border-radius:8px;padding:10px 12px;margin-bottom:12px;}
+.btn-award{background:#006C35;color:#fff;border:none;border-radius:8px;padding:9px 20px;font-size:.88rem;font-weight:700;cursor:pointer;transition:.2s;}
+.btn-award:hover{background:#005229;}
+.btn-award:disabled{background:#9CAA9C;cursor:not-allowed;}
+.btn-print-quote{background:#fff;color:#5A6B62;border:1px solid #C8DDD0;border-radius:8px;padding:9px 16px;font-size:.85rem;cursor:pointer;margin-left:8px;}
+
+/* ── Respond form ── */
+.respond-form input,.respond-form textarea,.respond-form select{width:100%;padding:10px 13px;border:1.5px solid #C8DDD0;border-radius:9px;font-size:.9rem;color:#1A2A1A;outline:none;font-family:inherit;transition:.2s;}
+.respond-form input:focus,.respond-form textarea:focus{border-color:#006C35;}
+.respond-form label{display:block;font-size:.83rem;font-weight:700;margin-bottom:5px;color:#1A2A1A;}
+.respond-form .field{margin-bottom:16px;}
+.respond-form textarea{min-height:80px;resize:vertical;}
+.sar-wrap{position:relative;}
+.sar-wrap input{padding-left:44px;}
+.sar-label{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-weight:700;font-size:.85rem;color:#9CAA9C;pointer-events:none;}
+.btn-submit-quote{width:100%;background:#006C35;color:#fff;border:none;border-radius:10px;padding:13px;font-size:.95rem;font-weight:700;cursor:pointer;transition:.2s;}
+.btn-submit-quote:hover{background:#005229;}
+.btn-submit-quote:disabled{background:#9CAA9C;cursor:not-allowed;}
+
+/* ── Sidebar info ── */
+.info-box{background:#F8FAF9;border:1px solid #E8F0EB;border-radius:12px;padding:18px;margin-bottom:14px;}
+.info-box h4{font-size:.88rem;font-weight:800;margin-bottom:10px;color:#1A2A1A;}
+.info-row{display:flex;justify-content:space-between;font-size:.83rem;padding:5px 0;border-bottom:1px solid #F0F5F1;}
+.info-row:last-child{border-bottom:none;}
+.info-row span:first-child{color:#9CAA9C;}
+.info-row span:last-child{font-weight:600;color:#1A2A1A;}
+
+.pillar-badge{display:inline-block;background:#EBF7F0;border:1px solid #A8D5B8;border-radius:8px;padding:8px 14px;font-size:.9rem;font-weight:700;color:#006C35;margin-bottom:14px;}
+
+/* ── Empty ── */
+.empty-state{text-align:center;padding:32px 20px;color:#9CAA9C;}
+.empty-state .e-icon{font-size:2.5rem;margin-bottom:10px;}
+.empty-state p{font-size:.88rem;}
+
+/* ── Alert ── */
+.alert{padding:12px 16px;border-radius:10px;font-size:.88rem;font-weight:600;margin-bottom:16px;display:none;}
+.alert.error{background:#FEF0F0;border:1px solid #FCBCBC;color:#C0392B;}
+.alert.success{background:#EBF7F0;border:1px solid #A8D5B8;color:#006C35;}
+
+/* ── Loading ── */
+.skeleton{background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:8px;height:20px;margin-bottom:10px;}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-logo"><img src="images/tvh-logo-extracted.jpg" alt="TheValveHubs"/></a>
+  <a href="rfqs.html" class="btn-back">← All RFQs</a>
+</nav>
+
+<div class="page">
+  <div id="alert" class="alert"></div>
+
+  <!-- Loading skeleton -->
+  <div id="loading">
+    <div class="skeleton" style="height:32px;width:60%;margin-bottom:16px;"></div>
+    <div class="skeleton" style="height:16px;width:40%;margin-bottom:32px;"></div>
+    <div class="skeleton" style="height:200px;"></div>
+  </div>
+
+  <!-- Main content -->
+  <div id="main-content" style="display:none;">
+
+    <!-- RFQ Header -->
+    <div class="rfq-header">
+      <div id="rfq-badge"></div>
+      <h1 id="rfq-title" style="margin-top:8px;"></h1>
+      <div class="rfq-meta" id="rfq-meta"></div>
+    </div>
+
+    <div class="layout">
+      <!-- Left column -->
+      <div>
+        <!-- RFQ Details -->
+        <div class="card">
+          <div class="card-title"><span>📋</span> RFQ Information</div>
+          <table class="info-table" id="rfq-info-table"></table>
+        </div>
+
+        <!-- Responses / Quotes -->
+        <div class="card" id="quotes-section">
+          <div class="card-title">
+            <span>💬</span>
+            <span id="quotes-title">Supplier Quotes</span>
+            <span id="quotes-count" style="margin-left:auto;background:#EBF7F0;color:#006C35;font-size:.78rem;padding:2px 10px;border-radius:100px;font-weight:700;"></span>
+          </div>
+          <div id="quotes-list"></div>
+        </div>
+
+        <!-- Supplier respond form -->
+        <div class="card" id="respond-section" style="display:none;">
+          <div class="card-title"><span>✍️</span> Submit Your Quotation</div>
+          <div id="already-responded" style="display:none;background:#EBF7F0;border:1px solid #A8D5B8;border-radius:10px;padding:14px;margin-bottom:16px;font-size:.9rem;color:#006C35;font-weight:600;">
+            ✅ You have already submitted a quote for this RFQ. You can update it below.
+          </div>
+          <div class="respond-form">
+            <div class="field">
+              <label>Total Price (SAR) *</label>
+              <div class="sar-wrap">
+                <span class="sar-label">SAR</span>
+                <input type="number" id="r-price" placeholder="0.00" min="1" step="0.01"/>
+              </div>
+            </div>
+            <div class="field">
+              <label>Lead Time (working days)</label>
+              <input type="number" id="r-lead" placeholder="e.g. 14" min="1"/>
+            </div>
+            <div class="field">
+              <label>Notes / Conditions</label>
+              <textarea id="r-notes" placeholder="Payment terms, delivery terms, validity period, any exclusions..."></textarea>
+            </div>
+            <button class="btn-submit-quote" id="btn-respond" onclick="submitQuote()">Submit Quotation</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right sidebar -->
+      <div>
+        <div class="info-box">
+          <h4>RFQ Summary</h4>
+          <div class="info-row"><span>Status</span><span id="s-status">—</span></div>
+          <div class="info-row"><span>Category</span><span id="s-pillar">—</span></div>
+          <div class="info-row"><span>Responses</span><span id="s-responses">—</span></div>
+          <div class="info-row"><span>Delivery</span><span id="s-delivery">—</span></div>
+          <div class="info-row"><span>Posted</span><span id="s-posted">—</span></div>
+        </div>
+
+        <div class="info-box" id="buyer-box">
+          <h4>Buyer Information</h4>
+          <div class="info-row"><span>Company</span><span id="b-name">—</span></div>
+          <div class="info-row"><span>City</span><span id="b-city">—</span></div>
+          <div class="info-row"><span>Region</span><span id="b-region">—</span></div>
+        </div>
+
+        <div id="invoice-box" style="display:none;">
+          <div class="info-box" style="border-color:#006C35;">
+            <h4 style="color:#006C35;">📄 Invoice Generated</h4>
+            <div class="info-row"><span>Invoice No.</span><span id="inv-number" style="color:#006C35;font-weight:700;">—</span></div>
+            <div class="info-row"><span>Subtotal</span><span id="inv-sub">—</span></div>
+            <div class="info-row"><span>VAT (15%)</span><span id="inv-vat">—</span></div>
+            <div class="info-row"><span>Total</span><span id="inv-total" style="color:#006C35;font-weight:700;">—</span></div>
+            <div style="margin-top:12px;">
+              <button onclick="printInvoice()" style="width:100%;background:#006C35;color:#fff;border:none;border-radius:8px;padding:10px;font-weight:700;cursor:pointer;font-size:.88rem;">
+                🖨️ Print Invoice
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align:center;margin-top:8px;">
+          <button onclick="printRfq()" style="width:100%;background:#fff;color:#5A6B62;border:1px solid #C8DDD0;border-radius:10px;padding:11px;font-size:.88rem;cursor:pointer;font-weight:600;">
+            🖨️ Print RFQ Document
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/tvh-api.js"></script>
+<script>
+const API = 'https://thevalvehubs-backend-production.up.railway.app';
+const PILLAR_NAMES = {
+  1:'Valves Supply', 2:'Spare Parts', 3:'Machining & Fabrication',
+  4:'3D Printing', 5:'TPI & Inspection', 6:'Rental Equipment'
+};
+const PILLAR_ICONS = { 1:'🔧', 2:'⚙️', 3:'🏭', 4:'🖨️', 5:'🔍', 6:'📦' };
+
+const params   = new URLSearchParams(location.search);
+const rfqId    = params.get('id');
+const token    = localStorage.getItem('tvh_token');
+const userJson = localStorage.getItem('tvh_user');
+const me       = userJson ? JSON.parse(userJson) : null;
+
+if (!token || !me) { location.href = 'index.html'; }
+if (!rfqId)        { location.href = 'rfqs.html'; }
+
+let rfqData    = null;
+let myResponse = null;
+let invoiceData = null;
+
+function showAlert(msg, type = 'error') {
+  const el = document.getElementById('alert');
+  el.textContent = msg;
+  el.className = 'alert ' + type;
+  el.style.display = 'block';
+  setTimeout(() => el.style.display = 'none', 6000);
+}
+
+function fmt(n)  { return 'SAR ' + Number(n).toLocaleString('en-SA', { minimumFractionDigits: 2 }); }
+function fmtDate(d) { return d ? new Date(d).toLocaleDateString('en-SA', { day:'2-digit', month:'short', year:'numeric' }) : '—'; }
+
+async function loadRfq() {
+  try {
+    const res  = await fetch(`${API}/api/rfqs/${rfqId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const text = await res.text();
+    let json;
+    try { json = JSON.parse(text); } catch(e) { throw new Error('Server error'); }
+    if (!res.ok) throw new Error(json.error || 'Failed to load RFQ');
+
+    rfqData = json.data;
+    render();
+  } catch(e) {
+    showAlert(e.message);
+  } finally {
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('main-content').style.display = 'block';
+  }
+}
+
+function render() {
+  const r = rfqData;
+
+  // Badge
+  const badgeClass = { OPEN:'badge-open', AWARDED:'badge-awarded', CLOSED:'badge-closed', CANCELLED:'badge-cancelled' }[r.status] || 'badge-open';
+  document.getElementById('rfq-badge').innerHTML = `<span class="badge ${badgeClass}">${r.status}</span>`;
+  document.getElementById('rfq-title').textContent = r.title;
+
+  // Meta chips
+  const meta = [];
+  if (r.pillar)       meta.push(`${PILLAR_ICONS[r.pillar]} ${PILLAR_NAMES[r.pillar]}`);
+  if (r.deliveryCity) meta.push(`📍 ${r.deliveryCity}`);
+  if (r.region)       meta.push(`🗺️ ${r.region}`);
+  if (r.quantity)     meta.push(`📦 ${r.quantity} ${r.unit || ''}`);
+  document.getElementById('rfq-meta').innerHTML = meta.map(m => `<span class="meta-chip">${m}</span>`).join('');
+
+  // Info table
+  const rows = [
+    ['Description', r.description || '—'],
+    ['Specifications', r.specs || '—'],
+    ['Quantity', r.quantity ? `${r.quantity} ${r.unit || ''}` : '—'],
+    ['Delivery Date', fmtDate(r.deliveryDate)],
+    ['Delivery City', r.deliveryCity || '—'],
+    ['Region', r.region || '—'],
+    ['Posted', fmtDate(r.createdAt)],
+  ];
+  document.getElementById('rfq-info-table').innerHTML = rows.map(([k,v]) =>
+    `<tr><td>${k}</td><td>${v.replace ? v.replace(/\n/g,'<br>') : v}</td></tr>`
+  ).join('');
+
+  // Sidebar
+  document.getElementById('s-status').textContent    = r.status;
+  document.getElementById('s-pillar').textContent    = PILLAR_NAMES[r.pillar] || '—';
+  document.getElementById('s-responses').textContent = r.responses.length + ' quote(s)';
+  document.getElementById('s-delivery').textContent  = fmtDate(r.deliveryDate);
+  document.getElementById('s-posted').textContent    = fmtDate(r.createdAt);
+  document.getElementById('b-name').textContent      = r.buyerCompany?.nameEn || '—';
+  document.getElementById('b-city').textContent      = r.buyerCompany?.city || '—';
+  document.getElementById('b-region').textContent    = r.buyerCompany?.region || '—';
+
+  // Responses
+  renderResponses(r.responses);
+
+  // Supplier respond form
+  if (me.role === 'SUPPLIER' && r.status === 'OPEN') {
+    document.getElementById('respond-section').style.display = 'block';
+    // Check if already responded
+    myResponse = r.responses.find(resp => resp.supplier?.company?.nameEn === me.nameEn);
+    if (myResponse) {
+      document.getElementById('already-responded').style.display = 'block';
+      document.getElementById('r-price').value = myResponse.priceTotal;
+      document.getElementById('r-lead').value  = myResponse.leadTimeDays || '';
+      document.getElementById('r-notes').value = myResponse.notes || '';
+    }
+  }
+}
+
+function renderResponses(responses) {
+  const isBuyer = me.role === 'BUYER' || me.role === 'ADMIN';
+  const count   = responses.length;
+
+  document.getElementById('quotes-count').textContent = count + ' quote' + (count !== 1 ? 's' : '');
+  document.getElementById('quotes-title').textContent = isBuyer ? 'Supplier Quotes' : 'Submitted Quotes';
+
+  if (!count) {
+    document.getElementById('quotes-list').innerHTML = `
+      <div class="empty-state">
+        <div class="e-icon">📭</div>
+        <p>${me.role === 'SUPPLIER' ? 'No quotes yet — be the first to respond!' : 'No quotes received yet. Suppliers have been notified.'}</p>
+      </div>`;
+    return;
+  }
+
+  document.getElementById('quotes-list').innerHTML = responses.map((q, i) => {
+    const awarded = q.isAwarded;
+    const canAward = isBuyer && rfqData.status === 'OPEN';
+    const rank = i === 0 && !awarded ? '🥇 Lowest Price' : '';
+    return `
+    <div class="quote-card ${awarded ? 'awarded' : ''}">
+      ${awarded ? '<div class="awarded-tag">✅ AWARDED</div>' : ''}
+      <div class="quote-top">
+        <div>
+          <div class="quote-supplier">${q.supplier?.company?.nameEn || 'Supplier'}</div>
+          <div class="quote-sub">📍 ${q.supplier?.company?.city || '—'} · Submitted ${fmtDate(q.createdAt)}</div>
+        </div>
+        <div class="quote-price">${fmt(q.priceTotal)} <small>+ VAT 15%</small></div>
+      </div>
+      <div class="quote-chips">
+        ${rank ? `<span class="q-chip green">${rank}</span>` : ''}
+        ${q.leadTimeDays ? `<span class="q-chip">⏱️ ${q.leadTimeDays} days</span>` : ''}
+        ${q.supplier?.aramcoApproved ? '<span class="q-chip green">✓ Aramco Approved</span>' : ''}
+        ${q.supplier?.isVerified ? '<span class="q-chip green">✓ Verified</span>' : ''}
+        ${q.supplier?.iktvaScore ? `<span class="q-chip">IKTVA ${q.supplier.iktvaScore}%</span>` : ''}
+      </div>
+      ${q.notes ? `<div class="quote-notes">💬 ${q.notes}</div>` : ''}
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+        ${canAward && !awarded ? `<button class="btn-award" onclick="awardQuote('${q.id}','${q.supplier?.company?.nameEn || 'this supplier'}')">Award to This Supplier</button>` : ''}
+        ${awarded ? '<span style="color:#006C35;font-weight:700;font-size:.9rem;">✅ This quote was awarded</span>' : ''}
+        <button class="btn-print-quote" onclick="printQuotation('${q.id}')">🖨️ Print Quote</button>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Show invoice if awarded
+  const awardedResp = responses.find(r => r.isAwarded);
+  if (awardedResp && (isBuyer || me.role === 'ADMIN')) {
+    loadInvoice();
+  }
+}
+
+async function loadInvoice() {
+  // Invoice display (future: fetch from /api/invoices?rfqId=...)
+  // For now we show the invoice box if rfq is AWARDED
+  if (rfqData.status === 'AWARDED') {
+    const awardedResp = rfqData.responses.find(r => r.isAwarded);
+    if (awardedResp) {
+      const sub = awardedResp.priceTotal;
+      const vat = parseFloat((sub * 0.15).toFixed(2));
+      const tot = parseFloat((sub + vat).toFixed(2));
+      document.getElementById('inv-sub').textContent   = fmt(sub);
+      document.getElementById('inv-vat').textContent   = fmt(vat);
+      document.getElementById('inv-total').textContent = fmt(tot);
+      document.getElementById('inv-number').textContent = 'See Dashboard';
+      document.getElementById('invoice-box').style.display = 'block';
+    }
+  }
+}
+
+async function awardQuote(responseId, supplierName) {
+  if (!confirm(`Award this RFQ to ${supplierName}?\n\nA VAT invoice will be generated automatically.`)) return;
+
+  const btn = event.target;
+  btn.disabled = true;
+  btn.textContent = 'Awarding…';
+
+  try {
+    const res  = await fetch(`${API}/api/rfqs/${rfqId}/award`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify({ responseId }),
+    });
+    const text = await res.text();
+    let json;
+    try { json = JSON.parse(text); } catch(e) { throw new Error('Server error'); }
+    if (!res.ok) throw new Error(json.error || 'Failed to award');
+
+    showAlert(`✅ RFQ awarded to ${supplierName}! Invoice ${json.invoice?.invoiceNumber} generated.`, 'success');
+
+    // Update invoice box
+    if (json.invoice) {
+      document.getElementById('inv-number').textContent = json.invoice.invoiceNumber;
+      document.getElementById('inv-sub').textContent    = fmt(json.invoice.subtotal);
+      document.getElementById('inv-vat').textContent    = fmt(json.invoice.vatAmount);
+      document.getElementById('inv-total').textContent  = fmt(json.invoice.total);
+      document.getElementById('invoice-box').style.display = 'block';
+    }
+
+    // Reload after 1.5s
+    setTimeout(() => loadRfq(), 1500);
+  } catch(e) {
+    showAlert(e.message);
+    btn.disabled = false;
+    btn.textContent = 'Award to This Supplier';
+  }
+}
+
+async function submitQuote() {
+  const price = parseFloat(document.getElementById('r-price').value);
+  if (!price || price <= 0) { showAlert('Please enter a valid price.'); return; }
+
+  const btn = document.getElementById('btn-respond');
+  btn.disabled = true;
+  btn.textContent = 'Submitting…';
+
+  try {
+    const res  = await fetch(`${API}/api/rfqs/${rfqId}/respond`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify({
+        priceTotal:   price,
+        leadTimeDays: parseInt(document.getElementById('r-lead').value) || undefined,
+        notes:        document.getElementById('r-notes').value.trim() || undefined,
+      }),
+    });
+    const text = await res.text();
+    let json;
+    try { json = JSON.parse(text); } catch(e) { throw new Error('Server error'); }
+    if (!res.ok) throw new Error(json.error || 'Failed to submit quote');
+
+    showAlert('✅ Quotation submitted successfully! The buyer has been notified.', 'success');
+    document.getElementById('already-responded').style.display = 'block';
+    setTimeout(() => loadRfq(), 1500);
+  } catch(e) {
+    showAlert(e.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Submit Quotation';
+  }
+}
+
+function printRfq() {
+  window.open('rfq-document.html?id=' + rfqId + '&type=rfq', '_blank');
+}
+
+function printQuotation(responseId) {
+  window.open('rfq-document.html?id=' + rfqId + '&type=quote&respId=' + responseId, '_blank');
+}
+
+function printInvoice() {
+  window.open('rfq-document.html?id=' + rfqId + '&type=invoice', '_blank');
+}
+
+// Load on page open
+loadRfq();
+</script>
+</body>
+</html>

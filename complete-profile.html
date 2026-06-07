@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -374,8 +374,8 @@
           <span style="font-size:1.4rem;">📊</span>
           <div>
             <div style="font-size:.83rem;font-weight:800;color:#006C35;margin-bottom:3px;">IKTVA Score — Use the dedicated calculator</div>
-            <div style="font-size:.75rem;color:#3A5A3A;line-height:1.6;">Your IKTVA score is calculated based on Saudi content spending, workforce, and assets. Use our IKTVA Calculator after completing your profile for an accurate score.</div>
-            <a href="iktva-calculator.html" target="_blank" style="display:inline-block;margin-top:8px;font-size:.75rem;font-weight:800;color:#006C35;text-decoration:none;">📊 Open IKTVA Calculator →</a>
+            <div style="font-size:.75rem;color:#3A5A3A;line-height:1.6;">Your IKTVA score can be added later by the admin team after profile verification.</div>
+            
           </div>
         </div>
         <!-- hidden input so saveProfile() doesn't crash looking for iktvaRange -->
@@ -526,7 +526,7 @@
 
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
         <a href="dashboard.html" class="btn-next" style="text-decoration:none;">Go to Dashboard →</a>
-        <a href="iktva-calculator.html" class="btn-prev" style="text-decoration:none;">📊 IKTVA Calculator</a>
+        
       </div>
     </div>
   </div>
@@ -771,7 +771,7 @@ async function saveProfile() {
 
     if (role === 'SUPPLIER') {
       // Map to exact field names the backend Zod schema expects
-      // iktvaScore omitted — set separately via IKTVA Calculator page
+      // iktvaScore not collected here
       body.aramcoApproved  = document.getElementById('isAramcoApproved')?.checked  || false;
       body.sabicApproved   = document.getElementById('isSabicApproved')?.checked   || false;
 
@@ -861,7 +861,7 @@ function showComplete(score) {
     : 'Your buyer profile is live. Post your first RFQ to receive quotes from verified Saudi suppliers within 24 hours.';
 
   const steps = isSupplier ? [
-    ['📊','Run IKTVA Calculator','Boost your score visibility'],
+    \['✅','Get Verified','Upload your CR for the Verified badge'\],
     ['✅','Get Verified','Upload your CR for the Verified badge'],
     ['📋','Browse RFQs','Respond to matching opportunities'],
     ['🏆','Add Certifications','ISO, API, SASO certificates'],
@@ -899,3 +899,5 @@ function clearMsg(id) { const el = document.getElementById(id); if(el) el.innerH
 </script>
 </body>
 </html>
+
+

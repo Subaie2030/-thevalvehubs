@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -183,6 +183,11 @@
     </div>
 
     <div class="sidebar-section" style="margin-top:12px;">
+      <div class="sidebar-label">Network</div>
+      <a href="#" class="sidebar-link" onclick="showSection('experts',this)"><span class="s-icon">🎓</span> Valve Experts <span id="expertsBadge" style="display:none;background:#C0392B;color:#fff;font-size:.6rem;font-weight:900;padding:1px 5px;border-radius:10px;margin-left:4px;">0</span></a>
+    </div>
+
+    <div class="sidebar-section" style="margin-top:12px;">
       <div class="sidebar-label">System</div>
       <a href="dashboard.html" class="sidebar-link"><span class="s-icon">↩️</span> Exit Admin</a>
     </div>
@@ -218,8 +223,18 @@ let allUsers = [], allRfqs = [], allSubs = [];
 
 // ── Init ──────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', async () => {
-  document.getElementById('adminName').textContent = user.nameEn || user.email || 'Admin';
+  document.getElementById('adminName').textContent = user.email || 'Admin';
   await loadOverview();
+  // Load pending expert count for sidebar badge
+  try {
+    const expData = await apiGet('/experts?status=PENDING');
+    const pending = expData.total || (expData.data||[]).length || 0;
+    const badge = document.getElementById('expertsBadge');
+    if (badge && pending > 0) {
+      badge.textContent = pending;
+      badge.style.display = 'inline-block';
+    }
+  } catch(e) {}
 });
 
 // ── Toast ─────────────────────────────────────────
@@ -327,7 +342,7 @@ setInterval(async () => {
 function showSection(name, el) {
   document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
   if (el) el.classList.add('active');
-  const fns = { overview: loadOverview, analytics: loadAnalytics, users: loadUsers, suppliers: loadSuppliers, rfqs: loadRfqs, emergency: loadEmergency, subscriptions: loadSubscriptions, invoices: loadInvoices };
+  const fns = { overview: loadOverview, analytics: loadAnalytics, users: loadUsers, suppliers: loadSuppliers, rfqs: loadRfqs, emergency: loadEmergency, subscriptions: loadSubscriptions, invoices: loadInvoices, experts: loadExperts, notifications: loadNotificationsSection };
   if (fns[name]) fns[name]();
 }
 
@@ -361,19 +376,20 @@ function setMain(html) {
 async function loadOverview() {
   setMain(`<div class="dash-loading"><div class="spinner"></div><p>Loading overview...</p></div>`);
   try {
-    const [suppliers, rfqs, subs] = await Promise.allSettled([
+    const [suppliers, rfqs, stats] = await Promise.allSettled([
       apiGet('/suppliers?limit=100'),
-      apiGet('/rfqs?limit=100'),
-      apiGet('/subscriptions/current'),
+      apiGet('/admin/rfqs?limit=100'),
+      apiGet('/admin/stats'),
     ]);
 
-    const supplierData = suppliers.status === 'fulfilled' ? suppliers.value : { suppliers: [], total: 0 };
-    const rfqData      = rfqs.status      === 'fulfilled' ? rfqs.value      : { rfqs: [], total: 0 };
+    const supplierData = suppliers.status === 'fulfilled' ? suppliers.value : { data: [], pagination: { total: 0 } };
+    const rfqData      = rfqs.status      === 'fulfilled' ? rfqs.value      : { data: [], total: 0 };
+    const statsData    = stats.status     === 'fulfilled' ? stats.value     : {};
 
-    const totalSuppliers = supplierData.total || supplierData.suppliers?.length || 0;
-    const verifiedCount  = (supplierData.suppliers || []).filter(s => s.isVerified).length;
-    const openRfqs       = (rfqData.rfqs || []).filter(r => r.status === 'OPEN').length;
-    const totalRfqs      = rfqData.total || rfqData.rfqs?.length || 0;
+    const totalSuppliers = supplierData.pagination?.total || supplierData.data?.length || 0;
+    const verifiedCount  = (supplierData.data || []).filter(s => s.isVerified).length;
+    const openRfqs       = (rfqData.data || []).filter(r => r.status === 'OPEN').length;
+    const totalRfqs      = rfqData.total || rfqData.data?.length || 0;
 
     setMain(`
       <div class="page-header">
@@ -402,15 +418,15 @@ async function loadOverview() {
         </div>
         <div class="stat-card stat-gold">
           <div class="stat-icon">💳</div>
-          <div class="stat-num">—</div>
+          <div class="stat-num">${statsData.activeSubscriptions ?? '—'}</div>
           <div class="stat-label">Active Subscriptions</div>
           <div class="stat-sub">Go to Finance tab</div>
         </div>
-        <div class="stat-card stat-red">
-          <div class="stat-icon">🚨</div>
-          <div class="stat-num">—</div>
-          <div class="stat-label">Emergency RFQs</div>
-          <div class="stat-sub">Check Emergency tab</div>
+        <div class="stat-card stat-purple">
+          <div class="stat-icon">👥</div>
+          <div class="stat-num">${statsData.users ?? '—'}</div>
+          <div class="stat-label">Registered Users</div>
+          <div class="stat-sub">SAR ${Number(statsData.totalRevenue||0).toLocaleString()} revenue</div>
         </div>
       </div>
 
@@ -428,13 +444,13 @@ async function loadOverview() {
       <!-- Recent Suppliers -->
       <div class="dash-card">
         <h3>🏭 Recent Suppliers <span class="badge">${totalSuppliers} total</span></h3>
-        ${renderSuppliersTable(supplierData.suppliers?.slice(0,5) || [])}
+        ${renderSuppliersTable(supplierData.data?.slice(0,5) || [])}
       </div>
 
       <!-- Recent RFQs -->
       <div class="dash-card">
         <h3>📋 Recent RFQs <span class="badge">${totalRfqs} total</span></h3>
-        ${renderRfqTable(rfqData.rfqs?.slice(0,5) || [])}
+        ${renderRfqTable(rfqData.data?.slice(0,5) || [])}
       </div>
     `);
   } catch(e) {
@@ -492,14 +508,13 @@ function renderUsersView(users) {
         <tbody>
           ${users.map(u => `
             <tr>
-              <td><strong>${u.nameEn || '—'}</strong></td>
+              <td><strong>${u.company?.nameEn || u.email.split('@')[0]}</strong></td>
               <td style="color:#7A7AAA;">${u.email}</td>
               <td>${roleBadge(u.role)}</td>
-              <td>${u.company?.nameEn || '—'}</td>
+              <td>${u.company?.nameEn || '<span style="color:#9A9AAA;">No company</span>'}</td>
               <td style="color:#9A9AAA;font-size:.75rem;">${formatDate(u.createdAt)}</td>
               <td>
-                <button class="btn-action btn-view" onclick="viewUser('${u.id}')">View</button>
-                ${u.role !== 'ADMIN' ? `<button class="btn-action btn-suspend" style="margin-left:4px;" onclick="suspendUser('${u.id}')">Suspend</button>` : ''}
+                ${u.role !== 'ADMIN' ? `<button class="btn-action btn-suspend" onclick="suspendUser('${u.id}')">Suspend</button>` : '<span style="color:#9A9AAA;font-size:.75rem;">Admin</span>'}
               </td>
             </tr>
           `).join('') || '<tr><td colspan="6" style="text-align:center;color:#9A9AAA;padding:24px;">No users found</td></tr>'}
@@ -507,6 +522,49 @@ function renderUsersView(users) {
       </table>
     </div>
   `);
+}
+
+function filterUsers(q) {
+  const lower = q.toLowerCase();
+  const filtered = allUsers.filter(u =>
+    u.email.toLowerCase().includes(lower) ||
+    (u.company?.nameEn||'').toLowerCase().includes(lower)
+  );
+  document.getElementById('usersTable').querySelector('tbody').innerHTML =
+    filtered.map(u => `
+      <tr>
+        <td><strong>${u.company?.nameEn || u.email.split('@')[0]}</strong></td>
+        <td style="color:#7A7AAA;">${u.email}</td>
+        <td>${roleBadge(u.role)}</td>
+        <td>${u.company?.nameEn || '<span style="color:#9A9AAA;">No company</span>'}</td>
+        <td style="color:#9A9AAA;font-size:.75rem;">${formatDate(u.createdAt)}</td>
+        <td>${u.role !== 'ADMIN' ? `<button class="btn-action btn-suspend" onclick="suspendUser('${u.id}')">Suspend</button>` : '<span style="color:#9A9AAA;font-size:.75rem;">Admin</span>'}</td>
+      </tr>
+    `).join('') || '<tr><td colspan="6" style="text-align:center;color:#9A9AAA;padding:24px;">No users found</td></tr>';
+}
+
+function filterUsersByRole(role) {
+  const filtered = role ? allUsers.filter(u => u.role === role) : allUsers;
+  document.getElementById('usersTable').querySelector('tbody').innerHTML =
+    filtered.map(u => `
+      <tr>
+        <td><strong>${u.company?.nameEn || u.email.split('@')[0]}</strong></td>
+        <td style="color:#7A7AAA;">${u.email}</td>
+        <td>${roleBadge(u.role)}</td>
+        <td>${u.company?.nameEn || '<span style="color:#9A9AAA;">No company</span>'}</td>
+        <td style="color:#9A9AAA;font-size:.75rem;">${formatDate(u.createdAt)}</td>
+        <td>${u.role !== 'ADMIN' ? `<button class="btn-action btn-suspend" onclick="suspendUser('${u.id}')">Suspend</button>` : '<span style="color:#9A9AAA;font-size:.75rem;">Admin</span>'}</td>
+      </tr>
+    `).join('') || '<tr><td colspan="6" style="text-align:center;color:#9A9AAA;padding:24px;">No users found</td></tr>';
+}
+
+async function suspendUser(id) {
+  if (!confirm('Suspend this user? They will lose access.')) return;
+  try {
+    await apiPatch(`/admin/users/${id}/suspend`, {});
+    toast('User suspended', '#C0392B');
+    loadUsers();
+  } catch(e) { toast('Error: ' + e.message, '#C0392B'); }
 }
 
 function roleBadge(role) {
@@ -522,8 +580,8 @@ function roleBadge(role) {
 async function loadSuppliers() {
   setMain(`<div class="dash-loading"><div class="spinner"></div><p>Loading suppliers...</p></div>`);
   try {
-    const data = await apiGet('/suppliers?limit=100');
-    const suppliers = data.suppliers || [];
+    const data = await apiGet('/suppliers?limit=200');
+    const suppliers = data.data || [];
     setMain(`
       <div class="page-header">
         <div><h2>🏭 Suppliers</h2><p>${suppliers.length} registered suppliers</p></div>
@@ -553,8 +611,8 @@ async function loadSuppliers() {
     document.getElementById('supplierSearch').oninput = function() {
       const q = this.value.toLowerCase();
       const filtered = window._suppliers.filter(s =>
-        (s.nameEn||'').toLowerCase().includes(q) ||
-        (s.nameAr||'').toLowerCase().includes(q)
+        (s.company?.nameEn||'').toLowerCase().includes(q) ||
+        (s.company?.nameAr||'').toLowerCase().includes(q)
       );
       document.getElementById('suppliersTbody').innerHTML = renderSupplierRows(filtered);
     };
@@ -563,25 +621,34 @@ async function loadSuppliers() {
   }
 }
 
+function countPillars(s) {
+  return ['pillar1Valves','pillar2Parts','pillar3Machining','pillar4Print','pillar5TPI','pillar6Rental']
+    .filter(f => s[f]).length;
+}
+
 function renderSupplierRows(suppliers) {
   if (!suppliers.length) return '<tr><td colspan="7" style="text-align:center;color:#9A9AAA;padding:24px;">No suppliers found</td></tr>';
   return suppliers.map(s => `
     <tr id="supplier-row-${s.id}">
-      <td><strong>${s.nameEn || '—'}</strong><br><span style="font-size:.72rem;color:#9A9AAA;">${s.nameAr || ''}</span></td>
-      <td>${tierBadge(s.supplierProfile?.tier)}</td>
+      <td>
+        <strong>${s.company?.nameEn || '—'}</strong><br>
+        <span style="font-size:.72rem;color:#9A9AAA;">${s.company?.nameAr || ''}</span><br>
+        <span style="font-size:.68rem;color:#B0B0C0;">${s.company?.city||''} ${s.company?.region||''}</span>
+      </td>
+      <td>${tierBadge(s.tier)}</td>
       <td>
         <div style="display:flex;align-items:center;gap:6px;">
-          <div class="progress-bar" style="width:60px;"><div class="progress-fill" style="width:${s.supplierProfile?.iktvaScore||0}%;background:${(s.supplierProfile?.iktvaScore||0)>=60?'#006C35':'#C8973A'};"></div></div>
-          <span style="font-size:.75rem;font-weight:700;">${s.supplierProfile?.iktvaScore||0}%</span>
+          <div class="progress-bar" style="width:60px;"><div class="progress-fill" style="width:${s.iktvaScore||0}%;background:${(s.iktvaScore||0)>=60?'#006C35':'#C8973A'};"></div></div>
+          <span style="font-size:.75rem;font-weight:700;">${s.iktvaScore||0}%</span>
         </div>
       </td>
-      <td style="font-size:.75rem;">${(s.supplierProfile?.pillars||[]).length} pillars</td>
-      <td>${s.supplierProfile?.isAramcoApproved ? '✅' : '—'}</td>
+      <td style="font-size:.75rem;">${countPillars(s)} / 6</td>
+      <td>${s.aramcoApproved ? '<span class="badge-green">✅ Yes</span>' : '—'}</td>
       <td id="verified-${s.id}">${s.isVerified ? '<span class="badge-green">Verified</span>' : '<span class="badge-gray">Pending</span>'}</td>
       <td>
         ${!s.isVerified
-          ? `<button class="btn-action btn-verify" onclick="verifySupplier('${s.id}')">✅ Verify</button>`
-          : `<button class="btn-action btn-suspend" onclick="unverifySupplier('${s.id}')">❌ Unverify</button>`
+          ? `<button class="btn-action btn-verify" onclick="verifySupplier('${s.id}',true)">✅ Verify</button>`
+          : `<button class="btn-action btn-suspend" onclick="verifySupplier('${s.id}',false)">❌ Unverify</button>`
         }
       </td>
     </tr>
@@ -589,9 +656,10 @@ function renderSupplierRows(suppliers) {
 }
 
 function tierBadge(tier) {
-  if (tier === 'ENTERPRISE') return '<span class="badge-gold">Enterprise</span>';
-  if (tier === 'PROFESSIONAL') return '<span class="badge-blue">Professional</span>';
-  return '<span class="badge-gray">Free</span>';
+  if (tier === 'P1_SAUDI')  return '<span class="badge-green">P1 Saudi</span>';
+  if (tier === 'P2_GLOBAL') return '<span class="badge-blue">P2 Global</span>';
+  if (tier === 'EMERGENCY') return '<span class="badge-red">Emergency</span>';
+  return '<span class="badge-gray">' + (tier||'—') + '</span>';
 }
 
 function filterSupplierVerification(type, btn) {
@@ -603,29 +671,19 @@ function filterSupplierVerification(type, btn) {
   document.getElementById('suppliersTbody').innerHTML = renderSupplierRows(filtered);
 }
 
-async function verifySupplier(id) {
+async function verifySupplier(id, verify) {
   try {
-    await apiPatch(`/suppliers/${id}/verify`, { isVerified: true });
-    document.getElementById(`verified-${id}`).innerHTML = '<span class="badge-green">Verified</span>';
+    await apiPatch(`/admin/suppliers/${id}/verify`, { isVerified: verify });
+    document.getElementById(`verified-${id}`).innerHTML = verify
+      ? '<span class="badge-green">Verified</span>'
+      : '<span class="badge-gray">Pending</span>';
     const row = document.getElementById(`supplier-row-${id}`);
-    row.querySelector('td:last-child').innerHTML = `<button class="btn-action btn-suspend" onclick="unverifySupplier('${id}')">❌ Unverify</button>`;
-    const s = window._suppliers.find(s=>s.id===id);
-    if (s) s.isVerified = true;
-    toast('✅ Supplier verified successfully', '#006C35');
-  } catch(e) {
-    toast('Error: ' + e.message, '#C0392B');
-  }
-}
-
-async function unverifySupplier(id) {
-  try {
-    await apiPatch(`/suppliers/${id}/verify`, { isVerified: false });
-    document.getElementById(`verified-${id}`).innerHTML = '<span class="badge-gray">Pending</span>';
-    const row = document.getElementById(`supplier-row-${id}`);
-    row.querySelector('td:last-child').innerHTML = `<button class="btn-action btn-verify" onclick="verifySupplier('${id}')">✅ Verify</button>`;
-    const s = window._suppliers.find(s=>s.id===id);
-    if (s) s.isVerified = false;
-    toast('Supplier unverified', '#C8973A');
+    row.querySelector('td:last-child').innerHTML = verify
+      ? `<button class="btn-action btn-suspend" onclick="verifySupplier('${id}',false)">❌ Unverify</button>`
+      : `<button class="btn-action btn-verify"  onclick="verifySupplier('${id}',true)">✅ Verify</button>`;
+    const s = window._suppliers.find(s => s.id === id);
+    if (s) s.isVerified = verify;
+    toast(verify ? '✅ Supplier verified' : 'Supplier unverified', verify ? '#006C35' : '#C8973A');
   } catch(e) {
     toast('Error: ' + e.message, '#C0392B');
   }
@@ -637,11 +695,11 @@ async function unverifySupplier(id) {
 async function loadRfqs() {
   setMain(`<div class="dash-loading"><div class="spinner"></div><p>Loading RFQs...</p></div>`);
   try {
-    const data = await apiGet('/rfqs?limit=100');
-    const rfqs = data.rfqs || [];
+    const data = await apiGet('/admin/rfqs?limit=200');
+    const rfqs = data.data || [];
     setMain(`
       <div class="page-header">
-        <div><h2>📋 All RFQs</h2><p>${rfqs.length} total requests for quotation</p></div>
+        <div><h2>📋 All RFQs</h2><p>${data.total || rfqs.length} total requests for quotation</p></div>
       </div>
       <div class="tab-bar">
         <button class="tab-btn active" onclick="filterRfqStatus('all',this)">All (${rfqs.length})</button>
@@ -651,7 +709,7 @@ async function loadRfqs() {
       </div>
       <div class="dash-card">
         <table class="admin-table">
-          <thead><tr><th>Title</th><th>Pillar</th><th>Region</th><th>Budget</th><th>Responses</th><th>Status</th><th>Created</th></tr></thead>
+          <thead><tr><th>Title</th><th>Buyer</th><th>Pillar</th><th>Region</th><th>Budget</th><th>Quotes</th><th>Status</th><th>Created</th></tr></thead>
           <tbody id="rfqTbody">${renderRfqTable(rfqs)}</tbody>
         </table>
       </div>
@@ -662,13 +720,18 @@ async function loadRfqs() {
   }
 }
 
+const TVH_PILLARS = {
+  1:'Valves Supply', 2:'Spare Parts', 3:'Machining & Fab',
+  4:'3D Printing', 5:'TPI & Inspection', 6:'Rental Equipment'
+};
+
 function renderRfqTable(rfqs) {
-  if (!rfqs.length) return '<tr><td colspan="7" style="text-align:center;color:#9A9AAA;padding:24px;">No RFQs found</td></tr>';
-  const pillars = ['','Flow Control','Actuation','Safety','Industrial','Instrumentation','Maintenance'];
+  if (!rfqs.length) return '<tr><td colspan="8" style="text-align:center;color:#9A9AAA;padding:24px;">No RFQs found</td></tr>';
   return rfqs.map(r => `
-    <tr>
+    <tr style="cursor:pointer;" onclick="window.open('rfq-detail.html?id=${r.id}','_blank')">
       <td><strong>${r.title||'—'}</strong></td>
-      <td style="font-size:.75rem;">${pillars[r.pillar]||r.pillar||'—'}</td>
+      <td style="font-size:.73rem;color:#5A5A7A;">${r.company?.nameEn||'—'}</td>
+      <td style="font-size:.75rem;">${TVH_PILLARS[r.pillar]||('Pillar '+r.pillar)||'—'}</td>
       <td style="font-size:.75rem;">${r.region||'All'}</td>
       <td style="font-size:.75rem;">${r.budgetMax ? 'SAR '+Number(r.budgetMax).toLocaleString() : '—'}</td>
       <td style="text-align:center;">${r._count?.responses||r.responses?.length||0}</td>
@@ -698,27 +761,28 @@ function filterRfqStatus(status, btn) {
 async function loadEmergency() {
   setMain(`<div class="dash-loading"><div class="spinner"></div><p>Loading emergency requests...</p></div>`);
   try {
-    const data = await apiGet('/rfqs/emergency/all');
-    const items = data.emergencies || data || [];
+    const data = await apiGet('/admin/emergency');
+    const items = data.data || [];
     setMain(`
       <div class="page-header">
         <div><h2>🚨 Emergency RFQs</h2><p>${items.length} emergency requests</p></div>
       </div>
       <div class="dash-card">
         <table class="admin-table">
-          <thead><tr><th>Contact</th><th>Phone</th><th>Location</th><th>Urgency</th><th>Pillar</th><th>Description</th><th>Received</th></tr></thead>
+          <thead><tr><th>Title</th><th>Company</th><th>Pillar</th><th>Location</th><th>Urgency</th><th>Plant Down?</th><th>Status</th><th>Received</th></tr></thead>
           <tbody>
             ${items.length ? items.map(e=>`
               <tr>
-                <td><strong>${e.contactName||'—'}</strong></td>
-                <td>${e.phone||'—'}</td>
-                <td>${e.location||'—'}</td>
+                <td><strong>${escHtml(e.title||'Emergency RFQ')}</strong><br><span style="font-size:.7rem;color:#9A9AAA;">${escHtml(e.description||'').slice(0,50)}...</span></td>
+                <td style="font-size:.75rem;">${e.company?.nameEn||'—'}</td>
+                <td style="font-size:.75rem;">${TVH_PILLARS[e.pillar]||('Pillar '+e.pillar)||'—'}</td>
+                <td style="font-size:.75rem;">${e.location||'—'}</td>
                 <td>${urgencyBadge(e.urgency)}</td>
-                <td style="font-size:.75rem;">${['','Flow','Actuation','Safety','Industrial','Instrumentation','Maintenance'][e.pillar]||e.pillar||'—'}</td>
-                <td style="max-width:200px;font-size:.75rem;color:#5A5A7A;">${(e.description||'').slice(0,80)}${(e.description||'').length>80?'...':''}</td>
+                <td style="text-align:center;">${e.plantDown ? '<span class="badge-red">🔴 YES</span>' : '<span class="badge-gray">No</span>'}</td>
+                <td>${emergencyStatusBadge(e.status)}</td>
                 <td style="font-size:.72rem;color:#9A9AAA;">${formatDate(e.createdAt)}</td>
               </tr>
-            `).join('') : '<tr><td colspan="7" style="text-align:center;color:#9A9AAA;padding:24px;">No emergency requests</td></tr>'}
+            `).join('') : '<tr><td colspan="8" style="text-align:center;color:#9A9AAA;padding:24px;">No emergency requests</td></tr>'}
           </tbody>
         </table>
       </div>
@@ -732,6 +796,13 @@ function urgencyBadge(u) {
   if (u==='CRITICAL') return '<span class="badge-red">🔴 CRITICAL</span>';
   if (u==='HIGH')     return '<span class="badge-gold">🟠 HIGH</span>';
   return '<span class="badge-gray">🟡 MEDIUM</span>';
+}
+
+function emergencyStatusBadge(s) {
+  if (s==='RESOLVED')    return '<span class="badge-green">Resolved</span>';
+  if (s==='IN_PROGRESS') return '<span class="badge-blue">In Progress</span>';
+  if (s==='ASSIGNED')    return '<span class="badge-gold">Assigned</span>';
+  return '<span class="badge-gray">Open</span>';
 }
 
 // ══════════════════════════════════════════════════
@@ -795,7 +866,7 @@ function planBadge(name) {
 async function loadInvoices() {
   setMain(`<div class="dash-loading"><div class="spinner"></div><p>Loading invoices...</p></div>`);
   try {
-    const data = await apiGet('/invoices?limit=50');
+    const data = await apiGet('/admin/invoices');
     const invoices = data.invoices || [];
     const totalRevenue = invoices.reduce((sum, i) => sum + (Number(i.total)||0), 0);
 
@@ -849,21 +920,21 @@ async function loadAnalytics() {
   try {
     const [stats, suppliers, invoices] = await Promise.allSettled([
       apiGet('/admin/stats'),
-      apiGet('/suppliers?limit=100'),
-      apiGet('/invoices?limit=100'),
+      apiGet('/suppliers?limit=200'),
+      apiGet('/admin/invoices'),
     ]);
 
     const s   = stats.status     === 'fulfilled' ? stats.value     : {};
-    const sup = suppliers.status === 'fulfilled' ? suppliers.value : { suppliers: [] };
+    const sup = suppliers.status === 'fulfilled' ? suppliers.value : { data: [] };
     const inv = invoices.status  === 'fulfilled' ? invoices.value  : { invoices: [] };
 
-    const supplierList = sup.suppliers || [];
-    const invoiceList  = inv.invoices  || [];
+    const supplierList = sup.data     || [];
+    const invoiceList  = inv.invoices || [];
 
     // IKTVA distribution
     const iktvaRanges = { '<20': 0, '20-40': 0, '40-60': 0, '≥60': 0 };
-    supplierList.forEach(s => {
-      const score = s.supplierProfile?.iktvaScore || 0;
+    supplierList.forEach(sp => {
+      const score = sp.iktvaScore || 0;
       if (score < 20) iktvaRanges['<20']++;
       else if (score < 40) iktvaRanges['20-40']++;
       else if (score < 60) iktvaRanges['40-60']++;
@@ -881,7 +952,7 @@ async function loadAnalytics() {
 
     // Avg IKTVA
     const avgIktva = supplierList.length
-      ? Math.round(supplierList.reduce((sum, s) => sum + (s.supplierProfile?.iktvaScore || 0), 0) / supplierList.length)
+      ? Math.round(supplierList.reduce((sum, sp) => sum + (sp.iktvaScore || 0), 0) / supplierList.length)
       : 0;
 
     const totalRevenue = invoiceList.reduce((sum, i) => sum + Number(i.total || 0), 0);
@@ -913,20 +984,19 @@ async function loadAnalytics() {
           <thead><tr><th>Company</th><th>IKTVA Score</th><th>Verified</th><th>Aramco</th></tr></thead>
           <tbody>
             ${supplierList
-              .filter(s => s.supplierProfile)
-              .sort((a,b) => (b.supplierProfile?.iktvaScore||0) - (a.supplierProfile?.iktvaScore||0))
+              .sort((a,b) => (b.iktvaScore||0) - (a.iktvaScore||0))
               .slice(0,10)
-              .map(s => `
+              .map(sp => `
                 <tr>
-                  <td><strong>${s.nameEn||'—'}</strong></td>
+                  <td><strong>${sp.company?.nameEn||'—'}</strong><br><span style="font-size:.7rem;color:#9A9AAA;">${sp.company?.city||''}</span></td>
                   <td>
                     <div style="display:flex;align-items:center;gap:8px;">
-                      <div class="progress-bar" style="width:80px;"><div class="progress-fill" style="width:${s.supplierProfile?.iktvaScore||0}%;"></div></div>
-                      <strong>${s.supplierProfile?.iktvaScore||0}%</strong>
+                      <div class="progress-bar" style="width:80px;"><div class="progress-fill" style="width:${sp.iktvaScore||0}%;"></div></div>
+                      <strong>${sp.iktvaScore||0}%</strong>
                     </div>
                   </td>
-                  <td>${s.isVerified ? '✅' : '—'}</td>
-                  <td>${s.supplierProfile?.isAramcoApproved ? '✅ Preferred' : '—'}</td>
+                  <td>${sp.isVerified ? '✅' : '—'}</td>
+                  <td>${sp.aramcoApproved ? '✅ Preferred' : '—'}</td>
                 </tr>
               `).join('') || '<tr><td colspan="4" style="text-align:center;color:#9A9AAA;padding:24px;">No suppliers yet</td></tr>'}
           </tbody>
@@ -970,14 +1040,16 @@ function renderSuppliersTable(suppliers) {
   if (!suppliers.length) return '<div class="empty-state"><div class="empty-icon">🏭</div><p>No suppliers yet</p></div>';
   return `
     <table class="admin-table">
-      <thead><tr><th>Company</th><th>IKTVA</th><th>Verified</th><th>Tier</th></tr></thead>
+      <thead><tr><th>Company</th><th>City</th><th>IKTVA</th><th>Pillars</th><th>Verified</th><th>Tier</th></tr></thead>
       <tbody>
         ${suppliers.map(s=>`
           <tr>
-            <td><strong>${s.nameEn||'—'}</strong></td>
-            <td>${s.supplierProfile?.iktvaScore||0}%</td>
+            <td><strong>${s.company?.nameEn||'—'}</strong><br><span style="font-size:.7rem;color:#9A9AAA;">${s.company?.nameAr||''}</span></td>
+            <td style="font-size:.75rem;">${s.company?.city||'—'}</td>
+            <td>${s.iktvaScore||0}%</td>
+            <td style="font-size:.75rem;">${countPillars(s)}/6</td>
             <td>${s.isVerified?'<span class="badge-green">✅ Yes</span>':'<span class="badge-gray">Pending</span>'}</td>
-            <td>${tierBadge(s.supplierProfile?.tier)}</td>
+            <td>${tierBadge(s.tier)}</td>
           </tr>
         `).join('')}
       </tbody>
@@ -989,9 +1061,168 @@ function formatDate(d) {
   return new Date(d).toLocaleDateString('en-SA', {day:'2-digit',month:'short',year:'numeric'});
 }
 
-function buildAdminEndpoint() {
-  alert('Add to backend:\n\nrouter.get("/admin/users", authenticate, authorize("ADMIN"), async (req, res) => {\n  const users = await prisma.user.findMany({ include: { company: true } });\n  res.json({ users });\n});');
+// ══════════════════════════════════════════════════
+// VALVE EXPERTS
+// ══════════════════════════════════════════════════
+async function loadExperts() {
+  setMain(`<div class="dash-loading"><div class="spinner"></div><p>Loading expert applications...</p></div>`);
+  try {
+    // Fetch all experts (admin sees all statuses when no status filter)
+    const allData = await apiGet('/experts');
+    const all     = allData.data || [];
+    const pending  = all.filter(e => e.status === 'PENDING');
+    const approved = all.filter(e => e.status === 'APPROVED').length;
+    const rejected = all.filter(e => e.status === 'REJECTED').length;
+
+    // Update sidebar badge
+    const badge = document.getElementById('expertsBadge');
+    if (badge) {
+      if (pending.length > 0) {
+        badge.textContent = pending.length;
+        badge.style.display = 'inline-block';
+      } else {
+        badge.style.display = 'none';
+      }
+    }
+
+    setMain(`
+      <div class="page-header">
+        <div><h2>🎓 Valve Expert Network</h2><p>Review and approve expert applications</p></div>
+      </div>
+      <div class="stat-grid" style="grid-template-columns:repeat(3,1fr);">
+        <div class="stat-card stat-gold"><div class="stat-num">${pending.length}</div><div class="stat-label">Pending Review</div></div>
+        <div class="stat-card stat-green"><div class="stat-num">${approved}</div><div class="stat-label">Approved Experts</div></div>
+        <div class="stat-card stat-red"><div class="stat-num">${rejected}</div><div class="stat-label">Rejected</div></div>
+      </div>
+
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchExpertTab('PENDING',this)">⏳ Pending (${pending.length})</button>
+        <button class="tab-btn" onclick="switchExpertTab('APPROVED',this)">✅ Approved (${approved})</button>
+        <button class="tab-btn" onclick="switchExpertTab('ALL',this)">📋 All (${all.length})</button>
+      </div>
+
+      <div class="dash-card" id="expertTableWrap">
+        ${renderExpertTable(pending)}
+      </div>
+    `);
+
+    window._allExperts = all;
+  } catch(e) {
+    setMain(`<div class="dash-card"><p style="color:#C0392B;">Error loading experts: ${e.message}</p></div>`);
+  }
+}
+
+function renderExpertTable(experts) {
+  if (!experts.length) return '<div class="empty-state"><div class="empty-icon">🎓</div><p>No applications in this category</p></div>';
+  return `
+    <table class="admin-table">
+      <thead><tr><th>Name</th><th>Title</th><th>Specialisation</th><th>Experience</th><th>Location</th><th>Status</th><th>Submitted</th><th>Action</th></tr></thead>
+      <tbody>
+        ${experts.map(e => `
+          <tr>
+            <td>
+              <strong>${escHtml(e.fullName||'—')}</strong><br>
+              <span style="font-size:.7rem;color:#9A9AAA;">${escHtml(e.email||'')}</span>
+            </td>
+            <td style="font-size:.78rem;">${escHtml(e.jobTitle||'—')}</td>
+            <td style="font-size:.78rem;">${escHtml(e.specialisation||'—')}</td>
+            <td style="font-size:.75rem;">${escHtml(e.yearsExp||'—')} yrs</td>
+            <td style="font-size:.75rem;">${escHtml(e.location||'—')}</td>
+            <td>${expertStatusBadge(e.status)}</td>
+            <td style="font-size:.72rem;color:#9A9AAA;">${formatDate(e.createdAt)}</td>
+            <td>
+              ${e.status === 'PENDING' ? `
+                <button class="btn-action btn-verify" style="margin-bottom:3px;" onclick="reviewExpert('${e.id}','APPROVED')">✅ Approve</button>
+                <button class="btn-action btn-suspend" onclick="reviewExpert('${e.id}','REJECTED')">❌ Reject</button>
+              ` : `<button class="btn-action btn-view" onclick="viewExpertDetail('${e.id}')">View</button>`}
+            </td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>`;
+}
+
+function expertStatusBadge(s) {
+  if (s === 'APPROVED') return '<span class="badge-green">Approved</span>';
+  if (s === 'REJECTED') return '<span class="badge-red">Rejected</span>';
+  return '<span class="badge-gold">Pending</span>';
+}
+
+function switchExpertTab(status, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const list = status === 'ALL'
+    ? window._allExperts
+    : window._allExperts.filter(e => e.status === status);
+  document.getElementById('expertTableWrap').innerHTML = renderExpertTable(list);
+}
+
+async function reviewExpert(id, status) {
+  const action = status === 'APPROVED' ? 'approve' : 'reject';
+  if (!confirm(`Are you sure you want to ${action} this expert application?`)) return;
+  try {
+    const r = await fetch(
+      `https://thevalvehubs-backend-production.up.railway.app/api/experts/${id}/review`,
+      {
+        method: 'PATCH',
+        headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status })
+      }
+    );
+    if (!r.ok) throw new Error(`API error ${r.status}`);
+    toast(status === 'APPROVED' ? '✅ Expert approved and added to network' : '❌ Application rejected', status === 'APPROVED' ? '#006C35' : '#C0392B');
+    loadExperts(); // reload
+  } catch(e) {
+    toast('Error: ' + e.message, '#C0392B');
+  }
+}
+
+function viewExpertDetail(id) {
+  const expert = (window._allExperts || []).find(e => e.id === id);
+  if (!expert) return;
+  alert(
+    `Expert Profile\n\n` +
+    `Name: ${expert.fullName}\n` +
+    `Title: ${expert.jobTitle}\n` +
+    `Email: ${expert.email}\n` +
+    `Phone: ${expert.phone}\n` +
+    `Specialisation: ${expert.specialisation}\n` +
+    `Experience: ${expert.yearsExp} years\n` +
+    `Location: ${expert.location}\n` +
+    `Skills: ${(expert.skills||[]).join(', ')}\n` +
+    `LinkedIn: ${expert.linkedIn||'—'}\n` +
+    `Summary: ${expert.summary||'—'}`
+  );
+}
+
+// ══════════════════════════════════════════════════
+// NOTIFICATIONS SECTION
+// ══════════════════════════════════════════════════
+async function loadNotificationsSection() {
+  setMain(`<div class="dash-loading"><div class="spinner"></div><p>Loading notifications...</p></div>`);
+  try {
+    const data = await apiGet('/admin/notifications');
+    const notifs = data.notifications || [];
+    setMain(`
+      <div class="page-header">
+        <div><h2>🔔 Notifications</h2><p>${notifs.length} total</p></div>
+        <button class="btn-action btn-view" style="padding:8px 14px;border-radius:8px;" onclick="markAllRead()">✓ Mark all read</button>
+      </div>
+      <div class="dash-card">
+        ${notifs.length ? notifs.map(n => `
+          <div class="notif-item ${n.isRead?'':'unread'}" style="border-radius:8px;margin-bottom:4px;">
+            <div class="notif-title">${escHtml(n.title)}</div>
+            <div class="notif-msg">${escHtml(n.message||'')}</div>
+            <div class="notif-time">${new Date(n.createdAt).toLocaleString('en-SA')}</div>
+          </div>
+        `).join('') : '<div class="empty-state"><div class="empty-icon">🎉</div><p>No notifications</p></div>'}
+      </div>
+    `);
+  } catch(e) {
+    setMain(`<div class="dash-card"><p style="color:#C0392B;">Error: ${e.message}</p></div>`);
+  }
 }
 </script>
 </body>
 </html>
+

@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>TheValveHubs — Database Schema Reference</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #F4F4F7;
+    color: #1A1A2E;
+    font-size: 13px;
+  }
+
+  /* ── Print toolbar (hidden when printing) ── */
+  .toolbar {
+    background: #1A1A2E;
+    color: #fff;
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+  }
+  .toolbar h1 { font-size: 1rem; font-weight: 700; }
+  .toolbar span { font-size: .78rem; color: #9A9AAA; }
+  .btn-print {
+    background: #C8973A;
+    color: #1A1A1A;
+    border: none;
+    padding: 9px 22px;
+    border-radius: 8px;
+    font-weight: 800;
+    font-size: .82rem;
+    cursor: pointer;
+    letter-spacing: .03em;
+  }
+  .btn-print:hover { background: #E8B84B; }
+
+  /* ── Page wrapper ── */
+  .page {
+    max-width: 900px;
+    margin: 32px auto;
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 40px rgba(0,0,0,.08);
+  }
+
+  /* ── Cover header ── */
+  .cover {
+    background: linear-gradient(135deg, #1A1A2E 0%, #2C4A7C 100%);
+    color: #fff;
+    padding: 48px 48px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; right: -40px;
+    width: 200px; height: 200px;
+    background: rgba(200,151,58,.12);
+    border-radius: 50%;
+  }
+  .cover-label {
+    font-size: .65rem;
+    font-weight: 800;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: #C8973A;
+    margin-bottom: 10px;
+  }
+  .cover h1 {
+    font-size: 2rem;
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+  .cover p {
+    font-size: .85rem;
+    color: rgba(255,255,255,.65);
+    margin-bottom: 24px;
+  }
+  .cover-meta {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .meta-pill {
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: .72rem;
+    font-weight: 600;
+  }
+
+  /* ── Body ── */
+  .body { padding: 40px 48px 48px; }
+
+  /* ── Section header ── */
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 36px 0 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #EEEEF5;
+  }
+  .phase-header:first-child { margin-top: 0; }
+  .phase-dot {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .dot-blue   { background: #EEF2FF; }
+  .dot-orange { background: #FFF8E7; }
+  .dot-purple { background: #F5EEFF; }
+  .dot-green  { background: #EBF7F0; }
+  .phase-header h2 {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #1A1A2E;
+  }
+  .phase-header p {
+    font-size: .75rem;
+    color: #7A7AAA;
+    font-weight: 500;
+  }
+
+  /* ── Model card ── */
+  .model-card {
+    border: 1.5px solid #EEEEF5;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .model-head {
+    background: #FAFAFF;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid #EEEEF5;
+  }
+  .model-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .9rem;
+    font-weight: 600;
+    color: #2C4A7C;
+  }
+  .model-table {
+    font-size: .72rem;
+    color: #9A9AAA;
+    background: #ECEFF1;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .model-desc {
+    font-size: .78rem;
+    color: #5A5A7A;
+    margin-left: auto;
+  }
+
+  /* ── Fields table ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th {
+    text-align: left;
+    padding: 7px 18px;
+    font-size: .65rem;
+    font-weight: 800;
+    color: #9A9AAA;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    background: #FAFAFF;
+    border-bottom: 1px solid #EEEEF5;
+  }
+  td {
+    padding: 8px 18px;
+    border-bottom: 1px solid #F4F4F7;
+    vertical-align: middle;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #FAFAFF; }
+
+  .field-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .78rem;
+    font-weight: 600;
+    color: #1A1A2E;
+  }
+  .field-type {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .72rem;
+    color: #C8973A;
+  }
+  .badge {
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 20px;
+    font-size: .62rem;
+    font-weight: 700;
+  }
+  .badge-pk  { background: #EBF7F0; color: #006C35; }
+  .badge-fk  { background: #EEF2FF; color: #2C4A7C; }
+  .badge-req { background: #FFF8E7; color: #C8973A; }
+  .badge-opt { background: #F4F4F7; color: #7A7AAA; }
+  .badge-uni { background: #F5EEFF; color: #7C3D9C; }
+  .badge-def { background: #E3F2FD; color: #1565C0; }
+
+  .note {
+    font-size: .72rem;
+    color: #9A9AAA;
+    font-style: italic;
+  }
+
+  /* ── Enums section ── */
+  .enum-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .enum-card {
+    border: 1.5px solid #EEEEF5;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .enum-head {
+    background: #FAFAFF;
+    padding: 8px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .8rem;
+    font-weight: 600;
+    color: #2C4A7C;
+    border-bottom: 1px solid #EEEEF5;
+  }
+  .enum-values {
+    padding: 10px 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .enum-val {
+    background: #F4F4F7;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .7rem;
+    color: #1A1A2E;
+    font-weight: 600;
+  }
+
+  /* ── Relations diagram ── */
+  .relations-box {
+    background: #1A1A2E;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-top: 8px;
+  }
+  .relations-box pre {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .75rem;
+    color: #A0C4FF;
+    line-height: 1.8;
+    white-space: pre-wrap;
+  }
+  .rel-highlight { color: #C8973A; }
+
+  /* ── Summary table ── */
+  .summary-table { margin-top: 8px; }
+  .summary-table td:first-child { font-weight: 700; }
+  .summary-table td:nth-child(2) {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .72rem;
+    color: #2C4A7C;
+  }
+
+  /* ── Footer ── */
+  .doc-footer {
+    background: #FAFAFF;
+    border-top: 1.5px solid #EEEEF5;
+    padding: 20px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: .72rem;
+    color: #9A9AAA;
+  }
+  .doc-footer strong { color: #1A1A2E; }
+
+  /* ── Print styles ── */
+  @media print {
+    body { background: #fff; font-size: 11px; }
+    .toolbar { display: none; }
+    .page {
+      max-width: 100%;
+      margin: 0;
+      border-radius: 0;
+      box-shadow: none;
+    }
+    .cover { padding: 32px; }
+    .body { padding: 24px 32px; }
+    .model-card { break-inside: avoid; }
+    .phase-header { break-after: avoid; }
+    @page {
+      size: A4;
+      margin: 15mm 12mm;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Print Toolbar -->
+<div class="toolbar">
+  <div>
+    <h1>TheValveHubs — Database Schema Reference</h1>
+    <span>13 models · 9 enums · PostgreSQL + Prisma 7</span>
+  </div>
+  <button class="btn-print" onclick="window.print()">🖨️ Print / Save PDF</button>
+</div>
+
+<div class="page">
+
+  <!-- Cover -->
+  <div class="cover">
+    <div class="cover-label">Technical Reference Document</div>
+    <h1>Database Schema<br>Reference Guide</h1>
+    <p>Complete model definitions, field types, constraints, and relationships for<br>the TheValveHubs B2B Industrial Platform.</p>
+    <div class="cover-meta">
+      <span class="meta-pill">📦 13 Models</span>
+      <span class="meta-pill">🔢 9 Enums</span>
+      <span class="meta-pill">🗄️ PostgreSQL</span>
+      <span class="meta-pill">⚙️ Prisma ORM v7</span>
+      <span class="meta-pill">🇸🇦 ZATCA Compliant</span>
+      <span class="meta-pill">📅 June 2026</span>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <!-- ══════════════════════════════════════ -->
+    <!-- PHASE 1 — CORE                        -->
+    <!-- ══════════════════════════════════════ -->
+    <div class="phase-header">
+      <div class="phase-dot dot-blue">🔵</div>
+      <div>
+        <h2>Phase 1 — Core Tables</h2>
+        <p>Users · Companies · Supplier Profiles · Subscriptions · Payments · Invoices · Notifications</p>
+      </div>
+    </div>
+
+    <!-- User -->
+    <div class="model-card">
+      <div class="model-head">
+        <span class="model-name">User</span>
+        <span class="model-table">users</span>
+        <span class="model-desc">Platform account — one per person</span>
+      </div>
+      <table>
+        <thead><tr><th>Field</th><th>Type</th><th>Constraint</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td class="field-name">id</td><td class="field-type">String (UUID)</td><td><span class="badge badge-pk">PK</span></td><td class="note">Auto-generated UUID</td></tr>
+          <tr><td class="field-name">email</td><td class="field-type">String</td><td><span class="badge badge-uni">UNIQUE</span> <span class="badge badge-req">REQ</span></td><td class="note">Login identifier</td></tr>
+          <tr><td class="field-name">password</td><td class="field-type">String</td><td><span class="badge badge-req">REQ</span></td><td class="note">bcrypt hashed</td></tr>
+          <tr><td class="field-name">role</td><td class="field-type">Role (enum)</td><td><span class="badge badge-def">DEFAULT: BUYER</span></td><td class="note">ADMIN · BUYER · SUPPLIER · INVESTOR</td></tr>
+          <tr><td class="field-name">isVerified</td><td class="field-type">Boolean</td><td><span class="badge badge-def">DEFAULT: false</span></td><td class="note">Email verification</td></tr>
+          <tr><td class="field-name">isActive</td><td class="field-type">Boolean</td><td><span class="badge badge-def">DEFAULT: true</span></td><td class="note">Admin can suspend</td></tr>
+          <tr><td class="field-name">createdAt</td><td class="field-type">DateTime</td><td><span class="badge badge-def">AUTO</span></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Company -->
+    <div class="model-card">
+      <div class="model-head">
+        <span class="model-name">Company</span>
+        <span class="model-table">companies</span>
+        <span class="model-desc">One company per user account</span>
+      </div>
+      <table>
+        <thead><tr><th>Field</th><th>Type</th><th>Constraint</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td class="field-name">id</td><td class="field-type">String (UUID)</td><td><span class="badge badge-pk">PK</span></td><td></td></tr>
+          <tr><td class="field-name">userId</td><td class="field-type">String</td><td><span class="badge badge-fk">FK → User</span> <span class="badge badge-uni">UNIQUE</span></td><td class="note">1-to-1 with User</td></tr>
+          <tr><td class="field-name">nameEn</td><td class="field-type">String</td><td><span class="badge badge-req">REQ</span></td><td class="note">Company name in English</td></tr>
+          <tr><td class="field-name">nameAr</td><td class="field-type">String?</td><td><span class="badge badge-opt">OPT</span></td><td class="note">Company name in Arabic</td></tr>
+          <tr><td class="field-name">crNumber</td><td class="field-type">String?</td><td><span class="badge badge-uni">UNIQUE</span></td><td class="note">Saudi Commercial Registration</td></tr>
+          <tr><td class="field-name">vatNumber</td><td class="field-type">String?</td><td><span class="badge badge-uni">UNIQUE</span></td><td class="note">VAT number (ZATCA)</td></tr>
+          <tr><td class="field-name">phone</td><td class="field-type">String?</td><td><span class="badge badge-opt">OPT</span></td><td></td></tr>
+          <tr><td class="field-name">website</td><td class="field-type">String?</td><td><span class="badge badge-opt">OPT</span></td><td></td></tr>
+          <tr><td class="field-name">city</td><td class="field-type">String?</td><td><span class="badge badge-opt">OPT</span></td><td></td></tr>
+          <tr><td class="field-name">region</td><td class="field-type">String?</td><td><span class="badge badge-opt">OPT</span></td><td class="note">Eastern Province, Riyadh, etc.</td></tr>
+          <tr><td class="field-name">country</td><td class="field-type">String</td><td><span class="badge badge-def">DEFAULT: "SA"</span></td><td></td></tr>
+          <tr><td class="field-name">sector</td><td class="field-type">String?</td><td><span class="badge badge-opt">OPT</span></td><td class="note">Oil & Gas, Petrochemical, etc.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SupplierProfile -->
+    <div class="model-card">
+      <div class="model-head">
+        <span class="model-name">SupplierProfile</span>
+        <span class="model-table">supplier_profiles</span>
+        <span class="model-desc">Extended profile for SUPPLIER accounts</span>
+      </div>
+      <table>
+        <thead><tr><th>Field</th><th>Type</th><th>Constraint</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td class="field-name">id</td><td class="field-type">String (UUID)</td><td><span class="badge badge-pk">PK</span></td><td></td></tr>
+          <tr><td class="field-name">companyId</td><td class="field-type">String</td><td><span class="badge badge-fk">FK → Company</span> <span class="badge badge-uni">UNIQUE</span></td><td></td></tr>
+          <tr><td class="field-name">iktvaScore</td><td class="field-type">Float?</td><td><span class="badge badge-opt">OPT</span></td><td class="note">IKTVA score 0–100%</td></tr>
+          <tr><td class="field-name">aramcoApproved</td><td class="field-type">Boolean</td><td><span class="badge badge-def">DEFAULT: false</span></td><td class="note">Saudi Aramco approved vendor</td></tr>
+          <tr><td class="field-name">sabicApproved</td><td class="field-type">Boolean</td><td><span class="badge badge-def">DEFAULT: false</span></td><td></td></tr>
+          <tr><td class="field-name">saudizationPct</td><td class="field-type">Float?</td><td><span class="badge badge-opt">OPT</span></td><td class="note">Nitaqat / Saudization %</td></tr>
+          <tr><td class="field-name">pillar1Valves</td><td class="field-type">Boolean</td><td><span class="badge badge-def">DEFAULT: false</span></td><td class="note">Pillar 1 — Valves Supply</td></tr>
+          <tr><td class="field-name">pillar2Parts</td><td class="field-type">Boolean</td><td><span class="badge badge-def">DEFAULT: false</span></td><td class="note">Pillar 2 — Spare Parts</td></tr>
+          <tr><td class="field-name">pillar3Machining</td><td class="field-type">Boolean</td><td><span class="badge badge-def">DEFAULT: false</span></td><td class="note">Pillar 3 — Machining & Fabrication</td></tr>
+          <tr><td class="field-name">pillar4Print</td><td class="field-type">Boolean</td><td><span class="badge badge-def">DEFAULT: false</span></td><td class="note">Pillar 4 — 3D Printing</td></tr>
+          <tr><td class="field-name">pillar5TPI</td><td class="field-type">Boolean</td><td><span class="badge badge-def">DEFAULT: false</span></td><td class="note">Pillar 5 — TPI & Inspection</td></tr>
+          <tr><td class="field-name">pillar6Rental</td><td class="field-type">Boolean</td><td><span class="badge badge-def">DEFAULT: false</span></td><td class="note">Pillar 6 — Rental Equipment</td></tr>
+          <tr><td class="field-name">isVerified</td><td class="field-type">Boolean</td><td><span class="badge badge-def">DEFAULT: false</span></td><td class="note">Set by Admin</td></tr>
+          <tr><td class="field-name">tier</td><td class="field-type">SupplierTier</td><td><span class="badge badge-def">DEFAULT: P1_SAUDI</span></td><td class="note">P1_SAUDI · P2_GLOBAL · EMERGENCY</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SupplierCertification -->
+    <div class="model-card">
+      <div class="model-head">
+        <span class="model-name">SupplierCertification</span>
+        <span class="model-table">supplier_certifications</span>
+        <span class="model-desc">ISO, API, SASO and other certificates</span>
+      </div>
+      <table>
+        <thead><tr><th>Field</th><th>Type</th><th>Constraint</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td class="field-name">id</td><td class="field-type">String (UUID)</td><td><span class="badge badge-pk">PK</span></td><td></td></tr>
+          <tr><td class="field-name">supplierId</td><td class="field-type">String</td><td><span class="badge badge-fk">FK → SupplierProfile</span></td><td></td></tr>
+          <tr><td class="field-name">name</td><td class="field-type">String</td><td><span class="badge badge-req">REQ</span></td><td class="note">e.g. ISO 9001, API 6D, SASO</td></tr>
+          <tr><td class="field-name">issuedBy</td><td class="field-type">String?</td><td><span class="badge badge-opt">OPT</span></td><td class="note">Certifying body</td></tr>
+          <tr><td class="field-name">expiryDate</td><td class="field-type">DateTime?</td><td><span class="badge badge-opt">OPT</span></td><td></td></tr>
+          <tr><td class="field-name">documentUrl</td><td class="field-type">String?</td><td><span class="badge badge-opt">OPT</span></td><td class="note">S3 file URL</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Subscription Plan + Subscription -->
+    <div class="model-card">
+      <div class="model-head">
+        <span class="model-name">SubscriptionPlan</span>
+        <span class="model-table">subscription_plans</span>
+        <span class="model-desc">Available pricing tiers</span>
+      </div>
+      <table>
+        <thead><tr><th>Field</th><th>Type</th><th>Constraint</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td class="field-name">nameEn</td><td class="field-type">String</td><td><span class="badge badge-req">REQ</span></td><td class="note">Free / Professional / Enterprise</td></tr>
+          <tr><td class="field-name">priceMonthly</td><td class="field-type">Float</td><td><span class="badge badge-req">REQ</span></td><td class="note">SAR per month</td></tr>
+          <tr><td class="field-name">priceYearly</td><td class="field-type">Float</td><td><span class="badge badge-req">REQ</span></td><td class="note">SAR per year</td></tr>
+          <tr><td class="field-name">features</td><td class="field-type">String[]</td><td><span class="badge badge-req">REQ</span></td><td class="note">Array of feature strings</td></tr>
+          <tr><td class="field-name">maxRfqs</td><td class="field-type">Int</td><td><span class="badge badge-def">DEFAULT: 0</span></td><td class="note">0 = unlimited</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="model-card">
+      <div class="model-head">
+        <span class="model-name">Subscription</span>
+        <span class="model-table">subscriptions</span>
+        <span class="model-desc">Active plan per company</span>
+      </div>
+      <table>
+        <thead><tr><th>Field</th><th>Type</th><th>Constraint</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td class="field-name">companyId</td><td class="field-type">String</td><td><span class="badge badge-fk">FK → Company</span></td><td></td></tr>
+          <tr><td class="field-name">planId</td><td class="field-type">String</td><td><span class="badge badge-fk">FK → SubscriptionPlan</span></td><td></td></tr>
+          <tr><td class="field-name">status</td><td class="field-type">SubStatus</td><td><span class="badge badge-def">DEFAULT: ACTIVE</span></td><td class="note">ACTIVE · CANCELLED · EXPIRED · PAST_DUE</td></tr>
+          <tr><td class="field-name">billingCycle</td><td class="field-type">BillingCycle</td><td><span class="badge badge-def">DEFAULT: MONTHLY</span></td><td class="note">MONTHLY · YEARLY</td></tr>
+          <tr><td class="field-name">startDate</td><td class="field-type">DateTime</td><td><span class="badge badge-def">AUTO</span></td><td></td></tr>
+          <tr><td class="field-name">endDate</td><td class="field-type">DateTime</td><td><span class="badge badge-req">REQ</span></td><td class="note">Calculated on creation</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Payment + Invoice -->
+    <div class="model-card">
+      <div class="model-head">
+        <span class="model-name">Payment</span>
+        <span class="model-table">payments</span>
+        <span class="model-desc">Moyasar payment transactions</span>
+      </div>
+      <table>
+        <thead><tr><th>Field</th><th>Type</th><th>Constraint</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td class="field-name">moyasarId</td><td class="field-type">String?</td><td><span class="badge badge-uni">UNIQUE</span></td><td class="note">Moyasar payment ID</td></tr>
+          <tr><td class="field-name">amount</td><td class="field-type">Float</td><td><span class="badge badge-req">REQ</span></td><td class="note">SAR before VAT</td></tr>
+          <tr><td class="field-name">vatAmount</td><td class="field-type">Float</td><td><span class="badge badge-req">REQ</span></td><td class="note">15% VAT amount</td></tr>
+          <tr><td class="field-name">totalAmount</td><td class="field-type">Float</td><td><span class="badge badge-req">REQ</span></td><td class="note">amount + vatAmount</td></tr>
+          <tr><td class="field-name">status</td><td class="field-type">PaymentStatus</td><td><span class="badge badge-def">DEFAULT: PENDING</span></td><td class="note">PENDING · PAID · FAILED · REFUNDED</td></tr>
+          <tr><td class="field-name">method</td><td class="field-type">String?</td><td><span class="badge badge-opt">OPT</span></td><td class="note">creditcard · mada · applepay</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="model-card">
+      <div class="model-head">
+        <span class="model-name">Invoice</span>
+        <span class="model-table">invoices</span>
+        <span class="model-desc">ZATCA-compliant tax invoices</span>
+      </div>
+      <table>
+        <thead><tr><th>Field</th><th>Type</th><th>Constraint</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td class="field-name">companyId</td><td class="field-type">String</td><td><span class="badge badge-fk">FK → Company</span></td><td></td></tr>
+          <tr><td class="field-name">invoiceNumber</td><td class="field-type">String</td><td><span class="badge badge-uni">UNIQUE</span> <span class="badge badge-req">REQ</span></td><td class="note">Format: TVH-2026-000001</td></tr>
+          <tr><td class="field-name">zatcaUuid</td><td class="field-type">String?</td><td><span class="badge badge-opt">OPT</span></td><td class="note">ZATCA compliance UUID</td></tr>
+          <tr><td class="field-name">qrCode</td><td class="field-type">String?</td><td><span class="badge badge-opt">OPT</span></td><td class="note">Base64 TLV QR for ZATCA</td></tr>
+          <tr><td class="field-name">subtotal</td><td class="field-type">Float</td><td><span class="badge badge-req">REQ</span></td><td class="note">Before VAT</td></tr>
+          <tr><td class="field-name">vatAmount</td><td class="field-type">Float</td><td><span class="badge badge-req">REQ</span></td><td class="note">15% of subtotal</td></tr>
+          <tr><td class="field-name">total</td><td class="field-type">Float</td><td><span class="badge badge-req">REQ</span></td><td class="note">subtotal + vatAmount</td></tr>
+          <tr><td class="field-name">issueDate</td><td class="field-type">DateTime</td><td><span class="badge badge-def">AUTO</span></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Notification -->
+    <div class="model-card">
+      <div class="model-head">
+        <span class="model-name">Notification</span>
+        <span class="model-table">notifications</span>
+        <span class="model-desc">In-platform alerts and messages</span>
+      </div>
+      <table>
+        <thead><tr><th>Field</th><th>Type</th><th>Constraint</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td class="field-name">userId</td><td class="field-type">String</td><td><span class="badge badge-fk">FK → User</span></td><td></td></tr>
+          <tr><td class="field-name">title</td><td class="field-type">String</td><td><span class="badge badge-req">REQ</span></td><td></td></tr>
+          <tr><td class="field-name">body</td><td class="field-type">String</td><td><span class="badge badge-req">REQ</span></td><td></td></tr>
+          <tr><td class="field-name">type</td><td class="field-type">String</td><td><span class="badge badge-req">REQ</span></td><td class="note">rfq · payment · emergency · system</td></tr>
+          <tr><td class="field-name">isRead</td><td class="field-type">Boolean</td><td><span class="badge badge-def">DEFAULT: false</span></td><td></td></tr>
+          <tr><td class="field-name">link</td><td class="field-type">String?</td><td><span class="badge badge-opt">OPT</span></td><td class="note">Deep link URL</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══════════════════════════════════════ -->
+    <!-- PHASE 2 — RFQ                         -->
+    <!-- ══════════════════════════════════════ -->
+    <div class="phase-header">
+      <div class="phase-dot dot-orange">🟠</div>
+      <div>
+        <h2>Phase 2 — RFQ & Emergency Tables</h2>
+        <p>Requests for Quotation · Supplier Responses · Emergency Requests</p>
+      </div>
+    </div>
+
+    <div class="model-card">
+      <div class="model-head">
+        <span class="model-name">Rfq</span>
+        <span class="model-table">rfqs</span>
+        <span class="model-desc">Request for Quotation submitted by a buyer</span>
+      </div>
+      <table>
+        <thead><tr><th>Field</th><th>Type</th><th>Constraint</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td class="field-name">buyerCompanyId</td><td class="field-type">String</td><td><span class="badge badge-fk">FK → Company</span></td><td></td></tr>
+          <tr><td class="field-name">title</td><td class="field-type">String</td><td><span class="badge badge-req">REQ</span></td><td></td></tr>
+          <tr><td class="field-name">description</td><td class="field-type">String</td><td><span class="badge badge-req">REQ</span></td><td></td></tr>
+          <tr><td class="field-name">pillar</td><td class="field-type">Int</td><td><span class="badge badge-req">REQ</span></td><td class="note">1=Valves · 2=Parts · 3=Machining · 4=3DPrint · 5=TPI · 6=Rental</td></tr>
+          <tr><td class="field-name">quantity</td><td class="field-type">String?</td><td><span class="badge badge-opt">OPT</span></td><td class="note">e.g. "50 units"</td></tr>
+          <tr><td class="field-name">specs</td><td class="field-type">String?</td><td><span class="badge badge-opt">OPT</span></td><td class="note">Technical specifications or file URL</td></tr>
+          <tr><td class="field-name">deliveryDate</td><td class="field-type">DateTime?</td><td><span class="badge badge-opt">OPT</span></td><td></td></tr>
+          <tr><td class="field-name">deliveryCity</td><td class="field-type">String?</td><td><span class="badge badge-opt">OPT</span></td><td></td></tr>
+          <tr><td class="field-name">region</td><td class="field-type">String?</td><td><span class="badge badge-opt">OPT</span></td><td></td></tr>
+          <tr><td class="field-name">status</td><td class="field-type">RfqStatus</td><td><span class="badge badge-def">DEFAULT: OPEN</span></td><td class="note">OPEN · AWARDED · CLOSED · CANCELLED</td></tr>
+          <tr><td class="field-name">awardedTo</td><td class="field-type">String?</td><td><span class="badge badge-opt">OPT</span></td><td class="note">SupplierProfile ID of winner</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="model-card">
+      <div class="model-head">
+        <span class="model-name">RfqResponse</span>
+        <span class="model-table">rfq_responses</span>
+        <span class="model-desc">Supplier quote for an RFQ — one per supplier per RFQ</span>
+      </div>
+      <table>
+        <thead><tr><th>Field</th><th>Type</th><th>Constraint</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td class="field-name">rfqId</td><td class="field-type">String</td><td><span class="badge badge-fk">FK → Rfq</span></td><td></td></tr>
+          <tr><td class="field-name">supplierId</td><td class="field-type">String</td><td><span class="badge badge-fk">FK → SupplierProfile</span></td><td></td></tr>
+          <tr><td class="field-name">priceTotal</td><td class="field-type">Float</td><td><span class="badge badge-req">REQ</span></td><td class="note">Total quoted price in SAR</td></tr>
+          <tr><td class="field-name">currency</td><td class="field-type">String</td><td><span class="badge badge-def">DEFAULT: "SAR"</span></td><td></td></tr>
+          <tr><td class="field-name">leadTimeDays</td><td class="field-type">Int?</td><td><span class="badge badge-opt">OPT</span></td><td class="note">Delivery lead time</td></tr>
+          <tr><td class="field-name">notes</td><td class="field-type">String?</td><td><span class="badge badge-opt">OPT</span></td><td></td></tr>
+          <tr><td class="field-name">attachmentUrl</td><td class="field-type">String?</td><td><span class="badge badge-opt">OPT</span></td><td class="note">Quote document URL</td></tr>
+          <tr><td class="field-name">isAwarded</td><td class="field-type">Boolean</td><td><span class="badge badge-def">DEFAULT: false</span></td><td class="note">Set when buyer awards</td></tr>
+        </tbody>
+      </table>
+      <div style="padding:8px 18px;background:#FFF8E7;font-size:.72rem;color:#C8973A;font-weight:600;">
+        ⚠️ Unique constraint on (rfqId, supplierId) — one quote per supplier per RFQ
+      </div>
+    </div>
+
+    <div class="model-card">
+      <div class="model-head">
+        <span class="model-name">EmergencyRfq</span>
+        <span class="model-table">emergency_rfqs</span>
+        <span class="model-desc">Urgent requests — plant-down or critical shortage</span>
+      </div>
+      <table>
+        <thead><tr><th>Field</th><th>Type</th><th>Constraint</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td class="field-name">companyId</td><td class="field-type">String</td><td><span class="badge badge-fk">FK → Company</span></td><td></td></tr>
+          <tr><td class="field-name">title</td><td class="field-type">String</td><td><span class="badge badge-req">REQ</span></td><td></td></tr>
+          <tr><td class="field-name">description</td><td class="field-type">String</td><td><span class="badge badge-req">REQ</span></td><td></td></tr>
+          <tr><td class="field-name">pillar</td><td class="field-type">Int</td><td><span class="badge badge-req">REQ</span></td><td class="note">Same 1–6 pillar mapping</td></tr>
+          <tr><td class="field-name">urgency</td><td class="field-type">UrgencyLevel</td><td><span class="badge badge-def">DEFAULT: HIGH</span></td><td class="note">CRITICAL (2h) · HIGH (24h) · MEDIUM (72h)</td></tr>
+          <tr><td class="field-name">plantDown</td><td class="field-type">Boolean</td><td><span class="badge badge-def">DEFAULT: false</span></td><td class="note">Is the facility shut down?</td></tr>
+          <tr><td class="field-name">location</td><td class="field-type">String?</td><td><span class="badge badge-opt">OPT</span></td><td></td></tr>
+          <tr><td class="field-name">contactPhone</td><td class="field-type">String?</td><td><span class="badge badge-opt">OPT</span></td><td class="note">Direct emergency contact</td></tr>
+          <tr><td class="field-name">status</td><td class="field-type">EmergencyStatus</td><td><span class="badge badge-def">DEFAULT: OPEN</span></td><td class="note">OPEN · ASSIGNED · IN_PROGRESS · RESOLVED</td></tr>
+          <tr><td class="field-name">assignedTo</td><td class="field-type">String?</td><td><span class="badge badge-opt">OPT</span></td><td class="note">SupplierProfile ID</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══════════════════════════════════════ -->
+    <!-- PHASE 3 — EXPERTS                     -->
+    <!-- ══════════════════════════════════════ -->
+    <div class="phase-header">
+      <div class="phase-dot dot-purple">🟣</div>
+      <div>
+        <h2>Phase 3 — Valve Expert Network</h2>
+        <p>Expert applications — reviewed and approved by admin</p>
+      </div>
+    </div>
+
+    <div class="model-card">
+      <div class="model-head">
+        <span class="model-name">ExpertProfile</span>
+        <span class="model-table">expert_profiles</span>
+        <span class="model-desc">Independent of User — submitted publicly, reviewed by admin</span>
+      </div>
+      <table>
+        <thead><tr><th>Field</th><th>Type</th><th>Constraint</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td class="field-name">fullName</td><td class="field-type">String</td><td><span class="badge badge-req">REQ</span></td><td></td></tr>
+          <tr><td class="field-name">jobTitle</td><td class="field-type">String</td><td><span class="badge badge-req">REQ</span></td><td></td></tr>
+          <tr><td class="field-name">email</td><td class="field-type">String</td><td><span class="badge badge-req">REQ</span></td><td class="note">Hidden from non-admin</td></tr>
+          <tr><td class="field-name">phone</td><td class="field-type">String</td><td><span class="badge badge-req">REQ</span></td><td class="note">Hidden from non-admin</td></tr>
+          <tr><td class="field-name">nationality</td><td class="field-type">String?</td><td><span class="badge badge-opt">OPT</span></td><td></td></tr>
+          <tr><td class="field-name">location</td><td class="field-type">String</td><td><span class="badge badge-req">REQ</span></td><td></td></tr>
+          <tr><td class="field-name">yearsExp</td><td class="field-type">String</td><td><span class="badge badge-req">REQ</span></td><td class="note">e.g. "4–7 Years"</td></tr>
+          <tr><td class="field-name">availability</td><td class="field-type">String</td><td><span class="badge badge-req">REQ</span></td><td class="note">Full-time · Part-time · Project basis</td></tr>
+          <tr><td class="field-name">iqamaStatus</td><td class="field-type">String?</td><td><span class="badge badge-opt">OPT</span></td><td class="note">Saudi residency status</td></tr>
+          <tr><td class="field-name">linkedIn</td><td class="field-type">String?</td><td><span class="badge badge-opt">OPT</span></td><td></td></tr>
+          <tr><td class="field-name">specialisation</td><td class="field-type">String</td><td><span class="badge badge-req">REQ</span></td><td></td></tr>
+          <tr><td class="field-name">skills</td><td class="field-type">String[]</td><td><span class="badge badge-req">REQ</span></td><td class="note">Array of skill tags</td></tr>
+          <tr><td class="field-name">summary</td><td class="field-type">String</td><td><span class="badge badge-req">REQ</span></td><td class="note">Min 20 chars</td></tr>
+          <tr><td class="field-name">certifications</td><td class="field-type">String?</td><td><span class="badge badge-opt">OPT</span></td><td></td></tr>
+          <tr><td class="field-name">oemTraining</td><td class="field-type">String?</td><td><span class="badge badge-opt">OPT</span></td><td></td></tr>
+          <tr><td class="field-name">status</td><td class="field-type">ExpertStatus</td><td><span class="badge badge-def">DEFAULT: PENDING</span></td><td class="note">PENDING → APPROVED / REJECTED</td></tr>
+          <tr><td class="field-name">reviewedAt</td><td class="field-type">DateTime?</td><td><span class="badge badge-opt">OPT</span></td><td class="note">When admin reviewed</td></tr>
+          <tr><td class="field-name">reviewNotes</td><td class="field-type">String?</td><td><span class="badge badge-opt">OPT</span></td><td class="note">Admin internal notes</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══════════════════════════════════════ -->
+    <!-- PHASE 4 — IKTVA                       -->
+    <!-- ══════════════════════════════════════ -->
+    <div class="phase-header">
+      <div class="phase-dot dot-green">🟢</div>
+      <div>
+        <h2>Phase 4 — IKTVA Calculator</h2>
+        <p>Stores IKTVA calculation history per company per period</p>
+      </div>
+    </div>
+
+    <div class="model-card">
+      <div class="model-head">
+        <span class="model-name">IktvaCalculation</span>
+        <span class="model-table">iktva_calculations</span>
+        <span class="model-desc">Saved IKTVA score calculation per period</span>
+      </div>
+      <table>
+        <thead><tr><th>Field</th><th>Type</th><th>Constraint</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td class="field-name">companyId</td><td class="field-type">String</td><td><span class="badge badge-fk">FK → Company</span></td><td></td></tr>
+          <tr><td class="field-name">totalRevenue</td><td class="field-type">Float</td><td><span class="badge badge-req">REQ</span></td><td class="note">Total revenue in SAR</td></tr>
+          <tr><td class="field-name">saudiLabourCost</td><td class="field-type">Float</td><td><span class="badge badge-req">REQ</span></td><td class="note">Saudi workforce cost</td></tr>
+          <tr><td class="field-name">saudiMaterialCost</td><td class="field-type">Float</td><td><span class="badge badge-req">REQ</span></td><td class="note">Saudi-sourced materials</td></tr>
+          <tr><td class="field-name">saudiServiceCost</td><td class="field-type">Float</td><td><span class="badge badge-req">REQ</span></td><td class="note">Saudi subcontractors/services</td></tr>
+          <tr><td class="field-name">saudiOverheadCost</td><td class="field-type">Float</td><td><span class="badge badge-req">REQ</span></td><td class="note">Saudi overhead allocation</td></tr>
+          <tr><td class="field-name">saudiCapexCost</td><td class="field-type">Float</td><td><span class="badge badge-req">REQ</span></td><td class="note">Saudi capital expenditure</td></tr>
+          <tr><td class="field-name">iktvaScore</td><td class="field-type">Float</td><td><span class="badge badge-req">REQ</span></td><td class="note">Calculated score 0–100%</td></tr>
+          <tr><td class="field-name">iktvaAmount</td><td class="field-type">Float</td><td><span class="badge badge-req">REQ</span></td><td class="note">Total Saudi-content amount SAR</td></tr>
+          <tr><td class="field-name">period</td><td class="field-type">String?</td><td><span class="badge badge-opt">OPT</span></td><td class="note">e.g. "Q1 2026", "FY 2025"</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══════════════════════════════════════ -->
+    <!-- ENUMS                                 -->
+    <!-- ══════════════════════════════════════ -->
+    <div class="phase-header">
+      <div class="phase-dot dot-blue">🔷</div>
+      <div>
+        <h2>Enumerations (Enums)</h2>
+        <p>All allowed values for enum-type fields</p>
+      </div>
+    </div>
+
+    <div class="enum-grid">
+      <div class="enum-card">
+        <div class="enum-head">Role</div>
+        <div class="enum-values">
+          <span class="enum-val">ADMIN</span>
+          <span class="enum-val">BUYER</span>
+          <span class="enum-val">SUPPLIER</span>
+          <span class="enum-val">INVESTOR</span>
+        </div>
+      </div>
+      <div class="enum-card">
+        <div class="enum-head">SupplierTier</div>
+        <div class="enum-values">
+          <span class="enum-val">P1_SAUDI</span>
+          <span class="enum-val">P2_GLOBAL</span>
+          <span class="enum-val">EMERGENCY</span>
+        </div>
+      </div>
+      <div class="enum-card">
+        <div class="enum-head">SubStatus</div>
+        <div class="enum-values">
+          <span class="enum-val">ACTIVE</span>
+          <span class="enum-val">CANCELLED</span>
+          <span class="enum-val">EXPIRED</span>
+          <span class="enum-val">PAST_DUE</span>
+        </div>
+      </div>
+      <div class="enum-card">
+        <div class="enum-head">BillingCycle</div>
+        <div class="enum-values">
+          <span class="enum-val">MONTHLY</span>
+          <span class="enum-val">YEARLY</span>
+        </div>
+      </div>
+      <div class="enum-card">
+        <div class="enum-head">PaymentStatus</div>
+        <div class="enum-values">
+          <span class="enum-val">PENDING</span>
+          <span class="enum-val">PAID</span>
+          <span class="enum-val">FAILED</span>
+          <span class="enum-val">REFUNDED</span>
+        </div>
+      </div>
+      <div class="enum-card">
+        <div class="enum-head">RfqStatus</div>
+        <div class="enum-values">
+          <span class="enum-val">OPEN</span>
+          <span class="enum-val">AWARDED</span>
+          <span class="enum-val">CLOSED</span>
+          <span class="enum-val">CANCELLED</span>
+        </div>
+      </div>
+      <div class="enum-card">
+        <div class="enum-head">UrgencyLevel</div>
+        <div class="enum-values">
+          <span class="enum-val">CRITICAL</span>
+          <span class="enum-val">HIGH</span>
+          <span class="enum-val">MEDIUM</span>
+        </div>
+      </div>
+      <div class="enum-card">
+        <div class="enum-head">EmergencyStatus</div>
+        <div class="enum-values">
+          <span class="enum-val">OPEN</span>
+          <span class="enum-val">ASSIGNED</span>
+          <span class="enum-val">IN_PROGRESS</span>
+          <span class="enum-val">RESOLVED</span>
+          <span class="enum-val">CANCELLED</span>
+        </div>
+      </div>
+      <div class="enum-card">
+        <div class="enum-head">ExpertStatus</div>
+        <div class="enum-values">
+          <span class="enum-val">PENDING</span>
+          <span class="enum-val">APPROVED</span>
+          <span class="enum-val">REJECTED</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════ -->
+    <!-- RELATIONS                             -->
+    <!-- ══════════════════════════════════════ -->
+    <div class="phase-header" style="margin-top:40px;">
+      <div class="phase-dot dot-blue">🔗</div>
+      <div>
+        <h2>Relationship Map</h2>
+        <p>How all models connect to each other</p>
+      </div>
+    </div>
+
+    <div class="relations-box">
+      <pre>
+User (1) ────────────────────────── (1) Company
+                                          │
+                          ┌───────────────┼───────────────────┐
+                          │               │                   │
+                    SupplierProfile    Rfq[] (as Buyer)   EmergencyRfq[]
+                          │
+               ┌──────────┴──────────┐
+               │                     │
+    SupplierCertification[]    RfqResponse[]
+                                     │
+                                    Rfq (awarded → Invoice auto-created)
+
+Company ──→ Subscription ──→ SubscriptionPlan
+                │
+               Payment ──→ Invoice
+
+User ──→ Notification[]
+
+ExpertProfile   (standalone — no User link)
+IktvaCalculation ──→ Company
+      </pre>
+    </div>
+
+    <!-- ══════════════════════════════════════ -->
+    <!-- SUMMARY TABLE                         -->
+    <!-- ══════════════════════════════════════ -->
+    <div class="phase-header" style="margin-top:40px;">
+      <div class="phase-dot dot-green">📋</div>
+      <div>
+        <h2>Quick Reference Summary</h2>
+        <p>All 13 models at a glance</p>
+      </div>
+    </div>
+
+    <div class="model-card">
+      <table class="summary-table">
+        <thead><tr><th>#</th><th>Model</th><th>DB Table</th><th>Phase</th><th>Key Purpose</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>User</td><td>users</td><td>Core</td><td>Authentication, role management</td></tr>
+          <tr><td>2</td><td>Company</td><td>companies</td><td>Core</td><td>CR/VAT numbers, city, sector</td></tr>
+          <tr><td>3</td><td>SupplierProfile</td><td>supplier_profiles</td><td>Core</td><td>IKTVA, 6 pillars, Aramco/SABIC flags</td></tr>
+          <tr><td>4</td><td>SupplierCertification</td><td>supplier_certifications</td><td>Core</td><td>ISO / API / SASO certificates</td></tr>
+          <tr><td>5</td><td>SubscriptionPlan</td><td>subscription_plans</td><td>Core</td><td>Pricing tiers with features list</td></tr>
+          <tr><td>6</td><td>Subscription</td><td>subscriptions</td><td>Core</td><td>Active plan per company</td></tr>
+          <tr><td>7</td><td>Payment</td><td>payments</td><td>Core</td><td>Moyasar transactions with VAT</td></tr>
+          <tr><td>8</td><td>Invoice</td><td>invoices</td><td>Core</td><td>ZATCA tax invoices TVH-YEAR-XXXXXX</td></tr>
+          <tr><td>9</td><td>Notification</td><td>notifications</td><td>Core</td><td>In-platform alerts per user</td></tr>
+          <tr><td>10</td><td>Rfq</td><td>rfqs</td><td>RFQ</td><td>Buyer's request — pillar + delivery</td></tr>
+          <tr><td>11</td><td>RfqResponse</td><td>rfq_responses</td><td>RFQ</td><td>Supplier quote — price + lead time</td></tr>
+          <tr><td>12</td><td>EmergencyRfq</td><td>emergency_rfqs</td><td>RFQ</td><td>Urgent requests with urgency level</td></tr>
+          <tr><td>13</td><td>ExpertProfile</td><td>expert_profiles</td><td>Experts</td><td>CV submission, admin review workflow</td></tr>
+          <tr><td>14</td><td>IktvaCalculation</td><td>iktva_calculations</td><td>IKTVA</td><td>Score history per company per period</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div><!-- /body -->
+
+  <!-- Footer -->
+  <div class="doc-footer">
+    <div><strong>TheValveHubs</strong> — Database Schema Reference v1.0</div>
+    <div>Stack: Node.js v24 · Express · Prisma 7 · PostgreSQL · Railway</div>
+    <div>Confidential — Internal Use Only</div>
+  </div>
+
+</div><!-- /page -->
+
+</body>
+</html>

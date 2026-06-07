@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>New Request for Quotation — TheValveHubs</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#F4F7F5;color:#1A2A1A;min-height:100vh;}
+
+/* ── Navbar ── */
+.navbar{background:#fff;border-bottom:2px solid #006C35;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.nav-logo img{height:40px;width:auto;display:block;}
+.nav-links{display:flex;gap:16px;align-items:center;}
+.nav-links a{text-decoration:none;color:#5A6B62;font-size:.9rem;font-weight:500;}
+.nav-links a:hover{color:#006C35;}
+.btn-back{display:inline-flex;align-items:center;gap:6px;background:#F0F5F1;color:#006C35;border:1px solid #C8DDD0;border-radius:8px;padding:8px 16px;font-size:.88rem;font-weight:600;text-decoration:none;cursor:pointer;}
+.btn-back:hover{background:#E0EDE5;}
+
+/* ── Page layout ── */
+.page{max-width:780px;margin:0 auto;padding:40px 20px 80px;}
+.page-header{margin-bottom:32px;}
+.page-header h1{font-size:1.8rem;font-weight:900;color:#1A2A1A;margin-bottom:8px;}
+.page-header p{color:#5A6B62;font-size:.95rem;}
+
+/* ── Steps indicator ── */
+.steps{display:flex;gap:0;margin-bottom:36px;border-radius:12px;overflow:hidden;border:1px solid #C8DDD0;}
+.step{flex:1;padding:14px 12px;text-align:center;font-size:.82rem;font-weight:600;color:#9CAA9C;background:#fff;transition:.2s;border-right:1px solid #C8DDD0;cursor:default;}
+.step:last-child{border-right:none;}
+.step.active{background:#006C35;color:#fff;}
+.step.done{background:#EBF7F0;color:#006C35;}
+.step-num{font-size:1.1rem;font-weight:900;display:block;margin-bottom:2px;}
+
+/* ── Card ── */
+.card{background:#fff;border-radius:16px;border:1px solid #E8F0EB;padding:32px;margin-bottom:24px;}
+.card-title{font-size:1.05rem;font-weight:800;color:#1A2A1A;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid #F0F5F1;}
+
+/* ── Form ── */
+.field{margin-bottom:20px;}
+.field label{display:block;font-size:.88rem;font-weight:700;color:#1A2A1A;margin-bottom:6px;}
+.field label span{color:#C0392B;}
+.field input,.field textarea,.field select{width:100%;padding:11px 14px;border:1.5px solid #C8DDD0;border-radius:10px;font-size:.95rem;color:#1A2A1A;background:#fff;outline:none;transition:.2s;font-family:inherit;}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:#006C35;box-shadow:0 0 0 3px rgba(0,108,53,.1);}
+.field textarea{resize:vertical;min-height:110px;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.field-hint{font-size:.8rem;color:#9CAA9C;margin-top:5px;}
+.char-count{font-size:.78rem;color:#9CAA9C;text-align:right;margin-top:4px;}
+
+/* ── Pillar grid ── */
+.pillar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.pillar-card{border:2px solid #E8F0EB;border-radius:12px;padding:16px 12px;cursor:pointer;text-align:center;transition:.2s;user-select:none;}
+.pillar-card:hover{border-color:#006C35;background:#F8FAF9;}
+.pillar-card.selected{border-color:#006C35;background:#EBF7F0;}
+.pillar-card .p-icon{font-size:1.8rem;margin-bottom:8px;}
+.pillar-card .p-name{font-size:.82rem;font-weight:700;color:#1A2A1A;}
+.pillar-card .p-sub{font-size:.75rem;color:#9CAA9C;margin-top:3px;}
+
+/* ── Review table ── */
+.review-table{width:100%;border-collapse:collapse;}
+.review-table tr:not(:last-child) td{border-bottom:1px solid #F0F5F1;}
+.review-table td{padding:12px 0;vertical-align:top;}
+.review-table td:first-child{font-weight:700;color:#5A6B62;font-size:.88rem;width:140px;}
+.review-table td:last-child{font-size:.93rem;color:#1A2A1A;}
+
+/* ── Buttons ── */
+.btn-row{display:flex;gap:12px;justify-content:flex-end;margin-top:28px;}
+.btn-primary{background:#006C35;color:#fff;border:none;border-radius:10px;padding:13px 28px;font-size:.95rem;font-weight:700;cursor:pointer;transition:.2s;}
+.btn-primary:hover{background:#005229;}
+.btn-primary:disabled{background:#9CAA9C;cursor:not-allowed;}
+.btn-secondary{background:#fff;color:#006C35;border:1.5px solid #006C35;border-radius:10px;padding:13px 24px;font-size:.95rem;font-weight:700;cursor:pointer;transition:.2s;}
+.btn-secondary:hover{background:#F8FAF9;}
+
+/* ── Success ── */
+.success-screen{text-align:center;padding:48px 32px;}
+.success-icon{font-size:3.5rem;margin-bottom:16px;}
+.success-screen h2{font-size:1.6rem;font-weight:900;margin-bottom:8px;color:#006C35;}
+.success-screen p{color:#5A6B62;margin-bottom:8px;}
+.rfq-number{display:inline-block;background:#EBF7F0;border:1px solid #C8DDD0;border-radius:8px;padding:10px 20px;font-size:1rem;font-weight:700;color:#006C35;margin:12px 0 24px;}
+.notif-badge{display:inline-block;background:#FFF4E0;border:1px solid #C8973A;border-radius:8px;padding:8px 16px;font-size:.88rem;color:#8A6520;margin-bottom:24px;}
+.action-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn-green{background:#006C35;color:#fff;border:none;border-radius:10px;padding:12px 22px;font-size:.9rem;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;}
+.btn-outline{background:#fff;color:#006C35;border:1.5px solid #006C35;border-radius:10px;padding:12px 22px;font-size:.9rem;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;}
+
+/* ── Alert ── */
+.alert{padding:12px 16px;border-radius:10px;font-size:.88rem;font-weight:600;margin-bottom:16px;display:none;}
+.alert.error{background:#FEF0F0;border:1px solid #FCBCBC;color:#C0392B;}
+.alert.success{background:#EBF7F0;border:1px solid #A8D5B8;color:#006C35;}
+
+@media(max-width:600px){
+  .field-row{grid-template-columns:1fr;}
+  .pillar-grid{grid-template-columns:repeat(2,1fr);}
+  .page{padding:24px 16px 60px;}
+  .card{padding:20px;}
+  .step{padding:10px 6px;font-size:.75rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <a href="index.html" class="nav-logo"><img src="images/tvh-logo-extracted.jpg" alt="TheValveHubs"/></a>
+  <div class="nav-links">
+    <a href="dashboard.html" class="btn-back">← Dashboard</a>
+  </div>
+</nav>
+
+<div class="page">
+  <div class="page-header">
+    <h1>New Request for Quotation</h1>
+    <p>Fill in your requirements — matching suppliers will be notified automatically.</p>
+  </div>
+
+  <!-- Steps -->
+  <div class="steps">
+    <div class="step active" id="step-ind-1"><span class="step-num">1</span>Category</div>
+    <div class="step" id="step-ind-2"><span class="step-num">2</span>Details</div>
+    <div class="step" id="step-ind-3"><span class="step-num">3</span>Delivery</div>
+    <div class="step" id="step-ind-4"><span class="step-num">4</span>Review</div>
+  </div>
+
+  <div id="alert" class="alert"></div>
+
+  <!-- ── Step 1: Category ── -->
+  <div id="step1">
+    <div class="card">
+      <div class="card-title">Select Service Category</div>
+      <div class="pillar-grid">
+        <div class="pillar-card" onclick="selectPillar(1,this)">
+          <div class="p-icon">🔧</div>
+          <div class="p-name">Valves Supply</div>
+          <div class="p-sub">Gate, Globe, Ball, Check</div>
+        </div>
+        <div class="pillar-card" onclick="selectPillar(2,this)">
+          <div class="p-icon">⚙️</div>
+          <div class="p-name">Spare Parts</div>
+          <div class="p-sub">Seats, Stems, Seals</div>
+        </div>
+        <div class="pillar-card" onclick="selectPillar(3,this)">
+          <div class="p-icon">🏭</div>
+          <div class="p-name">Machining</div>
+          <div class="p-sub">CNC, Fabrication, Welding</div>
+        </div>
+        <div class="pillar-card" onclick="selectPillar(4,this)">
+          <div class="p-icon">🖨️</div>
+          <div class="p-name">3D Printing</div>
+          <div class="p-sub">Rapid prototyping, Parts</div>
+        </div>
+        <div class="pillar-card" onclick="selectPillar(5,this)">
+          <div class="p-icon">🔍</div>
+          <div class="p-name">TPI & Inspection</div>
+          <div class="p-sub">Testing, Certification</div>
+        </div>
+        <div class="pillar-card" onclick="selectPillar(6,this)">
+          <div class="p-icon">📦</div>
+          <div class="p-name">Rental Equipment</div>
+          <div class="p-sub">Temporary valve solutions</div>
+        </div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-primary" onclick="goStep(2)" id="btn-step1">Next — Add Details →</button>
+    </div>
+  </div>
+
+  <!-- ── Step 2: Details ── -->
+  <div id="step2" style="display:none;">
+    <div class="card">
+      <div class="card-title">RFQ Details</div>
+
+      <div class="field">
+        <label>RFQ Title <span>*</span></label>
+        <input type="text" id="f-title" placeholder="e.g. 6-inch Gate Valves API 600 — 50 Units" maxlength="120" oninput="updateChar(this,'char-title',120)"/>
+        <div class="char-count" id="char-title">0 / 120</div>
+      </div>
+
+      <div class="field">
+        <label>Requirement Description <span>*</span></label>
+        <textarea id="f-desc" placeholder="Describe your technical requirements, standards (API, ISO, ANSI), materials, pressure ratings, temperature range, etc." maxlength="2000" oninput="updateChar(this,'char-desc',2000)"></textarea>
+        <div class="char-count" id="char-desc">0 / 2000</div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Quantity</label>
+          <input type="text" id="f-qty" placeholder="e.g. 50"/>
+        </div>
+        <div class="field">
+          <label>Unit</label>
+          <select id="f-unit">
+            <option value="">Select unit</option>
+            <option>Units / Pieces</option>
+            <option>Sets</option>
+            <option>Meters</option>
+            <option>Kg</option>
+            <option>Tons</option>
+            <option>Hours</option>
+            <option>Days</option>
+            <option>Lot</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Technical Specifications / Notes</label>
+        <textarea id="f-specs" placeholder="Tag numbers, P&ID references, datasheet requirements, any additional technical specs..." style="min-height:80px;" maxlength="1000"></textarea>
+        <div class="field-hint">Optional — include tag numbers, P&IDs, standards references</div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="goStep(1)">← Back</button>
+      <button class="btn-primary" onclick="goStep(3)">Next — Delivery →</button>
+    </div>
+  </div>
+
+  <!-- ── Step 3: Delivery ── -->
+  <div id="step3" style="display:none;">
+    <div class="card">
+      <div class="card-title">Delivery & Location</div>
+
+      <div class="field">
+        <label>Required Delivery Date</label>
+        <input type="date" id="f-date" min=""/>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Delivery City</label>
+          <select id="f-city">
+            <option value="">Select city</option>
+            <option>Khobar</option>
+            <option>Dammam</option>
+            <option>Dhahran</option>
+            <option>Jubail</option>
+            <option>Ras Tanura</option>
+            <option>Riyadh</option>
+            <option>Jeddah</option>
+            <option>Yanbu</option>
+            <option>Abqaiq</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Region</label>
+          <select id="f-region">
+            <option value="">Select region</option>
+            <option>Eastern Province</option>
+            <option>Riyadh</option>
+            <option>Makkah</option>
+            <option>Madinah</option>
+            <option>Tabuk</option>
+            <option>Jizan</option>
+            <option>Najran</option>
+            <option>Asir</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field" style="background:#FFF8EC;border:1px solid #C8973A;border-radius:12px;padding:16px;">
+        <div style="font-size:.88rem;color:#8A6520;font-weight:600;">📋 What happens next?</div>
+        <ul style="margin-top:8px;padding-left:18px;color:#8A6520;font-size:.83rem;line-height:1.8;">
+          <li>Your RFQ will be published on TheValveHubs platform</li>
+          <li>All matching verified suppliers will be notified by email & dashboard</li>
+          <li>Suppliers can respond with pricing within their lead time</li>
+          <li>You review all quotes and award to your preferred supplier</li>
+          <li>A VAT invoice (15%) is automatically generated upon award</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="goStep(2)">← Back</button>
+      <button class="btn-primary" onclick="goStep(4)">Review RFQ →</button>
+    </div>
+  </div>
+
+  <!-- ── Step 4: Review ── -->
+  <div id="step4" style="display:none;">
+    <div class="card">
+      <div class="card-title">Review & Submit RFQ</div>
+      <table class="review-table" id="review-table">
+        <!-- filled by JS -->
+      </table>
+    </div>
+
+    <div class="card" style="background:#EBF7F0;border-color:#A8D5B8;">
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <div style="font-size:1.5rem;">✅</div>
+        <div>
+          <div style="font-weight:700;color:#006C35;margin-bottom:4px;">Ready to submit</div>
+          <div style="font-size:.88rem;color:#5A6B62;">All matching suppliers will be notified instantly. You can track responses in your Dashboard.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="goStep(3)">← Edit</button>
+      <button class="btn-primary" id="btn-submit" onclick="submitRfq()">🚀 Submit RFQ to Suppliers</button>
+    </div>
+  </div>
+
+  <!-- ── Success ── -->
+  <div id="step-success" style="display:none;">
+    <div class="card">
+      <div class="success-screen">
+        <div class="success-icon">🎉</div>
+        <h2>RFQ Submitted Successfully!</h2>
+        <p>Your request has been published and suppliers have been notified.</p>
+        <div class="rfq-number" id="rfq-id-display">RFQ #—</div>
+        <div class="notif-badge" id="notif-text">⚡ Matching suppliers notified</div>
+        <p style="margin-bottom:24px;">Suppliers will respond with pricing. You'll be notified by email when quotes arrive.</p>
+        <div class="action-btns">
+          <a href="rfqs.html" class="btn-green">📋 View My RFQs</a>
+          <a href="dashboard.html" class="btn-outline">← Dashboard</a>
+          <button class="btn-outline" onclick="printRfq()" style="border-color:#C8973A;color:#8A6520;">🖨️ Print RFQ</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<script src="js/tvh-api.js"></script>
+<script>
+const API = 'https://thevalvehubs-backend-production.up.railway.app';
+let currentStep = 1;
+let selectedPillar = 0;
+let submittedRfq = null;
+
+// ── Auth guard ──
+if (!TVH_API.isLoggedIn()) location.href = 'index.html';
+
+// ── Set min date to tomorrow ──
+document.getElementById('f-date').min = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+
+// ── Pillar select ──
+function selectPillar(n, el) {
+  selectedPillar = n;
+  document.querySelectorAll('.pillar-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+// ── Char count ──
+function updateChar(el, id, max) {
+  document.getElementById(id).textContent = el.value.length + ' / ' + max;
+}
+
+// ── Alert ──
+function showAlert(msg, type = 'error') {
+  const el = document.getElementById('alert');
+  el.textContent = msg;
+  el.className = 'alert ' + type;
+  el.style.display = 'block';
+  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  setTimeout(() => el.style.display = 'none', 6000);
+}
+
+// ── Validate step ──
+function validateStep(n) {
+  if (n === 1) {
+    if (!selectedPillar) { showAlert('Please select a service category.'); return false; }
+  }
+  if (n === 2) {
+    if (!document.getElementById('f-title').value.trim()) { showAlert('Please enter an RFQ title.'); return false; }
+    if (document.getElementById('f-title').value.trim().length < 5) { showAlert('Title must be at least 5 characters.'); return false; }
+    if (!document.getElementById('f-desc').value.trim()) { showAlert('Please describe your requirement.'); return false; }
+    if (document.getElementById('f-desc').value.trim().length < 10) { showAlert('Description must be at least 10 characters.'); return false; }
+  }
+  return true;
+}
+
+// ── Navigate steps ──
+function goStep(to) {
+  if (to > currentStep && !validateStep(currentStep)) return;
+
+  if (to === 4) buildReview();
+
+  document.getElementById('step' + currentStep).style.display = 'none';
+  document.getElementById('step' + to).style.display = 'block';
+
+  // Update indicators
+  for (let i = 1; i <= 4; i++) {
+    const ind = document.getElementById('step-ind-' + i);
+    ind.className = 'step' + (i === to ? ' active' : i < to ? ' done' : '');
+  }
+
+  currentStep = to;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── Build review table ──
+const PILLAR_NAMES = {
+  1:'Valves Supply', 2:'Spare Parts', 3:'Machining & Fabrication',
+  4:'3D Printing', 5:'TPI & Inspection', 6:'Rental Equipment'
+};
+
+function buildReview() {
+  const rows = [
+    ['Category',    PILLAR_NAMES[selectedPillar]],
+    ['Title',       document.getElementById('f-title').value],
+    ['Description', document.getElementById('f-desc').value],
+    ['Quantity',    [document.getElementById('f-qty').value, document.getElementById('f-unit').value].filter(Boolean).join(' ') || '—'],
+    ['Specifications', document.getElementById('f-specs').value || '—'],
+    ['Delivery Date', document.getElementById('f-date').value || '—'],
+    ['City',        document.getElementById('f-city').value || '—'],
+    ['Region',      document.getElementById('f-region').value || '—'],
+  ];
+  document.getElementById('review-table').innerHTML = rows.map(([k,v]) =>
+    `<tr><td>${k}</td><td>${v.replace(/\n/g,'<br>')}</td></tr>`
+  ).join('');
+}
+
+// ── Submit ──
+async function submitRfq() {
+  const btn = document.getElementById('btn-submit');
+  btn.disabled = true;
+  btn.textContent = 'Submitting…';
+
+  const token = localStorage.getItem('tvh_token');
+
+  const body = {
+    title:        document.getElementById('f-title').value.trim(),
+    description:  document.getElementById('f-desc').value.trim(),
+    pillar:       selectedPillar,
+    quantity:     document.getElementById('f-qty').value.trim() || undefined,
+    unit:         document.getElementById('f-unit').value || undefined,
+    specs:        document.getElementById('f-specs').value.trim() || undefined,
+    deliveryDate: document.getElementById('f-date').value || undefined,
+    deliveryCity: document.getElementById('f-city').value || undefined,
+    region:       document.getElementById('f-region').value || undefined,
+  };
+
+  try {
+    const res  = await fetch(`${API}/api/rfqs`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify(body),
+    });
+    const text = await res.text();
+    let json;
+    try { json = JSON.parse(text); } catch(e) {
+      throw new Error('Server error — please try again');
+    }
+    if (!res.ok) throw new Error(json.error || 'Failed to submit RFQ');
+
+    submittedRfq = json.data;
+
+    // Show success
+    document.getElementById('step4').style.display = 'none';
+    document.getElementById('step-success').style.display = 'block';
+    document.getElementById('rfq-id-display').textContent = 'RFQ ID: ' + submittedRfq.id.substring(0,8).toUpperCase();
+    document.getElementById('notif-text').textContent = '⚡ ' + (json.notified || 'Suppliers notified');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  } catch(e) {
+    showAlert(e.message);
+    btn.disabled = false;
+    btn.textContent = '🚀 Submit RFQ to Suppliers';
+  }
+}
+
+// ── Print RFQ (open document page) ──
+function printRfq() {
+  if (submittedRfq) {
+    window.open('rfq-document.html?id=' + submittedRfq.id, '_blank');
+  }
+}
+</script>
+</body>
+</html>

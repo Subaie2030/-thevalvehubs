@@ -176,7 +176,7 @@
       </li>
       <li class="nav-item"><a href="#" class="nav-link">&#128736; Tools <span class="arrow">&#9660;</span></a>
         <div class="dropdown"><div class="dropdown-group"><div class="dropdown-label">Free Tools</div>
-          <a href="iktva-calculator.html"><span class="d-icon">&#127954;</span> IKTVA Score Calculator</a>
+          
           <a href="valve-wizard.html"><span class="d-icon">&#128203;</span> Valve Specification Wizard</a>
           <a href="shutdown-calendar.html"><span class="d-icon">&#128197;</span> Shutdown Calendar</a>
         </div><hr/><a href="pricing.html"><span class="d-icon">&#128176;</span> Pricing Plans</a></div>
@@ -195,7 +195,7 @@
   <div class="mobile-nav-item"><a href="saudi-market.html" class="mobile-nav-link">&#127470;&#127474; Saudi Market</a></div>
   <div class="mobile-nav-item"><a href="experts.html" class="mobile-nav-link" style="color:#006C35;font-weight:700;">&#128119; Experts &amp; Technicians</a></div>
   <div class="mobile-nav-item"><a href="emergency.html" class="mobile-nav-link" style="color:#C0392B">&#128680; Emergency 24/7</a></div>
-  <div class="mobile-nav-item"><a href="iktva-calculator.html" class="mobile-nav-link">&#127954; IKTVA Calculator</a></div>
+  <div class="mobile-nav-item"></div>
   <div class="mobile-nav-item"><a href="pricing.html" class="mobile-nav-link">&#128176; Pricing</a></div>
   <div class="mobile-nav-item"><a href="projects.html" class="mobile-nav-link" style="color:#1A3A6B;font-weight:700;">&#128203; Watch Projects</a></div><div class="mobile-nav-item"><a href="intelligence.html" class="mobile-nav-link">&#128240; TVH Intelligence</a></div><div class="mobile-nav-item"><a href="valve-academy.html" class="mobile-nav-link" style="color:#C8973A;font-weight:700;">&#127891; Valve Academy</a></div><div class="mobile-nav-item"><a href="invest-saudi.html" class="mobile-nav-link">&#127868; Invest in Saudi</a></div>
   <div class="mobile-cta"><a href="index.html#join" class="btn btn-green">Join Free</a><a href="emergency.html" class="btn btn-red">&#128680; Emergency</a></div>
@@ -698,7 +698,7 @@
           <p>Thank you for joining TheValveHubs Expert Network. Our engineering team will review and verify your profile within 48 hours. Once approved, your profile will be visible to Saudi Arabia's leading industrial operators, EPC contractors and maintenance companies.</p>
           <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
             <a href="index.html" class="btn btn-outline-green">Back to Home</a>
-            <a href="iktva-calculator.html" class="btn btn-green">Try IKTVA Calculator &#8594;</a>
+            
           </div>
         </div>
       </div>
@@ -737,7 +737,7 @@
         <li><a href="saudi-market.html#rental">Rental Fleet</a></li>
       </ul></div>
       <div class="footer-col"><h5>Tools &amp; Resources</h5><ul>
-        <li><a href="iktva-calculator.html">IKTVA Calculator</a></li>
+        
         <li><a href="valve-wizard.html">Valve Spec Wizard</a></li>
         <li><a href="shutdown-calendar.html">Shutdown Calendar</a></li>
         <li><a href="pricing.html">Pricing Plans</a></li>
@@ -849,15 +849,67 @@ function handleCVUpload(input) {
   }
 }
 
-// CV form submit
-function submitCV(e) {
+// CV form submit — sends to API
+async function submitCV(e) {
   e.preventDefault();
-  var btn = e.target.querySelector('button[type="submit"]');
+  var form = e.target;
+  var btn  = form.querySelector('button[type="submit"]');
+  var orig = btn.textContent;
   btn.textContent = 'Submitting profile…'; btn.disabled = true;
-  setTimeout(function() {
+
+  try {
+    // collect fields
+    var inputs = form.querySelectorAll('input[type="text"],input[type="email"],input[type="tel"],input[type="url"],select,textarea');
+    var f = {};
+    // map by label text → value
+    form.querySelectorAll('.form-group').forEach(function(g) {
+      var lbl = g.querySelector('label');
+      var inp = g.querySelector('input:not([type="checkbox"]):not([type="file"]),select,textarea');
+      if (!lbl || !inp) return;
+      var key = lbl.textContent.replace(/\s*\*/g,'').trim();
+      f[key] = inp.value;
+    });
+
+    // collect checked skills
+    var skills = [];
+    form.querySelectorAll('.skill-check input:checked').forEach(function(cb) {
+      skills.push(cb.parentElement.textContent.trim());
+    });
+
+    var payload = {
+      fullName:       f['Full Name'] || '',
+      jobTitle:       f['Current Job Title'] || '',
+      email:          f['Email Address'] || '',
+      phone:          f['Phone / WhatsApp'] || '',
+      nationality:    f['Nationality'] || '',
+      location:       f['Current Location'] || '',
+      yearsExp:       f['Years of Experience'] || '',
+      availability:   f['Availability'] || '',
+      iqamaStatus:    f['Saudi Iqama Status'] || '',
+      linkedIn:       f['LinkedIn Profile URL'] || '',
+      specialisation: f['Primary Specialisation'] || '',
+      skills:         skills,
+      summary:        f['Professional Summary'] || '',
+      certifications: f['Key Certifications'] || '',
+      oemTraining:    f['OEM Training / Authorisations'] || '',
+    };
+
+    var res  = await fetch('https://thevalvehubs-backend-production.up.railway.app/api/experts', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(payload),
+    });
+    var data = await res.json();
+
+    if (!res.ok) throw new Error(data.error || 'Submission failed');
+
     document.getElementById('cvForm').style.display = 'none';
     document.getElementById('cvSuccess').style.display = 'block';
-  }, 1000);
+
+  } catch(err) {
+    alert('Submission error: ' + err.message + '\nPlease try again or email us directly.');
+    btn.textContent = orig; btn.disabled = false;
+  }
 }
 
 // Requirement form submit
@@ -884,6 +936,7 @@ function closeContactModal() {
 <script src="js/navbar-auth.js"></script>
 </body>
 </html>
+
 
 
 

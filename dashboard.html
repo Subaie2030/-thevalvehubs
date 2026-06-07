@@ -111,11 +111,11 @@ if (!TVH_API.isLoggedIn()) {
       <div class="sidebar-label">Overview</div>
       <a href="#overview"   class="sidebar-link active"><span class="s-icon">&#128200;</span> Dashboard</a>
       <a href="#profile"    class="sidebar-link"><span class="s-icon">&#127981;</span> My Profile</a>
-      <a href="#iktva"      class="sidebar-link"><span class="s-icon">&#127954;</span> IKTVA Score</a>
     </div>
     <div class="sidebar-section">
       <div class="sidebar-label">Activity</div>
       <a href="#rfqs"       class="sidebar-link"><span class="s-icon">&#128203;</span> RFQs <span id="rfq-count-badge" style="background:#C8973A;color:#fff;font-size:.6rem;padding:1px 6px;border-radius:10px;margin-left:4px;display:none;"></span></a>
+      <a href="#experts"    class="sidebar-link"><span class="s-icon">&#128736;</span> Valve Experts <span id="expert-count-badge" style="background:#C0392B;color:#fff;font-size:.6rem;padding:1px 6px;border-radius:10px;margin-left:4px;display:none;"></span></a>
       <a href="#emergency"  class="sidebar-link"><span class="s-icon">&#128680;</span> Emergency</a>
       <a href="#invoices"   class="sidebar-link"><span class="s-icon">&#128176;</span> Invoices</a>
     </div>
@@ -147,16 +147,16 @@ if (!TVH_API.isLoggedIn()) {
         </div>
         <div style="display:flex;gap:10px;">
           <a href="emergency.html" style="background:#C0392B;color:#fff;padding:9px 16px;border-radius:8px;font-size:.82rem;font-weight:700;text-decoration:none;">&#128680; Emergency RFQ</a>
-          <a href="iktva-calculator.html" style="background:#006C35;color:#fff;padding:9px 16px;border-radius:8px;font-size:.82rem;font-weight:700;text-decoration:none;">&#127954; IKTVA Calculator</a>
+          
         </div>
       </div>
 
       <!-- â”€â”€ STAT CARDS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
       <div class="stat-grid" id="overview">
-        <div class="stat-card stat-green">
-          <div class="stat-num" id="stat-iktva">â€”</div>
-          <div class="stat-label">IKTVA Score</div>
-          <div class="stat-sub" id="stat-iktva-sub">Not calculated yet</div>
+        <div class=”stat-card stat-green”>
+          <div class=”stat-num” id=”stat-profile”>—</div>
+          <div class=”stat-label”>Profile Score</div>
+          <div class=”stat-sub” id=”stat-profile-sub”>Complete your profile</div>
         </div>
         <div class="stat-card stat-gold">
           <div class="stat-num" id="stat-rfqs">0</div>
@@ -211,23 +211,6 @@ if (!TVH_API.isLoggedIn()) {
         <a href="supplier-profile.html" style="display:inline-block;margin-top:14px;color:#006C35;font-size:.82rem;font-weight:700;text-decoration:none;">Edit Service Pillars â†’</a>
       </div>
 
-      <!-- â”€â”€ IKTVA WIDGET â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
-      <div class="dash-card" id="iktva">
-        <h3>&#127954; IKTVA Score</h3>
-        <div class="iktva-widget">
-          <div class="iktva-circle" id="iktva-circle">â€”%</div>
-          <div class="iktva-info">
-            <div id="iktva-rating" style="font-weight:800;font-size:.9rem;"></div>
-            <div style="font-size:.75rem;color:#7A9A7A;margin-top:2px;">Aramco Min: 40% | Target: 70%</div>
-            <div class="iktva-bar-wrap"><div class="iktva-bar-fill" id="iktva-bar" style="width:0%"></div></div>
-            <div id="iktva-history-mini" style="font-size:.75rem;color:#5A6B62;margin-top:4px;"></div>
-            <div style="margin-top:10px;display:flex;gap:8px;">
-              <a href="iktva-calculator.html" style="background:#006C35;color:#fff;padding:6px 12px;border-radius:6px;font-size:.75rem;font-weight:700;text-decoration:none;">Calculate Now</a>
-              <a href="iktva-calculator.html" id="iktva-history-btn" style="background:#EBF7F0;color:#006C35;padding:6px 12px;border-radius:6px;font-size:.75rem;font-weight:700;text-decoration:none;display:none;">View History</a>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <!-- â”€â”€ OPEN RFQs â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
       <div class="dash-card" id="rfqs">
@@ -238,13 +221,26 @@ if (!TVH_API.isLoggedIn()) {
           </div>
         </div>
         <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
-          <a href="#" onclick="submitRfq()" style="background:#1A2A4A;color:#fff;padding:8px 16px;border-radius:8px;font-size:.8rem;font-weight:700;text-decoration:none;">+ Submit New RFQ</a>
+          <a href="rfq-new.html" style="background:#006C35;color:#fff;padding:8px 16px;border-radius:8px;font-size:.8rem;font-weight:700;text-decoration:none;">+ New RFQ</a>
+          <a href="rfqs.html" style="background:#1A2A4A;color:#fff;padding:8px 16px;border-radius:8px;font-size:.8rem;font-weight:700;text-decoration:none;">&#128203; RFQ Centre</a>
           <a href="emergency.html" style="background:#C0392B;color:#fff;padding:8px 16px;border-radius:8px;font-size:.8rem;font-weight:700;text-decoration:none;">&#128680; Emergency RFQ</a>
         </div>
       </div>
 
+      <!-- â”€â”€ VALVE EXPERTS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+      <div class=”dash-card” id=”experts”>
+        <h3>&#128736; Valve Expert Network <span class=”badge” id=”experts-badge”>Loading...</span></h3>
+        <div id=”expert-list”>
+          <div style=”text-align:center;padding:24px;color:#7A9A7A;font-size:.85rem;”><div class=”spinner”></div>Loading experts...</div>
+        </div>
+        <div style=”margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;”>
+          <a href=”experts.html” style=”background:#163660;color:#fff;padding:8px 16px;border-radius:8px;font-size:.8rem;font-weight:700;text-decoration:none;”>&#128736; Find an Expert</a>
+          <a href=”experts.html#join” style=”background:#1A2A1A;color:#fff;padding:8px 16px;border-radius:8px;font-size:.8rem;font-weight:700;text-decoration:none;”>+ Join Expert Network</a>
+        </div>
+      </div>
+
       <!-- â”€â”€ INVOICES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
-      <div class="dash-card" id="invoices">
+      <div class=”dash-card” id=”invoices”>
         <h3>&#128176; Recent Invoices</h3>
         <div id="invoice-list">
           <div style="text-align:center;padding:20px;color:#7A9A7A;font-size:.85rem;">Loading invoices...</div>
@@ -288,7 +284,6 @@ async function loadDashboard() {
       { label: 'VAT Number added',      done: !!user.company?.vatNumber },
       { label: 'City & Region added',   done: !!user.company?.city },
       { label: 'Service pillar set',    done: isSupplier && !!user.company?.supplierProfile },
-      { label: 'IKTVA score calculated',done: isSupplier && !!user.company?.supplierProfile?.iktvaScore },
     ];
     const doneCount = steps.filter(s => s.done).length;
     const pct = Math.round((doneCount / steps.length) * 100);
@@ -312,27 +307,6 @@ async function loadDashboard() {
       <div><strong>Role:</strong> ${user.role}</div>
       <div><strong>Verified:</strong> ${user.isVerified ? 'âœ… Yes' : 'â³ Pending'}</div>
     ` : '<div style="color:#C0392B">Company info not found.</div>';
-
-    // â”€â”€ IKTVA Score â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-    const iktvaScore = user.company?.supplierProfile?.iktvaScore;
-    if (iktvaScore != null) {
-      document.getElementById('iktva-circle').textContent = iktvaScore + '%';
-      document.getElementById('iktva-circle').style.background =
-        `conic-gradient(#006C35 ${iktvaScore}%, #EBF0E8 0%)`;
-      document.getElementById('iktva-bar').style.width = Math.min(iktvaScore, 100) + '%';
-      document.getElementById('stat-iktva').textContent = iktvaScore + '%';
-      const rating = iktvaScore >= 60 ? 'âœ… Excellent â€” Aramco Preferred'
-                   : iktvaScore >= 40 ? 'ðŸŸ¡ Good â€” IKTVA Compliant'
-                   : iktvaScore >= 20 ? 'ðŸ”¶ Developing'
-                   : 'âŒ Low â€” Below Threshold';
-      document.getElementById('iktva-rating').textContent = rating;
-      document.getElementById('stat-iktva-sub').textContent =
-        iktvaScore >= 40 ? 'Aramco qualified âœ“' : 'Below Aramco minimum (40%)';
-      document.getElementById('iktva-history-btn').style.display = 'inline-block';
-    } else {
-      document.getElementById('iktva-rating').textContent = 'Not calculated yet';
-      document.getElementById('stat-iktva').textContent = 'â€”';
-    }
 
     // â”€â”€ Service Pillars â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     if (isSupplier && user.company?.supplierProfile) {
@@ -382,63 +356,143 @@ async function loadDashboard() {
         </div>`;
     }
 
-    // â”€â”€ Open RFQs â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // â”€â”€ RFQs (role-aware) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    const PILLAR_NAMES = {1:’Valves’,2:’Parts’,3:’Machining’,4:’3D Print’,5:’TPI’,6:’Rental’};
     try {
-      const { data: rfqs, pagination } = await API.rfqs.list({ status: 'OPEN', limit: 5 });
-      document.getElementById('rfqs-badge').textContent = pagination.total + ' open';
-      document.getElementById('stat-rfqs').textContent = pagination.total;
-      document.getElementById('rfq-count-badge').textContent = pagination.total;
-      if (pagination.total > 0) document.getElementById('rfq-count-badge').style.display = 'inline';
+      let rfqItems = [];
+      let totalCount = 0;
 
-      if (rfqs.length === 0) {
-        document.getElementById('rfq-list').innerHTML = '<div style="text-align:center;padding:20px;color:#7A9A7A;font-size:.85rem;">No open RFQs at the moment.</div>';
+      if (isSupplier) {
+        // المورد يرى صندوق الوارد المطابق له
+        const { data } = await API.rfqs.inbox({ limit: 5 });
+        rfqItems   = data || [];
+        totalCount = rfqItems.length;
+        document.getElementById(‘rfqs-badge’).textContent = totalCount + ‘ for you’;
       } else {
-        document.getElementById('rfq-list').innerHTML = `
-          <table class="rfq-table">
+        // المشتري يرى طلباته هو
+        const { data } = await API.rfqs.my();
+        rfqItems   = (data || []).slice(0, 5);
+        totalCount = data?.length || 0;
+        document.getElementById(‘rfqs-badge’).textContent = totalCount + ‘ total’;
+      }
+
+      document.getElementById(‘stat-rfqs’).textContent = totalCount;
+      document.getElementById(‘rfq-count-badge’).textContent = totalCount;
+      if (totalCount > 0) document.getElementById(‘rfq-count-badge’).style.display = ‘inline’;
+
+      if (rfqItems.length === 0) {
+        document.getElementById(‘rfq-list’).innerHTML =
+          isSupplier
+            ? ‘<div style=”text-align:center;padding:20px;color:#7A9A7A;font-size:.85rem;”>No matching RFQs right now. Make sure your service pillars are set in your <a href=”complete-profile.html” style=”color:#006C35;”>profile</a>.</div>’
+            : ‘<div style=”text-align:center;padding:20px;color:#7A9A7A;font-size:.85rem;”>No RFQs yet. <a href=”rfq-new.html” style=”color:#006C35;font-weight:700;”>Post your first RFQ â†’</a></div>’;
+      } else {
+        document.getElementById(‘rfq-list’).innerHTML = `
+          <table class=”rfq-table”>
             <thead><tr>
-              <th>Title</th><th>Pillar</th><th>Region</th><th>Responses</th><th>Status</th><th></th>
+              <th>Title</th><th>Category</th><th>${isSupplier ? ‘Buyer’ : ‘Region’}</th><th>Quotes</th><th>Status</th><th></th>
             </tr></thead>
             <tbody>
-              ${rfqs.map(r => `
+              ${rfqItems.map(r => `
                 <tr>
-                  <td style="font-weight:600;">${r.title}</td>
-                  <td>Pillar ${r.pillar}</td>
-                  <td>${r.region || r.buyerCompany?.city || 'â€”'}</td>
-                  <td>${r._count?.responses || 0}</td>
-                  <td><span class="rfq-badge rfq-${r.status.toLowerCase()}">${r.status}</span></td>
-                  <td><a href="#" style="color:#006C35;font-size:.78rem;font-weight:700;" onclick="viewRfq('${r.id}')">View â†’</a></td>
-                </tr>`).join('')}
+                  <td style=”font-weight:600;”>${r.title}</td>
+                  <td>${PILLAR_NAMES[r.pillar] || ‘Pillar ‘ + r.pillar}</td>
+                  <td>${isSupplier ? (r.buyerCompany?.nameEn || ‘â€”’) : (r.region || r.buyerCompany?.city || ‘â€”’)}</td>
+                  <td>${r._count?.responses ?? (r.responses?.length ?? 0)}</td>
+                  <td><span class=”rfq-badge rfq-${r.status.toLowerCase()}”>${r.status}</span></td>
+                  <td><a href=”rfq-detail.html?id=${r.id}” style=”color:#006C35;font-size:.78rem;font-weight:700;”>View â†’</a></td>
+                </tr>`).join(‘’)}
             </tbody>
           </table>`;
       }
     } catch(e) {
-      document.getElementById('rfq-list').innerHTML = '<div style="color:#C0392B;font-size:.82rem;">Could not load RFQs. Is the backend running?</div>';
+      document.getElementById(‘rfq-list’).innerHTML = ‘<div style=”color:#C0392B;font-size:.82rem;”>Could not load RFQs.</div>’;
+    }
+
+    // â”€â”€ Valve Experts â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    try {
+      const token    = API.getToken();
+      const isAdmin  = user.role === 'ADMIN';
+      // Admin sees PENDING, others see APPROVED
+      const expUrl   = isAdmin
+        ? 'https://thevalvehubs-backend-production.up.railway.app/api/experts?status=PENDING'
+        : 'https://thevalvehubs-backend-production.up.railway.app/api/experts?status=APPROVED';
+      const expRes   = await fetch(expUrl, { headers: { Authorization: `Bearer ${token}` } });
+      const expData  = expRes.ok ? await expRes.json() : { data: [] };
+      const experts  = expData.data || [];
+
+      document.getElementById('experts-badge').textContent =
+        isAdmin ? (experts.length + ' pending review') : (experts.length + ' experts');
+      if (isAdmin && experts.length > 0) {
+        document.getElementById('expert-count-badge').textContent = experts.length;
+        document.getElementById('expert-count-badge').style.display = 'inline';
+      }
+
+      if (experts.length === 0) {
+        document.getElementById('expert-list').innerHTML = isAdmin
+          ? '<div style=”color:#7A9A7A;font-size:.85rem;padding:12px 0;”>No pending expert profiles to review.</div>'
+          : '<div style=”color:#7A9A7A;font-size:.85rem;padding:12px 0;”>No approved experts yet. <a href=”experts.html” style=”color:#006C35;font-weight:700;”>Browse the Expert Network â†'</a></div>';
+      } else {
+        const showReview = isAdmin;
+        document.getElementById('expert-list').innerHTML = `
+          <table class=”rfq-table”>
+            <thead><tr>
+              <th>Name</th><th>Specialisation</th><th>Location</th><th>Experience</th><th>Availability</th>
+              ${showReview ? '<th>Actions</th>' : '<th>Status</th>'}
+            </tr></thead>
+            <tbody>
+              ${experts.slice(0,8).map(ex => `
+                <tr>
+                  <td style=”font-weight:700;”>${ex.fullName}</td>
+                  <td style=”font-size:.8rem;”>${ex.specialisation}</td>
+                  <td>${ex.location}</td>
+                  <td>${ex.yearsExp}</td>
+                  <td style=”font-size:.78rem;”>${ex.availability}</td>
+                  ${showReview ? `
+                  <td>
+                    <button onclick=”reviewExpert('${ex.id}','APPROVED')” style=”background:#006C35;color:#fff;border:none;padding:4px 10px;border-radius:6px;font-size:.75rem;cursor:pointer;margin-right:4px;”>âœ” Approve</button>
+                    <button onclick=”reviewExpert('${ex.id}','REJECTED')” style=”background:#C0392B;color:#fff;border:none;padding:4px 10px;border-radius:6px;font-size:.75rem;cursor:pointer;”>âœ— Reject</button>
+                  </td>` : `
+                  <td><span class=”rfq-badge rfq-open”>${ex.status}</span></td>`}
+                </tr>`).join('')}
+            </tbody>
+          </table>
+          ${experts.length > 8 ? `<div style=”font-size:.8rem;color:#9CAA9C;margin-top:8px;”>Showing 8 of ${experts.length}. <a href=”experts.html” style=”color:#006C35;”>View all â†'</a></div>` : ''}`;
+      }
+    } catch(e) {
+      document.getElementById('expert-list').innerHTML = '<div style=”color:#7A9A7A;font-size:.85rem;”>Could not load experts.</div>';
     }
 
     // â”€â”€ Invoices â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     try {
-      const { data: invoices } = await API.subscriptions.invoices();
+      const token = API.getToken();
+      const invRes  = await fetch('https://thevalvehubs-backend-production.up.railway.app/api/invoices/my', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const invData = invRes.ok ? await invRes.json() : { data: [] };
+      const invoices = invData.data || [];
+
       if (invoices.length === 0) {
-        document.getElementById('invoice-list').innerHTML = '<div style="color:#7A9A7A;font-size:.85rem;padding:12px 0;">No invoices yet. Upgrade your plan to generate your first invoice.</div>';
+        document.getElementById('invoice-list').innerHTML =
+          '<div style=”color:#7A9A7A;font-size:.85rem;padding:12px 0;”>No invoices yet. Invoices are generated automatically when an RFQ is awarded.</div>';
       } else {
         document.getElementById('invoice-list').innerHTML = `
-          <table class="rfq-table">
-            <thead><tr><th>Invoice #</th><th>Date</th><th>Subtotal</th><th>VAT 15%</th><th>Total</th><th>Status</th></tr></thead>
+          <table class=”rfq-table”>
+            <thead><tr><th>Invoice #</th><th>Date</th><th>Subtotal</th><th>VAT 15%</th><th>Total</th><th></th></tr></thead>
             <tbody>
               ${invoices.map(inv => `
                 <tr>
-                  <td style="font-weight:700;color:#006C35;">${inv.invoiceNumber}</td>
+                  <td style=”font-weight:700;color:#006C35;”>${inv.invoiceNumber}</td>
                   <td>${new Date(inv.issueDate).toLocaleDateString()}</td>
-                  <td>${inv.subtotal.toLocaleString()} SAR</td>
-                  <td>${inv.vatAmount.toLocaleString()} SAR</td>
-                  <td style="font-weight:700;">${inv.total.toLocaleString()} SAR</td>
-                  <td><span class="rfq-badge ${inv.payment?.status==='PAID'?'rfq-open':'rfq-closed'}">${inv.payment?.status||'â€”'}</span></td>
+                  <td>${Number(inv.subtotal).toLocaleString()} SAR</td>
+                  <td>${Number(inv.vatAmount).toLocaleString()} SAR</td>
+                  <td style=”font-weight:700;”>${Number(inv.total).toLocaleString()} SAR</td>
+                  <td><a href=”rfq-document.html?type=invoice&invId=${inv.id}” style=”color:#006C35;font-size:.78rem;font-weight:700;”>Print â†'</a></td>
                 </tr>`).join('')}
             </tbody>
           </table>`;
       }
     } catch(e) {
-      document.getElementById('invoice-list').innerHTML = '<div style="color:#7A9A7A;font-size:.85rem;">No invoices yet.</div>';
+      document.getElementById('invoice-list').innerHTML = '<div style=”color:#7A9A7A;font-size:.85rem;”>No invoices yet.</div>';
     }
 
     // Ø¥Ø¸Ù‡Ø§Ø± Ø§Ù„Ù…Ø­ØªÙˆÙ‰ ÙˆØ¥Ø®ÙØ§Ø¡ Ø§Ù„Ù€ Loading
@@ -459,11 +513,26 @@ async function loadDashboard() {
 }
 
 function viewRfq(id) {
-  alert('RFQ ID: ' + id + '\n\nRFQ detail page coming soon.');
+  window.location.href = 'rfq-detail.html?id=' + id;
 }
 
-function submitRfq() {
-  alert('RFQ submission form coming soon.\nFor now, use Emergency RFQ for urgent needs.');
+async function reviewExpert(id, status) {
+  const label = status === 'APPROVED' ? 'approve' : 'reject';
+  if (!confirm('Are you sure you want to ' + label + ' this expert profile?')) return;
+  try {
+    const token = TVH_API.getToken();
+    const res   = await fetch('https://thevalvehubs-backend-production.up.railway.app/api/experts/' + id + '/review', {
+      method:  'PATCH',
+      headers: { 'Content-Type':'application/json', Authorization: 'Bearer ' + token },
+      body:    JSON.stringify({ status }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed');
+    // Reload dashboard section
+    loadDashboard();
+  } catch(e) {
+    alert('Error: ' + e.message);
+  }
 }
 
 // ØªØ­Ù…ÙŠÙ„ Dashboard Ø¹Ù†Ø¯ ÙØªØ­ Ø§Ù„ØµÙØ­Ø©
@@ -475,4 +544,5 @@ if(hb)hb.addEventListener('click',function(){var o=mn.classList.toggle('open');h
 </script>
 </body>
 </html>
+
 

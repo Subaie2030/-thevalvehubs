@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Document — TheValveHubs</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#F4F7F5;color:#1A2A1A;}
+
+/* ── Screen toolbar ── */
+.toolbar{background:#1A2A1A;color:#fff;padding:12px 32px;display:flex;align-items:center;gap:12px;}
+.toolbar-title{font-weight:700;font-size:.9rem;flex:1;}
+.btn-print{background:#006C35;color:#fff;border:none;border-radius:8px;padding:9px 20px;font-size:.88rem;font-weight:700;cursor:pointer;}
+.btn-print:hover{background:#005229;}
+.btn-back{background:rgba(255,255,255,.1);color:#fff;border:none;border-radius:8px;padding:9px 16px;font-size:.85rem;cursor:pointer;text-decoration:none;display:inline-block;}
+.doc-type-badge{background:rgba(255,255,255,.15);border-radius:6px;padding:4px 12px;font-size:.78rem;font-weight:700;letter-spacing:.06em;}
+
+/* ── Document wrapper ── */
+.doc-wrapper{max-width:820px;margin:32px auto;padding:0 20px 60px;}
+
+/* ── Document ── */
+.document{background:#fff;border-radius:4px;box-shadow:0 2px 24px rgba(0,0,0,.12);overflow:hidden;}
+
+/* ── Header ── */
+.doc-header{background:#006C35;padding:36px 48px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:start;}
+.doc-logo{color:#fff;}
+.doc-logo-name{font-size:1.6rem;font-weight:900;letter-spacing:-.02em;}
+.doc-logo-tag{font-size:.75rem;color:rgba(255,255,255,.7);margin-top:3px;letter-spacing:.08em;}
+.doc-type-header{text-align:right;}
+.doc-type-label{font-size:2rem;font-weight:900;color:#fff;letter-spacing:.04em;}
+.doc-number{font-size:.85rem;color:rgba(255,255,255,.8);margin-top:4px;}
+.doc-date-row{font-size:.8rem;color:rgba(255,255,255,.7);margin-top:2px;}
+
+/* ── Meta strip ── */
+.meta-strip{background:#004D26;padding:14px 48px;display:flex;gap:32px;flex-wrap:wrap;}
+.meta-item{}
+.meta-item .ml{font-size:.72rem;color:rgba(255,255,255,.6);letter-spacing:.05em;text-transform:uppercase;}
+.meta-item .mv{font-size:.88rem;font-weight:700;color:#fff;margin-top:2px;}
+
+/* ── Body ── */
+.doc-body{padding:40px 48px;}
+
+/* ── Parties ── */
+.parties{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-bottom:36px;padding-bottom:32px;border-bottom:2px solid #F0F5F1;}
+.party-label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#9CAA9C;margin-bottom:8px;}
+.party-name{font-size:1.05rem;font-weight:900;color:#1A2A1A;margin-bottom:4px;}
+.party-info{font-size:.85rem;color:#5A6B62;line-height:1.7;}
+
+/* ── Section ── */
+.section{margin-bottom:32px;}
+.section-title{font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#006C35;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid #EBF7F0;}
+
+/* ── Details table ── */
+.details-table{width:100%;border-collapse:collapse;}
+.details-table tr:not(:last-child) td{border-bottom:1px solid #F0F5F1;}
+.details-table td{padding:10px 0;vertical-align:top;}
+.details-table td:first-child{font-weight:700;color:#5A6B62;font-size:.83rem;width:160px;padding-right:16px;}
+.details-table td:last-child{font-size:.9rem;color:#1A2A1A;line-height:1.6;}
+
+/* ── Description block ── */
+.desc-block{background:#F8FAF9;border-left:3px solid #006C35;border-radius:0 8px 8px 0;padding:16px 20px;font-size:.9rem;color:#1A2A1A;line-height:1.7;}
+
+/* ── Pricing table ── */
+.price-table{width:100%;border-collapse:collapse;margin-bottom:20px;}
+.price-table thead tr{background:#1A2A1A;color:#fff;}
+.price-table thead td{padding:12px 16px;font-size:.82rem;font-weight:700;letter-spacing:.04em;}
+.price-table tbody tr:nth-child(even){background:#F8FAF9;}
+.price-table tbody td{padding:12px 16px;font-size:.9rem;border-bottom:1px solid #F0F5F1;}
+.price-table tfoot{border-top:2px solid #1A2A1A;}
+.price-table tfoot tr td{padding:10px 16px;font-weight:700;}
+.total-row td{background:#006C35 !important;color:#fff;font-size:1rem;font-weight:900;}
+
+/* ── Terms ── */
+.terms-box{background:#FFF8EC;border:1px solid #C8973A;border-radius:10px;padding:18px 20px;}
+.terms-box h4{font-size:.82rem;font-weight:800;color:#8A6520;margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em;}
+.terms-list{list-style:none;font-size:.83rem;color:#8A6520;line-height:2;}
+
+/* ── Footer ── */
+.doc-footer{background:#F8FAF9;border-top:2px solid #E8F0EB;padding:24px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.footer-brand{font-size:.78rem;color:#9CAA9C;}
+.footer-brand strong{color:#006C35;}
+.footer-zatca{font-size:.72rem;color:#9CAA9C;text-align:right;}
+
+/* ── Stamp area ── */
+.stamp-area{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:48px;padding-top:32px;border-top:1px dashed #C8DDD0;}
+.stamp-box{text-align:center;}
+.stamp-line{border-bottom:1px solid #1A2A1A;margin-bottom:8px;height:50px;}
+.stamp-label{font-size:.78rem;color:#9CAA9C;font-weight:700;text-transform:uppercase;letter-spacing:.06em;}
+
+/* ── Loading ── */
+.loading-msg{text-align:center;padding:80px 20px;color:#9CAA9C;font-size:1rem;}
+
+/* ── Print ── */
+@media print {
+  .toolbar{display:none!important;}
+  .doc-wrapper{margin:0;padding:0;max-width:100%;}
+  .document{box-shadow:none;border-radius:0;}
+  body{background:#fff;}
+  @page{margin:0;size:A4;}
+}
+@media(max-width:600px){
+  .doc-header{grid-template-columns:1fr;}.doc-type-header{text-align:left;}
+  .parties{grid-template-columns:1fr;gap:24px;}
+  .doc-body{padding:24px 20px;}
+  .doc-header{padding:24px 20px;}
+  .meta-strip{padding:14px 20px;}
+  .doc-footer{padding:16px 20px;}
+}
+</style>
+</head>
+<body>
+
+<!-- Screen toolbar -->
+<div class="toolbar">
+  <button class="btn-back" onclick="history.back()">← Back</button>
+  <span class="toolbar-title" id="toolbar-title">Loading document…</span>
+  <span class="doc-type-badge" id="toolbar-badge">—</span>
+  <button class="btn-print" onclick="window.print()">🖨️ Print / Save PDF</button>
+</div>
+
+<div class="doc-wrapper">
+  <div id="loading" class="loading-msg">⏳ Loading document…</div>
+  <div id="document" class="document" style="display:none;"></div>
+</div>
+
+<script>
+const API    = 'https://thevalvehubs-backend-production.up.railway.app';
+const token  = localStorage.getItem('tvh_token');
+const params = new URLSearchParams(location.search);
+const rfqId  = params.get('id');
+const docType = params.get('type') || 'rfq';   // rfq | quote | invoice
+const respId = params.get('respId');
+
+const PILLAR_NAMES = {
+  1:'Valves Supply', 2:'Spare Parts', 3:'Machining & Fabrication',
+  4:'3D Printing', 5:'TPI & Inspection', 6:'Rental Equipment'
+};
+
+function fmtDate(d) { return d ? new Date(d).toLocaleDateString('en-SA', { day:'2-digit', month:'long', year:'numeric' }) : '—'; }
+function fmt(n) { return 'SAR ' + Number(n).toLocaleString('en-SA', { minimumFractionDigits:2, maximumFractionDigits:2 }); }
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>'); }
+
+const DOC_CONFIG = {
+  rfq:     { label:'REQUEST FOR QUOTATION', badge:'RFQ',      color:'#006C35' },
+  quote:   { label:'QUOTATION',             badge:'QUOTE',    color:'#1A3A6B' },
+  invoice: { label:'TAX INVOICE',           badge:'INVOICE',  color:'#8A6520' },
+};
+
+async function load() {
+  if (!token || !rfqId) { document.getElementById('loading').textContent = '⚠️ Missing data'; return; }
+
+  try {
+    const res  = await fetch(`${API}/api/rfqs/${rfqId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const text = await res.text();
+    let json;
+    try { json = JSON.parse(text); } catch(e) { throw new Error('Server error'); }
+    if (!res.ok) throw new Error(json.error || 'Failed to load');
+
+    const rfq = json.data;
+    const cfg = DOC_CONFIG[docType] || DOC_CONFIG.rfq;
+
+    document.getElementById('toolbar-title').textContent = rfq.title;
+    document.getElementById('toolbar-badge').textContent  = cfg.badge;
+
+    // Select response
+    let response = null;
+    if (docType === 'quote' || docType === 'invoice') {
+      response = respId
+        ? rfq.responses?.find(r => r.id === respId)
+        : rfq.responses?.find(r => r.isAwarded) || rfq.responses?.[0];
+    }
+
+    document.title = `${cfg.badge} — ${rfq.title} — TheValveHubs`;
+
+    const docNo = docType === 'invoice'
+      ? 'TVH-' + new Date().getFullYear() + '-' + rfqId.substring(0,6).toUpperCase()
+      : 'RFQ-' + rfqId.substring(0,8).toUpperCase();
+
+    const issueDate  = fmtDate(new Date());
+    const delivDate  = fmtDate(rfq.deliveryDate);
+
+    // ── Pricing (for quote & invoice) ──
+    const sub = response?.priceTotal || 0;
+    const vat = parseFloat((sub * 0.15).toFixed(2));
+    const tot = parseFloat((sub + vat).toFixed(2));
+
+    document.getElementById('document').innerHTML = `
+<!-- Header -->
+<div class="doc-header" style="background:${cfg.color};">
+  <div class="doc-logo">
+    <div class="doc-logo-name">TheValveHubs</div>
+    <div class="doc-logo-tag">SAUDI ARABIA'S INDUSTRIAL VALVE MARKETPLACE</div>
+    <div style="margin-top:12px;font-size:.78rem;color:rgba(255,255,255,.65);">
+      Khobar, Eastern Province, Saudi Arabia<br>
+      thevalvehubs.com
+    </div>
+  </div>
+  <div class="doc-type-header">
+    <div class="doc-type-label">${cfg.label}</div>
+    <div class="doc-number"># ${docNo}</div>
+    <div class="doc-date-row">Issue Date: ${issueDate}</div>
+    ${rfq.deliveryDate ? `<div class="doc-date-row">Delivery: ${delivDate}</div>` : ''}
+  </div>
+</div>
+
+<!-- Meta strip -->
+<div class="meta-strip" style="background:${cfg.color === '#006C35' ? '#004D26' : '#0F2241'};">
+  <div class="meta-item"><div class="ml">Category</div><div class="mv">${PILLAR_NAMES[rfq.pillar] || 'Pillar ' + rfq.pillar}</div></div>
+  ${rfq.region ? `<div class="meta-item"><div class="ml">Region</div><div class="mv">${rfq.region}</div></div>` : ''}
+  ${rfq.quantity ? `<div class="meta-item"><div class="ml">Quantity</div><div class="mv">${rfq.quantity} ${rfq.unit||''}</div></div>` : ''}
+  <div class="meta-item"><div class="ml">Status</div><div class="mv">${rfq.status}</div></div>
+  <div class="meta-item"><div class="ml">Responses</div><div class="mv">${rfq.responses?.length || 0} quotes</div></div>
+</div>
+
+<!-- Body -->
+<div class="doc-body">
+
+  <!-- Parties -->
+  <div class="parties">
+    <div>
+      <div class="party-label">${docType === 'quote' || docType === 'invoice' ? 'Bill To / Buyer' : 'Requested By'}</div>
+      <div class="party-name">${esc(rfq.buyerCompany?.nameEn || '—')}</div>
+      <div class="party-info">
+        ${rfq.buyerCompany?.city ? rfq.buyerCompany.city + ', ' : ''}${rfq.buyerCompany?.region || ''}<br>
+        ${rfq.buyerCompany?.phone ? 'Tel: ' + rfq.buyerCompany.phone : ''}
+        ${rfq.buyerCompany?.email ? '<br>' + rfq.buyerCompany.email : ''}
+      </div>
+    </div>
+    <div>
+      <div class="party-label">${docType === 'rfq' ? 'Platform' : 'Supplier / From'}</div>
+      ${docType === 'rfq' ? `
+        <div class="party-name">TheValveHubs Platform</div>
+        <div class="party-info">Khobar, Eastern Province<br>Saudi Arabia<br>thevalvehubs.com</div>
+      ` : `
+        <div class="party-name">${esc(response?.supplier?.company?.nameEn || '—')}</div>
+        <div class="party-info">
+          ${response?.supplier?.company?.city || ''}<br>
+          ${response?.supplier?.aramcoApproved ? '✓ Aramco Approved<br>' : ''}
+          ${response?.supplier?.isVerified ? '✓ TVH Verified Supplier' : ''}
+        </div>
+      `}
+    </div>
+  </div>
+
+  <!-- Description -->
+  <div class="section">
+    <div class="section-title">Description & Requirements</div>
+    <div class="desc-block">${esc(rfq.description)}</div>
+    ${rfq.specs ? `<div style="margin-top:12px;font-size:.85rem;color:#5A6B62;"><strong>Specifications:</strong><br>${esc(rfq.specs)}</div>` : ''}
+  </div>
+
+  <!-- RFQ details table (for rfq type) -->
+  ${docType === 'rfq' ? `
+  <div class="section">
+    <div class="section-title">RFQ Details</div>
+    <table class="details-table">
+      <tr><td>Category</td><td>${PILLAR_NAMES[rfq.pillar] || '—'}</td></tr>
+      ${rfq.quantity ? `<tr><td>Quantity</td><td>${rfq.quantity} ${rfq.unit||''}</td></tr>` : ''}
+      ${rfq.deliveryDate ? `<tr><td>Delivery Date</td><td>${delivDate}</td></tr>` : ''}
+      ${rfq.deliveryCity ? `<tr><td>Delivery City</td><td>${rfq.deliveryCity}</td></tr>` : ''}
+      ${rfq.region ? `<tr><td>Region</td><td>${rfq.region}</td></tr>` : ''}
+      <tr><td>Status</td><td>${rfq.status}</td></tr>
+      <tr><td>RFQ Reference</td><td>${docNo}</td></tr>
+      <tr><td>Issue Date</td><td>${issueDate}</td></tr>
+    </table>
+  </div>
+  ` : ''}
+
+  <!-- Pricing (for quote & invoice) -->
+  ${(docType === 'quote' || docType === 'invoice') && response ? `
+  <div class="section">
+    <div class="section-title">Pricing Breakdown</div>
+    <table class="price-table">
+      <thead><tr>
+        <td>Description</td>
+        <td>Category</td>
+        <td style="text-align:right;">Amount</td>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td>${esc(rfq.title)}</td>
+          <td>${PILLAR_NAMES[rfq.pillar] || '—'}</td>
+          <td style="text-align:right;font-weight:700;">${fmt(sub)}</td>
+        </tr>
+        ${response.notes ? `<tr><td colspan="3" style="font-size:.82rem;color:#5A6B62;padding-top:6px;">Notes: ${esc(response.notes)}</td></tr>` : ''}
+      </tbody>
+      <tfoot>
+        <tr><td colspan="2" style="text-align:right;padding-right:24px;">Subtotal</td><td style="text-align:right;">${fmt(sub)}</td></tr>
+        <tr><td colspan="2" style="text-align:right;padding-right:24px;">VAT (15%) — ZATCA Compliant</td><td style="text-align:right;">${fmt(vat)}</td></tr>
+        <tr class="total-row"><td colspan="2" style="text-align:right;padding-right:24px;">TOTAL DUE</td><td style="text-align:right;">${fmt(tot)}</td></tr>
+      </tfoot>
+    </table>
+    ${response.leadTimeDays ? `<div style="font-size:.85rem;color:#5A6B62;margin-top:10px;">⏱️ Lead Time: ${response.leadTimeDays} working days</div>` : ''}
+  </div>
+  ` : ''}
+
+  <!-- Terms -->
+  <div class="section">
+    <div class="terms-box">
+      <h4>⚖️ Terms & Conditions</h4>
+      <ul class="terms-list">
+        <li>• All prices are in Saudi Riyals (SAR) and subject to 15% VAT per ZATCA regulations</li>
+        <li>• This document is generated by TheValveHubs B2B Marketplace Platform</li>
+        ${docType === 'rfq' ? '<li>• Suppliers must respond within the specified delivery window</li>' : ''}
+        ${docType === 'rfq' ? '<li>• TheValveHubs reserves the right to verify supplier credentials before awarding</li>' : ''}
+        ${docType === 'quote' ? '<li>• Quotation validity: 30 days from issue date unless otherwise stated</li>' : ''}
+        ${docType === 'invoice' ? '<li>• Payment terms: As agreed between buyer and supplier</li>' : ''}
+        ${docType === 'invoice' ? '<li>• This invoice complies with ZATCA e-invoicing Phase requirements</li>' : ''}
+        <li>• For disputes or queries, contact: support@thevalvehubs.com</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Signature area -->
+  <div class="stamp-area">
+    <div class="stamp-box">
+      <div class="stamp-line"></div>
+      <div class="stamp-label">${docType === 'rfq' ? 'Authorized Buyer' : 'Supplier Signature & Stamp'}</div>
+    </div>
+    <div class="stamp-box">
+      <div class="stamp-line"></div>
+      <div class="stamp-label">${docType === 'invoice' ? 'Buyer Acknowledgment' : 'TheValveHubs Platform'}</div>
+    </div>
+  </div>
+
+</div><!-- /doc-body -->
+
+<!-- Footer -->
+<div class="doc-footer">
+  <div class="footer-brand">
+    <strong>TheValveHubs</strong><br>
+    Saudi Arabia's First B2B Industrial Valve Marketplace<br>
+    Khobar, Eastern Province · thevalvehubs.com
+  </div>
+  <div class="footer-zatca">
+    Document Ref: ${docNo}<br>
+    Generated: ${issueDate}<br>
+    ZATCA VAT Compliant · 15% VAT Applied
+  </div>
+</div>
+`;
+
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('document').style.display = 'block';
+
+  } catch(e) {
+    document.getElementById('loading').textContent = '⚠️ ' + e.message;
+  }
+}
+
+load();
+</script>
+</body>
+</html>

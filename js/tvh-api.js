@@ -75,6 +75,8 @@ const TVH_API = (() => {
   // ── RFQs ─────────────────────────────────────────
   const rfqs = {
     list:      (params={}) => request('GET', '/rfqs?' + new URLSearchParams(params), null, true),
+    my:        ()          => request('GET', '/rfqs/my', null, true),
+    inbox:     (params={}) => request('GET', '/rfqs/inbox?' + new URLSearchParams(params), null, true),
     create:    (data)      => request('POST', '/rfqs', data, true),
     get:       (id)        => request('GET', `/rfqs/${id}`, null, true),
     respond:   (id, data)  => request('POST', `/rfqs/${id}/respond`, data, true),
