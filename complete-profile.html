@@ -741,64 +741,114 @@ function renderReview() {
 }
 
 // ════════════════════════════════════════════════
+// SAFE JSON HELPER — handles HTML error pages
+// ════════════════════════════════════════════════
+async function safeJson(res) {
+  const text = await res.text();
+  try {
+    return JSON.parse(text);
+  } catch(e) {
+    // Response was HTML (server error, cold start, 404 page)
+    const status = res.status;
+    if (status === 401) throw new Error('Session expired — please log in again');
+    if (status === 403) throw new Error('Access denied — make sure you are logged in as a Supplier');
+    if (status === 404) throw new Error('Profile endpoint not found — please refresh the page');
+    if (status >= 500)  throw new Error(`Server error (${status}) — please try again in a moment`);
+    throw new Error(`Unexpected server response (${status}) — please try again`);
+  }
+}
+
+// ════════════════════════════════════════════════
 // SAVE PROFILE
 // ════════════════════════════════════════════════
 async function saveProfile() {
   const token = localStorage.getItem('tvh_token');
-  const btn   = document.getElementById('save-btn');
-  btn.disabled = true;
-  btn.textContent = '⏳ Saving...';
+  if (!token) {
+    showMsg('save-msg', 'Session expired — please <a href="index.html">sign in again</a>', 'error');
+    return;
+  }
+
+  const btn = document.getElementById('save-btn');
+  btn.disabled    = true;
+  btn.textContent = '⏳ Saving your profile...';
   clearMsg('save-msg');
 
   try {
-    // 1. Update company info
-    const companyBody = {
-      nameEn:      document.getElementById('nameEn').value.trim(),
-      nameAr:      document.getElementById('nameAr').value.trim() || undefined,
-      crNumber:    document.getElementById('crNumber').value.trim() || undefined,
-      vatNumber:   document.getElementById('vatNumber').value.trim() || undefined,
-      city:        document.getElementById('city').value || undefined,
-      region:      document.getElementById('region').value || undefined,
-      phone:       document.getElementById('phone').value.trim() || undefined,
-      website:     document.getElementById('website').value.trim() || undefined,
+    // Build body — map frontend field names to backend schema names
+    const body = {
+      // Company fields
+      nameEn:      document.getElementById('nameEn').value.trim()      || undefined,
+      nameAr:      document.getElementById('nameAr').value.trim()      || undefined,
+      crNumber:    document.getElementById('crNumber').value.trim()    || undefined,
+      vatNumber:   document.getElementById('vatNumber').value.trim()   || undefined,
+      city:        document.getElementById('city').value               || undefined,
+      region:      document.getElementById('region').value             || undefined,
+      phone:       document.getElementById('phone').value.trim()       || undefined,
+      website:     document.getElementById('website').value.trim()     || undefined,
       description: document.getElementById('description').value.trim() || undefined,
-      sector:      document.getElementById('sector').value || undefined,
+      sector:      document.getElementById('sector').value             || undefined,
+      country:     'SA',
     };
 
-    // 2. Save supplier profile if supplier
     if (role === 'SUPPLIER') {
-      const iktvaScore      = parseInt(document.getElementById('iktvaRange').value);
-      const isAramcoApproved = document.getElementById('isAramcoApproved').checked;
-      const isSabicApproved  = document.getElementById('isSabicApproved')?.checked;
-      const pillars = [...selectedTags];
-      const certs   = [...selectedCerts];
+      // Map to exact field names the backend Zod schema expects
+      body.iktvaScore      = parseInt(document.getElementById('iktvaRange').value) || 0;
+      body.aramcoApproved  = document.getElementById('isAramcoApproved')?.checked  || false;
+      body.sabicApproved   = document.getElementById('isSabicApproved')?.checked   || false;
 
-      const profileRes = await fetch(`${BASE}/suppliers/profile`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-        body: JSON.stringify({
-          ...companyBody,
-          iktvaScore,
-          isAramcoApproved,
-          isSabicApproved,
-          pillar:  pillars[0] || 'VALVES',
-          pillars,
-          certifications: certs.map(c => ({ type: c, issuer: c, expiryDate: null })),
-        }),
-      });
-      if (!profileRes.ok) {
-        const err = await profileRes.json();
-        throw new Error(err.error || 'Failed to save supplier profile');
+      // Map product tags to pillar booleans
+      body.pillar1Valves    = selectedTags.has('VALVES');
+      body.pillar2Parts     = selectedTags.has('PIPES') || selectedTags.has('ACTUATORS');
+      body.pillar3Machining = selectedTags.has('MACHINING') || selectedTags.has('FABRICATION');
+      body.pillar4Print     = selectedTags.has('3DPRINT');
+      body.pillar5TPI       = selectedTags.has('TESTING') || selectedTags.has('INSTRUMENTATION');
+      body.pillar6Rental    = selectedTags.has('RENTAL');
+    }
+
+    const res = await fetch(`${BASE}/suppliers/profile`, {
+      method:  'POST',
+      headers: {
+        'Content-Type':  'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify(body),
+    });
+
+    const data = await safeJson(res);
+    if (!res.ok) {
+      // Show Zod validation details if available
+      if (data.details && data.details.length) {
+        const first = data.details[0];
+        throw new Error(`Validation: ${first.field} — ${first.message}`);
+      }
+      throw new Error(data.error || 'Failed to save profile');
+    }
+
+    // Save certifications separately if any selected
+    if (role === 'SUPPLIER' && selectedCerts.size > 0) {
+      for (const cert of selectedCerts) {
+        await fetch(`${BASE}/suppliers/certs`, {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+          body: JSON.stringify({ name: cert, issuedBy: cert }),
+        }).catch(() => {}); // non-blocking — cert save failure doesn't block profile
       }
     }
 
-    // Calculate completion score
+    // Also save buyer profile fields via company update
+    if (role === 'BUYER') {
+      const contactName = document.getElementById('contactName')?.value.trim();
+      const jobTitle    = document.getElementById('jobTitle')?.value.trim();
+      if (contactName) body.contactName = contactName;
+      if (jobTitle)    body.jobTitle    = jobTitle;
+    }
+
     const score = calcCompletionScore();
     showComplete(score);
 
   } catch(e) {
     showMsg('save-msg', e.message, 'error');
-    btn.disabled = false;
+    btn.disabled    = false;
     btn.textContent = '🚀 Publish My Profile';
   }
 }
