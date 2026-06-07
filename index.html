@@ -104,101 +104,235 @@
 <div style="max-width:520px;margin:0 auto;background:#fff;border-radius:20px;padding:34px;box-shadow:0 4px 24px rgba(0,0,0,.09);">
 
 <!-- Tab Toggle -->
-<div style="display:flex;background:#F4F7F4;border-radius:10px;padding:4px;margin-bottom:24px;">
-  <button id="tab-register" onclick="switchTab('register')" style="flex:1;padding:9px;border:none;border-radius:7px;font-weight:700;font-size:.88rem;cursor:pointer;background:#006C35;color:#fff;transition:.2s;">Create Account</button>
-  <button id="tab-login" onclick="switchTab('login')" style="flex:1;padding:9px;border:none;border-radius:7px;font-weight:700;font-size:.88rem;cursor:pointer;background:transparent;color:#5A6B62;transition:.2s;">Sign In</button>
+<div style="display:flex;background:#F4F7F4;border-radius:10px;padding:4px;margin-bottom:20px;">
+  <button id="tab-register" onclick="switchTab('register')" style="flex:1;padding:10px;border:none;border-radius:7px;font-weight:700;font-size:.88rem;cursor:pointer;background:#006C35;color:#fff;transition:.2s;">Create Account</button>
+  <button id="tab-login"    onclick="switchTab('login')"    style="flex:1;padding:10px;border:none;border-radius:7px;font-weight:700;font-size:.88rem;cursor:pointer;background:transparent;color:#5A6B62;transition:.2s;">Sign In</button>
 </div>
 
-<div id="tvh-msg"></div>
+<!-- ── REGISTER FORM ───────────────────────────── -->
+<div id="join-form">
+  <div id="reg-msg" style="margin-bottom:12px;"></div>
 
-<!-- Register Form -->
-<form id="join-form">
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
-<div><label style="font-size:.82rem;font-weight:600;display:block;margin-bottom:4px;">First Name</label><input id="join-fname" type="text" placeholder="Mohammed" style="width:100%;padding:9px 12px;border:1px solid #D8E2DC;border-radius:8px;font-size:.9rem;" required/></div>
-<div><label style="font-size:.82rem;font-weight:600;display:block;margin-bottom:4px;">Last Name</label><input id="join-lname" type="text" placeholder="Al-Rashid" style="width:100%;padding:9px 12px;border:1px solid #D8E2DC;border-radius:8px;font-size:.9rem;" required/></div>
+  <div style="margin-bottom:12px;">
+    <label style="font-size:.82rem;font-weight:700;display:block;margin-bottom:5px;color:#2A3A2A;">Company / Organization Name <span style="color:#C0392B;">*</span></label>
+    <input id="join-company" type="text" placeholder="e.g. Al-Subaie Industrial Co."
+      style="width:100%;padding:10px 13px;border:1.5px solid #D8E2DC;border-radius:8px;font-size:.9rem;outline:none;transition:.2s;"
+      onfocus="this.style.borderColor='#006C35'" onblur="this.style.borderColor='#D8E2DC'"/>
+  </div>
+
+  <div style="margin-bottom:12px;">
+    <label style="font-size:.82rem;font-weight:700;display:block;margin-bottom:5px;color:#2A3A2A;">Work Email <span style="color:#C0392B;">*</span></label>
+    <input id="join-email" type="email" placeholder="you@company.com"
+      style="width:100%;padding:10px 13px;border:1.5px solid #D8E2DC;border-radius:8px;font-size:.9rem;outline:none;transition:.2s;"
+      onfocus="this.style.borderColor='#006C35'" onblur="this.style.borderColor='#D8E2DC'"/>
+  </div>
+
+  <div style="margin-bottom:12px;">
+    <label style="font-size:.82rem;font-weight:700;display:block;margin-bottom:5px;color:#2A3A2A;">Password <span style="color:#C0392B;">*</span></label>
+    <div style="position:relative;">
+      <input id="join-password" type="password" placeholder="Minimum 8 characters"
+        style="width:100%;padding:10px 40px 10px 13px;border:1.5px solid #D8E2DC;border-radius:8px;font-size:.9rem;outline:none;transition:.2s;"
+        onfocus="this.style.borderColor='#006C35'" onblur="this.style.borderColor='#D8E2DC'"/>
+      <span onclick="togglePwd('join-password',this)" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);cursor:pointer;font-size:1rem;user-select:none;">👁</span>
+    </div>
+    <div id="pwd-strength" style="margin-top:5px;font-size:.68rem;color:#9A9AAA;"></div>
+  </div>
+
+  <div style="margin-bottom:20px;">
+    <label style="font-size:.82rem;font-weight:700;display:block;margin-bottom:5px;color:#2A3A2A;">I am registering as <span style="color:#C0392B;">*</span></label>
+    <select id="join-role"
+      style="width:100%;padding:10px 13px;border:1.5px solid #D8E2DC;border-radius:8px;font-size:.9rem;outline:none;background:#fff;cursor:pointer;"
+      onfocus="this.style.borderColor='#006C35'" onblur="this.style.borderColor='#D8E2DC'">
+      <option value="SUPPLIER">🏭 Saudi Supplier</option>
+      <option value="SUPPLIER">🌍 International Supplier</option>
+      <option value="BUYER">🛒 Buyer / Procurement Manager</option>
+      <option value="BUYER">👷 Engineer / Consultant</option>
+    </select>
+  </div>
+
+  <button id="join-btn" onclick="doRegister()"
+    style="width:100%;background:linear-gradient(135deg,#006C35,#009444);color:#fff;padding:13px;border-radius:9px;font-weight:800;font-size:.95rem;border:none;cursor:pointer;transition:.2s;letter-spacing:.01em;">
+    Join TheValveHubs Free →
+  </button>
+
+  <p style="text-align:center;font-size:.72rem;color:#9A9AAA;margin-top:8px;">
+    ✅ No credit card required &nbsp;•&nbsp; Free forever for buyers &nbsp;•&nbsp; 3-month free trial for suppliers
+  </p>
+  <p style="text-align:center;font-size:.82rem;margin-top:14px;color:#5A6B62;">
+    Already have an account? <a href="#" onclick="switchTab('login')" style="color:#006C35;font-weight:700;">Sign In →</a>
+  </p>
 </div>
-<div style="margin-bottom:12px;"><label style="font-size:.82rem;font-weight:600;display:block;margin-bottom:4px;">Work Email</label><input id="join-email" type="email" placeholder="mohammed@company.com.sa" style="width:100%;padding:9px 12px;border:1px solid #D8E2DC;border-radius:8px;font-size:.9rem;" required/></div>
-<div style="margin-bottom:12px;"><label style="font-size:.82rem;font-weight:600;display:block;margin-bottom:4px;">Password</label><input id="join-password" type="password" placeholder="Min. 8 characters" style="width:100%;padding:9px 12px;border:1px solid #D8E2DC;border-radius:8px;font-size:.9rem;" required/></div>
-<div style="margin-bottom:12px;"><label style="font-size:.82rem;font-weight:600;display:block;margin-bottom:4px;">Company</label><input id="join-company" type="text" placeholder="Company Name" style="width:100%;padding:9px 12px;border:1px solid #D8E2DC;border-radius:8px;font-size:.9rem;" required/></div>
-<div style="margin-bottom:20px;"><label style="font-size:.82rem;font-weight:600;display:block;margin-bottom:4px;">I am a</label>
-<select id="join-role" style="width:100%;padding:9px 12px;border:1px solid #D8E2DC;border-radius:8px;font-size:.9rem;">
-<option value="SUPPLIER">Saudi Supplier</option>
-<option value="SUPPLIER">International Supplier</option>
-<option value="BUYER">Buyer / Procurement</option>
-<option value="BUYER">Engineer / Consultant</option>
-</select></div>
-<button id="join-btn" type="submit" style="width:100%;background:#006C35;color:#fff;padding:13px;border-radius:8px;font-weight:700;font-size:.95rem;border:none;cursor:pointer;">Join TheValveHubs Free</button>
-<p style="text-align:center;font-size:.77rem;color:#5A6B62;margin-top:10px;">No credit card required &bull; IKTVA verified</p>
-<p style="text-align:center;font-size:.8rem;margin-top:12px;color:#5A6B62;">Already have an account? <a href="#" onclick="switchTab('login')" style="color:#006C35;font-weight:700;">Sign In</a></p>
-</form>
 
-<!-- Login Form -->
-<form id="login-form" style="display:none;">
-<div style="margin-bottom:12px;"><label style="font-size:.82rem;font-weight:600;display:block;margin-bottom:4px;">Email</label><input id="login-email" type="email" placeholder="your@email.com" style="width:100%;padding:9px 12px;border:1px solid #D8E2DC;border-radius:8px;font-size:.9rem;" required/></div>
-<div style="margin-bottom:20px;"><label style="font-size:.82rem;font-weight:600;display:block;margin-bottom:4px;">Password</label><input id="login-password" type="password" placeholder="Your password" style="width:100%;padding:9px 12px;border:1px solid #D8E2DC;border-radius:8px;font-size:.9rem;" required/></div>
-<button id="login-btn" type="submit" style="width:100%;background:#006C35;color:#fff;padding:13px;border-radius:8px;font-weight:700;font-size:.95rem;border:none;cursor:pointer;">Sign In</button>
-<p style="text-align:center;font-size:.8rem;margin-top:12px;color:#5A6B62;">New to TheValveHubs? <a href="#" onclick="switchTab('register')" style="color:#006C35;font-weight:700;">Create Free Account</a></p>
-</form>
+<!-- ── LOGIN FORM ─────────────────────────────── -->
+<div id="login-form" style="display:none;">
+  <div id="login-msg" style="margin-bottom:12px;"></div>
+
+  <div style="margin-bottom:12px;">
+    <label style="font-size:.82rem;font-weight:700;display:block;margin-bottom:5px;color:#2A3A2A;">Email</label>
+    <input id="login-email" type="email" placeholder="your@email.com"
+      style="width:100%;padding:10px 13px;border:1.5px solid #D8E2DC;border-radius:8px;font-size:.9rem;outline:none;transition:.2s;"
+      onfocus="this.style.borderColor='#006C35'" onblur="this.style.borderColor='#D8E2DC'"/>
+  </div>
+
+  <div style="margin-bottom:8px;">
+    <label style="font-size:.82rem;font-weight:700;display:block;margin-bottom:5px;color:#2A3A2A;">Password</label>
+    <div style="position:relative;">
+      <input id="login-password" type="password" placeholder="Your password"
+        style="width:100%;padding:10px 40px 10px 13px;border:1.5px solid #D8E2DC;border-radius:8px;font-size:.9rem;outline:none;transition:.2s;"
+        onfocus="this.style.borderColor='#006C35'" onblur="this.style.borderColor='#D8E2DC'"
+        onkeydown="if(event.key==='Enter') doLogin()"/>
+      <span onclick="togglePwd('login-password',this)" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);cursor:pointer;font-size:1rem;user-select:none;">👁</span>
+    </div>
+  </div>
+
+  <div style="text-align:right;margin-bottom:20px;">
+    <a href="mailto:support@thevalvehubs.com?subject=Password Reset" style="font-size:.75rem;color:#006C35;font-weight:600;">Forgot password?</a>
+  </div>
+
+  <button id="login-btn" onclick="doLogin()"
+    style="width:100%;background:linear-gradient(135deg,#1A2E50,#2C4A7C);color:#fff;padding:13px;border-radius:9px;font-weight:800;font-size:.95rem;border:none;cursor:pointer;transition:.2s;">
+    Sign In →
+  </button>
+
+  <p style="text-align:center;font-size:.82rem;margin-top:14px;color:#5A6B62;">
+    New to TheValveHubs? <a href="#" onclick="switchTab('register')" style="color:#006C35;font-weight:700;">Create Free Account →</a>
+  </p>
+</div>
 
 <script src="js/tvh-api.js"></script>
 <script>
-// Check if URL has #login
-if (window.location.hash === '#login') switchTab('login');
+// Auto-switch if URL has #login
+window.addEventListener('DOMContentLoaded', () => {
+  if (window.location.hash === '#login') switchTab('login');
+});
 
+// ── Tab Switch ──────────────────────────────────
 function switchTab(tab) {
   const isLogin = tab === 'login';
-  document.getElementById('join-form').style.display  = isLogin ? 'none'  : 'block';
-  document.getElementById('login-form').style.display = isLogin ? 'block' : 'none';
-  document.getElementById('tab-register').style.background = isLogin ? 'transparent' : '#006C35';
-  document.getElementById('tab-register').style.color      = isLogin ? '#5A6B62'     : '#fff';
-  document.getElementById('tab-login').style.background    = isLogin ? '#006C35'     : 'transparent';
-  document.getElementById('tab-login').style.color         = isLogin ? '#fff'        : '#5A6B62';
-  document.getElementById('tvh-msg').innerHTML = '';
+  document.getElementById('join-form').style.display   = isLogin ? 'none'  : 'block';
+  document.getElementById('login-form').style.display  = isLogin ? 'block' : 'none';
+  document.getElementById('tab-register').style.cssText =
+    `flex:1;padding:10px;border:none;border-radius:7px;font-weight:700;font-size:.88rem;cursor:pointer;transition:.2s;background:${isLogin?'transparent':'#006C35'};color:${isLogin?'#5A6B62':'#fff'}`;
+  document.getElementById('tab-login').style.cssText =
+    `flex:1;padding:10px;border:none;border-radius:7px;font-weight:700;font-size:.88rem;cursor:pointer;transition:.2s;background:${isLogin?'#006C35':'transparent'};color:${isLogin?'#fff':'#5A6B62'}`;
+  document.getElementById('reg-msg').innerHTML   = '';
+  document.getElementById('login-msg').innerHTML = '';
 }
 
-// Register
-document.getElementById('join-form').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const btn = document.getElementById('join-btn');
-  TVH_API.ui.setLoading(btn, true, 'Join TheValveHubs Free');
-  document.getElementById('tvh-msg').innerHTML = '';
-  try {
-    await TVH_API.auth.register({
-      email:    document.getElementById('join-email').value.trim(),
-      password: document.getElementById('join-password').value,
-      role:     document.getElementById('join-role').value,
-      nameEn:   document.getElementById('join-company').value.trim(),
-    });
-    TVH_API.ui.success('🎉 Welcome to TheValveHubs! Redirecting to your dashboard...');
-    setTimeout(() => window.location.href = 'dashboard.html', 1500);
-  } catch (err) {
-    TVH_API.ui.error(err.message || 'Registration failed. Please try again.');
-    TVH_API.ui.setLoading(btn, false, 'Join TheValveHubs Free');
-  }
+// ── Password Strength ───────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  const pwd = document.getElementById('join-password');
+  if (pwd) pwd.addEventListener('input', function() {
+    const v = this.value;
+    const el = document.getElementById('pwd-strength');
+    if (!v) { el.textContent = ''; return; }
+    let strength = 0;
+    if (v.length >= 8)  strength++;
+    if (/[A-Z]/.test(v)) strength++;
+    if (/[0-9]/.test(v)) strength++;
+    if (/[^A-Za-z0-9]/.test(v)) strength++;
+    const labels = ['','🔴 Weak','🟡 Fair','🟢 Good','💪 Strong'];
+    const colors = ['','#C0392B','#E67E22','#27AE60','#006C35'];
+    el.textContent = labels[strength] || '';
+    el.style.color  = colors[strength] || '';
+  });
 });
 
-// Login
-document.getElementById('login-form').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const btn = document.getElementById('login-btn');
-  TVH_API.ui.setLoading(btn, true, 'Sign In');
-  document.getElementById('tvh-msg').innerHTML = '';
+// ── Show/Hide Password ──────────────────────────
+function togglePwd(id, icon) {
+  const el = document.getElementById(id);
+  el.type  = el.type === 'password' ? 'text' : 'password';
+  icon.textContent = el.type === 'password' ? '👁' : '🙈';
+}
+
+// ── Show Message ────────────────────────────────
+function showAuthMsg(id, msg, type) {
+  document.getElementById(id).innerHTML = `
+    <div style="padding:11px 14px;border-radius:8px;font-size:.82rem;font-weight:600;margin-bottom:4px;
+      background:${type==='error'?'#FFEBEE':'#E8F5E9'};
+      border:1px solid ${type==='error'?'#FFCDD2':'#A5D6A7'};
+      color:${type==='error'?'#C62828':'#1B5E20'};">
+      ${type==='error'?'⚠️':'✅'} ${msg}
+    </div>`;
+}
+
+// ── REGISTER ────────────────────────────────────
+async function doRegister() {
+  const company  = document.getElementById('join-company').value.trim();
+  const email    = document.getElementById('join-email').value.trim();
+  const password = document.getElementById('join-password').value;
+  const roleRaw  = document.getElementById('join-role').value;
+  const btn      = document.getElementById('join-btn');
+
+  // Client-side validation
+  if (!company)            return showAuthMsg('reg-msg','Company name is required','error');
+  if (!email || !email.includes('@')) return showAuthMsg('reg-msg','Enter a valid work email','error');
+  if (password.length < 8) return showAuthMsg('reg-msg','Password must be at least 8 characters','error');
+
+  // Lock button
+  btn.disabled    = true;
+  btn.textContent = '⏳ Creating your account...';
+
   try {
-    const result = await TVH_API.auth.login({
-      email:    document.getElementById('login-email').value.trim(),
-      password: document.getElementById('login-password').value,
-    });
-    TVH_API.ui.success('✅ Welcome back! Redirecting...');
-    // Redirect admin to admin panel, others to dashboard
+    await TVH_API.auth.register({ email, password, role: roleRaw, nameEn: company });
+
+    showAuthMsg('reg-msg','🎉 Account created! Taking you to your profile...','success');
+    btn.textContent = '✅ Done!';
+
+    setTimeout(() => {
+      // Suppliers → complete profile, Buyers → dashboard
+      window.location.href = roleRaw === 'SUPPLIER'
+        ? 'complete-profile.html'
+        : 'dashboard.html';
+    }, 1200);
+
+  } catch(err) {
+    const msg = err.message || 'Registration failed';
+    // Friendly error messages
+    const friendly = msg.includes('already') || msg.includes('409')
+      ? 'This email is already registered — <a href="#" onclick="switchTab(\'login\')" style="color:#C62828;font-weight:700;">Sign in instead →</a>'
+      : msg;
+    showAuthMsg('reg-msg', friendly, 'error');
+    btn.disabled    = false;
+    btn.textContent = 'Join TheValveHubs Free →';
+  }
+}
+
+// ── LOGIN ───────────────────────────────────────
+async function doLogin() {
+  const email    = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+  const btn      = document.getElementById('login-btn');
+
+  if (!email)    return showAuthMsg('login-msg','Email is required','error');
+  if (!password) return showAuthMsg('login-msg','Password is required','error');
+
+  btn.disabled    = true;
+  btn.textContent = '⏳ Signing in...';
+
+  try {
+    await TVH_API.auth.login({ email, password });
+
+    showAuthMsg('login-msg','✅ Welcome back! Redirecting...','success');
+    btn.textContent = '✅ Done!';
+
     const user = JSON.parse(localStorage.getItem('tvh_user') || '{}');
     setTimeout(() => {
-      window.location.href = user.role === 'ADMIN' ? 'admin.html' : 'dashboard.html';
+      if (user.role === 'ADMIN')    window.location.href = 'admin.html';
+      else if (user.role === 'SUPPLIER') window.location.href = 'dashboard.html';
+      else                          window.location.href = 'dashboard.html';
     }, 1000);
-  } catch (err) {
-    TVH_API.ui.error(err.message || 'Login failed. Check your email and password.');
-    TVH_API.ui.setLoading(btn, false, 'Sign In');
+
+  } catch(err) {
+    const msg = err.message || 'Login failed';
+    const friendly = msg.includes('Invalid') || msg.includes('401')
+      ? 'Incorrect email or password. Please try again.'
+      : msg;
+    showAuthMsg('login-msg', friendly, 'error');
+    btn.disabled    = false;
+    btn.textContent = 'Sign In →';
   }
-});
+}
 </script>
 </div>
 </div></section>
