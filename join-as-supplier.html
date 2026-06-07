@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Join as Supplier — TheValveHubs | Saudi Arabia's Industrial Valve Marketplace</title>
+<meta name="description" content="List your company on Saudi Arabia's first B2B valve and industrial marketplace. Free trial. IKTVA visibility. Access to Aramco, SABIC, NEOM buyers."/>
+<link rel="stylesheet" href="style.css"/>
+<script src="js/tvh-api.js" defer></script>
+<style>
+/* ── Page Shell ─────────────────────────────────── */
+*{box-sizing:border-box;}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F4F7;margin:0;}
+
+/* ── Hero ───────────────────────────────────────── */
+.join-hero{background:linear-gradient(145deg,#0A1628,#1A2E50,#0D1F3C);padding:90px 0 50px;position:relative;overflow:hidden;text-align:center;}
+.join-hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:48px 48px;}
+.join-hero::after{content:'';position:absolute;top:-30%;left:50%;transform:translateX(-50%);width:80%;height:200%;background:radial-gradient(ellipse,rgba(200,151,58,.12) 0%,transparent 60%);pointer-events:none;}
+.join-hero .container{position:relative;z-index:1;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(200,151,58,.15);border:1px solid rgba(200,151,58,.3);color:#E8B84B;font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:6px 16px;border-radius:100px;margin-bottom:20px;}
+.join-hero h1{font-size:clamp(2rem,4vw,3.2rem);font-weight:900;color:#fff;line-height:1.1;margin-bottom:10px;}
+.join-hero h1 span{background:linear-gradient(135deg,#C8973A,#E8B84B);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.join-hero .ar-sub{font-size:1.1rem;color:rgba(255,255,255,.6);margin-bottom:8px;font-weight:500;direction:rtl;}
+.join-hero p{font-size:.95rem;color:rgba(255,255,255,.75);max-width:560px;margin:0 auto 28px;line-height:1.7;}
+.hero-trust{display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;margin-top:8px;}
+.trust-item{display:flex;align-items:center;gap:6px;color:rgba(255,255,255,.7);font-size:.78rem;font-weight:600;}
+.trust-dot{width:6px;height:6px;border-radius:50%;background:#00C853;}
+
+/* ── Step Indicator ─────────────────────────────── */
+.steps-bar{background:#fff;border-bottom:1px solid #E0E0EA;padding:16px 0;position:sticky;top:0;z-index:100;}
+.steps-inner{display:flex;align-items:center;justify-content:center;gap:0;max-width:520px;margin:0 auto;}
+.step{display:flex;align-items:center;gap:8px;flex:1;}
+.step-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;flex-shrink:0;transition:.3s;}
+.step-num.active{background:#1A2E50;color:#fff;}
+.step-num.done{background:#006C35;color:#fff;}
+.step-num.pending{background:#EEEEF5;color:#9A9AAA;}
+.step-label{font-size:.72rem;font-weight:700;color:#7A7AAA;white-space:nowrap;}
+.step-label.active{color:#1A2E50;}
+.step-label.done{color:#006C35;}
+.step-divider{flex:1;height:2px;background:#EEEEF5;margin:0 4px;}
+.step-divider.done{background:#006C35;}
+
+/* ── Main Content ───────────────────────────────── */
+.join-body{max-width:1100px;margin:0 auto;padding:40px 20px 80px;}
+
+/* ── Plan Cards ─────────────────────────────────── */
+.plans-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-bottom:32px;}
+.plan-card{background:#fff;border-radius:18px;border:2px solid #E0E0EA;overflow:hidden;cursor:pointer;transition:all .25s;position:relative;}
+.plan-card:hover{border-color:#1A2E50;transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.1);}
+.plan-card.selected{border-color:#006C35;box-shadow:0 0 0 3px rgba(0,108,53,.15);}
+.plan-card.popular{border-color:#C8973A;}
+.plan-card.popular.selected{border-color:#006C35;}
+.popular-tag{position:absolute;top:0;left:0;right:0;background:linear-gradient(90deg,#C8973A,#E8B84B);color:#1A1A1A;font-size:.62rem;font-weight:900;text-align:center;padding:5px;letter-spacing:.08em;text-transform:uppercase;}
+.plan-body{padding:24px 20px 20px;}
+.plan-card.popular .plan-body{padding-top:34px;}
+.plan-icon{font-size:1.8rem;margin-bottom:10px;}
+.plan-name{font-size:1rem;font-weight:900;color:#1A1A2E;margin-bottom:2px;}
+.plan-name-ar{font-size:.78rem;color:#7A7AAA;direction:rtl;margin-bottom:10px;}
+.plan-price{margin:12px 0 6px;}
+.plan-price .amount{font-size:2rem;font-weight:900;color:#1A1A2E;}
+.plan-price .currency{font-size:.85rem;font-weight:700;color:#5A5A7A;margin-right:2px;}
+.plan-price .period{font-size:.75rem;color:#9A9AAA;font-weight:600;}
+.plan-price .yearly-note{font-size:.68rem;color:#006C35;font-weight:700;display:block;margin-top:2px;}
+.plan-tagline{font-size:.75rem;color:#7A7AAA;line-height:1.5;margin-bottom:14px;}
+.plan-features{list-style:none;padding:0;margin:0;border-top:1px solid #F4F4F7;padding-top:14px;}
+.plan-features li{font-size:.75rem;color:#3A3A5A;padding:4px 0;display:flex;align-items:flex-start;gap:7px;line-height:1.4;}
+.plan-features li::before{content:'✓';color:#006C35;font-weight:900;flex-shrink:0;margin-top:1px;}
+.plan-features li.no::before{content:'✗';color:#D0D0E0;}
+.plan-features li.no{color:#B0B0C0;}
+.plan-select-btn{width:100%;margin-top:16px;padding:10px;border-radius:10px;border:2px solid #E0E0EA;background:#fff;font-size:.8rem;font-weight:800;cursor:pointer;color:#1A2E50;transition:.2s;}
+.plan-card.selected .plan-select-btn{background:#006C35;color:#fff;border-color:#006C35;}
+.plan-card.popular:not(.selected) .plan-select-btn{border-color:#C8973A;color:#C8973A;}
+.free-trial-note{text-align:center;font-size:.8rem;color:#006C35;font-weight:700;margin-bottom:24px;}
+.free-trial-note span{background:#EBF7F0;padding:6px 16px;border-radius:100px;}
+
+/* ── Form ───────────────────────────────────────── */
+.join-form-wrap{background:#fff;border-radius:20px;border:1px solid #E0E0EA;padding:36px;max-width:620px;margin:0 auto;}
+.form-section-title{font-size:1rem;font-weight:900;color:#1A1A2E;margin-bottom:4px;}
+.form-section-sub{font-size:.78rem;color:#7A7AAA;margin-bottom:24px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.form-group{margin-bottom:16px;}
+.form-group label{display:block;font-size:.75rem;font-weight:700;color:#3A3A5A;margin-bottom:6px;}
+.form-group label span.ar{color:#9A9AAA;font-size:.68rem;margin-right:4px;direction:rtl;}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:10px 13px;border:1.5px solid #E0E0EA;border-radius:9px;font-size:.85rem;color:#1A1A2E;outline:none;background:#FAFAFF;transition:.2s;font-family:inherit;}
+.form-group input:focus,.form-group select:focus{border-color:#1A2E50;background:#fff;}
+.form-group input.error{border-color:#C0392B;}
+.char-count{font-size:.65rem;color:#9A9AAA;text-align:right;margin-top:3px;}
+
+/* ── Payment ─────────────────────────────────────── */
+.payment-wrap{max-width:620px;margin:0 auto;}
+.order-summary{background:#F8F9FF;border:1px solid #E0E0EA;border-radius:14px;padding:20px 24px;margin-bottom:24px;}
+.order-row{display:flex;justify-content:space-between;align-items:center;font-size:.83rem;padding:5px 0;}
+.order-row.total{font-weight:900;font-size:1rem;color:#1A1A2E;border-top:1px solid #E0E0EA;margin-top:8px;padding-top:12px;}
+.order-row.vat{color:#7A7AAA;font-size:.75rem;}
+.payment-methods{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:20px;}
+.pay-method{border:2px solid #E0E0EA;border-radius:10px;padding:12px 8px;text-align:center;cursor:pointer;transition:.2s;background:#fff;}
+.pay-method:hover,.pay-method.active{border-color:#1A2E50;}
+.pay-method .pm-icon{font-size:1.4rem;margin-bottom:4px;}
+.pay-method .pm-label{font-size:.68rem;font-weight:700;color:#3A3A5A;}
+.card-fields{background:#FAFAFF;border:1px solid #E0E0EA;border-radius:12px;padding:20px;margin-bottom:20px;}
+#moyasar-form{min-height:120px;}
+.test-mode-notice{background:#FFF8E7;border:1px solid #FFD54F;border-radius:10px;padding:12px 16px;font-size:.78rem;color:#795548;margin-bottom:16px;display:flex;gap:8px;align-items:flex-start;}
+
+/* ── Success ─────────────────────────────────────── */
+.success-wrap{text-align:center;padding:60px 20px;max-width:520px;margin:0 auto;}
+.success-icon{font-size:4rem;margin-bottom:16px;}
+.success-wrap h2{font-size:1.6rem;font-weight:900;color:#006C35;margin-bottom:8px;}
+.success-wrap p{font-size:.9rem;color:#5A5A7A;line-height:1.7;margin-bottom:24px;}
+.success-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+
+/* ── Buttons ─────────────────────────────────────── */
+.btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 28px;background:linear-gradient(135deg,#006C35,#009444);color:#fff;border:none;border-radius:10px;font-size:.9rem;font-weight:800;cursor:pointer;transition:.2s;text-decoration:none;width:100%;}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,108,53,.3);}
+.btn-primary:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+.btn-outline{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 24px;background:#fff;color:#1A2E50;border:2px solid #1A2E50;border-radius:10px;font-size:.85rem;font-weight:700;cursor:pointer;transition:.2s;text-decoration:none;}
+.btn-outline:hover{background:#1A2E50;color:#fff;}
+.btn-back{background:none;border:none;color:#7A7AAA;font-size:.82rem;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:4px;margin-bottom:20px;padding:0;}
+.btn-back:hover{color:#1A2E50;}
+
+/* ── Billing Toggle ──────────────────────────────── */
+.billing-toggle{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:28px;}
+.toggle-label{font-size:.83rem;font-weight:700;color:#9A9AAA;}
+.toggle-label.active{color:#1A2E50;}
+.toggle-switch{width:48px;height:25px;background:#D0D0E0;border-radius:13px;position:relative;cursor:pointer;transition:.2s;}
+.toggle-switch.on{background:#006C35;}
+.toggle-switch::after{content:'';position:absolute;width:19px;height:19px;background:#fff;border-radius:50%;top:3px;left:3px;transition:.2s;box-shadow:0 2px 4px rgba(0,0,0,.15);}
+.toggle-switch.on::after{left:26px;}
+.save-pill{background:linear-gradient(135deg,#C8973A,#E8B84B);color:#1A1A1A;font-size:.65rem;font-weight:900;padding:3px 10px;border-radius:100px;}
+
+/* ── Misc ────────────────────────────────────────── */
+.msg-box{padding:12px 16px;border-radius:8px;font-size:.82rem;font-weight:600;margin-bottom:16px;}
+.msg-error{background:#FFEBEE;border:1px solid #FFCDD2;color:#C62828;}
+.msg-success{background:#E8F5E9;border:1px solid #A5D6A7;color:#1B5E20;}
+.section-hidden{display:none;}
+.plan-badge-free{display:inline-block;background:#EBF7F0;color:#006C35;font-size:.62rem;font-weight:800;padding:2px 8px;border-radius:4px;margin-left:6px;}
+
+@media(max-width:640px){
+  .form-row{grid-template-columns:1fr;}
+  .plans-grid{grid-template-columns:1fr 1fr;}
+  .join-form-wrap{padding:24px 16px;}
+  .payment-methods{grid-template-columns:1fr 1fr 1fr;}
+}
+@media(max-width:420px){
+  .plans-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ── Navbar ──────────────────────────────────── -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="images/tvh-logo-extracted.jpg" alt="TheValveHubs" style="width:200px;height:52px;object-fit:contain;object-position:left center;display:block;"/>
+    </a>
+    <ul class="nav-menu">
+      <li class="nav-item"><a href="platform.html" class="nav-link">🗺 Platform</a></li>
+      <li class="nav-item"><a href="pricing.html" class="nav-link">💳 Pricing</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="index.html#login" class="btn btn-outline btn-sm">Sign In</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Hero ────────────────────────────────────── -->
+<section class="join-hero">
+  <div class="container">
+    <div class="hero-eyebrow">🇸🇦 Saudi Arabia's #1 Industrial Valve Marketplace</div>
+    <p class="ar-sub">انضم كمورد — اعرض شركتك أمام كبار المشترين في المملكة</p>
+    <h1>List Your Company.<br><span>Get Found. Get Deals.</span></h1>
+    <p>Connect with Aramco, SABIC, NEOM, and 200+ industrial buyers across Saudi Arabia. Showcase your IKTVA score and grow your Saudi market share.</p>
+    <div class="hero-trust">
+      <div class="trust-item"><div class="trust-dot"></div>Free 3-month trial</div>
+      <div class="trust-item"><div class="trust-dot"></div>IKTVA score profile</div>
+      <div class="trust-item"><div class="trust-dot"></div>Direct RFQ access</div>
+      <div class="trust-item"><div class="trust-dot"></div>No setup fee</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Step Bar ─────────────────────────────────── -->
+<div class="steps-bar">
+  <div class="steps-inner">
+    <div class="step">
+      <div class="step-num active" id="step-num-1">1</div>
+      <span class="step-label active" id="step-lbl-1">Choose Plan</span>
+    </div>
+    <div class="step-divider" id="div-1"></div>
+    <div class="step">
+      <div class="step-num pending" id="step-num-2">2</div>
+      <span class="step-label" id="step-lbl-2">Register</span>
+    </div>
+    <div class="step-divider" id="div-2"></div>
+    <div class="step">
+      <div class="step-num pending" id="step-num-3">3</div>
+      <span class="step-label" id="step-lbl-3">Payment</span>
+    </div>
+    <div class="step-divider" id="div-3"></div>
+    <div class="step">
+      <div class="step-num pending" id="step-num-4">✓</div>
+      <span class="step-label" id="step-lbl-4">Go Live</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── Main Body ────────────────────────────────── -->
+<div class="join-body">
+
+  <!-- ══════════ STEP 1: CHOOSE PLAN ══════════ -->
+  <div id="sec-plan">
+
+    <!-- Billing Toggle -->
+    <div class="billing-toggle">
+      <span class="toggle-label active" id="lbl-monthly">Monthly</span>
+      <div class="toggle-switch" id="billingToggle" onclick="toggleBilling()"></div>
+      <span class="toggle-label" id="lbl-yearly">Annual</span>
+      <span class="save-pill">Save 20%</span>
+    </div>
+
+    <div class="free-trial-note"><span>🎁 All paid plans include a 3-month free trial — no charge until month 4</span></div>
+
+    <div class="plans-grid" id="plansGrid">
+      <!-- Injected by JS -->
+    </div>
+
+    <div style="text-align:center;margin-top:8px;">
+      <p style="font-size:.75rem;color:#9A9AAA;">All prices exclusive of 15% VAT &nbsp;|&nbsp; Cancel anytime &nbsp;|&nbsp; <a href="pricing.html" style="color:#1A2E50;">Full plan comparison →</a></p>
+    </div>
+  </div>
+
+  <!-- ══════════ STEP 2: REGISTER ══════════ -->
+  <div id="sec-register" class="section-hidden">
+    <div class="join-form-wrap">
+      <button class="btn-back" onclick="goTo(1)">← Back to plans</button>
+
+      <div class="form-section-title">Create Your Supplier Account</div>
+      <div class="form-section-sub">Selected: <strong id="selected-plan-label" style="color:#006C35;"></strong> — takes 2 minutes</div>
+
+      <div id="reg-msg"></div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Company Name (English) <span style="color:#C0392B">*</span></label>
+          <input type="text" id="reg-nameEn" placeholder="e.g. Al-Subaie Valves Co." maxlength="80"/>
+        </div>
+        <div class="form-group">
+          <label>اسم الشركة (عربي)</label>
+          <input type="text" id="reg-nameAr" placeholder="مثال: شركة السبيعي للصمامات" dir="rtl" maxlength="80"/>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Work Email <span style="color:#C0392B">*</span></label>
+          <input type="email" id="reg-email" placeholder="you@company.com"/>
+        </div>
+        <div class="form-group">
+          <label>Phone / WhatsApp <span style="color:#C0392B">*</span></label>
+          <input type="tel" id="reg-phone" placeholder="+966 5X XXX XXXX"/>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Password <span style="color:#C0392B">*</span></label>
+          <input type="password" id="reg-password" placeholder="Min 8 characters"/>
+        </div>
+        <div class="form-group">
+          <label>Country</label>
+          <select id="reg-country">
+            <option value="SA">🇸🇦 Saudi Arabia</option>
+            <option value="AE">🇦🇪 UAE</option>
+            <option value="DE">🇩🇪 Germany</option>
+            <option value="IT">🇮🇹 Italy</option>
+            <option value="US">🇺🇸 USA</option>
+            <option value="GB">🇬🇧 UK</option>
+            <option value="CN">🇨🇳 China</option>
+            <option value="JP">🇯🇵 Japan</option>
+            <option value="KR">🇰🇷 South Korea</option>
+            <option value="IN">🇮🇳 India</option>
+            <option value="TR">🇹🇷 Turkey</option>
+            <option value="FR">🇫🇷 France</option>
+            <option value="OTHER">🌍 Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>CR / Trade Registration Number <span style="color:#9A9AAA;font-size:.68rem;">(optional — helps with verification)</span></label>
+        <input type="text" id="reg-cr" placeholder="e.g. 1010XXXXXXX"/>
+      </div>
+
+      <div class="form-group">
+        <label>Main Product / Service</label>
+        <select id="reg-pillar">
+          <option value="">— Select category —</option>
+          <option value="VALVES">Industrial Valves</option>
+          <option value="ACTUATORS">Actuators & Controls</option>
+          <option value="PIPES_FITTINGS">Pipes & Fittings</option>
+          <option value="PUMPS">Pumps & Compressors</option>
+          <option value="INSTRUMENTATION">Instrumentation</option>
+          <option value="MACHINING">Machining & Fabrication</option>
+          <option value="MAINTENANCE">Maintenance & Repair</option>
+          <option value="CONSULTING">Engineering Consulting</option>
+          <option value="OTHER">Other Industrial</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:.78rem;color:#3A3A5A;">
+          <input type="checkbox" id="reg-terms" style="width:auto;margin-top:2px;flex-shrink:0;"/>
+          <span>I agree to the <a href="#" style="color:#1A2E50;">Terms of Service</a> and <a href="#" style="color:#1A2E50;">Privacy Policy</a>. I confirm this is a legitimate business entity.</span>
+        </label>
+      </div>
+
+      <button class="btn-primary" id="reg-btn" onclick="doRegister()">
+        Continue to Payment →
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════ STEP 3: PAYMENT ══════════ -->
+  <div id="sec-payment" class="section-hidden">
+    <div class="payment-wrap">
+      <button class="btn-back" onclick="goTo(2)">← Back to registration</button>
+
+      <div class="join-form-wrap">
+        <div class="form-section-title">Complete Your Subscription</div>
+        <div class="form-section-sub">Secure payment powered by Moyasar • مدعوم بـ مياسر</div>
+
+        <!-- Order Summary -->
+        <div class="order-summary">
+          <div style="font-size:.75rem;font-weight:800;color:#7A7AAA;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;">Order Summary</div>
+          <div class="order-row">
+            <span id="pay-plan-name">Pro Plan — Monthly</span>
+            <span id="pay-subtotal">SAR 1,490</span>
+          </div>
+          <div class="order-row vat">
+            <span>VAT 15%</span>
+            <span id="pay-vat">SAR 223.50</span>
+          </div>
+          <div class="order-row" style="font-size:.72rem;color:#006C35;font-weight:700;">
+            <span>🎁 3-Month Free Trial</span>
+            <span>- <span id="pay-trial-discount">SAR 4,470</span></span>
+          </div>
+          <div class="order-row total">
+            <span>Due Today</span>
+            <span style="color:#006C35;" id="pay-due-today">SAR 0.00</span>
+          </div>
+          <div style="font-size:.68rem;color:#9A9AAA;margin-top:8px;">First charge on <strong id="pay-first-charge">—</strong> • Cancel anytime before</div>
+        </div>
+
+        <!-- Test Mode Notice -->
+        <div class="test-mode-notice" id="testModeNotice">
+          <span style="font-size:1.1rem;">🧪</span>
+          <div><strong>Test Mode Active</strong> — No real charge will occur. Use card <code>4111 1111 1111 1111</code>, any future expiry, any CVV. Live payments activate once Moyasar approves your account.</div>
+        </div>
+
+        <!-- Payment Method -->
+        <div style="font-size:.75rem;font-weight:800;color:#7A7AAA;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;">Payment Method</div>
+        <div class="payment-methods">
+          <div class="pay-method active" id="pm-card" onclick="selectPayMethod('card')">
+            <div class="pm-icon">💳</div>
+            <div class="pm-label">Credit Card</div>
+          </div>
+          <div class="pay-method" id="pm-mada" onclick="selectPayMethod('mada')">
+            <div class="pm-icon">🏧</div>
+            <div class="pm-label">Mada</div>
+          </div>
+          <div class="pay-method" id="pm-transfer" onclick="selectPayMethod('transfer')">
+            <div class="pm-icon">🏦</div>
+            <div class="pm-label">Bank Transfer</div>
+          </div>
+        </div>
+
+        <!-- Card Fields -->
+        <div class="card-fields" id="card-fields">
+          <div class="form-row">
+            <div class="form-group" style="grid-column:1/-1;">
+              <label>Cardholder Name</label>
+              <input type="text" id="card-name" placeholder="As printed on card"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Card Number</label>
+            <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCardNum(this)"/>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Expiry</label>
+              <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5" oninput="formatExpiry(this)"/>
+            </div>
+            <div class="form-group">
+              <label>CVV</label>
+              <input type="text" id="card-cvv" placeholder="123" maxlength="4"/>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bank Transfer -->
+        <div class="card-fields" id="transfer-fields" style="display:none;">
+          <div style="font-size:.82rem;color:#3A3A5A;line-height:1.8;">
+            <div style="font-weight:800;margin-bottom:8px;">Bank Transfer Details</div>
+            <div>Bank: <strong>Al Rajhi Bank</strong></div>
+            <div>Account Name: <strong>TheValveHubs Trading Co.</strong></div>
+            <div>IBAN: <strong>SA00 0000 0000 0000 0000 0000</strong></div>
+            <div style="margin-top:10px;padding:10px;background:#FFF8E7;border-radius:8px;font-size:.75rem;color:#795548;">
+              📧 Send transfer proof to <strong>billing@thevalvehubs.com</strong> — your account activates within 24 hours.
+            </div>
+          </div>
+        </div>
+
+        <div id="pay-msg"></div>
+
+        <button class="btn-primary" id="pay-btn" onclick="doPayment()">
+          🔒 Activate Free Trial
+        </button>
+        <p style="text-align:center;font-size:.7rem;color:#9A9AAA;margin-top:10px;">
+          🔐 Secured by SSL &nbsp;•&nbsp; Powered by Moyasar &nbsp;•&nbsp; VAT 15% included
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ STEP 4: SUCCESS ══════════ -->
+  <div id="sec-success" class="section-hidden">
+    <div class="success-wrap">
+      <div class="success-icon">🎉</div>
+      <h2>You're Live on TheValveHubs!</h2>
+      <p class="ar-sub" style="direction:rtl;font-size:1rem;color:#006C35;font-weight:700;margin-bottom:8px;">تهانينا — شركتك الآن مرئية لكبار المشترين في المملكة</p>
+      <p>Your supplier profile is now live. Complete it now to maximize visibility with Aramco, SABIC, and NEOM procurement teams.</p>
+
+      <div style="background:#F0FFF4;border:1px solid #A5D6A7;border-radius:14px;padding:20px 24px;margin-bottom:28px;text-align:left;">
+        <div style="font-size:.75rem;font-weight:800;color:#2E7D32;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;">Next Steps to Maximize Visibility</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:10px;font-size:.82rem;color:#1A2E50;">
+            <span style="width:22px;height:22px;border-radius:50%;background:#006C35;color:#fff;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:900;flex-shrink:0;">1</span>
+            Complete your company profile (products, certifications, IKTVA score)
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:.82rem;color:#1A2E50;">
+            <span style="width:22px;height:22px;border-radius:50%;background:#006C35;color:#fff;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:900;flex-shrink:0;">2</span>
+            Upload your CR certificate for Verified badge
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:.82rem;color:#1A2E50;">
+            <span style="width:22px;height:22px;border-radius:50%;background:#006C35;color:#fff;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:900;flex-shrink:0;">3</span>
+            Run the IKTVA calculator to display your score
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:.82rem;color:#1A2E50;">
+            <span style="width:22px;height:22px;border-radius:50%;background:#C8973A;color:#fff;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:900;flex-shrink:0;">4</span>
+            Respond to your first RFQ within 24 hours
+          </div>
+        </div>
+      </div>
+
+      <div class="success-actions">
+        <a href="dashboard.html" class="btn-primary" style="width:auto;">Go to My Dashboard →</a>
+        <a href="iktva-calculator.html" class="btn-outline">📊 IKTVA Calculator</a>
+      </div>
+
+      <div style="margin-top:24px;font-size:.75rem;color:#9A9AAA;">
+        Confirmation sent to <strong id="success-email">—</strong> &nbsp;•&nbsp; Support: <a href="mailto:support@thevalvehubs.com" style="color:#1A2E50;">support@thevalvehubs.com</a>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end join-body -->
+
+<!-- ── Toast ──────────────────────────────────────── -->
+<div id="adminToast"></div>
+
+<script src="js/navbar-auth.js"></script>
+<script>
+// ════════════════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════════════════
+const BASE = 'https://thevalvehubs-backend-production.up.railway.app/api';
+let currentStep   = 1;
+let selectedPlan  = null;
+let isYearly      = false;
+let allPlans      = [];
+let registeredUser = null;
+let selectedPayMethod = 'card';
+
+// ── Hard-coded plans (fallback if API has no plans yet) ──
+const FALLBACK_PLANS = [
+  {
+    id: 'free', nameEn: 'Free', nameAr: 'مجاني',
+    icon: '🌱', tagline: 'Start your presence on TheValveHubs',
+    priceMonthly: 0, priceYearly: 0, popular: false, isFree: true,
+    features: [
+      'Basic company listing',
+      'Up to 3 products',
+      'Public profile page',
+      'Contact form visible',
+    ],
+    missing: ['RFQ access','IKTVA score display','Verified badge','Priority in search'],
+  },
+  {
+    id: 'basic', nameEn: 'Basic', nameAr: 'أساسي',
+    icon: '⚙️', tagline: 'For small suppliers entering Saudi market',
+    priceMonthly: 490, priceYearly: 470, popular: false, isFree: false,
+    features: [
+      'Full company profile',
+      'Up to 20 products/services',
+      'Receive RFQs (up to 5/mo)',
+      'IKTVA score display',
+      'Email support',
+    ],
+    missing: ['Verified badge','Priority search placement','Aramco preferred tag'],
+  },
+  {
+    id: 'pro', nameEn: 'Pro', nameAr: 'احترافي',
+    icon: '🚀', tagline: 'Most popular — full Saudi market access',
+    priceMonthly: 1490, priceYearly: 1190, popular: true, isFree: false,
+    features: [
+      'Everything in Basic',
+      'Unlimited products',
+      'Unlimited RFQ access',
+      '✅ Verified supplier badge',
+      'Priority search placement',
+      'IKTVA consulting session (1hr)',
+      'WhatsApp RFQ alerts',
+    ],
+    missing: [],
+  },
+  {
+    id: 'enterprise', nameEn: 'Enterprise', nameAr: 'مؤسسي',
+    icon: '🏆', tagline: 'For global suppliers targeting major Saudi accounts',
+    priceMonthly: 3990, priceYearly: 3190, popular: false, isFree: false,
+    features: [
+      'Everything in Pro',
+      'Aramco Preferred Supplier tag',
+      'Dedicated account manager',
+      'ZATCA e-invoice setup',
+      'Custom IKTVA report',
+      'Featured homepage placement',
+      'Arabic profile translation',
+      'Priority emergency RFQ',
+    ],
+    missing: [],
+  },
+];
+
+// ════════════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', async () => {
+  // Load plans from API, fall back to hardcoded
+  try {
+    const data = await fetch(`${BASE}/plans`).then(r => r.json());
+    allPlans = (data.data && data.data.length) ? data.data : FALLBACK_PLANS;
+  } catch(e) {
+    allPlans = FALLBACK_PLANS;
+  }
+  renderPlans();
+
+  // Pre-fill email if already logged in
+  const user = (() => { try { return JSON.parse(localStorage.getItem('tvh_user')); } catch { return null; } })();
+  if (user?.email) document.getElementById('reg-email').value = user.email;
+});
+
+// ════════════════════════════════════════════════════
+// BILLING TOGGLE
+// ════════════════════════════════════════════════════
+function toggleBilling() {
+  isYearly = !isYearly;
+  const sw = document.getElementById('billingToggle');
+  sw.classList.toggle('on', isYearly);
+  document.getElementById('lbl-monthly').classList.toggle('active', !isYearly);
+  document.getElementById('lbl-yearly').classList.toggle('active', isYearly);
+  renderPlans();
+}
+
+// ════════════════════════════════════════════════════
+// RENDER PLANS
+// ════════════════════════════════════════════════════
+function renderPlans() {
+  const grid = document.getElementById('plansGrid');
+  grid.innerHTML = allPlans.map(plan => {
+    const price = isYearly ? (plan.priceYearly ?? plan.priceMonthly) : plan.priceMonthly;
+    const isSelected = selectedPlan?.id === plan.id;
+    const features = plan.features || [];
+    const missing  = plan.missing  || [];
+    return `
+      <div class="plan-card ${plan.popular ? 'popular' : ''} ${isSelected ? 'selected' : ''}" onclick="selectPlan('${plan.id}')">
+        ${plan.popular ? '<div class="popular-tag">⭐ Most Popular</div>' : ''}
+        <div class="plan-body">
+          <div class="plan-icon">${plan.icon || '📦'}</div>
+          <div class="plan-name">${plan.nameEn} ${plan.isFree ? '<span class="plan-badge-free">FREE</span>' : ''}</div>
+          <div class="plan-name-ar">${plan.nameAr || ''}</div>
+          <div class="plan-price">
+            <span class="currency">SAR</span>
+            <span class="amount">${price.toLocaleString()}</span>
+            <span class="period">/mo${isYearly ? ' billed annually' : ''}</span>
+            ${isYearly && !plan.isFree ? `<span class="yearly-note">Save ${Math.round((1 - plan.priceYearly/plan.priceMonthly)*100)}% vs monthly</span>` : ''}
+          </div>
+          <div class="plan-tagline">${plan.tagline || ''}</div>
+          <ul class="plan-features">
+            ${features.map(f => `<li>${f}</li>`).join('')}
+            ${missing.map(f => `<li class="no">${f}</li>`).join('')}
+          </ul>
+          <button class="plan-select-btn">${isSelected ? '✓ Selected' : 'Select Plan'}</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function selectPlan(id) {
+  selectedPlan = allPlans.find(p => p.id === id);
+  renderPlans();
+  // Small delay then proceed
+  setTimeout(() => goTo(2), 200);
+}
+
+// ════════════════════════════════════════════════════
+// STEP NAVIGATION
+// ════════════════════════════════════════════════════
+function goTo(step) {
+  if (step === 2 && !selectedPlan) { showMsg('reg-msg','Please select a plan first','error'); return; }
+
+  currentStep = step;
+  document.getElementById('sec-plan').classList.toggle('section-hidden', step !== 1);
+  document.getElementById('sec-register').classList.toggle('section-hidden', step !== 2);
+  document.getElementById('sec-payment').classList.toggle('section-hidden', step !== 3);
+  document.getElementById('sec-success').classList.toggle('section-hidden', step !== 4);
+
+  // Update step bar
+  [1,2,3,4].forEach(s => {
+    const num = document.getElementById(`step-num-${s}`);
+    const lbl = document.getElementById(`step-lbl-${s}`);
+    const div = document.getElementById(`div-${s}`);
+    if (!num) return;
+    num.className = 'step-num ' + (s < step ? 'done' : s === step ? 'active' : 'pending');
+    lbl.className = 'step-label ' + (s < step ? 'done' : s === step ? 'active' : '');
+    if (div) div.className = 'step-divider ' + (s < step ? 'done' : '');
+  });
+
+  if (step === 2 && selectedPlan) {
+    const price = isYearly ? (selectedPlan.priceYearly ?? selectedPlan.priceMonthly) : selectedPlan.priceMonthly;
+    document.getElementById('selected-plan-label').textContent =
+      `${selectedPlan.nameEn} — SAR ${price.toLocaleString()}/${isYearly ? 'yr' : 'mo'}`;
+  }
+
+  if (step === 3) updatePaymentSummary();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ════════════════════════════════════════════════════
+// REGISTRATION
+// ════════════════════════════════════════════════════
+async function doRegister() {
+  const nameEn   = document.getElementById('reg-nameEn').value.trim();
+  const email    = document.getElementById('reg-email').value.trim();
+  const phone    = document.getElementById('reg-phone').value.trim();
+  const password = document.getElementById('reg-password').value;
+  const terms    = document.getElementById('reg-terms').checked;
+
+  if (!nameEn)    return showMsg('reg-msg','Company name (English) is required','error');
+  if (!email)     return showMsg('reg-msg','Work email is required','error');
+  if (!phone)     return showMsg('reg-msg','Phone number is required','error');
+  if (password.length < 8) return showMsg('reg-msg','Password must be at least 8 characters','error');
+  if (!terms)     return showMsg('reg-msg','Please accept the Terms of Service','error');
+
+  const btn = document.getElementById('reg-btn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Creating account...';
+  clearMsg('reg-msg');
+
+  try {
+    // Check if already logged in with same email
+    const token = localStorage.getItem('tvh_token');
+    const existingUser = (() => { try { return JSON.parse(localStorage.getItem('tvh_user')); } catch { return null; } })();
+
+    if (token && existingUser?.email === email) {
+      registeredUser = existingUser;
+    } else {
+      const res = await fetch(`${BASE}/auth/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password, role: 'SUPPLIER', nameEn }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Registration failed');
+      localStorage.setItem('tvh_token', data.token);
+      localStorage.setItem('tvh_user', JSON.stringify(data.user));
+      registeredUser = data.user;
+    }
+
+    // If free plan — skip payment
+    if (selectedPlan?.isFree || selectedPlan?.priceMonthly === 0) {
+      await activateFreeSubscription();
+      return;
+    }
+
+    goTo(3);
+  } catch(e) {
+    showMsg('reg-msg', e.message, 'error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Continue to Payment →';
+  }
+}
+
+async function activateFreeSubscription() {
+  const token = localStorage.getItem('tvh_token');
+  try {
+    await fetch(`${BASE}/subscriptions`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+      body: JSON.stringify({ planId: selectedPlan.id, billingCycle: 'MONTHLY' }),
+    });
+  } catch(e) { /* ignore — still go to success */ }
+  document.getElementById('success-email').textContent = document.getElementById('reg-email').value;
+  goTo(4);
+}
+
+// ════════════════════════════════════════════════════
+// PAYMENT SUMMARY
+// ════════════════════════════════════════════════════
+function updatePaymentSummary() {
+  if (!selectedPlan) return;
+  const cycle = isYearly ? 'YEARLY' : 'MONTHLY';
+  const price = isYearly ? (selectedPlan.priceYearly ?? selectedPlan.priceMonthly) : selectedPlan.priceMonthly;
+  const vat   = Math.round(price * 0.15 * 100) / 100;
+  const total = Math.round((price + vat) * 100) / 100;
+  const trialTotal = Math.round(total * 3 * 100) / 100;
+
+  const chargeDate = new Date();
+  chargeDate.setMonth(chargeDate.getMonth() + 3);
+  const chargeDateStr = chargeDate.toLocaleDateString('en-SA', { year: 'numeric', month: 'long', day: 'numeric' });
+
+  document.getElementById('pay-plan-name').textContent  = `${selectedPlan.nameEn} — ${cycle}`;
+  document.getElementById('pay-subtotal').textContent   = `SAR ${price.toLocaleString()}`;
+  document.getElementById('pay-vat').textContent        = `SAR ${vat.toLocaleString()}`;
+  document.getElementById('pay-trial-discount').textContent = `SAR ${trialTotal.toLocaleString()}`;
+  document.getElementById('pay-due-today').textContent  = 'SAR 0.00';
+  document.getElementById('pay-first-charge').textContent = chargeDateStr;
+  document.getElementById('pay-btn').textContent = '🔒 Activate Free Trial — SAR 0 Today';
+}
+
+// ════════════════════════════════════════════════════
+// PAYMENT METHOD
+// ════════════════════════════════════════════════════
+function selectPayMethod(method) {
+  selectedPayMethod = method;
+  ['card','mada','transfer'].forEach(m => {
+    document.getElementById(`pm-${m}`).classList.toggle('active', m === method);
+  });
+  document.getElementById('card-fields').style.display   = (method === 'card' || method === 'mada') ? 'block' : 'none';
+  document.getElementById('transfer-fields').style.display = method === 'transfer' ? 'block' : 'none';
+}
+
+function formatCardNum(input) {
+  let v = input.value.replace(/\D/g,'').slice(0,16);
+  input.value = v.match(/.{1,4}/g)?.join(' ') || v;
+}
+function formatExpiry(input) {
+  let v = input.value.replace(/\D/g,'');
+  if (v.length >= 2) v = v.slice(0,2) + '/' + v.slice(2,4);
+  input.value = v;
+}
+
+// ════════════════════════════════════════════════════
+// PAYMENT SUBMIT
+// ════════════════════════════════════════════════════
+async function doPayment() {
+  if (selectedPayMethod === 'transfer') {
+    // Bank transfer — show success with manual activation note
+    document.getElementById('success-email').textContent = document.getElementById('reg-email').value;
+    document.getElementById('sec-payment').classList.add('section-hidden');
+    document.getElementById('sec-success').classList.remove('section-hidden');
+    document.querySelector('.success-wrap p').textContent =
+      'Your account is created. Send transfer proof to billing@thevalvehubs.com and we will activate your subscription within 24 hours.';
+    updateStepBar(4);
+    return;
+  }
+
+  const cardName   = document.getElementById('card-name').value.trim();
+  const cardNumber = document.getElementById('card-number').value.replace(/\s/g,'');
+  const cardExpiry = document.getElementById('card-expiry').value;
+  const cardCvv    = document.getElementById('card-cvv').value;
+
+  if (!cardName)   return showMsg('pay-msg','Cardholder name is required','error');
+  if (cardNumber.length < 13) return showMsg('pay-msg','Invalid card number','error');
+  if (!cardExpiry.includes('/')) return showMsg('pay-msg','Invalid expiry (MM/YY)','error');
+  if (cardCvv.length < 3) return showMsg('pay-msg','Invalid CVV','error');
+
+  const btn = document.getElementById('pay-btn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Processing...';
+  clearMsg('pay-msg');
+
+  try {
+    const token = localStorage.getItem('tvh_token');
+    const cycle = isYearly ? 'YEARLY' : 'MONTHLY';
+
+    const body = {
+      planId:       selectedPlan.id,
+      billingCycle: cycle,
+      paymentSource: {
+        type:  selectedPayMethod === 'mada' ? 'mada' : 'creditcard',
+        token: `test_${Date.now()}`, // In production: Moyasar tokenizes card client-side
+        name:  cardName,
+        number: cardNumber,
+        month: cardExpiry.split('/')[0],
+        year:  '20' + cardExpiry.split('/')[1],
+        cvc:   cardCvv,
+      },
+    };
+
+    const res = await fetch(`${BASE}/subscriptions`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+      body: JSON.stringify(body),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Payment failed');
+
+    document.getElementById('success-email').textContent = document.getElementById('reg-email').value;
+    goTo(4);
+  } catch(e) {
+    showMsg('pay-msg', e.message, 'error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '🔒 Activate Free Trial — SAR 0 Today';
+  }
+}
+
+// ════════════════════════════════════════════════════
+// HELPERS
+// ════════════════════════════════════════════════════
+function showMsg(containerId, msg, type) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  el.innerHTML = `<div class="msg-box msg-${type}">${type === 'error' ? '⚠️ ' : '✅ '}${msg}</div>`;
+  el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+function clearMsg(id) { const el = document.getElementById(id); if (el) el.innerHTML = ''; }
+
+function updateStepBar(step) {
+  [1,2,3,4].forEach(s => {
+    const num = document.getElementById(`step-num-${s}`);
+    const lbl = document.getElementById(`step-lbl-${s}`);
+    const div = document.getElementById(`div-${s}`);
+    if (!num) return;
+    num.className = 'step-num ' + (s < step ? 'done' : s === step ? 'active' : 'pending');
+    lbl.className = 'step-label ' + (s < step ? 'done' : s === step ? 'active' : '');
+    if (div) div.className = 'step-divider ' + (s < step ? 'done' : '');
+  });
+}
+</script>
+</body>
+</html>
