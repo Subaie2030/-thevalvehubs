@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Complete Your Profile — TheValveHubs</title>
+<link rel="stylesheet" href="style.css"/>
+<script src="js/tvh-api.js" defer></script>
+<style>
+*{box-sizing:border-box;}
+
+/* ── Page Header ─────────────────────────────── */
+.profile-hero{background:linear-gradient(135deg,#0A1628,#1A2E50);padding:40px 0 30px;text-align:center;}
+.profile-hero h1{font-size:1.7rem;font-weight:900;color:#fff;margin-bottom:6px;}
+.profile-hero p{font-size:.88rem;color:rgba(255,255,255,.7);margin:0;}
+
+/* ── Progress Bar ─────────────────────────────── */
+.progress-header{background:#fff;border-bottom:1px solid #E0E0EA;padding:16px 0;position:sticky;top:0;z-index:100;}
+.progress-inner{max-width:700px;margin:0 auto;padding:0 20px;}
+.progress-label{display:flex;justify-content:space-between;font-size:.75rem;font-weight:700;color:#7A7AAA;margin-bottom:8px;}
+.progress-bar{background:#EEEEF5;border-radius:6px;height:8px;}
+.progress-fill{height:8px;border-radius:6px;background:linear-gradient(90deg,#006C35,#00A854);transition:width .4s ease;}
+.progress-steps{display:flex;justify-content:space-between;margin-top:8px;}
+.p-step{font-size:.68rem;font-weight:700;color:#B0B0C0;text-align:center;flex:1;}
+.p-step.active{color:#006C35;}
+.p-step.done{color:#1A2E50;}
+
+/* ── Form Body ────────────────────────────────── */
+.profile-body{max-width:700px;margin:0 auto;padding:36px 20px 80px;}
+
+/* ── Section Card ─────────────────────────────── */
+.form-card{background:#fff;border-radius:18px;border:1px solid #E0E0EA;padding:30px;margin-bottom:20px;}
+.form-card-header{display:flex;align-items:center;gap:12px;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid #F4F4F7;}
+.form-card-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;background:#EEF2FF;flex-shrink:0;}
+.form-card-icon.green{background:#EBF7F0;}
+.form-card-icon.gold{background:#FFF8E7;}
+.form-card-title{font-size:1rem;font-weight:900;color:#1A1A2E;margin:0 0 2px;}
+.form-card-sub{font-size:.75rem;color:#9A9AAA;margin:0;}
+
+/* ── Form Controls ────────────────────────────── */
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+.form-group{margin-bottom:16px;}
+.form-group:last-child{margin-bottom:0;}
+.form-group label{display:flex;align-items:center;gap:6px;font-size:.74rem;font-weight:700;color:#3A3A5A;margin-bottom:6px;}
+.form-group label .req{color:#C0392B;}
+.form-group label .opt{color:#B0B0C0;font-weight:500;font-size:.68rem;}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:10px 13px;border:1.5px solid #E0E0EA;border-radius:9px;font-size:.85rem;color:#1A1A2E;outline:none;background:#FAFAFF;transition:.2s;font-family:inherit;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:#1A2E50;background:#fff;box-shadow:0 0 0 3px rgba(26,46,80,.06);}
+.form-group textarea{resize:vertical;min-height:90px;}
+.form-group input[type="range"]{padding:6px 0;background:none;border:none;}
+.field-hint{font-size:.68rem;color:#9A9AAA;margin-top:4px;}
+
+/* ── Checkbox Tags ────────────────────────────── */
+.tag-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;}
+.tag-item{padding:6px 14px;border:1.5px solid #E0E0EA;border-radius:100px;font-size:.75rem;font-weight:600;color:#5A5A7A;cursor:pointer;transition:.2s;user-select:none;}
+.tag-item:hover{border-color:#1A2E50;color:#1A2E50;}
+.tag-item.selected{background:#1A2E50;color:#fff;border-color:#1A2E50;}
+.tag-item.gold.selected{background:#C8973A;border-color:#C8973A;color:#fff;}
+
+/* ── IKTVA Slider ─────────────────────────────── */
+.iktva-display{display:flex;align-items:center;gap:16px;margin-top:10px;}
+.iktva-score-big{width:70px;height:70px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:900;color:#fff;background:linear-gradient(135deg,#006C35,#00A854);flex-shrink:0;}
+.iktva-bar-wrap{flex:1;}
+.iktva-bar{background:#EEEEF5;border-radius:6px;height:10px;overflow:hidden;margin-bottom:6px;}
+.iktva-bar-fill{height:10px;border-radius:6px;background:linear-gradient(90deg,#006C35,#00A854);transition:width .3s;}
+.iktva-tier{font-size:.72rem;font-weight:700;}
+
+/* ── Cert Tags ────────────────────────────────── */
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;}
+.cert-item{border:1.5px solid #E0E0EA;border-radius:10px;padding:10px 12px;cursor:pointer;transition:.2s;text-align:center;}
+.cert-item:hover{border-color:#1A2E50;}
+.cert-item.selected{border-color:#006C35;background:#EBF7F0;}
+.cert-item .cert-icon{font-size:1.2rem;margin-bottom:4px;}
+.cert-item .cert-name{font-size:.72rem;font-weight:700;color:#3A3A5A;}
+.cert-item.selected .cert-name{color:#006C35;}
+
+/* ── Section Toggle (Buyer vs Supplier) ─────────  */
+.role-section{display:none;}
+.role-section.visible{display:block;}
+
+/* ── Nav Buttons ──────────────────────────────── */
+.form-nav{display:flex;justify-content:space-between;align-items:center;margin-top:28px;}
+.btn-next{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:linear-gradient(135deg,#006C35,#009444);color:#fff;border:none;border-radius:10px;font-size:.88rem;font-weight:800;cursor:pointer;transition:.2s;}
+.btn-next:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,108,53,.3);}
+.btn-next:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+.btn-prev{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#fff;color:#5A5A7A;border:1.5px solid #E0E0EA;border-radius:10px;font-size:.85rem;font-weight:700;cursor:pointer;}
+.btn-prev:hover{border-color:#1A2E50;color:#1A2E50;}
+.btn-skip{background:none;border:none;color:#9A9AAA;font-size:.78rem;cursor:pointer;font-weight:600;}
+.btn-skip:hover{color:#5A5A7A;}
+
+/* ── Completion Screen ────────────────────────── */
+.complete-screen{text-align:center;padding:60px 20px;}
+.complete-icon{font-size:4rem;margin-bottom:16px;}
+.complete-screen h2{font-size:1.8rem;font-weight:900;color:#006C35;margin-bottom:8px;}
+.complete-screen p{font-size:.9rem;color:#5A5A7A;line-height:1.7;max-width:480px;margin:0 auto 28px;}
+.profile-score-ring{width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,#006C35,#00A854);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;flex-direction:column;}
+.profile-score-ring .score-num{font-size:1.8rem;font-weight:900;color:#fff;line-height:1;}
+.profile-score-ring .score-lbl{font-size:.55rem;color:rgba(255,255,255,.8);font-weight:700;text-transform:uppercase;}
+.next-steps-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:460px;margin:0 auto 28px;text-align:left;}
+.next-step-item{background:#F8F9FF;border:1px solid #E0E0EA;border-radius:12px;padding:14px 16px;display:flex;gap:10px;align-items:flex-start;}
+.next-step-item .ns-icon{font-size:1.2rem;flex-shrink:0;}
+.next-step-item .ns-text{font-size:.78rem;font-weight:600;color:#1A1A2E;line-height:1.4;}
+
+/* ── Msg ──────────────────────────────────────── */
+.msg-box{padding:10px 14px;border-radius:8px;font-size:.8rem;font-weight:600;margin-bottom:14px;}
+.msg-error{background:#FFEBEE;border:1px solid #FFCDD2;color:#C62828;}
+.msg-success{background:#E8F5E9;border:1px solid #A5D6A7;color:#1B5E20;}
+.hidden{display:none;}
+
+@media(max-width:600px){
+  .form-row,.form-row-3{grid-template-columns:1fr;}
+  .form-card{padding:20px 16px;}
+  .next-steps-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="images/tvh-logo-extracted.jpg" alt="TheValveHubs" style="width:200px;height:52px;object-fit:contain;object-position:left center;"/>
+    </a>
+    <div class="nav-cta">
+      <a href="dashboard.html" class="btn btn-outline btn-sm">← My Dashboard</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="profile-hero">
+  <h1 id="hero-title">Complete Your Profile</h1>
+  <p id="hero-sub">Fill in your details to get discovered by Saudi Arabia's top industrial buyers</p>
+</div>
+
+<!-- Progress -->
+<div class="progress-header">
+  <div class="progress-inner">
+    <div class="progress-label">
+      <span id="prog-step-label">Step 1 of 4</span>
+      <span id="prog-pct">25% complete</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progFill" style="width:25%"></div></div>
+  </div>
+</div>
+
+<!-- Body -->
+<div class="profile-body">
+  <div id="msg-global"></div>
+
+  <!-- ═══════════ STEP 1: COMPANY INFO ═══════════ -->
+  <div id="step-1">
+    <div class="form-card">
+      <div class="form-card-header">
+        <div class="form-card-icon green">🏢</div>
+        <div>
+          <div class="form-card-title">Company Information</div>
+          <div class="form-card-sub">Basic details that appear on your public profile</div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Company Name (English) <span class="req">*</span></label>
+          <input type="text" id="nameEn" placeholder="e.g. Al-Subaie Industrial Co."/>
+        </div>
+        <div class="form-group">
+          <label>اسم الشركة (عربي)</label>
+          <input type="text" id="nameAr" placeholder="مثال: شركة السبيعي الصناعية" dir="rtl"/>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>CR / Commercial Registration <span class="opt">(optional)</span></label>
+          <input type="text" id="crNumber" placeholder="e.g. 1010XXXXXXX"/>
+          <div class="field-hint">Helps get Verified badge faster</div>
+        </div>
+        <div class="form-group">
+          <label>VAT Number <span class="opt">(optional)</span></label>
+          <input type="text" id="vatNumber" placeholder="e.g. 300XXXXXXXXX"/>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>City <span class="req">*</span></label>
+          <select id="city">
+            <option value="">— Select city —</option>
+            <option>Riyadh</option><option>Jeddah</option><option>Dammam</option>
+            <option>Khobar</option><option>Dhahran</option><option>Jubail</option>
+            <option>Yanbu</option><option>Mecca</option><option>Medina</option>
+            <option>Tabuk</option><option>Abha</option><option>Hail</option>
+            <option>Outside Saudi Arabia</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Region</label>
+          <select id="region">
+            <option value="">— Select region —</option>
+            <option>Eastern Province</option><option>Riyadh Region</option>
+            <option>Makkah Region</option><option>Madinah Region</option>
+            <option>Tabuk Region</option><option>Aseer Region</option>
+            <option>Outside Saudi Arabia</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Phone / WhatsApp <span class="req">*</span></label>
+          <input type="tel" id="phone" placeholder="+966 5X XXX XXXX"/>
+        </div>
+        <div class="form-group">
+          <label>Website <span class="opt">(optional)</span></label>
+          <input type="url" id="website" placeholder="https://yourcompany.com"/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Company Description <span class="req">*</span></label>
+        <textarea id="description" placeholder="Briefly describe your company, main products/services, and key markets served..."></textarea>
+        <div class="field-hint">Minimum 50 characters — this is your first impression to buyers</div>
+      </div>
+    </div>
+
+    <div class="form-nav">
+      <span></span>
+      <div style="display:flex;gap:12px;align-items:center;">
+        <button class="btn-skip" onclick="skipStep()">Skip for now</button>
+        <button class="btn-next" onclick="nextStep(1)">Next: Industry & Focus →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ STEP 2: INDUSTRY & FOCUS ═══════════ -->
+  <div id="step-2" class="hidden">
+    <div class="form-card">
+      <div class="form-card-header">
+        <div class="form-card-icon gold">🏭</div>
+        <div>
+          <div class="form-card-title">Industry & Product Focus</div>
+          <div class="form-card-sub">Helps match you with the right RFQs and buyers</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Primary Industry Sector <span class="req">*</span></label>
+        <select id="sector">
+          <option value="">— Select sector —</option>
+          <option>Oil & Gas — Upstream</option>
+          <option>Oil & Gas — Midstream</option>
+          <option>Oil & Gas — Downstream / Refining</option>
+          <option>Petrochemicals</option>
+          <option>Water & Desalination</option>
+          <option>Power Generation</option>
+          <option>Mining & Minerals</option>
+          <option>Construction & Infrastructure</option>
+          <option>Industrial Manufacturing</option>
+          <option>Giga Projects (NEOM, Red Sea, Qiddiya)</option>
+        </select>
+      </div>
+
+      <!-- Supplier-only fields -->
+      <div class="role-section" id="supplier-products">
+        <div class="form-group">
+          <label>Product / Service Categories <span class="req">*</span></label>
+          <div class="tag-grid" id="product-tags">
+            <div class="tag-item" onclick="toggleTag(this,'VALVES')">🔧 Industrial Valves</div>
+            <div class="tag-item" onclick="toggleTag(this,'ACTUATORS')">⚙️ Actuators</div>
+            <div class="tag-item" onclick="toggleTag(this,'PIPES')">🔩 Pipes & Fittings</div>
+            <div class="tag-item" onclick="toggleTag(this,'PUMPS')">💧 Pumps</div>
+            <div class="tag-item" onclick="toggleTag(this,'INSTRUMENTATION')">📊 Instrumentation</div>
+            <div class="tag-item" onclick="toggleTag(this,'MACHINING')">🔨 Machining</div>
+            <div class="tag-item" onclick="toggleTag(this,'FABRICATION')">🏗 Fabrication</div>
+            <div class="tag-item" onclick="toggleTag(this,'MAINTENANCE')">🛠 MRO / Maintenance</div>
+            <div class="tag-item" onclick="toggleTag(this,'CONSULTING')">💼 Engineering Consulting</div>
+            <div class="tag-item" onclick="toggleTag(this,'RENTAL')">🏷 Equipment Rental</div>
+            <div class="tag-item" onclick="toggleTag(this,'3DPRINT')">🖨 3D Printing</div>
+            <div class="tag-item" onclick="toggleTag(this,'TESTING')">🔬 Testing & Inspection</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Year Established</label>
+            <input type="number" id="yearEstablished" placeholder="e.g. 2005" min="1900" max="2026"/>
+          </div>
+          <div class="form-group">
+            <label>Number of Employees</label>
+            <select id="employees">
+              <option value="">— Select —</option>
+              <option>1-10</option><option>11-50</option><option>51-200</option>
+              <option>201-500</option><option>500+</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Key Clients / Projects <span class="opt">(optional)</span></label>
+          <input type="text" id="keyClients" placeholder="e.g. Saudi Aramco, SABIC, NEOM, Ma'aden..."/>
+          <div class="field-hint">Mentioning major clients dramatically increases buyer trust</div>
+        </div>
+      </div>
+
+      <!-- Buyer-only fields -->
+      <div class="role-section" id="buyer-needs">
+        <div class="form-group">
+          <label>What are you typically procuring? <span class="req">*</span></label>
+          <div class="tag-grid" id="buyer-tags">
+            <div class="tag-item" onclick="toggleTag(this,'VALVES')">🔧 Valves</div>
+            <div class="tag-item" onclick="toggleTag(this,'ACTUATORS')">⚙️ Actuators</div>
+            <div class="tag-item" onclick="toggleTag(this,'PIPES')">🔩 Pipes & Fittings</div>
+            <div class="tag-item" onclick="toggleTag(this,'PUMPS')">💧 Pumps</div>
+            <div class="tag-item" onclick="toggleTag(this,'SERVICES')">🛠 Maintenance Services</div>
+            <div class="tag-item" onclick="toggleTag(this,'ENGINEERING')">💼 Engineering Services</div>
+            <div class="tag-item" onclick="toggleTag(this,'INSPECTION')">🔬 Inspection & Testing</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Annual Procurement Budget (SAR)</label>
+          <select id="procurementBudget">
+            <option value="">— Approximate range —</option>
+            <option>Under SAR 500K</option>
+            <option>SAR 500K – 2M</option>
+            <option>SAR 2M – 10M</option>
+            <option>SAR 10M – 50M</option>
+            <option>SAR 50M+</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Saudi Mega Projects Involvement</label>
+        <div class="tag-grid">
+          <div class="tag-item gold" onclick="toggleTag(this,'ARAMCO')">🛢 Aramco</div>
+          <div class="tag-item gold" onclick="toggleTag(this,'SABIC')">⚗️ SABIC</div>
+          <div class="tag-item gold" onclick="toggleTag(this,'NEOM')">🌆 NEOM</div>
+          <div class="tag-item gold" onclick="toggleTag(this,'REDSEA')">🌊 Red Sea Project</div>
+          <div class="tag-item gold" onclick="toggleTag(this,'QIDDIYA')">🎭 Qiddiya</div>
+          <div class="tag-item gold" onclick="toggleTag(this,'MAADEN')">⛏ Ma'aden</div>
+          <div class="tag-item gold" onclick="toggleTag(this,'SEC')">⚡ Saudi Electricity</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-nav">
+      <button class="btn-prev" onclick="prevStep(2)">← Back</button>
+      <div style="display:flex;gap:12px;align-items:center;">
+        <button class="btn-skip" onclick="skipStep()">Skip</button>
+        <button class="btn-next" onclick="nextStep(2)" id="next-2">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ STEP 3: IKTVA + CERTIFICATIONS (Suppliers) / CONTACT (Buyers) ═══════════ -->
+  <div id="step-3" class="hidden">
+
+    <!-- Supplier: IKTVA + Certs -->
+    <div class="role-section" id="supplier-iktva">
+      <div class="form-card">
+        <div class="form-card-header">
+          <div class="form-card-icon green">📊</div>
+          <div>
+            <div class="form-card-title">IKTVA Score & Certifications</div>
+            <div class="form-card-sub">Your IKTVA score is your #1 differentiator for Aramco & SABIC buyers</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Current IKTVA Score (%)</label>
+          <input type="range" id="iktvaRange" min="0" max="100" value="0" oninput="updateIktva(this.value)" style="width:100%;margin:8px 0;accent-color:#006C35;"/>
+          <div class="iktva-display">
+            <div class="iktva-score-big" id="iktvaScoreBig">0%</div>
+            <div class="iktva-bar-wrap">
+              <div class="iktva-bar"><div class="iktva-bar-fill" id="iktvaBarFill" style="width:0%"></div></div>
+              <div class="iktva-tier" id="iktvaTier" style="color:#9A9AAA;">Not scored — drag slider to set your score</div>
+              <div style="font-size:.68rem;color:#9A9AAA;margin-top:4px;">Don't know your score? <a href="iktva-calculator.html" target="_blank" style="color:#006C35;">Use our IKTVA Calculator →</a></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Aramco / National Procurement Qualification</label>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;">
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:.82rem;color:#3A3A5A;font-weight:500;">
+              <input type="checkbox" id="isAramcoApproved" style="width:auto;flex-shrink:0;"/>
+              Saudi Aramco Approved Supplier (Vendor Portal registered)
+            </label>
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:.82rem;color:#3A3A5A;font-weight:500;">
+              <input type="checkbox" id="isSabicApproved" style="width:auto;flex-shrink:0;"/>
+              SABIC Approved Vendor
+            </label>
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:.82rem;color:#3A3A5A;font-weight:500;">
+              <input type="checkbox" id="isMaadenApproved" style="width:auto;flex-shrink:0;"/>
+              Ma'aden Approved Supplier
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Certifications</label>
+          <div class="cert-grid" id="cert-grid">
+            <div class="cert-item" onclick="toggleCert(this,'ISO_9001')"><div class="cert-icon">🏅</div><div class="cert-name">ISO 9001</div></div>
+            <div class="cert-item" onclick="toggleCert(this,'ISO_14001')"><div class="cert-icon">🌿</div><div class="cert-name">ISO 14001</div></div>
+            <div class="cert-item" onclick="toggleCert(this,'ISO_45001')"><div class="cert-icon">⛑</div><div class="cert-name">ISO 45001</div></div>
+            <div class="cert-item" onclick="toggleCert(this,'API_6A')"><div class="cert-icon">🔩</div><div class="cert-name">API 6A</div></div>
+            <div class="cert-item" onclick="toggleCert(this,'API_6D')"><div class="cert-icon">🔧</div><div class="cert-name">API 6D</div></div>
+            <div class="cert-item" onclick="toggleCert(this,'API_600')"><div class="cert-icon">⚙️</div><div class="cert-name">API 600</div></div>
+            <div class="cert-item" onclick="toggleCert(this,'CE_MARK')"><div class="cert-icon">🇪🇺</div><div class="cert-name">CE Mark</div></div>
+            <div class="cert-item" onclick="toggleCert(this,'ATEX')"><div class="cert-icon">💥</div><div class="cert-name">ATEX</div></div>
+            <div class="cert-item" onclick="toggleCert(this,'SASO')"><div class="cert-icon">🇸🇦</div><div class="cert-name">SASO</div></div>
+            <div class="cert-item" onclick="toggleCert(this,'OHSAS')"><div class="cert-icon">🦺</div><div class="cert-name">OHSAS 18001</div></div>
+            <div class="cert-item" onclick="toggleCert(this,'PED')"><div class="cert-icon">📋</div><div class="cert-name">PED 2014/68</div></div>
+            <div class="cert-item" onclick="toggleCert(this,'OTHER')"><div class="cert-icon">➕</div><div class="cert-name">Other</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Buyer: Contact Preferences -->
+    <div class="role-section" id="buyer-contact">
+      <div class="form-card">
+        <div class="form-card-header">
+          <div class="form-card-icon green">📞</div>
+          <div>
+            <div class="form-card-title">Contact & Notification Preferences</div>
+            <div class="form-card-sub">How should suppliers reach you when you post an RFQ?</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Your Name / Contact Person <span class="req">*</span></label>
+            <input type="text" id="contactName" placeholder="Your full name"/>
+          </div>
+          <div class="form-group">
+            <label>Job Title</label>
+            <input type="text" id="jobTitle" placeholder="e.g. Procurement Manager"/>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>WhatsApp Number</label>
+            <input type="tel" id="whatsapp" placeholder="+966 5X XXX XXXX"/>
+          </div>
+          <div class="form-group">
+            <label>LinkedIn Profile <span class="opt">(optional)</span></label>
+            <input type="url" id="linkedin" placeholder="https://linkedin.com/in/..."/>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Preferred Contact Method</label>
+          <select id="preferredContact">
+            <option value="EMAIL">Email</option>
+            <option value="WHATSAPP">WhatsApp</option>
+            <option value="PLATFORM">Platform messages only</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>RFQ Notification Preferences</label>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;">
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:.82rem;color:#3A3A5A;font-weight:500;">
+              <input type="checkbox" id="notif-email" checked style="width:auto;"/>
+              Email me when a supplier responds to my RFQ
+            </label>
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:.82rem;color:#3A3A5A;font-weight:500;">
+              <input type="checkbox" id="notif-whatsapp" style="width:auto;"/>
+              WhatsApp notifications for urgent RFQ updates
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-nav">
+      <button class="btn-prev" onclick="prevStep(3)">← Back</button>
+      <div style="display:flex;gap:12px;align-items:center;">
+        <button class="btn-skip" onclick="skipStep()">Skip</button>
+        <button class="btn-next" onclick="nextStep(3)">Next: Review & Save →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ STEP 4: REVIEW & SAVE ═══════════ -->
+  <div id="step-4" class="hidden">
+    <div class="form-card">
+      <div class="form-card-header">
+        <div class="form-card-icon">✅</div>
+        <div>
+          <div class="form-card-title">Review & Publish</div>
+          <div class="form-card-sub">Check your details before going live</div>
+        </div>
+      </div>
+
+      <div id="review-content" style="font-size:.85rem;color:#3A3A5A;line-height:1.8;">
+        <!-- Filled dynamically -->
+      </div>
+    </div>
+
+    <div id="save-msg"></div>
+
+    <div class="form-nav">
+      <button class="btn-prev" onclick="prevStep(4)">← Edit</button>
+      <button class="btn-next" id="save-btn" onclick="saveProfile()">🚀 Publish My Profile</button>
+    </div>
+  </div>
+
+  <!-- ═══════════ COMPLETE SCREEN ═══════════ -->
+  <div id="step-complete" class="hidden">
+    <div class="complete-screen">
+      <div class="profile-score-ring" id="final-score-ring">
+        <div class="score-num" id="final-score-num">85%</div>
+        <div class="score-lbl">Profile</div>
+      </div>
+      <h2>Profile Published! 🎉</h2>
+      <p id="complete-msg">Your company is now live on TheValveHubs. Buyers searching for your products will find you immediately.</p>
+
+      <div class="next-steps-grid" id="next-steps-grid">
+        <!-- Filled by JS -->
+      </div>
+
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <a href="dashboard.html" class="btn-next" style="text-decoration:none;">Go to Dashboard →</a>
+        <a href="iktva-calculator.html" class="btn-prev" style="text-decoration:none;">📊 IKTVA Calculator</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="js/navbar-auth.js"></script>
+<script>
+// ════════════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════════════
+const BASE  = 'https://thevalvehubs-backend-production.up.railway.app/api';
+let step    = 1;
+let role    = 'BUYER';
+let selectedTags  = new Set();
+let selectedCerts = new Set();
+const TOTAL_STEPS = 4;
+
+// ════════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', async () => {
+  // Auth guard
+  const token = localStorage.getItem('tvh_token');
+  if (!token) { window.location.href = 'index.html'; return; }
+
+  const user = (() => { try { return JSON.parse(localStorage.getItem('tvh_user')); } catch { return null; } })();
+  role = user?.role || 'BUYER';
+
+  // Set hero text
+  if (role === 'SUPPLIER') {
+    document.getElementById('hero-title').textContent = 'Complete Your Supplier Profile';
+    document.getElementById('hero-sub').textContent = 'Get discovered by Aramco, SABIC, NEOM and 200+ Saudi industrial buyers';
+    document.getElementById('next-2').textContent = 'Next: IKTVA & Certifications →';
+  } else {
+    document.getElementById('hero-title').textContent = 'Complete Your Buyer Profile';
+    document.getElementById('hero-sub').textContent = 'Tell suppliers what you need — get better, faster quotes';
+    document.getElementById('next-2').textContent = 'Next: Contact Preferences →';
+  }
+
+  // Show correct role sections
+  showRoleSections();
+
+  // Pre-fill from API
+  try {
+    const data = await fetch(`${BASE}/auth/me`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    }).then(r => r.json());
+
+    const c = data.user?.company;
+    if (c) {
+      setVal('nameEn',      c.nameEn);
+      setVal('nameAr',      c.nameAr);
+      setVal('crNumber',    c.crNumber);
+      setVal('vatNumber',   c.vatNumber);
+      setVal('city',        c.city);
+      setVal('region',      c.region);
+      setVal('description', c.description);
+      if (c.supplierProfile?.iktvaScore) {
+        const score = c.supplierProfile.iktvaScore;
+        document.getElementById('iktvaRange').value = score;
+        updateIktva(score);
+      }
+    }
+  } catch(e) { /* silent */ }
+});
+
+function setVal(id, val) {
+  const el = document.getElementById(id);
+  if (el && val) el.value = val;
+}
+
+function showRoleSections() {
+  document.querySelectorAll('.role-section').forEach(el => el.classList.remove('visible'));
+  if (role === 'SUPPLIER') {
+    document.getElementById('supplier-products')?.classList.add('visible');
+    document.getElementById('supplier-iktva')?.classList.add('visible');
+  } else {
+    document.getElementById('buyer-needs')?.classList.add('visible');
+    document.getElementById('buyer-contact')?.classList.add('visible');
+  }
+}
+
+// ════════════════════════════════════════════════
+// STEP NAVIGATION
+// ════════════════════════════════════════════════
+function nextStep(from) {
+  if (from === 1 && !validate1()) return;
+  if (from === 2 && !validate2()) return;
+  goToStep(from + 1);
+}
+
+function prevStep(from) { goToStep(from - 1); }
+
+function skipStep() { goToStep(step + 1); }
+
+function goToStep(n) {
+  document.getElementById(`step-${step}`)?.classList.add('hidden');
+  step = n;
+
+  if (step > TOTAL_STEPS) {
+    document.getElementById(`step-${TOTAL_STEPS}`)?.classList.add('hidden');
+    renderReview();
+    document.getElementById('step-4').classList.remove('hidden');
+    step = 4;
+    updateProgress();
+    return;
+  }
+
+  document.getElementById(`step-${step}`)?.classList.remove('hidden');
+  updateProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateProgress() {
+  const pct = Math.round((step / TOTAL_STEPS) * 100);
+  document.getElementById('progFill').style.width = pct + '%';
+  document.getElementById('prog-step-label').textContent = `Step ${step} of ${TOTAL_STEPS}`;
+  document.getElementById('prog-pct').textContent = pct + '% complete';
+}
+
+// ════════════════════════════════════════════════
+// VALIDATION
+// ════════════════════════════════════════════════
+function validate1() {
+  const nameEn = document.getElementById('nameEn').value.trim();
+  const city   = document.getElementById('city').value;
+  const desc   = document.getElementById('description').value.trim();
+  const phone  = document.getElementById('phone').value.trim();
+
+  if (!nameEn)         return showMsg('msg-global','Company name is required','error');
+  if (!city)           return showMsg('msg-global','Please select your city','error');
+  if (!phone)          return showMsg('msg-global','Phone number is required','error');
+  if (desc.length > 0 && desc.length < 50) return showMsg('msg-global','Description should be at least 50 characters','error');
+  clearMsg('msg-global');
+  return true;
+}
+
+function validate2() {
+  const sector = document.getElementById('sector').value;
+  if (!sector) return showMsg('msg-global','Please select your primary industry sector','error');
+  clearMsg('msg-global');
+  return true;
+}
+
+// ════════════════════════════════════════════════
+// TAG / CERT TOGGLES
+// ════════════════════════════════════════════════
+function toggleTag(el, value) {
+  el.classList.toggle('selected');
+  if (el.classList.contains('selected')) selectedTags.add(value);
+  else selectedTags.delete(value);
+}
+
+function toggleCert(el, value) {
+  el.classList.toggle('selected');
+  if (el.classList.contains('selected')) selectedCerts.add(value);
+  else selectedCerts.delete(value);
+}
+
+// ════════════════════════════════════════════════
+// IKTVA SLIDER
+// ════════════════════════════════════════════════
+function updateIktva(val) {
+  val = parseInt(val);
+  document.getElementById('iktvaScoreBig').textContent = val + '%';
+  document.getElementById('iktvaBarFill').style.width  = val + '%';
+
+  let tier, color;
+  if      (val === 0)  { tier = 'Not scored'; color = '#9A9AAA'; }
+  else if (val < 20)   { tier = '🔴 Development Stage'; color = '#C0392B'; }
+  else if (val < 40)   { tier = '🟡 Progressing'; color = '#E67E22'; }
+  else if (val < 60)   { tier = '🟢 Good Standing'; color = '#27AE60'; }
+  else if (val < 80)   { tier = '⭐ Advanced'; color = '#006C35'; }
+  else                 { tier = '🏆 Excellence Tier'; color = '#1A2E50'; }
+
+  const tierEl = document.getElementById('iktvaTier');
+  tierEl.textContent = tier;
+  tierEl.style.color = color;
+  document.getElementById('iktvaScoreBig').style.background =
+    val === 0 ? '#9A9AAA' : `linear-gradient(135deg,${color},${color}CC)`;
+}
+
+// ════════════════════════════════════════════════
+// REVIEW PAGE
+// ════════════════════════════════════════════════
+function renderReview() {
+  const rows = [
+    ['Company', document.getElementById('nameEn').value || '—'],
+    ['Arabic Name', document.getElementById('nameAr').value || '—'],
+    ['City', document.getElementById('city').value || '—'],
+    ['Phone', document.getElementById('phone').value || '—'],
+    ['Sector', document.getElementById('sector').value || '—'],
+    ['Products/Focus', [...selectedTags].join(', ') || '—'],
+  ];
+  if (role === 'SUPPLIER') {
+    rows.push(['IKTVA Score', document.getElementById('iktvaRange').value + '%']);
+    rows.push(['Certifications', [...selectedCerts].join(', ') || '—']);
+  }
+
+  document.getElementById('review-content').innerHTML = `
+    <table style="width:100%;border-collapse:collapse;">
+      ${rows.map(([k,v]) => `
+        <tr style="border-bottom:1px solid #F4F4F7;">
+          <td style="padding:8px 12px;font-weight:700;color:#7A7AAA;width:35%;font-size:.78rem;">${k}</td>
+          <td style="padding:8px 12px;color:#1A1A2E;font-size:.83rem;">${v}</td>
+        </tr>
+      `).join('')}
+    </table>
+  `;
+}
+
+// ════════════════════════════════════════════════
+// SAVE PROFILE
+// ════════════════════════════════════════════════
+async function saveProfile() {
+  const token = localStorage.getItem('tvh_token');
+  const btn   = document.getElementById('save-btn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Saving...';
+  clearMsg('save-msg');
+
+  try {
+    // 1. Update company info
+    const companyBody = {
+      nameEn:      document.getElementById('nameEn').value.trim(),
+      nameAr:      document.getElementById('nameAr').value.trim() || undefined,
+      crNumber:    document.getElementById('crNumber').value.trim() || undefined,
+      vatNumber:   document.getElementById('vatNumber').value.trim() || undefined,
+      city:        document.getElementById('city').value || undefined,
+      region:      document.getElementById('region').value || undefined,
+      phone:       document.getElementById('phone').value.trim() || undefined,
+      website:     document.getElementById('website').value.trim() || undefined,
+      description: document.getElementById('description').value.trim() || undefined,
+      sector:      document.getElementById('sector').value || undefined,
+    };
+
+    // 2. Save supplier profile if supplier
+    if (role === 'SUPPLIER') {
+      const iktvaScore      = parseInt(document.getElementById('iktvaRange').value);
+      const isAramcoApproved = document.getElementById('isAramcoApproved').checked;
+      const isSabicApproved  = document.getElementById('isSabicApproved')?.checked;
+      const pillars = [...selectedTags];
+      const certs   = [...selectedCerts];
+
+      const profileRes = await fetch(`${BASE}/suppliers/profile`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({
+          ...companyBody,
+          iktvaScore,
+          isAramcoApproved,
+          isSabicApproved,
+          pillar:  pillars[0] || 'VALVES',
+          pillars,
+          certifications: certs.map(c => ({ type: c, issuer: c, expiryDate: null })),
+        }),
+      });
+      if (!profileRes.ok) {
+        const err = await profileRes.json();
+        throw new Error(err.error || 'Failed to save supplier profile');
+      }
+    }
+
+    // Calculate completion score
+    const score = calcCompletionScore();
+    showComplete(score);
+
+  } catch(e) {
+    showMsg('save-msg', e.message, 'error');
+    btn.disabled = false;
+    btn.textContent = '🚀 Publish My Profile';
+  }
+}
+
+function calcCompletionScore() {
+  let score = 30; // base for registering
+  if (document.getElementById('nameEn').value)       score += 10;
+  if (document.getElementById('nameAr').value)       score += 5;
+  if (document.getElementById('city').value)         score += 5;
+  if (document.getElementById('description').value)  score += 10;
+  if (document.getElementById('crNumber').value)     score += 10;
+  if (document.getElementById('sector').value)       score += 5;
+  if (selectedTags.size > 0)                         score += 10;
+  if (role === 'SUPPLIER') {
+    const iktva = parseInt(document.getElementById('iktvaRange').value);
+    if (iktva > 0)             score += 10;
+    if (selectedCerts.size > 0) score += 5;
+  }
+  return Math.min(score, 100);
+}
+
+function showComplete(score) {
+  document.getElementById('step-4').classList.add('hidden');
+  document.getElementById('step-complete').classList.remove('hidden');
+  document.getElementById('final-score-num').textContent = score + '%';
+  document.getElementById('progFill').style.width = '100%';
+  document.getElementById('prog-pct').textContent = 'Profile complete!';
+  document.getElementById('prog-step-label').textContent = '✅ Published';
+
+  const isSupplier = role === 'SUPPLIER';
+  document.getElementById('complete-msg').textContent = isSupplier
+    ? 'Your supplier profile is now live. Buyers searching for your products will find you immediately. Complete the steps below to maximize visibility.'
+    : 'Your buyer profile is live. Post your first RFQ to receive quotes from verified Saudi suppliers within 24 hours.';
+
+  const steps = isSupplier ? [
+    ['📊','Run IKTVA Calculator','Boost your score visibility'],
+    ['✅','Get Verified','Upload your CR for the Verified badge'],
+    ['📋','Browse RFQs','Respond to matching opportunities'],
+    ['🏆','Add Certifications','ISO, API, SASO certificates'],
+  ] : [
+    ['📋','Post your first RFQ','Get quotes in 24 hours'],
+    ['🔍','Browse Suppliers','Find verified Saudi suppliers'],
+    ['📊','Set procurement alerts','Get notified of new suppliers'],
+    ['💬','Contact a supplier','Direct message verified suppliers'],
+  ];
+
+  document.getElementById('next-steps-grid').innerHTML = steps.map(([icon, title, sub]) => `
+    <div class="next-step-item">
+      <div class="ns-icon">${icon}</div>
+      <div>
+        <div class="ns-text" style="font-weight:800;">${title}</div>
+        <div class="ns-text" style="font-weight:500;color:#7A7AAA;font-size:.72rem;">${sub}</div>
+      </div>
+    </div>
+  `).join('');
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ════════════════════════════════════════════════
+// HELPERS
+// ════════════════════════════════════════════════
+function showMsg(id, msg, type) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.innerHTML = `<div class="msg-box msg-${type}">${type==='error'?'⚠️ ':'✅ '}${msg}</div>`;
+  el.scrollIntoView({ behavior:'smooth', block:'nearest' });
+  return false;
+}
+function clearMsg(id) { const el = document.getElementById(id); if(el) el.innerHTML=''; }
+</script>
+</body>
+</html>
