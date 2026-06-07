@@ -1,0 +1,910 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Valve Experts &amp; Technicians — TheValveHubs | Saudi Arabia Industrial Workforce</title>
+<meta name="description" content="Connect with certified valve technicians, engineers and advisors in Saudi Arabia. Upload your CV and join TheValveHubs expert network. Clients find the right expertise fast."/>
+<link rel="stylesheet" href="style.css"/>
+<style>
+/* ── EXPERTS PAGE ── */
+.experts-hero{background:linear-gradient(145deg,#0A1628,#163660,#1e4d8c);padding:100px 0 60px;position:relative;overflow:hidden;}
+.experts-hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:56px 56px;}
+.experts-hero::after{content:'';position:absolute;top:-20%;right:-5%;width:55%;height:130%;background:radial-gradient(ellipse,rgba(200,151,58,.18) 0%,transparent 60%);pointer-events:none;}
+.experts-hero .container{position:relative;z-index:1;}
+.experts-hero h1{font-size:clamp(2rem,4.5vw,3.2rem);font-weight:900;color:#fff;line-height:1.08;margin-bottom:14px;}
+.experts-hero p{font-size:.97rem;color:rgba(255,255,255,.8);max-width:640px;line-height:1.8;}
+
+/* TWO-PATH SELECTOR */
+.path-selector{display:grid;grid-template-columns:1fr 1fr;gap:3px;background:linear-gradient(135deg,#006C35,#009444);border-radius:16px;overflow:hidden;margin-top:44px;}
+.path-btn{background:#fff;padding:26px 24px;text-align:center;cursor:pointer;transition:all .25s;border:none;font-family:inherit;}
+.path-btn:hover,.path-btn.active{background:#EBF7F0;}
+.path-btn.active{background:linear-gradient(135deg,#EBF7F0,#F0FBF5);}
+.pb-icon{font-size:2.2rem;margin-bottom:10px;display:block;}
+.pb-title{font-size:.95rem;font-weight:900;color:#1A2A1A;margin-bottom:5px;}
+.pb-sub{font-size:.78rem;color:#5A6B62;line-height:1.55;}
+
+/* HOW IT WORKS */
+.how-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px;}
+.how-card{background:#fff;border:1.5px solid #D8E4D8;border-radius:16px;padding:22px 18px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.06);}
+.how-num{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#004A24,#006C35);color:#fff;font-size:.82rem;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;}
+.how-icon{font-size:1.7rem;margin-bottom:10px;}
+.how-card h4{font-size:.85rem;font-weight:800;color:#1A2A1A;margin-bottom:6px;}
+.how-card p{font-size:.77rem;color:#5A6B62;line-height:1.6;}
+
+/* EXPERTISE CATEGORIES */
+.cat-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px;}
+.cat-pill{padding:8px 16px;border-radius:100px;font-size:.78rem;font-weight:700;cursor:pointer;border:1.5px solid;transition:all .2s;font-family:inherit;}
+.cat-pill.all{border-color:#006C35;color:#006C35;background:#EBF7F0;}
+.cat-pill.all.active,.cat-pill.all:hover{background:#006C35;color:#fff;}
+.cat-pill.tech{border-color:#163660;color:#163660;background:#EEF3FB;}
+.cat-pill.tech.active,.cat-pill.tech:hover{background:#163660;color:#fff;}
+.cat-pill.eng{border-color:#006C8A;color:#006C8A;background:#EEF7FB;}
+.cat-pill.eng.active,.cat-pill.eng:hover{background:#006C8A;color:#fff;}
+.cat-pill.insp{border-color:#8B4513;color:#8B4513;background:#FBF3EE;}
+.cat-pill.insp.active,.cat-pill.insp:hover{background:#8B4513;color:#fff;}
+.cat-pill.adv{border-color:#6B21A8;color:#6B21A8;background:#F5F0FB;}
+.cat-pill.adv.active,.cat-pill.adv:hover{background:#6B21A8;color:#fff;}
+.cat-pill.pm{border-color:#B8860B;color:#B8860B;background:#FDFBEE;}
+.cat-pill.pm.active,.cat-pill.pm:hover{background:#B8860B;color:#fff;}
+
+/* EXPERT CARDS */
+.experts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.expert-card{background:#fff;border:1.5px solid #D8E4D8;border-radius:20px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.06);transition:all .25s;}
+.expert-card:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,.1);border-color:#006C35;}
+.ec-top{background:linear-gradient(135deg,#EBF7F0,#F0FBF5);padding:22px 20px 16px;display:flex;align-items:flex-start;gap:14px;border-bottom:1.5px solid #D8E4D8;}
+.ec-avatar{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.95rem;font-weight:900;flex-shrink:0;border:2.5px solid #fff;box-shadow:0 3px 10px rgba(0,0,0,.12);}
+.ec-info{flex:1;}
+.ec-name{font-size:.95rem;font-weight:900;color:#1A2A1A;margin-bottom:3px;}
+.ec-title{font-size:.75rem;color:#006C35;font-weight:700;margin-bottom:3px;}
+.ec-location{font-size:.7rem;color:#7A9A7A;display:flex;align-items:center;gap:4px;}
+.ec-avail{display:inline-flex;align-items:center;gap:5px;font-size:.68rem;font-weight:700;padding:3px 10px;border-radius:100px;margin-top:6px;}
+.avail-open{background:#D1FAE5;color:#065F46;border:1px solid #6EE7B7;}
+.avail-contract{background:#FEF3C7;color:#92400E;border:1px solid #FCD34D;}
+.avail-busy{background:#F3F4F6;color:#6B7280;border:1px solid #E5E7EB;}
+.ec-body{padding:16px 20px;}
+.ec-bio{font-size:.8rem;color:#3A4A42;line-height:1.65;margin-bottom:12px;}
+.ec-skills{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px;}
+.ec-skill{background:#EBF7F0;border:1px solid rgba(0,108,53,.14);color:#006C35;padding:3px 9px;border-radius:4px;font-size:.68rem;font-weight:700;}
+.ec-certs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;}
+.ec-cert{background:#EEF3FB;border:1px solid rgba(22,54,96,.14);color:#163660;padding:2.5px 8px;border-radius:4px;font-size:.67rem;font-weight:700;}
+.ec-exp-row{display:flex;justify-content:space-between;font-size:.75rem;color:#7A9A7A;margin-bottom:14px;padding-top:10px;border-top:1px solid #EBF7F0;}
+.ec-exp-val{font-weight:800;color:#006C35;}
+.ec-actions{display:flex;gap:8px;}
+.eca{flex:1;padding:9px 12px;border-radius:10px;font-size:.78rem;font-weight:700;cursor:pointer;border:none;font-family:inherit;text-align:center;transition:all .2s;}
+.eca-primary{background:#006C35;color:#fff;}
+.eca-primary:hover{background:#004A24;}
+.eca-outline{background:#EBF7F0;border:1.5px solid rgba(0,108,53,.14);color:#006C35;}
+.eca-outline:hover{background:#D8EED8;}
+
+/* CV UPLOAD FORM */
+.cv-form-card{background:#fff;border-radius:20px;border:1.5px solid #D8E4D8;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.08);max-width:820px;margin:0 auto;}
+.cv-form-header{background:linear-gradient(135deg,#163660,#1e4d8c);padding:28px 32px;display:flex;align-items:center;gap:18px;}
+.cv-form-icon{width:56px;height:56px;background:rgba(255,255,255,.15);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;}
+.cv-form-header h3{font-size:1.1rem;font-weight:900;color:#fff;margin-bottom:4px;}
+.cv-form-header p{font-size:.8rem;color:rgba(255,255,255,.75);line-height:1.5;}
+.cv-form-body{padding:28px 32px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:0;}
+.form-full{grid-column:1/-1;}
+.form-group{margin-bottom:16px;}
+.form-group label{display:block;font-size:.72rem;font-weight:700;color:#006C35;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:11px 14px;border:1.5px solid #D8E4D8;border-radius:10px;font-size:.875rem;font-family:inherit;color:#1A2A1A;background:#fff;outline:none;transition:border-color .2s,box-shadow .2s;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:#006C35;box-shadow:0 0 0 3px rgba(0,108,53,.08);}
+.form-group textarea{height:90px;resize:vertical;}
+
+/* Skills checklist */
+.skills-check-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:6px;}
+.skill-check{display:flex;align-items:center;gap:8px;background:#F8FAF9;border:1px solid #E0E5E2;border-radius:8px;padding:9px 12px;cursor:pointer;transition:all .2s;font-size:.78rem;color:#3A4A42;font-weight:500;}
+.skill-check:hover{border-color:#006C35;background:#EBF7F0;}
+.skill-check input[type="checkbox"]{accent-color:#006C35;width:14px;height:14px;flex-shrink:0;}
+.skill-check.checked{background:#EBF7F0;border-color:#006C35;color:#006C35;font-weight:700;}
+
+/* Upload zone */
+.upload-zone{border:2.5px dashed rgba(0,108,53,.25);border-radius:14px;padding:28px;text-align:center;cursor:pointer;transition:all .2s;background:#F8FAF9;margin-top:6px;}
+.upload-zone:hover{border-color:#006C35;background:#EBF7F0;}
+.upload-zone-icon{font-size:2.2rem;margin-bottom:10px;}
+.upload-zone h4{font-size:.88rem;font-weight:700;color:#1A2A1A;margin-bottom:5px;}
+.upload-zone p{font-size:.78rem;color:#7A9A7A;line-height:1.55;}
+.upload-formats{display:flex;gap:6px;justify-content:center;margin-top:10px;}
+.uf-tag{background:#EBF7F0;border:1px solid rgba(0,108,53,.14);color:#006C35;padding:3px 9px;border-radius:4px;font-size:.68rem;font-weight:700;}
+
+/* Success state */
+.cv-success{display:none;text-align:center;padding:44px 32px;}
+.cv-success-icon{font-size:3.5rem;margin-bottom:16px;}
+.cv-success h3{font-size:1.2rem;font-weight:900;color:#006C35;margin-bottom:10px;}
+.cv-success p{font-size:.88rem;color:#5A6B62;line-height:1.75;max-width:480px;margin:0 auto 22px;}
+
+/* Stats band */
+.stats-band{display:grid;grid-template-columns:repeat(5,1fr);border:1.5px solid #D8E4D8;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:40px;}
+.sb-item{padding:18px 14px;text-align:center;border-right:1px solid #D8E4D8;transition:background .2s;}
+.sb-item:last-child{border-right:none;}
+.sb-item:hover{background:#EBF7F0;}
+.sb-num{font-size:1.5rem;font-weight:900;color:#006C35;display:block;line-height:1;margin-bottom:5px;}
+.sb-lbl{font-size:.62rem;color:#7A9A7A;text-transform:uppercase;letter-spacing:.1em;}
+
+/* Search bar */
+.search-bar{display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap;}
+.sb-search{flex:1;min-width:200px;padding:11px 14px 11px 40px;border:1.5px solid #D8E4D8;border-radius:10px;font-size:.875rem;font-family:inherit;outline:none;transition:border-color .2s;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23B0BAB4' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'/%3E%3C/svg%3E") no-repeat 12px center/18px;}
+.sb-search:focus{border-color:#006C35;}
+.sb-sel{background:#fff;border:1.5px solid #D8E4D8;padding:11px 12px;border-radius:10px;font-size:.83rem;font-family:inherit;cursor:pointer;outline:none;}
+.sb-sel:focus{border-color:#006C35;}
+.expert-count{background:#EBF7F0;border:1px solid rgba(0,108,53,.14);color:#006C35;padding:8px 15px;border-radius:100px;font-size:.78rem;font-weight:700;white-space:nowrap;align-self:center;}
+
+@media(max-width:1024px){.how-grid{grid-template-columns:1fr 1fr;}.experts-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:768px){.path-selector{grid-template-columns:1fr;gap:1px;}.how-grid{grid-template-columns:1fr;}.experts-grid{grid-template-columns:1fr;}.stats-band{grid-template-columns:repeat(3,1fr);}.form-row{grid-template-columns:1fr;}.skills-check-grid{grid-template-columns:1fr 1fr;}.cv-form-body{padding:20px 18px;}}
+@media(max-width:480px){.stats-band{grid-template-columns:1fr 1fr;}.skills-check-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<!-- Preloader -->
+<div id="preloader"><div class="preloader-inner"><div class="preloader-logo">TVH</div><div class="preloader-spinner"></div><div class="preloader-text">Loading TheValveHubs&hellip;</div></div></div>
+
+<!-- Emergency Band -->
+<div class="emergency-band" id="emergencyBand">&#128680; Emergency 24/7 &mdash; Valves &middot; Spare Parts &middot; Machining &middot; Rental &mdash;<a href="emergency.html">Submit RFQ &rarr;</a><button class="band-dismiss" onclick="document.getElementById('emergencyBand').style.display='none'">&times;</button></div>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="images/tvh-logo-extracted.jpg" alt="TheValveHubs" style="width:220px;height:58px;object-fit:contain;object-position:left center;display:block;flex-shrink:0;"/></a>
+    <ul class="nav-menu">
+      <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+      <li class="nav-item"><a href="platform.html" class="nav-link" style="color:#006C35;font-weight:700;">&#128205; Platform</a></li>
+      <li class="nav-item"><a href="saudi-market.html" class="nav-link">&#127470;&#127474; Saudi Market <span class="arrow">&#9660;</span></a>
+        <div class="dropdown"><div class="dropdown-group"><div class="dropdown-label">6 Pillars &mdash; Saudi First</div>
+          <a href="saudi-market.html#valves"><span class="d-icon">&#9881;</span> Pillar 1 &mdash; Valves</a>
+          <a href="saudi-market.html#parts"><span class="d-icon">&#128230;</span> Pillar 2 &mdash; Spare Parts</a>
+          <a href="saudi-market.html#machining"><span class="d-icon">&#128297;</span> Pillar 3 &mdash; Machining</a>
+          <a href="saudi-market.html#printing"><span class="d-icon">&#128424;</span> P4 &mdash; 3D Printing</a>
+          <a href="experts.html"><span class="d-icon">&#128203;</span> Pillar 5 &mdash; Consultation</a>
+          <a href="saudi-market.html#rental"><span class="d-icon">&#128260;</span> Pillar 6 &mdash; Rental</a>
+        </div></div>
+      </li>
+      <li class="nav-item"><a href="global-suppliers.html" class="nav-link">&#127760; Global Suppliers <span class="arrow">&#9660;</span></a>
+        <div class="dropdown"><div class="dropdown-group"><div class="dropdown-label">Priority 2 &mdash; When Saudi Unavailable</div>
+          <a href="global-suppliers.html#oem"><span class="d-icon">&#127981;</span> OEM Manufacturers</a>
+          <a href="global-suppliers.html#distributors"><span class="d-icon">&#127987;</span> UAE Distributors</a>
+          <a href="global-suppliers.html#parts"><span class="d-icon">&#128230;</span> Global Spare Parts</a>
+        </div></div>
+      </li>
+      <li class="nav-item"><a href="emergency.html" class="nav-link emergency-link">&#128680; Emergency <span class="arrow">&#9660;</span></a>
+        <div class="dropdown"><div class="dropdown-group"><div class="dropdown-label">24/7 Emergency</div>
+          <a href="emergency.html#valves">&#9881; Emergency Valves</a>
+          <a href="emergency.html#parts">&#128295; Emergency Spare Parts</a>
+          <a href="emergency.html#rental">&#128260; Emergency Rental</a>
+          <a href="emergency.html">&#128203; Submit Emergency RFQ</a>
+        </div></div>
+      </li>
+      <li class="nav-item"><a href="#" class="nav-link">&#128736; Tools <span class="arrow">&#9660;</span></a>
+        <div class="dropdown"><div class="dropdown-group"><div class="dropdown-label">Free Tools</div>
+          <a href="iktva-calculator.html"><span class="d-icon">&#127954;</span> IKTVA Score Calculator</a>
+          <a href="valve-wizard.html"><span class="d-icon">&#128203;</span> Valve Specification Wizard</a>
+          <a href="shutdown-calendar.html"><span class="d-icon">&#128197;</span> Shutdown Calendar</a>
+        </div><hr/><a href="pricing.html"><span class="d-icon">&#128176;</span> Pricing Plans</a></div>
+      </li>
+      <li class="nav-item"><a href="experts.html" class="nav-link" style="color:#006C35;font-weight:700;">&#128119; Experts &amp; Technicians</a></li>
+      <li class="nav-item"><a href="invest-saudi.html" class="nav-link">&#127868; Invest in Saudi</a></li>
+    </ul>
+    <div class="nav-cta"><a href="survey.html" class="btn btn-outline-green btn-sm" style="border-color:#C8973A;color:#C8973A;">&#127942; Rate Us</a><a href="index.html#join" class="btn btn-outline-green btn-sm">Join Free</a><a href="emergency.html" class="btn btn-red btn-sm">&#128680; Emergency</a></div>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav-item"><a href="index.html" class="mobile-nav-link">Home</a></div>
+  <div class="mobile-nav-item"><a href="saudi-market.html" class="mobile-nav-link">&#127470;&#127474; Saudi Market</a></div>
+  <div class="mobile-nav-item"><a href="experts.html" class="mobile-nav-link" style="color:#006C35;font-weight:700;">&#128119; Experts &amp; Technicians</a></div>
+  <div class="mobile-nav-item"><a href="emergency.html" class="mobile-nav-link" style="color:#C0392B">&#128680; Emergency 24/7</a></div>
+  <div class="mobile-nav-item"><a href="iktva-calculator.html" class="mobile-nav-link">&#127954; IKTVA Calculator</a></div>
+  <div class="mobile-nav-item"><a href="pricing.html" class="mobile-nav-link">&#128176; Pricing</a></div>
+  <div class="mobile-nav-item"><a href="projects.html" class="mobile-nav-link" style="color:#1A3A6B;font-weight:700;">&#128203; Watch Projects</a></div><div class="mobile-nav-item"><a href="intelligence.html" class="mobile-nav-link">&#128240; TVH Intelligence</a></div><div class="mobile-nav-item"><a href="valve-academy.html" class="mobile-nav-link" style="color:#C8973A;font-weight:700;">&#127891; Valve Academy</a></div><div class="mobile-nav-item"><a href="invest-saudi.html" class="mobile-nav-link">&#127868; Invest in Saudi</a></div>
+  <div class="mobile-cta"><a href="index.html#join" class="btn btn-green">Join Free</a><a href="emergency.html" class="btn btn-red">&#128680; Emergency</a></div>
+</div>
+
+<!-- ═══ HERO ═══════════════════════════════════════════════ -->
+<section class="experts-hero">
+  <div class="container">
+    <div style="font-size:.72rem;color:rgba(255,255,255,.55);margin-bottom:14px;"><a href="index.html" style="color:rgba(255,255,255,.7);">Home</a> &#8250; <span>Experts &amp; Technicians</span></div>
+    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:6px 16px;font-size:.74rem;font-weight:700;color:rgba(255,255,255,.9);margin-bottom:18px;">&#128119; Platform Pillar 5 &bull; Technical Consultation &bull; Saudi Arabia &amp; GCC</div>
+    <h1>Valve Experts &amp;<br/>Technical Professionals</h1>
+    <p>TheValveHubs connects Saudi Arabia's industrial sector with certified valve technicians, engineers, inspectors and advisors. Whether you need expertise for a shutdown, a complex RFQ or a long-term project &mdash; the right professional is one request away.</p>
+
+    <!-- TWO PATHS -->
+    <div class="path-selector">
+      <button class="path-btn active" onclick="showSection('clients')">
+        <span class="pb-icon">&#127962;</span>
+        <div class="pb-title">I Need Expertise</div>
+        <div class="pb-sub">Operator, EPC contractor or procurement team looking for a qualified valve technician, engineer or advisor</div>
+      </button>
+      <button class="path-btn" onclick="showSection('professionals')">
+        <span class="pb-icon">&#128119;</span>
+        <div class="pb-title">I Am a Valve Professional</div>
+        <div class="pb-sub">Technician, engineer, inspector or advisor looking to join the platform and be discovered by Saudi Arabia's industrial operators</div>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOR CLIENTS — HOW TVH SUPPORTS ════════════════════ -->
+<section style="padding:64px 0;background:#F8FAF9;" id="section-clients">
+  <div class="container">
+
+    <!-- INTRO: HOW THEVALVEHUBS SUPPORTS CLIENTS -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-bottom:56px;">
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:7px;background:#EBF7F0;color:#006C35;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:5px 13px;border-radius:100px;margin-bottom:12px;border:1px solid rgba(0,108,53,.14);">How TheValveHubs Helps</div>
+        <div style="width:44px;height:3px;background:linear-gradient(90deg,#006C35,#009444);border-radius:2px;margin-bottom:16px;"></div>
+        <h2 style="font-size:clamp(1.6rem,3vw,2.3rem);font-weight:900;color:#1A2A1A;line-height:1.1;margin-bottom:14px;">Finding the Right Valve Expertise &mdash; Fast</h2>
+        <p style="color:#5A6B62;line-height:1.8;margin-bottom:16px;">Valve shutdowns, emergency repairs, complex RFQ reviews, control valve commissioning &mdash; every technical challenge in Saudi Arabia's industrial sector requires the right expert at the right time. TheValveHubs is built to connect you instantly.</p>
+        <p style="color:#5A6B62;line-height:1.8;margin-bottom:22px;">Our expert network covers every discipline across Saudi Arabia's six industrial pillars &mdash; from gate valve overhaul technicians in Jubail IC to senior SIS engineers available for contract engagements across the Kingdom.</p>
+        <ul style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px;">
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:.85rem;color:#1A2A1A;"><span style="width:20px;height:20px;border-radius:50%;background:#006C35;color:#fff;font-size:.6rem;font-weight:900;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">&#10003;</span><span><strong>Saudi professionals first</strong> &mdash; locally-based technicians and engineers matched before international</span></li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:.85rem;color:#1A2A1A;"><span style="width:20px;height:20px;border-radius:50%;background:#006C35;color:#fff;font-size:.6rem;font-weight:900;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">&#10003;</span><span><strong>Technically verified profiles</strong> &mdash; certifications, OEM training and Aramco experience confirmed</span></li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:.85rem;color:#1A2A1A;"><span style="width:20px;height:20px;border-radius:50%;background:#006C35;color:#fff;font-size:.6rem;font-weight:900;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">&#10003;</span><span><strong>All engagement types</strong> &mdash; permanent hire, project contract, shutdown crew or technical advisory</span></li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:.85rem;color:#1A2A1A;"><span style="width:20px;height:20px;border-radius:50%;background:#006C35;color:#fff;font-size:.6rem;font-weight:900;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">&#10003;</span><span><strong>Emergency mobilisation</strong> &mdash; plant-down situations require immediate human expertise, not just parts</span></li>
+        </ul>
+        <a href="#find-expert" class="btn btn-green btn-lg">Find an Expert &#8594;</a>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div style="background:linear-gradient(135deg,#EBF7F0,#F0FBF5);border:1.5px solid rgba(0,108,53,.14);border-radius:16px;padding:20px 16px;text-align:center;"><div style="font-size:2rem;margin-bottom:8px;">&#128216;</div><div style="font-size:.85rem;font-weight:800;color:#1A2A1A;margin-bottom:5px;">Valve Selection &amp; Spec Review</div><div style="font-size:.74rem;color:#5A6B62;line-height:1.55;">API/ASME compliance, SAES standard alignment, MR review</div></div>
+        <div style="background:linear-gradient(135deg,#EBF7F0,#F0FBF5);border:1.5px solid rgba(0,108,53,.14);border-radius:16px;padding:20px 16px;text-align:center;"><div style="font-size:2rem;margin-bottom:8px;">&#128295;</div><div style="font-size:.85rem;font-weight:800;color:#1A2A1A;margin-bottom:5px;">Shutdown Teams &amp; Technicians</div><div style="font-size:.74rem;color:#5A6B62;line-height:1.55;">On-site valve overhaul, testing and repair during plant turnarounds</div></div>
+        <div style="background:linear-gradient(135deg,#EBF7F0,#F0FBF5);border:1.5px solid rgba(0,108,53,.14);border-radius:16px;padding:20px 16px;text-align:center;"><div style="font-size:2rem;margin-bottom:8px;">&#9881;</div><div style="font-size:.85rem;font-weight:800;color:#1A2A1A;margin-bottom:5px;">Control Valve Commissioning</div><div style="font-size:.74rem;color:#5A6B62;line-height:1.55;">Fisher, SAMSON, Neles positioner setup and diagnostic services</div></div>
+        <div style="background:linear-gradient(135deg,#EBF7F0,#F0FBF5);border:1.5px solid rgba(0,108,53,.14);border-radius:16px;padding:20px 16px;text-align:center;"><div style="font-size:2rem;margin-bottom:8px;">&#128679;</div><div style="font-size:.85rem;font-weight:800;color:#1A2A1A;margin-bottom:5px;">Safety &amp; SIL Engineering</div><div style="font-size:.74rem;color:#5A6B62;line-height:1.55;">SIS/SIL assessment, PSV management and IEC 61511 compliance</div></div>
+        <div style="background:linear-gradient(135deg,#EBF7F0,#F0FBF5);border:1.5px solid rgba(0,108,53,.14);border-radius:16px;padding:20px 16px;text-align:center;"><div style="font-size:2rem;margin-bottom:8px;">&#128269;</div><div style="font-size:.85rem;font-weight:800;color:#1A2A1A;margin-bottom:5px;">QA/QC &amp; Inspection</div><div style="font-size:.74rem;color:#5A6B62;line-height:1.55;">Valve witness testing, PMI, dimensional inspection and SAIC</div></div>
+        <div style="background:linear-gradient(135deg,#EBF7F0,#F0FBF5);border:1.5px solid rgba(0,108,53,.14);border-radius:16px;padding:20px 16px;text-align:center;"><div style="font-size:2rem;margin-bottom:8px;">&#128218;</div><div style="font-size:.85rem;font-weight:800;color:#1A2A1A;margin-bottom:5px;">Procurement Advisory</div><div style="font-size:.74rem;color:#5A6B62;line-height:1.55;">Vendor qualification, RFQ technical review and IKTVA compliance</div></div>
+      </div>
+    </div>
+
+    <!-- HOW IT WORKS FOR CLIENTS -->
+    <div style="display:inline-flex;align-items:center;gap:7px;background:#EBF7F0;color:#006C35;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:5px 13px;border-radius:100px;margin-bottom:12px;border:1px solid rgba(0,108,53,.14);">For Clients</div>
+    <div style="width:44px;height:3px;background:linear-gradient(90deg,#006C35,#009444);border-radius:2px;margin-bottom:16px;"></div>
+    <h2 style="font-size:1.6rem;font-weight:900;color:#1A2A1A;margin-bottom:8px;">How to Find Valve Expertise on TheValveHubs</h2>
+    <p style="font-size:.88rem;color:#5A6B62;max-width:680px;line-height:1.75;margin-bottom:0;">Four simple steps from requirement to deployment. Saudi professionals are always prioritised and matched first.</p>
+    <div class="how-grid">
+      <div class="how-card"><div class="how-num">1</div><div class="how-icon">&#128203;</div><h4>Submit Your Requirement</h4><p>Describe the expertise you need — role type, technical skills, certifications, location and timeline. Emergency shutdown requests are prioritised.</p></div>
+      <div class="how-card"><div class="how-num">2</div><div class="how-icon">&#127470;&#127474;</div><h4>Saudi Professionals First</h4><p>We match your requirement against Saudi-based technicians and engineers first — CSTS certified, Iqama holders, Aramco-experienced professionals prioritised.</p></div>
+      <div class="how-card"><div class="how-num">3</div><div class="how-icon">&#128269;</div><h4>Review Verified Profiles</h4><p>Receive matched profiles with full CV, certifications, OEM training records and experience history. All profiles are technically reviewed before listing.</p></div>
+      <div class="how-card"><div class="how-num">4</div><div class="how-icon">&#9989;</div><h4>Engage Directly</h4><p>Contact your chosen professional directly. TheValveHubs facilitates the connection — no agency fees, no intermediaries, no hidden charges.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BROWSE EXPERTS ══════════════════════════════════════ -->
+<section style="padding:64px 0;background:#fff;" id="find-expert">
+  <div class="container">
+
+    <div style="display:inline-flex;align-items:center;gap:7px;background:#EBF7F0;color:#006C35;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:5px 13px;border-radius:100px;margin-bottom:12px;border:1px solid rgba(0,108,53,.14);">Available Professionals</div>
+    <div style="width:44px;height:3px;background:linear-gradient(90deg,#006C35,#009444);border-radius:2px;margin-bottom:16px;"></div>
+    <h2 style="font-size:clamp(1.6rem,3vw,2.2rem);font-weight:900;color:#1A2A1A;margin-bottom:8px;">Browse Valve Professionals</h2>
+    <p style="font-size:.88rem;color:#5A6B62;max-width:680px;line-height:1.75;margin-bottom:28px;">Verified valve technicians, engineers, inspectors and advisors available for permanent roles, project contracts and shutdown assignments across Saudi Arabia.</p>
+
+    <!-- STATS -->
+    <div class="stats-band">
+      <div class="sb-item"><span class="sb-num" data-counter="120">0</span><span class="sb-lbl">Registered Experts</span></div>
+      <div class="sb-item"><span class="sb-num">28</span><span class="sb-lbl">Nationalities</span></div>
+      <div class="sb-item"><span class="sb-num">&#127470;&#127474;</span><span class="sb-lbl">Saudi Nationals First</span></div>
+      <div class="sb-item"><span class="sb-num">15+</span><span class="sb-lbl">Specialisations</span></div>
+      <div class="sb-item"><span class="sb-num">24/7</span><span class="sb-lbl">Emergency Availability</span></div>
+    </div>
+
+    <!-- CATEGORY FILTERS -->
+    <div class="cat-pills">
+      <button class="cat-pill all active" onclick="filterExperts('all',this)">All Professionals</button>
+      <button class="cat-pill tech" onclick="filterExperts('tech',this)">&#128295; Valve Technician</button>
+      <button class="cat-pill eng" onclick="filterExperts('eng',this)">&#128202; Valve Engineer</button>
+      <button class="cat-pill insp" onclick="filterExperts('insp',this)">&#128269; QA/QC Inspector</button>
+      <button class="cat-pill adv" onclick="filterExperts('adv',this)">&#127891; Technical Advisor</button>
+      <button class="cat-pill pm" onclick="filterExperts('pm',this)">&#128203; Project Manager</button>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="search-bar">
+      <input class="sb-search" id="expertSearch" type="text" placeholder="Search by name, skill, certification, location&hellip;" oninput="searchExperts()"/>
+      <select class="sb-sel" id="locationFilter" onchange="searchExperts()">
+        <option value="">All Locations</option>
+        <option value="jubail">Jubail IC</option>
+        <option value="dammam">Dammam / Khobar</option>
+        <option value="riyadh">Riyadh</option>
+        <option value="yanbu">Yanbu IC</option>
+        <option value="jeddah">Jeddah</option>
+        <option value="international">International (KSA Ready)</option>
+      </select>
+      <select class="sb-sel" id="availFilter" onchange="searchExperts()">
+        <option value="">All Availability</option>
+        <option value="open">Open to Offers</option>
+        <option value="contract">Contract / Shutdown</option>
+        <option value="busy">Currently Engaged</option>
+      </select>
+      <span class="expert-count" id="expertCount">Showing all professionals</span>
+    </div>
+
+    <!-- EXPERT CARDS GRID -->
+    <div class="experts-grid" id="expertsGrid">
+
+      <!-- Expert 1 -->
+      <div class="expert-card" data-cat="tech" data-loc="jubail" data-avail="open">
+        <div class="ec-top">
+          <div class="ec-avatar" style="background:linear-gradient(135deg,#006C35,#009444);color:#fff;">MK</div>
+          <div class="ec-info">
+            <div class="ec-name">Mohammed K. Al-Qahtani</div>
+            <div class="ec-title">Senior Valve Technician</div>
+            <div class="ec-location">&#127470;&#127474; Saudi National &bull; Jubail IC</div>
+            <span class="ec-avail avail-open">&#128994; Open to Offers</span>
+          </div>
+        </div>
+        <div class="ec-body">
+          <div class="ec-bio">12 years hands-on valve maintenance at Saudi Aramco facilities in Jubail. Specialist in gate, ball and control valve overhaul. CSTS certified. Experienced with Biffi and Rotork actuator servicing.</div>
+          <div class="ec-skills"><span class="ec-skill">Gate Valves</span><span class="ec-skill">Ball Valves</span><span class="ec-skill">Control Valves</span><span class="ec-skill">Actuators</span><span class="ec-skill">Lapping &amp; Grinding</span></div>
+          <div class="ec-certs"><span class="ec-cert">CSTS Certified</span><span class="ec-cert">Aramco Approved</span><span class="ec-cert">API Trained</span></div>
+          <div class="ec-exp-row"><span>Experience</span><span class="ec-exp-val">12 Years</span></div>
+          <div class="ec-actions"><button class="eca eca-primary" onclick="contactExpert('Mohammed K. Al-Qahtani')">Contact</button><button class="eca eca-outline">View Profile</button></div>
+        </div>
+      </div>
+
+      <!-- Expert 2 -->
+      <div class="expert-card" data-cat="eng" data-loc="international" data-avail="open">
+        <div class="ec-top">
+          <div class="ec-avatar" style="background:linear-gradient(135deg,#163660,#1e4d8c);color:#fff;">JR</div>
+          <div class="ec-info">
+            <div class="ec-name">James Robertson</div>
+            <div class="ec-title">Lead Valves &amp; Piping Engineer</div>
+            <div class="ec-location">&#127468;&#127463; Aberdeen, UK &bull; Open to KSA contracts</div>
+            <span class="ec-avail avail-open">&#128994; Available for KSA</span>
+          </div>
+        </div>
+        <div class="ec-body">
+          <div class="ec-bio">18 years in valves and piping engineering on North Sea and Middle East projects. Deep experience with API 6D, NORSOK and SAES standards. Previously with Wood and Petrofac on Saudi Aramco projects.</div>
+          <div class="ec-skills"><span class="ec-skill">Valve Selection</span><span class="ec-skill">API 6D / SAES</span><span class="ec-skill">NORSOK</span><span class="ec-skill">FEED Engineering</span><span class="ec-skill">MTO</span></div>
+          <div class="ec-certs"><span class="ec-cert">Chartered Engineer (IMechE)</span><span class="ec-cert">FEED Specialist</span></div>
+          <div class="ec-exp-row"><span>Experience</span><span class="ec-exp-val">18 Years</span></div>
+          <div class="ec-actions"><button class="eca eca-primary" onclick="contactExpert('James Robertson')">Contact</button><button class="eca eca-outline">View Profile</button></div>
+        </div>
+      </div>
+
+      <!-- Expert 3 -->
+      <div class="expert-card" data-cat="eng" data-loc="dammam" data-avail="open">
+        <div class="ec-top">
+          <div class="ec-avatar" style="background:linear-gradient(135deg,#006C8A,#0088AA);color:#fff;">FK</div>
+          <div class="ec-info">
+            <div class="ec-name">Fahad K. Al-Shammari</div>
+            <div class="ec-title">Control Valve &amp; Instrument Engineer</div>
+            <div class="ec-location">&#127470;&#127474; Saudi National &bull; Dammam</div>
+            <span class="ec-avail avail-open">&#128994; Open to Offers</span>
+          </div>
+        </div>
+        <div class="ec-body">
+          <div class="ec-bio">10 years specialising in control valve sizing, commissioning and HART diagnostics. Fisher FIELDVUE and Emerson DeltaV specialist. SABIC and Aramco project background across Jubail.</div>
+          <div class="ec-skills"><span class="ec-skill">Control Valve Sizing</span><span class="ec-skill">Fisher FIELDVUE</span><span class="ec-skill">HART Diagnostics</span><span class="ec-skill">PST Testing</span><span class="ec-skill">SIL</span></div>
+          <div class="ec-certs"><span class="ec-cert">Emerson Certified</span><span class="ec-cert">HART Specialist</span><span class="ec-cert">SIL Trained</span></div>
+          <div class="ec-exp-row"><span>Experience</span><span class="ec-exp-val">10 Years</span></div>
+          <div class="ec-actions"><button class="eca eca-primary" onclick="contactExpert('Fahad K. Al-Shammari')">Contact</button><button class="eca eca-outline">View Profile</button></div>
+        </div>
+      </div>
+
+      <!-- Expert 4 -->
+      <div class="expert-card" data-cat="adv" data-loc="international" data-avail="contract">
+        <div class="ec-top">
+          <div class="ec-avatar" style="background:linear-gradient(135deg,#6B21A8,#8B5CF6);color:#fff;">BW</div>
+          <div class="ec-info">
+            <div class="ec-name">Bill Wilson</div>
+            <div class="ec-title">Senior Technical Advisor &mdash; Flow Control</div>
+            <div class="ec-location">&#127482;&#127480; Houston, USA &bull; Available KSA contracts</div>
+            <span class="ec-avail avail-contract">&#128993; Available for Contracts</span>
+          </div>
+        </div>
+        <div class="ec-body">
+          <div class="ec-bio">25 years as flow control advisor for ExxonMobil, Shell and Saudi Aramco. Former Flowserve applications engineer. Specialist in fugitive emission compliance, API standard review and control system design.</div>
+          <div class="ec-skills"><span class="ec-skill">Technical Advisory</span><span class="ec-skill">Fugitive Emission</span><span class="ec-skill">API Standards</span><span class="ec-skill">Flowserve Systems</span></div>
+          <div class="ec-certs"><span class="ec-cert">PE Licensed (Texas)</span><span class="ec-cert">API 6D / API 600</span><span class="ec-cert">ASME Fellow</span></div>
+          <div class="ec-exp-row"><span>Experience</span><span class="ec-exp-val">25+ Years</span></div>
+          <div class="ec-actions"><button class="eca eca-primary" onclick="contactExpert('Bill Wilson')">Contact</button><button class="eca eca-outline">View Profile</button></div>
+        </div>
+      </div>
+
+      <!-- Expert 5 -->
+      <div class="expert-card" data-cat="insp" data-loc="jubail" data-avail="open">
+        <div class="ec-top">
+          <div class="ec-avatar" style="background:linear-gradient(135deg,#8B4513,#A0522D);color:#fff;">NA</div>
+          <div class="ec-info">
+            <div class="ec-name">Nasser A. Al-Dosari</div>
+            <div class="ec-title">Safety Relief Valve &amp; SIS Engineer</div>
+            <div class="ec-location">&#127470;&#127474; Saudi National &bull; Dhahran</div>
+            <span class="ec-avail avail-open">&#128994; Open to Offers</span>
+          </div>
+        </div>
+        <div class="ec-body">
+          <div class="ec-bio">14 years specialising in SIL assessment, PSV management and API 520/526 compliance at Saudi Aramco gas plants. TÜV Functional Safety certified. Experienced in HAZOP, LOPA and proof test procedures.</div>
+          <div class="ec-skills"><span class="ec-skill">Safety Relief Valves</span><span class="ec-skill">SIS / SIL</span><span class="ec-skill">API 520/526</span><span class="ec-skill">HAZOP</span><span class="ec-skill">IEC 61511</span></div>
+          <div class="ec-certs"><span class="ec-cert">TÜV Functional Safety</span><span class="ec-cert">IEC 61511</span><span class="ec-cert">NEBOSH IGC</span></div>
+          <div class="ec-exp-row"><span>Experience</span><span class="ec-exp-val">14 Years</span></div>
+          <div class="ec-actions"><button class="eca eca-primary" onclick="contactExpert('Nasser A. Al-Dosari')">Contact</button><button class="eca eca-outline">View Profile</button></div>
+        </div>
+      </div>
+
+      <!-- Expert 6 -->
+      <div class="expert-card" data-cat="pm" data-loc="international" data-avail="contract">
+        <div class="ec-top">
+          <div class="ec-avatar" style="background:linear-gradient(135deg,#B8860B,#DAA520);color:#fff;">SM</div>
+          <div class="ec-info">
+            <div class="ec-name">Sarah Mitchell</div>
+            <div class="ec-title">Valve Package Project Manager</div>
+            <div class="ec-location">&#127468;&#127463; London, UK &bull; Open to KSA/GCC</div>
+            <span class="ec-avail avail-contract">&#128993; Available for Projects</span>
+          </div>
+        </div>
+        <div class="ec-body">
+          <div class="ec-bio">20 years managing valve procurement packages for EPC projects in the Middle East. Managed $50M+ valve packages for Petrofac on Saudi refinery projects. IKTVA compliance and Aramco vendor list specialist.</div>
+          <div class="ec-skills"><span class="ec-skill">Valve Package PM</span><span class="ec-skill">IKTVA Compliance</span><span class="ec-skill">Aramco AVL</span><span class="ec-skill">Procurement</span></div>
+          <div class="ec-certs"><span class="ec-cert">PMP Certified</span><span class="ec-cert">CIPS Member</span></div>
+          <div class="ec-exp-row"><span>Experience</span><span class="ec-exp-val">20 Years</span></div>
+          <div class="ec-actions"><button class="eca eca-primary" onclick="contactExpert('Sarah Mitchell')">Contact</button><button class="eca eca-outline">View Profile</button></div>
+        </div>
+      </div>
+
+      <!-- Expert 7 -->
+      <div class="expert-card" data-cat="tech" data-loc="dammam" data-avail="contract">
+        <div class="ec-top">
+          <div class="ec-avatar" style="background:linear-gradient(135deg,#006C35,#009444);color:#fff;">KA</div>
+          <div class="ec-info">
+            <div class="ec-name">Khalid A. Bin Saleh</div>
+            <div class="ec-title">Actuator &amp; Automation Technician</div>
+            <div class="ec-location">&#127470;&#127474; Saudi National &bull; Jubail IC</div>
+            <span class="ec-avail avail-contract">&#128993; Available for Shutdowns</span>
+          </div>
+        </div>
+        <div class="ec-body">
+          <div class="ec-bio">9 years specialising in pneumatic, electric and hydraulic actuator servicing. Biffi, Rotork IQ and AUMA trained technician. Shutdown team experience across SABIC and Aramco facilities in Jubail.</div>
+          <div class="ec-skills"><span class="ec-skill">Biffi Actuators</span><span class="ec-skill">Rotork IQ Series</span><span class="ec-skill">AUMA</span><span class="ec-skill">Positioner Calibration</span></div>
+          <div class="ec-certs"><span class="ec-cert">Rotork Certified</span><span class="ec-cert">Biffi Trained</span><span class="ec-cert">ATEX Competent</span></div>
+          <div class="ec-exp-row"><span>Experience</span><span class="ec-exp-val">9 Years</span></div>
+          <div class="ec-actions"><button class="eca eca-primary" onclick="contactExpert('Khalid A. Bin Saleh')">Contact</button><button class="eca eca-outline">View Profile</button></div>
+        </div>
+      </div>
+
+      <!-- Expert 8 -->
+      <div class="expert-card" data-cat="insp" data-loc="international" data-avail="open">
+        <div class="ec-top">
+          <div class="ec-avatar" style="background:linear-gradient(135deg,#8B4513,#A0522D);color:#fff;">RK</div>
+          <div class="ec-info">
+            <div class="ec-name">Rajesh Kumar</div>
+            <div class="ec-title">Senior Valve QA/QC Inspector</div>
+            <div class="ec-location">&#127470;&#127475; Mumbai, India &bull; KSA Ready</div>
+            <span class="ec-avail avail-open">&#128994; Immediately Available</span>
+          </div>
+        </div>
+        <div class="ec-body">
+          <div class="ec-bio">15 years conducting valve inspection and witness testing at Indian manufacturing facilities for export to Saudi Aramco and SABIC. API, ASME certified. SAIC inspection experience for Aramco supply chain.</div>
+          <div class="ec-skills"><span class="ec-skill">Valve Inspection</span><span class="ec-skill">Witness Testing</span><span class="ec-skill">PMI Testing</span><span class="ec-skill">MTC Review</span><span class="ec-skill">FAT</span></div>
+          <div class="ec-certs"><span class="ec-cert">API 6D Inspector</span><span class="ec-cert">ISO 9001 Lead Auditor</span><span class="ec-cert">CSWIP</span></div>
+          <div class="ec-exp-row"><span>Experience</span><span class="ec-exp-val">15 Years</span></div>
+          <div class="ec-actions"><button class="eca eca-primary" onclick="contactExpert('Rajesh Kumar')">Contact</button><button class="eca eca-outline">View Profile</button></div>
+        </div>
+      </div>
+
+      <!-- Expert 9 -->
+      <div class="expert-card" data-cat="adv" data-loc="riyadh" data-avail="open">
+        <div class="ec-top">
+          <div class="ec-avatar" style="background:linear-gradient(135deg,#6B21A8,#8B5CF6);color:#fff;">AA</div>
+          <div class="ec-info">
+            <div class="ec-name">Ahmed A. Al-Ghamdi</div>
+            <div class="ec-title">Valve Procurement Advisor &amp; IKTVA Specialist</div>
+            <div class="ec-location">&#127470;&#127474; Saudi National &bull; Riyadh</div>
+            <span class="ec-avail avail-open">&#128994; Open to Offers</span>
+          </div>
+        </div>
+        <div class="ec-body">
+          <div class="ec-bio">16 years in industrial procurement with deep focus on valve supply chains for Vision 2030 giga projects. IKTVA programme expert. Former procurement advisor to major EPC contractors on Saudi Aramco and NEOM projects.</div>
+          <div class="ec-skills"><span class="ec-skill">IKTVA Advisory</span><span class="ec-skill">Procurement Strategy</span><span class="ec-skill">Vendor Qualification</span><span class="ec-skill">Vision 2030</span></div>
+          <div class="ec-certs"><span class="ec-cert">CIPS Qualified</span><span class="ec-cert">IKTVA Specialist</span><span class="ec-cert">PMP</span></div>
+          <div class="ec-exp-row"><span>Experience</span><span class="ec-exp-val">16 Years</span></div>
+          <div class="ec-actions"><button class="eca eca-primary" onclick="contactExpert('Ahmed A. Al-Ghamdi')">Contact</button><button class="eca eca-outline">View Profile</button></div>
+        </div>
+      </div>
+
+    </div><!-- end experts-grid -->
+
+    <!-- POST REQUIREMENT CTA -->
+    <div style="margin-top:36px;background:linear-gradient(135deg,#EBF7F0,#F0FBF5);border:1.5px solid rgba(0,108,53,.14);border-radius:16px;padding:26px 28px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+      <div style="font-size:2rem;flex-shrink:0;">&#127919;</div>
+      <div style="flex:1;"><div style="font-size:.9rem;font-weight:900;color:#1A2A1A;margin-bottom:5px;">Can't find the right expert? Post your requirement</div><div style="font-size:.8rem;color:#5A6B62;line-height:1.65;">Tell us exactly what expertise you need and we will match you with the right professional — Saudi-based first, international if needed.</div></div>
+      <a href="#post-requirement" style="background:#006C35;color:#fff;padding:11px 24px;border-radius:10px;font-size:.82rem;font-weight:700;white-space:nowrap;flex-shrink:0;">Post a Requirement &#8594;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ POST REQUIREMENT FORM ══════════════════════════════ -->
+<section style="padding:56px 0;background:#F8FAF9;" id="post-requirement">
+  <div class="container" style="max-width:720px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:28px;">
+      <div style="display:inline-flex;align-items:center;gap:7px;background:#EBF7F0;color:#006C35;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:5px 13px;border-radius:100px;margin-bottom:12px;border:1px solid rgba(0,108,53,.14);">For Clients</div>
+      <h2 style="font-size:1.6rem;font-weight:900;color:#1A2A1A;margin-bottom:8px;">Post a Workforce Requirement</h2>
+      <p style="font-size:.85rem;color:#5A6B62;line-height:1.7;">We'll match and respond within 24 hours &mdash; Saudi professionals first.</p>
+    </div>
+    <div style="background:#fff;border:1.5px solid #D8E4D8;border-radius:16px;padding:28px;box-shadow:0 4px 20px rgba(0,0,0,.07);">
+      <form id="requirementForm" onsubmit="submitRequirement(event)">
+        <div class="form-row">
+          <div class="form-group"><label>Company Name *</label><input type="text" placeholder="Your company" required/></div>
+          <div class="form-group"><label>Contact Person *</label><input type="text" placeholder="Full name" required/></div>
+          <div class="form-group"><label>Email *</label><input type="email" placeholder="you@company.com" required/></div>
+          <div class="form-group"><label>Phone / WhatsApp *</label><input type="tel" placeholder="+966 XX XXX XXXX" required/></div>
+          <div class="form-group"><label>Role Required *</label>
+            <select required><option value="">Select role</option>
+              <option>Valve Technician (Maintenance &amp; Overhaul)</option>
+              <option>Senior Valve Technician (Shutdown Lead)</option>
+              <option>Control Valve Specialist</option>
+              <option>Actuator &amp; Automation Technician</option>
+              <option>Valves &amp; Piping Engineer</option>
+              <option>Instrument &amp; Control Engineer</option>
+              <option>Safety Relief Valve (SRV) Engineer</option>
+              <option>QA/QC Valve Inspector</option>
+              <option>Valve Package Project Manager</option>
+              <option>Technical Advisor &mdash; Flow Control</option>
+              <option>IKTVA / Procurement Advisor</option>
+              <option>Other &mdash; Describe Below</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Engagement Type *</label>
+            <select required><option value="">Select type</option>
+              <option>Permanent Employment</option>
+              <option>Project Contract (3&ndash;12 months)</option>
+              <option>Shutdown / Turnaround (days&ndash;weeks)</option>
+              <option>Technical Advisory (part-time)</option>
+              <option>Emergency &mdash; Needed Immediately</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Location</label><input type="text" placeholder="Jubail, Dammam, Riyadh, Yanbu&hellip;"/></div>
+          <div class="form-group"><label>Required Start Date</label><input type="date"/></div>
+          <div class="form-group form-full"><label>Detailed Requirements *</label><textarea placeholder="Describe the expertise needed &mdash; certifications required, experience level, specific OEM experience (Fisher/Rotork/Biffi), language requirements, CSTS/Aramco clearance, number of people needed, etc." required></textarea></div>
+        </div>
+        <button type="submit" class="btn btn-green" style="width:100%;padding:13px;font-size:.92rem;border-radius:12px;margin-top:6px;">Submit Requirement &mdash; Response Within 24 Hours &#8594;</button>
+      </form>
+      <div id="reqSuccess" style="display:none;text-align:center;padding:32px 0;">
+        <div style="font-size:3rem;margin-bottom:12px;">&#10004;&#65039;</div>
+        <h4 style="font-size:1rem;font-weight:900;color:#006C35;margin-bottom:8px;">Requirement Submitted!</h4>
+        <p style="font-size:.85rem;color:#5A6B62;">Our team will review and match you with the right professional within 24 hours. Saudi-based professionals will be prioritised.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CV UPLOAD — FOR PROFESSIONALS ═════════════════════ -->
+<section style="padding:64px 0;background:#fff;" id="section-professionals">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:36px;">
+      <div style="display:inline-flex;align-items:center;gap:7px;background:#EEF3FB;color:#163660;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:5px 13px;border-radius:100px;margin-bottom:12px;border:1px solid rgba(22,54,96,.14);">For Professionals</div>
+      <div style="width:44px;height:3px;background:linear-gradient(90deg,#163660,#1e4d8c);border-radius:2px;margin:0 auto 16px;"></div>
+      <h2 style="font-size:clamp(1.6rem,3vw,2.2rem);font-weight:900;color:#1A2A1A;margin-bottom:10px;">Upload Your CV &amp; Join the Expert Network</h2>
+      <p style="font-size:.88rem;color:#5A6B62;max-width:620px;margin:0 auto;line-height:1.75;">Be discovered by Saudi Arabia's leading operators, EPC contractors and maintenance companies actively looking for your expertise. Saudi-based professionals are always prioritised.</p>
+    </div>
+
+    <!-- BENEFITS FOR PROFESSIONALS -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:40px;">
+      <div style="background:#EEF3FB;border:1px solid rgba(22,54,96,.12);border-radius:14px;padding:18px 14px;text-align:center;"><div style="font-size:1.6rem;margin-bottom:8px;">&#127470;&#127474;</div><div style="font-size:.8rem;font-weight:700;color:#163660;margin-bottom:4px;">Saudi Market Access</div><div style="font-size:.72rem;color:#5A6B62;line-height:1.5;">Direct access to Aramco contractors, SABIC suppliers and major EPCs</div></div>
+      <div style="background:#EEF3FB;border:1px solid rgba(22,54,96,.12);border-radius:14px;padding:18px 14px;text-align:center;"><div style="font-size:1.6rem;margin-bottom:8px;">&#10003;&#65039;</div><div style="font-size:.8rem;font-weight:700;color:#163660;margin-bottom:4px;">Verified Profile</div><div style="font-size:.72rem;color:#5A6B62;line-height:1.5;">Your certifications verified &mdash; instantly trusted by procurement teams</div></div>
+      <div style="background:#EEF3FB;border:1px solid rgba(22,54,96,.12);border-radius:14px;padding:18px 14px;text-align:center;"><div style="font-size:1.6rem;margin-bottom:8px;">&#128222;</div><div style="font-size:.8rem;font-weight:700;color:#163660;margin-bottom:4px;">Direct Enquiries</div><div style="font-size:.72rem;color:#5A6B62;line-height:1.5;">Companies contact you directly &mdash; no agency middlemen</div></div>
+      <div style="background:#EEF3FB;border:1px solid rgba(22,54,96,.12);border-radius:14px;padding:18px 14px;text-align:center;"><div style="font-size:1.6rem;margin-bottom:8px;">&#127881;</div><div style="font-size:.8rem;font-weight:700;color:#163660;margin-bottom:4px;">Free to Join</div><div style="font-size:.72rem;color:#5A6B62;line-height:1.5;">Registration is completely free during our Early Partner launch phase</div></div>
+    </div>
+
+    <!-- CV UPLOAD FORM -->
+    <div class="cv-form-card">
+      <div class="cv-form-header">
+        <div class="cv-form-icon">&#128119;</div>
+        <div><h3>Create Your Professional Profile</h3><p>Free to register. Verified by our engineering team. Visible to Saudi Arabia's leading industrial organisations. Saudi national profiles are given priority placement.</p></div>
+      </div>
+      <div class="cv-form-body">
+        <form id="cvForm" onsubmit="submitCV(event)">
+          <div class="form-row">
+            <!-- Personal -->
+            <div class="form-group"><label>Full Name *</label><input type="text" placeholder="Your full name" required/></div>
+            <div class="form-group"><label>Current Job Title *</label><input type="text" placeholder="e.g. Senior Valve Technician" required/></div>
+            <div class="form-group"><label>Email Address *</label><input type="email" placeholder="you@email.com" required/></div>
+            <div class="form-group"><label>Phone / WhatsApp *</label><input type="tel" placeholder="+966 / +44 / +1&hellip;" required/></div>
+            <div class="form-group"><label>Nationality</label><input type="text" placeholder="e.g. Saudi / British / Indian"/></div>
+            <div class="form-group"><label>Current Location *</label><input type="text" placeholder="City, Country" required/></div>
+            <div class="form-group"><label>Years of Experience *</label>
+              <select required><option value="">Select</option><option>1&ndash;3 Years</option><option>4&ndash;7 Years</option><option>8&ndash;12 Years</option><option>13&ndash;20 Years</option><option>20+ Years</option></select>
+            </div>
+            <div class="form-group"><label>Availability *</label>
+              <select required><option value="">Select</option><option>Open to Permanent Roles</option><option>Available for Project Contracts</option><option>Available for Shutdown / Turnaround</option><option>Freelance / Advisory Only</option><option>Currently Engaged &mdash; Open to Offers</option></select>
+            </div>
+            <div class="form-group"><label>Saudi Iqama Status</label>
+              <select><option value="">Select</option><option>Saudi National</option><option>Valid Iqama (transferable)</option><option>Valid Iqama (non-transferable)</option><option>No Iqama &mdash; Need Sponsorship</option><option>GCC National / Resident</option></select>
+            </div>
+            <div class="form-group"><label>LinkedIn Profile URL</label><input type="url" placeholder="linkedin.com/in/yourname"/></div>
+
+            <!-- Primary role -->
+            <div class="form-group form-full"><label>Primary Specialisation *</label>
+              <select required><option value="">Select your main role</option>
+                <option>Valve Technician &mdash; Maintenance &amp; Overhaul</option>
+                <option>Senior Valve Technician &mdash; Shutdown Lead</option>
+                <option>Control Valve Specialist</option>
+                <option>Actuator &amp; Automation Technician</option>
+                <option>Valves &amp; Piping Engineer</option>
+                <option>Instrument &amp; Control Engineer</option>
+                <option>Safety Relief Valve (SRV) Engineer</option>
+                <option>Pipeline Integrity Engineer</option>
+                <option>QA/QC Valve Inspector</option>
+                <option>Valve Package Project Manager</option>
+                <option>Technical Advisor &mdash; Flow Control</option>
+                <option>IKTVA / Procurement Specialist</option>
+                <option>Valve Training Instructor</option>
+              </select>
+            </div>
+
+            <!-- Skills checklist -->
+            <div class="form-group form-full">
+              <label>Technical Skills &amp; Specialisations (select all that apply)</label>
+              <div class="skills-check-grid" id="skillsGrid">
+                <label class="skill-check"><input type="checkbox" onchange="toggleSkill(this)"/> Gate / Globe / Check Valves</label>
+                <label class="skill-check"><input type="checkbox" onchange="toggleSkill(this)"/> Ball Valves &amp; Trunnion</label>
+                <label class="skill-check"><input type="checkbox" onchange="toggleSkill(this)"/> Butterfly Valves (Triple-Offset)</label>
+                <label class="skill-check"><input type="checkbox" onchange="toggleSkill(this)"/> Control Valve Sizing &amp; Selection</label>
+                <label class="skill-check"><input type="checkbox" onchange="toggleSkill(this)"/> Safety Relief Valves (API 520/526)</label>
+                <label class="skill-check"><input type="checkbox" onchange="toggleSkill(this)"/> Actuator Service (Biffi / Rotork / AUMA)</label>
+                <label class="skill-check"><input type="checkbox" onchange="toggleSkill(this)"/> Positioner Calibration (Fisher / SAMSON)</label>
+                <label class="skill-check"><input type="checkbox" onchange="toggleSkill(this)"/> Valve Hydrostatic Testing (API 598)</label>
+                <label class="skill-check"><input type="checkbox" onchange="toggleSkill(this)"/> Fugitive Emission (ISO 15848)</label>
+                <label class="skill-check"><input type="checkbox" onchange="toggleSkill(this)"/> SIS / SIL Assessment (IEC 61511)</label>
+                <label class="skill-check"><input type="checkbox" onchange="toggleSkill(this)"/> HART / Smart Positioner Diagnostics</label>
+                <label class="skill-check"><input type="checkbox" onchange="toggleSkill(this)"/> On-Site Valve Machining &amp; Grinding</label>
+                <label class="skill-check"><input type="checkbox" onchange="toggleSkill(this)"/> Aramco SAIC Inspection</label>
+                <label class="skill-check"><input type="checkbox" onchange="toggleSkill(this)"/> PMI Testing &amp; MTC Review</label>
+                <label class="skill-check"><input type="checkbox" onchange="toggleSkill(this)"/> API Standards (6D / 600 / 609)</label>
+                <label class="skill-check"><input type="checkbox" onchange="toggleSkill(this)"/> SAP PM / Maintenance Systems</label>
+                <label class="skill-check"><input type="checkbox" onchange="toggleSkill(this)"/> Cryogenic / LNG Valves</label>
+                <label class="skill-check"><input type="checkbox" onchange="toggleSkill(this)"/> Subsea Valve Systems</label>
+              </div>
+            </div>
+
+            <!-- Professional summary -->
+            <div class="form-group form-full"><label>Professional Summary *</label>
+              <textarea placeholder="Briefly describe your background, key experience and what makes you the right candidate for valve-related roles in Saudi Arabia. Include key projects, companies worked for and your specific valve expertise&hellip;" required style="height:110px;"></textarea>
+            </div>
+
+            <!-- Certifications -->
+            <div class="form-group"><label>Key Certifications</label><input type="text" placeholder="e.g. CSTS, API 6D Inspector, TÜV Functional Safety, NEBOSH&hellip;"/></div>
+            <div class="form-group"><label>OEM Training / Authorisations</label><input type="text" placeholder="e.g. Biffi Trained, Rotork Certified, Fisher Authorised&hellip;"/></div>
+
+            <!-- CV Upload -->
+            <div class="form-group form-full">
+              <label>Upload Your CV / Resume *</label>
+              <div class="upload-zone" id="cvUploadZone" onclick="document.getElementById('cvFileInput').click()">
+                <div class="upload-zone-icon">&#128196;</div>
+                <h4>Click to upload your CV or drag and drop</h4>
+                <p>Attach your full CV / resume with your work history, qualifications and contact details</p>
+                <div class="upload-formats"><span class="uf-tag">PDF</span><span class="uf-tag">DOC</span><span class="uf-tag">DOCX</span><span class="uf-tag">Max 10MB</span></div>
+                <input type="file" id="cvFileInput" accept=".pdf,.doc,.docx" style="display:none;" onchange="handleCVUpload(this)"/>
+              </div>
+            </div>
+
+            <!-- Consent -->
+            <div class="form-group form-full">
+              <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;text-transform:none;letter-spacing:0;font-size:.82rem;font-weight:500;color:#3A4A42;">
+                <input type="checkbox" required style="accent-color:#006C35;width:16px;height:16px;flex-shrink:0;margin-top:2px;"/>
+                <span>I agree that TheValveHubs may store my professional profile and share it with verified industrial companies and employers for the purpose of employment and contract matching. My data will not be sold to third parties. I confirm I am authorised to submit this information. &nbsp;<a href="#" style="color:#006C35;text-decoration:underline;">Privacy Policy</a></span>
+              </label>
+            </div>
+          </div>
+
+          <button type="submit" class="btn" style="width:100%;padding:15px;font-size:.95rem;border-radius:12px;background:linear-gradient(135deg,#163660,#1e4d8c);color:#fff;font-weight:800;margin-top:8px;border:none;cursor:pointer;font-family:inherit;transition:opacity .2s;" onmouseover="this.style.opacity='.9'" onmouseout="this.style.opacity='1'">
+            Submit My Profile &mdash; Join TheValveHubs Expert Network &#8594;
+          </button>
+        </form>
+
+        <!-- SUCCESS STATE -->
+        <div class="cv-success" id="cvSuccess">
+          <div class="cv-success-icon">&#127881;</div>
+          <h3>Profile Submitted Successfully!</h3>
+          <p>Thank you for joining TheValveHubs Expert Network. Our engineering team will review and verify your profile within 48 hours. Once approved, your profile will be visible to Saudi Arabia's leading industrial operators, EPC contractors and maintenance companies.</p>
+          <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+            <a href="index.html" class="btn btn-outline-green">Back to Home</a>
+            <a href="iktva-calculator.html" class="btn btn-green">Try IKTVA Calculator &#8594;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT EXPERT MODAL ═══════════════════════════════ -->
+<div id="contactModal" style="display:none;position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.5);align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#fff;border-radius:20px;padding:32px;max-width:460px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.2);">
+    <h3 style="font-size:1rem;font-weight:900;color:#1A2A1A;margin-bottom:5px;">Contact Expert</h3>
+    <p id="contactModalName" style="font-size:.82rem;color:#5A6B62;margin-bottom:20px;"></p>
+    <form onsubmit="closeContactModal();return false;">
+      <div style="margin-bottom:14px;"><label style="font-size:.72rem;font-weight:700;color:#006C35;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:5px;">Your Company *</label><input type="text" placeholder="Company name" required style="width:100%;padding:10px 14px;border:1.5px solid #D8E4D8;border-radius:10px;font-size:.875rem;font-family:inherit;outline:none;"/></div>
+      <div style="margin-bottom:14px;"><label style="font-size:.72rem;font-weight:700;color:#006C35;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:5px;">Your Phone / WhatsApp *</label><input type="tel" placeholder="+966 XX XXX XXXX" required style="width:100%;padding:10px 14px;border:1.5px solid #D8E4D8;border-radius:10px;font-size:.875rem;font-family:inherit;outline:none;"/></div>
+      <div style="margin-bottom:18px;"><label style="font-size:.72rem;font-weight:700;color:#006C35;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:5px;">What do you need?</label><textarea placeholder="Describe the role, duration and requirements&hellip;" style="width:100%;padding:10px 14px;border:1.5px solid #D8E4D8;border-radius:10px;font-size:.875rem;font-family:inherit;outline:none;height:80px;resize:none;"></textarea></div>
+      <div style="display:flex;gap:10px;"><button type="button" onclick="closeContactModal()" style="flex:1;padding:11px;background:#EBF7F0;border:1.5px solid rgba(0,108,53,.14);color:#006C35;border-radius:10px;font-size:.85rem;font-weight:700;cursor:pointer;font-family:inherit;">Cancel</button><button type="submit" style="flex:2;padding:11px;background:#006C35;color:#fff;border:none;border-radius:10px;font-size:.85rem;font-weight:700;cursor:pointer;font-family:inherit;">Send Request &#8594;</button></div>
+    </form>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo"><div style="background:#fff;border-radius:10px;padding:10px 20px;display:inline-block;"><img src="images/tvh-logo-extracted.jpg" alt="TheValveHubs" style="height:72px;width:auto;display:block;"/></div></div>
+        <p>Saudi Arabia's engineering-governed industrial valve marketplace. Saudi professionals first.</p>
+        <p style="font-size:.8rem;opacity:.6;margin-top:8px;">HQ: Khobar, Saudi Arabia &bull; Vision 2030 &bull; IKTVA</p>
+        <div class="footer-social" style="margin-top:16px;"><a href="#">in</a><a href="#">&#128241;</a></div>
+      </div>
+      <div class="footer-col"><h5>Saudi Market</h5><ul>
+        <li><a href="saudi-market.html#valves">Saudi Valve Suppliers</a></li>
+        <li><a href="saudi-market.html#machining">Valve Services</a></li>
+        <li><a href="saudi-market.html#parts">Spare Parts</a></li>
+        <li><a href="saudi-market.html#rental">Rental Fleet</a></li>
+      </ul></div>
+      <div class="footer-col"><h5>Tools &amp; Resources</h5><ul>
+        <li><a href="iktva-calculator.html">IKTVA Calculator</a></li>
+        <li><a href="valve-wizard.html">Valve Spec Wizard</a></li>
+        <li><a href="shutdown-calendar.html">Shutdown Calendar</a></li>
+        <li><a href="pricing.html">Pricing Plans</a></li>
+        <li><a href="manufacturing.html">Manufacturing &amp; Materials</a></li>
+        <li><a href="experts.html">Experts &amp; Technicians</a></li>
+      </ul></div>
+      <div class="footer-col"><h5>Company</h5><ul>
+        <li><a href="emergency.html">Emergency 24/7</a></li>
+        <li><a href="invest-saudi.html">Invest in Saudi</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="index.html#join">Join Free</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="footer-bottom">
+      <span>&copy; 2025 TheValveHubs. All rights reserved. Khobar, Saudi Arabia.</span>
+      <span>Founded by Abdullah F. AlSubaie &bull; Vision 2030 &bull; IKTVA</span>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/966500000000" class="whatsapp-float" target="_blank" rel="noopener" title="WhatsApp Emergency">&#128241;</a>
+
+<script>
+// Preloader
+window.addEventListener('load', function() { setTimeout(function() { document.getElementById('preloader').classList.add('hidden'); }, 1200); });
+// Nav
+var nb = document.getElementById('navbar');
+window.addEventListener('scroll', function() { nb.classList.toggle('scrolled', window.scrollY > 40); }, { passive: true });
+var hb = document.getElementById('hamburger'), mn = document.getElementById('mobileNav');
+hb.addEventListener('click', function() {
+  var o = mn.classList.toggle('open');
+  hb.children[0].style.transform = o ? 'translateY(7px) rotate(45deg)' : '';
+  hb.children[1].style.opacity = o ? '0' : '';
+  hb.children[2].style.transform = o ? 'translateY(-7px) rotate(-45deg)' : '';
+});
+
+// Counter
+function animCounter(el) {
+  var t = parseInt(el.dataset.counter), dur = 1800, s = performance.now();
+  function u(n) { var p = Math.min((n-s)/dur,1), e = 1-Math.pow(1-p,3); el.textContent = Math.round(e*t); if(p<1) requestAnimationFrame(u); }
+  requestAnimationFrame(u);
+}
+var cObs = new IntersectionObserver(function(en) { en.forEach(function(e) { if(e.isIntersecting) { animCounter(e.target); cObs.unobserve(e.target); } }); }, { threshold: 0.5 });
+document.querySelectorAll('[data-counter]').forEach(function(el) { cObs.observe(el); });
+
+// Two-path toggle
+function showSection(type) {
+  document.querySelectorAll('.path-btn').forEach(function(b) { b.classList.remove('active'); });
+  event.currentTarget.classList.add('active');
+  if (type === 'clients') {
+    document.getElementById('section-clients').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    document.getElementById('section-professionals').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+// Filter experts
+var activeCategory = 'all';
+function filterExperts(cat, btn) {
+  activeCategory = cat;
+  document.querySelectorAll('.cat-pill').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  applyFilters();
+}
+function searchExperts() { applyFilters(); }
+function applyFilters() {
+  var q = (document.getElementById('expertSearch').value || '').toLowerCase();
+  var loc = document.getElementById('locationFilter').value;
+  var avail = document.getElementById('availFilter').value;
+  var visible = 0;
+  document.querySelectorAll('.expert-card').forEach(function(card) {
+    var catOk = activeCategory === 'all' || card.dataset.cat === activeCategory;
+    var locOk = !loc || card.dataset.loc === loc;
+    var availOk = !avail || card.dataset.avail === avail;
+    var textOk = !q || card.innerText.toLowerCase().includes(q);
+    var show = catOk && locOk && availOk && textOk;
+    card.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+  document.getElementById('expertCount').textContent = visible + ' professional' + (visible !== 1 ? 's' : '') + ' shown';
+}
+
+// Scroll reveal
+var rvObs = new IntersectionObserver(function(en) {
+  en.forEach(function(e, i) {
+    if (e.isIntersecting) {
+      setTimeout(function() { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; }, (i % 3) * 80);
+      rvObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.expert-card, .how-card').forEach(function(el) {
+  el.style.opacity = '0'; el.style.transform = 'translateY(18px)'; el.style.transition = 'opacity .45s ease, transform .45s ease';
+  rvObs.observe(el);
+});
+
+// Skill checkbox toggle
+function toggleSkill(cb) { cb.parentElement.classList.toggle('checked', cb.checked); }
+
+// CV upload handler
+function handleCVUpload(input) {
+  if (input.files[0]) {
+    var z = document.getElementById('cvUploadZone');
+    z.querySelector('h4').textContent = input.files[0].name;
+    z.querySelector('p').textContent = 'File selected. Ready to submit.';
+    z.style.borderColor = '#006C35'; z.style.background = '#EBF7F0';
+  }
+}
+
+// CV form submit
+function submitCV(e) {
+  e.preventDefault();
+  var btn = e.target.querySelector('button[type="submit"]');
+  btn.textContent = 'Submitting profile…'; btn.disabled = true;
+  setTimeout(function() {
+    document.getElementById('cvForm').style.display = 'none';
+    document.getElementById('cvSuccess').style.display = 'block';
+  }, 1000);
+}
+
+// Requirement form submit
+function submitRequirement(e) {
+  e.preventDefault();
+  var btn = e.target.querySelector('button[type="submit"]');
+  btn.textContent = 'Submitting…'; btn.disabled = true;
+  setTimeout(function() {
+    document.getElementById('requirementForm').style.display = 'none';
+    document.getElementById('reqSuccess').style.display = 'block';
+  }, 900);
+}
+
+// Contact modal
+function contactExpert(name) {
+  document.getElementById('contactModalName').textContent = 'Expert: ' + name;
+  document.getElementById('contactModal').style.display = 'flex';
+}
+function closeContactModal() {
+  document.getElementById('contactModal').style.display = 'none';
+  alert('Request sent! Our team will facilitate the introduction within 4 hours.');
+}
+</script>
+<script src="js/navbar-auth.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="200" viewBox="0 0 400 200">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4A1A6B"/>
+      <stop offset="100%" style="stop-color:#7B2FA8"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="200" fill="url(#bg)"/>
+  <!-- print bed -->
+  <rect x="100" y="140" width="200" height="8" rx="2" fill="rgba(255,255,255,0.2)"/>
+  <!-- printed layers (valve body shape) -->
+  <rect x="150" y="128" width="100" height="12" rx="1" fill="rgba(200,151,58,0.9)"/>
+  <rect x="154" y="116" width="92" height="12" rx="1" fill="rgba(200,151,58,0.8)"/>
+  <rect x="158" y="104" width="84" height="12" rx="1" fill="rgba(200,151,58,0.7)"/>
+  <rect x="162" y="92" width="76" height="12" rx="1" fill="rgba(200,151,58,0.6)"/>
+  <rect x="168" y="80" width="64" height="12" rx="1" fill="rgba(200,151,58,0.5)"/>
+  <rect x="176" y="68" width="48" height="12" rx="1" fill="rgba(200,151,58,0.35)"/>
+  <!-- print head -->
+  <rect x="188" y="44" width="24" height="24" rx="3" fill="rgba(255,255,255,0.4)"/>
+  <line x1="200" y1="68" x2="200" y2="80" stroke="rgba(255,220,100,0.9)" stroke-width="2"/>
+  <!-- gantry arms -->
+  <rect x="60" y="42" width="280" height="6" rx="3" fill="rgba(255,255,255,0.2)"/>
+  <rect x="60" y="38" width="6" height="110" rx="3" fill="rgba(255,255,255,0.15)"/>
+  <rect x="334" y="38" width="6" height="110" rx="3" fill="rgba(255,255,255,0.15)"/>
+  <!-- label -->
+  <text x="200" y="178" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="11" font-family="Inter,Arial,sans-serif">Replace → images/p4-3dprint.jpg</text>
+</svg>

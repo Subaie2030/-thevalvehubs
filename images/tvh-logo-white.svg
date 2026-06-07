@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 100">
+  <!-- TheValveHubs Logo — White version for dark backgrounds -->
+
+  <!-- Handwheel ring -->
+  <ellipse cx="52" cy="18" rx="28" ry="14" fill="none" stroke="#ffffff" stroke-width="5"/>
+  <line x1="24" y1="18" x2="80" y2="18" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+  <line x1="52" y1="4"  x2="52" y2="32" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="52" cy="18" r="5" fill="#ffffff"/>
+
+  <!-- Stem -->
+  <rect x="47" y="30" width="10" height="14" rx="2" fill="rgba(255,255,255,0.9)"/>
+
+  <!-- Bonnet -->
+  <path d="M30,44 L74,44 L70,58 L34,58 Z" fill="rgba(255,255,255,0.9)"/>
+
+  <!-- Body -->
+  <rect x="26" y="58" width="52" height="28" rx="4" fill="rgba(255,255,255,0.9)"/>
+
+  <!-- Left flange -->
+  <rect x="4"  y="62" width="22" height="20" rx="2" fill="rgba(255,255,255,0.9)"/>
+  <line x1="10" y1="64" x2="10" y2="80" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+  <line x1="15" y1="64" x2="15" y2="80" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+  <line x1="20" y1="64" x2="20" y2="80" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+
+  <!-- Right flange -->
+  <rect x="78"  y="62" width="22" height="20" rx="2" fill="rgba(255,255,255,0.9)"/>
+  <line x1="84" y1="64" x2="84" y2="80" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+  <line x1="89" y1="64" x2="89" y2="80" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+  <line x1="94" y1="64" x2="94" y2="80" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+
+  <!-- Body detail -->
+  <circle cx="52" cy="72" r="10" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+
+  <!-- "TheValve" white -->
+  <text x="118" y="74"
+        font-family="'Segoe UI','Arial',sans-serif"
+        font-size="46" font-weight="700"
+        fill="#ffffff" letter-spacing="-1">TheValve</text>
+  <!-- "Hubs" gold -->
+  <text x="330" y="74"
+        font-family="'Segoe UI','Arial',sans-serif"
+        font-size="46" font-weight="700"
+        fill="#C8973A" letter-spacing="-1">Hubs</text>
+</svg>

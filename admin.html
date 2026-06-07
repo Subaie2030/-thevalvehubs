@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Admin Panel — TheValveHubs</title>
+<link rel="stylesheet" href="style.css"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+/* ── Admin Layout ─────────────────────────────── */
+.dash-wrap{display:grid;grid-template-columns:240px 1fr;min-height:calc(100vh - 80px);gap:0;}
+.dash-sidebar{background:#1A1A2E;padding:28px 0;position:sticky;top:80px;height:calc(100vh - 80px);overflow-y:auto;}
+.dash-main{background:#F4F4F7;padding:32px;}
+.sidebar-section{margin-bottom:8px;}
+.sidebar-label{font-size:.65rem;font-weight:800;color:#7A7AAA;letter-spacing:.12em;text-transform:uppercase;padding:0 20px;margin-bottom:6px;}
+.sidebar-link{display:flex;align-items:center;gap:10px;padding:10px 20px;color:rgba(255,255,255,.75);font-size:.85rem;font-weight:500;text-decoration:none;transition:all .2s;border-left:3px solid transparent;}
+.sidebar-link:hover,.sidebar-link.active{color:#fff;background:rgba(255,255,255,.07);border-left-color:#C8973A;}
+.sidebar-link .s-icon{font-size:1rem;width:20px;text-align:center;}
+.admin-badge{background:linear-gradient(135deg,#C8973A,#E8B84B);color:#1A1A1A;font-size:.6rem;font-weight:900;padding:2px 6px;border-radius:4px;letter-spacing:.05em;}
+
+/* ── Stat Cards ───────────────────────────────── */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:28px;}
+.stat-card{background:#fff;border-radius:14px;padding:20px;border:1px solid #E0E0EA;position:relative;overflow:hidden;}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.stat-green::before{background:#006C35;}
+.stat-gold::before{background:#C8973A;}
+.stat-blue::before{background:#2C4A7C;}
+.stat-red::before{background:#C0392B;}
+.stat-purple::before{background:#7C3D9C;}
+.stat-num{font-size:2rem;font-weight:900;color:#1A1A2E;line-height:1;}
+.stat-label{font-size:.75rem;color:#5A5A7A;margin-top:4px;font-weight:600;}
+.stat-sub{font-size:.7rem;color:#9A9AAA;margin-top:8px;}
+.stat-icon{position:absolute;right:16px;top:16px;font-size:1.8rem;opacity:.12;}
+
+/* ── Section Cards ────────────────────────────── */
+.dash-card{background:#fff;border-radius:16px;padding:24px;border:1px solid #E0E0EA;margin-bottom:20px;}
+.dash-card h3{font-size:.95rem;font-weight:800;color:#1A1A2E;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.dash-card h3 .badge{font-size:.65rem;background:#EEF0FF;color:#2C4A7C;padding:2px 8px;border-radius:20px;font-weight:700;}
+
+/* ── Tables ───────────────────────────────────── */
+.admin-table{width:100%;border-collapse:collapse;font-size:.82rem;}
+.admin-table th{text-align:left;padding:8px 12px;font-size:.68rem;font-weight:800;color:#7A7AAA;text-transform:uppercase;letter-spacing:.06em;border-bottom:2px solid #EEEEF5;}
+.admin-table td{padding:10px 12px;border-bottom:1px solid #F4F4F7;color:#1A1A2E;vertical-align:middle;}
+.admin-table tr:hover td{background:#FAFAFF;}
+
+/* ── Badges ───────────────────────────────────── */
+.badge-green{display:inline-block;padding:2px 8px;border-radius:20px;font-size:.68rem;font-weight:700;background:#EBF7F0;color:#006C35;}
+.badge-gold{display:inline-block;padding:2px 8px;border-radius:20px;font-size:.68rem;font-weight:700;background:#FFF8E7;color:#C8973A;}
+.badge-red{display:inline-block;padding:2px 8px;border-radius:20px;font-size:.68rem;font-weight:700;background:#FFEBEE;color:#C0392B;}
+.badge-blue{display:inline-block;padding:2px 8px;border-radius:20px;font-size:.68rem;font-weight:700;background:#EEF2FF;color:#2C4A7C;}
+.badge-gray{display:inline-block;padding:2px 8px;border-radius:20px;font-size:.68rem;font-weight:700;background:#ECEFF1;color:#546E7A;}
+
+/* ── Action Buttons ───────────────────────────── */
+.btn-action{padding:4px 10px;border-radius:6px;font-size:.72rem;font-weight:700;cursor:pointer;border:none;transition:.2s;}
+.btn-verify{background:#EBF7F0;color:#006C35;}
+.btn-verify:hover{background:#006C35;color:#fff;}
+.btn-suspend{background:#FFEBEE;color:#C0392B;}
+.btn-suspend:hover{background:#C0392B;color:#fff;}
+.btn-view{background:#EEF2FF;color:#2C4A7C;}
+.btn-view:hover{background:#2C4A7C;color:#fff;}
+
+/* ── Page Header ─────────────────────────────── */
+.page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;}
+.page-header h2{font-size:1.4rem;font-weight:900;color:#1A1A2E;margin:0;}
+.page-header p{font-size:.8rem;color:#7A7AAA;margin:2px 0 0;}
+.header-actions{display:flex;gap:8px;}
+
+/* ── Tabs ─────────────────────────────────────── */
+.tab-bar{display:flex;gap:4px;background:#EEEEF5;border-radius:10px;padding:4px;margin-bottom:20px;}
+.tab-btn{padding:7px 16px;border-radius:7px;border:none;background:transparent;font-size:.82rem;font-weight:600;color:#7A7AAA;cursor:pointer;transition:.2s;}
+.tab-btn.active{background:#fff;color:#1A1A2E;box-shadow:0 1px 4px rgba(0,0,0,.08);}
+
+/* ── Search / Filter Bar ─────────────────────── */
+.filter-bar{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+.filter-input{flex:1;min-width:180px;padding:8px 12px;border:1.5px solid #E0E0EA;border-radius:8px;font-size:.82rem;outline:none;color:#1A1A2E;}
+.filter-input:focus{border-color:#2C4A7C;}
+.filter-select{padding:8px 12px;border:1.5px solid #E0E0EA;border-radius:8px;font-size:.82rem;outline:none;color:#1A1A2E;background:#fff;cursor:pointer;}
+
+/* ── Progress Bar ─────────────────────────────── */
+.progress-bar{background:#EEEEF5;border-radius:4px;height:6px;overflow:hidden;}
+.progress-fill{height:6px;border-radius:4px;background:linear-gradient(90deg,#006C35,#00A854);}
+
+/* ── Revenue Chart Placeholder ────────────────── */
+.chart-placeholder{background:linear-gradient(135deg,#F4F4F7,#EEEEF5);border-radius:12px;height:180px;display:flex;align-items:center;justify-content:center;color:#9A9AAA;font-size:.85rem;font-weight:600;border:2px dashed #D0D0E0;}
+
+/* ── Loading ──────────────────────────────────── */
+.dash-loading{text-align:center;padding:60px 20px;color:#7A7AAA;}
+.spinner{width:36px;height:36px;border:3px solid #EEEEF5;border-top-color:#2C4A7C;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── Empty State ──────────────────────────────── */
+.empty-state{text-align:center;padding:40px 20px;color:#9A9AAA;}
+.empty-state .empty-icon{font-size:2.5rem;margin-bottom:8px;}
+.empty-state p{font-size:.85rem;margin:0;}
+
+/* ── Notification Bell ────────────────────────── */
+.notif-item{padding:12px 18px;border-bottom:1px solid #F4F4F7;cursor:pointer;transition:.15s;}
+.notif-item:hover{background:#FAFAFF;}
+.notif-item.unread{background:#FFF8E7;}
+.notif-item .notif-title{font-size:.8rem;font-weight:700;color:#1A1A2E;margin-bottom:3px;}
+.notif-item .notif-msg{font-size:.72rem;color:#7A7AAA;line-height:1.4;}
+.notif-item .notif-time{font-size:.65rem;color:#B0B0C0;margin-top:4px;}
+
+/* ── Notification Toast ───────────────────────── */
+#adminToast{position:fixed;bottom:24px;right:24px;background:#1A1A2E;color:#fff;padding:12px 20px;border-radius:10px;font-size:.85rem;font-weight:600;z-index:9999;transform:translateY(100px);transition:.3s;box-shadow:0 4px 20px rgba(0,0,0,.2);}
+#adminToast.show{transform:translateY(0);}
+
+/* ── Responsive ──────────────────────────────────*/
+@media(max-width:768px){
+  .dash-wrap{grid-template-columns:1fr;}
+  .dash-sidebar{position:static;height:auto;display:flex;flex-wrap:wrap;gap:4px;padding:12px;}
+  .sidebar-link{padding:8px 12px;border-left:none;border-bottom:2px solid transparent;font-size:.75rem;}
+  .stat-grid{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+
+<!-- ── Navbar ──────────────────────────────────── -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="images/tvh-logo-extracted.jpg" alt="TheValveHubs" style="width:220px;height:58px;object-fit:contain;object-position:left center;display:block;"/>
+    </a>
+    <ul class="nav-menu">
+      <li class="nav-item"><a href="platform.html" class="nav-link">🗺 Platform</a></li>
+      <li class="nav-item"><a href="dashboard.html" class="nav-link">👤 My Dashboard</a></li>
+    </ul>
+    <div class="nav-cta" style="display:flex;align-items:center;gap:10px;">
+      <span style="font-size:.75rem;background:linear-gradient(135deg,#C8973A,#E8B84B);color:#1A1A1A;padding:3px 10px;border-radius:6px;font-weight:800;">⚙️ ADMIN</span>
+      <!-- Notification Bell -->
+      <div id="notifBell" style="position:relative;cursor:pointer;" onclick="toggleNotifPanel()" title="Notifications">
+        <span style="font-size:1.3rem;">🔔</span>
+        <span id="notifCount" style="display:none;position:absolute;top:-4px;right:-4px;background:#C0392B;color:#fff;font-size:.55rem;font-weight:900;min-width:16px;height:16px;border-radius:50%;text-align:center;line-height:16px;padding:0 2px;">0</span>
+      </div>
+      <!-- Notif Dropdown -->
+      <div id="notifPanel" style="display:none;position:absolute;top:70px;right:100px;width:340px;background:#fff;border-radius:14px;box-shadow:0 8px 40px rgba(0,0,0,.15);z-index:9998;border:1px solid #E0E0EA;overflow:hidden;">
+        <div style="padding:14px 18px;border-bottom:1px solid #EEEEF5;display:flex;justify-content:space-between;align-items:center;">
+          <strong style="font-size:.9rem;color:#1A1A2E;">🔔 Notifications</strong>
+          <button onclick="markAllRead()" style="font-size:.7rem;color:#006C35;background:none;border:none;cursor:pointer;font-weight:700;">Mark all read</button>
+        </div>
+        <div id="notifList" style="max-height:320px;overflow-y:auto;padding:8px 0;">
+          <div style="text-align:center;padding:24px;color:#9A9AAA;font-size:.82rem;">Loading...</div>
+        </div>
+        <div style="padding:10px 18px;border-top:1px solid #EEEEF5;text-align:center;">
+          <a href="#" onclick="showSection('notifications',null);toggleNotifPanel();" style="font-size:.78rem;color:#2C4A7C;font-weight:700;">View all →</a>
+        </div>
+      </div>
+      <button onclick="doLogout()" class="btn btn-sm" style="background:#C0392B;color:#fff;border:none;cursor:pointer;">Logout</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Admin Layout ─────────────────────────────── -->
+<div class="dash-wrap">
+
+  <!-- Sidebar -->
+  <aside class="dash-sidebar">
+    <div style="padding:0 20px 20px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:16px;">
+      <div style="font-size:.7rem;color:#7A7AAA;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;">Admin Panel</div>
+      <div id="adminName" style="font-size:.95rem;color:#fff;font-weight:700;">Loading...</div>
+      <div style="margin-top:6px;"><span class="admin-badge">ADMINISTRATOR</span></div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Overview</div>
+      <a href="#" class="sidebar-link active" onclick="showSection('overview',this)"><span class="s-icon">📊</span> Dashboard</a>
+      <a href="#" class="sidebar-link" onclick="showSection('analytics',this)"><span class="s-icon">📈</span> Analytics</a>
+    </div>
+
+    <div class="sidebar-section" style="margin-top:12px;">
+      <div class="sidebar-label">Management</div>
+      <a href="#" class="sidebar-link" onclick="showSection('users',this)"><span class="s-icon">👥</span> Users</a>
+      <a href="#" class="sidebar-link" onclick="showSection('suppliers',this)"><span class="s-icon">🏭</span> Suppliers</a>
+      <a href="#" class="sidebar-link" onclick="showSection('rfqs',this)"><span class="s-icon">📋</span> RFQs</a>
+      <a href="#" class="sidebar-link" onclick="showSection('emergency',this)"><span class="s-icon">🚨</span> Emergency RFQs</a>
+    </div>
+
+    <div class="sidebar-section" style="margin-top:12px;">
+      <div class="sidebar-label">Finance</div>
+      <a href="#" class="sidebar-link" onclick="showSection('subscriptions',this)"><span class="s-icon">💳</span> Subscriptions</a>
+      <a href="#" class="sidebar-link" onclick="showSection('invoices',this)"><span class="s-icon">🧾</span> Invoices</a>
+    </div>
+
+    <div class="sidebar-section" style="margin-top:12px;">
+      <div class="sidebar-label">System</div>
+      <a href="dashboard.html" class="sidebar-link"><span class="s-icon">↩️</span> Exit Admin</a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="dash-main" id="dashMain">
+    <div class="dash-loading" id="mainLoader">
+      <div class="spinner"></div>
+      <p>Loading admin panel...</p>
+    </div>
+  </main>
+</div>
+
+<!-- Toast -->
+<div id="adminToast"></div>
+
+<script src="js/tvh-api.js"></script>
+<script>
+// ── Auth Guard ────────────────────────────────────
+const token = localStorage.getItem('tvh_token');
+const user  = JSON.parse(localStorage.getItem('tvh_user') || '{}');
+
+if (!token) {
+  window.location.href = 'index.html#join';
+} else if (user.role !== 'ADMIN') {
+  alert('Access denied. Admin only.');
+  window.location.href = 'dashboard.html';
+}
+
+// ── State ─────────────────────────────────────────
+let allUsers = [], allRfqs = [], allSubs = [];
+
+// ── Init ──────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', async () => {
+  document.getElementById('adminName').textContent = user.nameEn || user.email || 'Admin';
+  await loadOverview();
+});
+
+// ── Toast ─────────────────────────────────────────
+function toast(msg, color = '#1A1A2E') {
+  const t = document.getElementById('adminToast');
+  t.textContent = msg;
+  t.style.background = color;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ── Logout ────────────────────────────────────────
+function doLogout() {
+  localStorage.removeItem('tvh_token');
+  localStorage.removeItem('tvh_user');
+  window.location.href = 'index.html';
+}
+
+// ── Notification Bell ─────────────────────────────
+let notifOpen = false;
+let notifData = [];
+
+function toggleNotifPanel() {
+  notifOpen = !notifOpen;
+  document.getElementById('notifPanel').style.display = notifOpen ? 'block' : 'none';
+  if (notifOpen) fetchNotifications();
+  // Close if click outside
+  if (notifOpen) {
+    setTimeout(() => document.addEventListener('click', closeNotifOutside), 100);
+  }
+}
+
+function closeNotifOutside(e) {
+  const panel = document.getElementById('notifPanel');
+  const bell  = document.getElementById('notifBell');
+  if (!panel.contains(e.target) && !bell.contains(e.target)) {
+    panel.style.display = 'none';
+    notifOpen = false;
+    document.removeEventListener('click', closeNotifOutside);
+  }
+}
+
+async function fetchNotifications() {
+  try {
+    const data = await apiGet('/admin/notifications');
+    notifData = data.notifications || [];
+    renderNotifications();
+    updateBellCount();
+  } catch(e) {
+    document.getElementById('notifList').innerHTML = `<div style="padding:16px;text-align:center;color:#C0392B;font-size:.8rem;">Could not load notifications</div>`;
+  }
+}
+
+function renderNotifications() {
+  const list = document.getElementById('notifList');
+  if (!notifData.length) {
+    list.innerHTML = `<div style="text-align:center;padding:24px;color:#9A9AAA;font-size:.82rem;">🎉 No notifications</div>`;
+    return;
+  }
+  list.innerHTML = notifData.slice(0,15).map(n => `
+    <div class="notif-item ${n.isRead ? '' : 'unread'}">
+      <div class="notif-title">${escHtml(n.title)}</div>
+      <div class="notif-msg">${escHtml(n.message||'')}</div>
+      <div class="notif-time">${new Date(n.createdAt).toLocaleString('en-SA')}</div>
+    </div>
+  `).join('');
+}
+
+function updateBellCount() {
+  const unread = notifData.filter(n => !n.isRead).length;
+  const count  = document.getElementById('notifCount');
+  if (unread > 0) {
+    count.textContent = unread > 99 ? '99+' : unread;
+    count.style.display = 'block';
+  } else {
+    count.style.display = 'none';
+  }
+}
+
+async function markAllRead() {
+  try {
+    await apiPatch('/admin/notifications/read-all', {});
+    notifData = notifData.map(n => ({ ...n, isRead: true }));
+    renderNotifications();
+    updateBellCount();
+  } catch(e) { /* ignore */ }
+}
+
+function escHtml(str) {
+  return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// Poll notifications every 60 seconds
+setInterval(async () => {
+  if (!token) return;
+  try {
+    const data = await apiGet('/admin/notifications');
+    notifData = data.notifications || [];
+    updateBellCount();
+    if (notifOpen) renderNotifications();
+  } catch(e) {}
+}, 60000);
+
+// ── Section Router ────────────────────────────────
+function showSection(name, el) {
+  document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+  if (el) el.classList.add('active');
+  const fns = { overview: loadOverview, analytics: loadAnalytics, users: loadUsers, suppliers: loadSuppliers, rfqs: loadRfqs, emergency: loadEmergency, subscriptions: loadSubscriptions, invoices: loadInvoices };
+  if (fns[name]) fns[name]();
+}
+
+// ── API Helper ────────────────────────────────────
+async function apiGet(path) {
+  const r = await fetch(`https://thevalvehubs-backend-production.up.railway.app/api${path}`, {
+    headers: { 'Authorization': `Bearer ${token}` }
+  });
+  if (!r.ok) throw new Error(`API error ${r.status}`);
+  return r.json();
+}
+
+async function apiPatch(path, body) {
+  const r = await fetch(`https://thevalvehubs-backend-production.up.railway.app/api${path}`, {
+    method: 'PATCH',
+    headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
+  if (!r.ok) throw new Error(`API error ${r.status}`);
+  return r.json();
+}
+
+// ── Render Helper ─────────────────────────────────
+function setMain(html) {
+  document.getElementById('dashMain').innerHTML = html;
+}
+
+// ══════════════════════════════════════════════════
+// OVERVIEW
+// ══════════════════════════════════════════════════
+async function loadOverview() {
+  setMain(`<div class="dash-loading"><div class="spinner"></div><p>Loading overview...</p></div>`);
+  try {
+    const [suppliers, rfqs, subs] = await Promise.allSettled([
+      apiGet('/suppliers?limit=100'),
+      apiGet('/rfqs?limit=100'),
+      apiGet('/subscriptions/current'),
+    ]);
+
+    const supplierData = suppliers.status === 'fulfilled' ? suppliers.value : { suppliers: [], total: 0 };
+    const rfqData      = rfqs.status      === 'fulfilled' ? rfqs.value      : { rfqs: [], total: 0 };
+
+    const totalSuppliers = supplierData.total || supplierData.suppliers?.length || 0;
+    const verifiedCount  = (supplierData.suppliers || []).filter(s => s.isVerified).length;
+    const openRfqs       = (rfqData.rfqs || []).filter(r => r.status === 'OPEN').length;
+    const totalRfqs      = rfqData.total || rfqData.rfqs?.length || 0;
+
+    setMain(`
+      <div class="page-header">
+        <div>
+          <h2>⚙️ Admin Dashboard</h2>
+          <p>Platform overview — TheValveHubs Saudi Arabia</p>
+        </div>
+        <div class="header-actions">
+          <span style="font-size:.75rem;color:#7A7AAA;">${new Date().toLocaleDateString('en-SA',{weekday:'long',year:'numeric',month:'long',day:'numeric'})}</span>
+        </div>
+      </div>
+
+      <!-- Stat Cards -->
+      <div class="stat-grid">
+        <div class="stat-card stat-green">
+          <div class="stat-icon">🏭</div>
+          <div class="stat-num">${totalSuppliers}</div>
+          <div class="stat-label">Total Suppliers</div>
+          <div class="stat-sub">✅ ${verifiedCount} verified</div>
+        </div>
+        <div class="stat-card stat-blue">
+          <div class="stat-icon">📋</div>
+          <div class="stat-num">${totalRfqs}</div>
+          <div class="stat-label">Total RFQs</div>
+          <div class="stat-sub">🟢 ${openRfqs} open</div>
+        </div>
+        <div class="stat-card stat-gold">
+          <div class="stat-icon">💳</div>
+          <div class="stat-num">—</div>
+          <div class="stat-label">Active Subscriptions</div>
+          <div class="stat-sub">Go to Finance tab</div>
+        </div>
+        <div class="stat-card stat-red">
+          <div class="stat-icon">🚨</div>
+          <div class="stat-num">—</div>
+          <div class="stat-label">Emergency RFQs</div>
+          <div class="stat-sub">Check Emergency tab</div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="dash-card">
+        <h3>⚡ Quick Actions</h3>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="btn-action btn-verify" onclick="showSection('suppliers',null)" style="padding:10px 18px;border-radius:8px;font-size:.82rem;">🏭 Verify Suppliers</button>
+          <button class="btn-action btn-view" onclick="showSection('users',null)" style="padding:10px 18px;border-radius:8px;font-size:.82rem;">👥 Manage Users</button>
+          <button class="btn-action btn-view" onclick="showSection('rfqs',null)" style="padding:10px 18px;border-radius:8px;font-size:.82rem;">📋 View All RFQs</button>
+          <button class="btn-action btn-suspend" onclick="showSection('emergency',null)" style="padding:10px 18px;border-radius:8px;font-size:.82rem;">🚨 Emergency RFQs</button>
+        </div>
+      </div>
+
+      <!-- Recent Suppliers -->
+      <div class="dash-card">
+        <h3>🏭 Recent Suppliers <span class="badge">${totalSuppliers} total</span></h3>
+        ${renderSuppliersTable(supplierData.suppliers?.slice(0,5) || [])}
+      </div>
+
+      <!-- Recent RFQs -->
+      <div class="dash-card">
+        <h3>📋 Recent RFQs <span class="badge">${totalRfqs} total</span></h3>
+        ${renderRfqTable(rfqData.rfqs?.slice(0,5) || [])}
+      </div>
+    `);
+  } catch(e) {
+    setMain(`<div class="dash-card"><p style="color:#C0392B;">Error loading overview: ${e.message}</p></div>`);
+  }
+}
+
+// ══════════════════════════════════════════════════
+// USERS
+// ══════════════════════════════════════════════════
+async function loadUsers() {
+  setMain(`<div class="dash-loading"><div class="spinner"></div><p>Loading users...</p></div>`);
+  try {
+    const data = await apiGet('/admin/users?limit=100');
+    allUsers = data.users || [];
+    renderUsersView(allUsers);
+  } catch(e) {
+    // Fallback: show message if admin endpoint not yet built
+    setMain(`
+      <div class="page-header"><div><h2>👥 Users</h2></div></div>
+      <div class="dash-card">
+        <div class="empty-state">
+          <div class="empty-icon">🔧</div>
+          <p style="font-weight:700;color:#1A1A2E;margin-bottom:4px;">Admin Users API endpoint coming soon</p>
+          <p>The <code>/api/admin/users</code> endpoint needs to be added to the backend.</p>
+          <br>
+          <button class="btn-action btn-view" style="padding:8px 16px;border-radius:8px;" onclick="buildAdminEndpoint()">📋 See Instructions</button>
+        </div>
+      </div>
+    `);
+  }
+}
+
+function renderUsersView(users) {
+  setMain(`
+    <div class="page-header">
+      <div><h2>👥 Users</h2><p>${users.length} registered users</p></div>
+    </div>
+    <div class="dash-card">
+      <div class="filter-bar">
+        <input class="filter-input" placeholder="🔍 Search by name or email..." oninput="filterUsers(this.value)"/>
+        <select class="filter-select" onchange="filterUsersByRole(this.value)">
+          <option value="">All Roles</option>
+          <option value="SUPPLIER">Supplier</option>
+          <option value="BUYER">Buyer</option>
+          <option value="ADMIN">Admin</option>
+        </select>
+      </div>
+      <table class="admin-table" id="usersTable">
+        <thead>
+          <tr>
+            <th>Name</th><th>Email</th><th>Role</th><th>Company</th><th>Joined</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${users.map(u => `
+            <tr>
+              <td><strong>${u.nameEn || '—'}</strong></td>
+              <td style="color:#7A7AAA;">${u.email}</td>
+              <td>${roleBadge(u.role)}</td>
+              <td>${u.company?.nameEn || '—'}</td>
+              <td style="color:#9A9AAA;font-size:.75rem;">${formatDate(u.createdAt)}</td>
+              <td>
+                <button class="btn-action btn-view" onclick="viewUser('${u.id}')">View</button>
+                ${u.role !== 'ADMIN' ? `<button class="btn-action btn-suspend" style="margin-left:4px;" onclick="suspendUser('${u.id}')">Suspend</button>` : ''}
+              </td>
+            </tr>
+          `).join('') || '<tr><td colspan="6" style="text-align:center;color:#9A9AAA;padding:24px;">No users found</td></tr>'}
+        </tbody>
+      </table>
+    </div>
+  `);
+}
+
+function roleBadge(role) {
+  if (role === 'ADMIN')    return '<span class="badge-gold">ADMIN</span>';
+  if (role === 'SUPPLIER') return '<span class="badge-green">SUPPLIER</span>';
+  if (role === 'BUYER')    return '<span class="badge-blue">BUYER</span>';
+  return `<span class="badge-gray">${role}</span>`;
+}
+
+// ══════════════════════════════════════════════════
+// SUPPLIERS
+// ══════════════════════════════════════════════════
+async function loadSuppliers() {
+  setMain(`<div class="dash-loading"><div class="spinner"></div><p>Loading suppliers...</p></div>`);
+  try {
+    const data = await apiGet('/suppliers?limit=100');
+    const suppliers = data.suppliers || [];
+    setMain(`
+      <div class="page-header">
+        <div><h2>🏭 Suppliers</h2><p>${suppliers.length} registered suppliers</p></div>
+      </div>
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="filterSupplierVerification('all',this)">All (${suppliers.length})</button>
+        <button class="tab-btn" onclick="filterSupplierVerification('verified',this)">✅ Verified (${suppliers.filter(s=>s.isVerified).length})</button>
+        <button class="tab-btn" onclick="filterSupplierVerification('pending',this)">⏳ Pending (${suppliers.filter(s=>!s.isVerified).length})</button>
+      </div>
+      <div class="dash-card">
+        <div class="filter-bar">
+          <input class="filter-input" placeholder="🔍 Search supplier..." id="supplierSearch"/>
+        </div>
+        <table class="admin-table" id="suppliersTable">
+          <thead>
+            <tr><th>Company</th><th>Tier</th><th>IKTVA</th><th>Pillars</th><th>Aramco</th><th>Verified</th><th>Actions</th></tr>
+          </thead>
+          <tbody id="suppliersTbody">
+            ${renderSupplierRows(suppliers)}
+          </tbody>
+        </table>
+      </div>
+    `);
+
+    // Store for filtering
+    window._suppliers = suppliers;
+    document.getElementById('supplierSearch').oninput = function() {
+      const q = this.value.toLowerCase();
+      const filtered = window._suppliers.filter(s =>
+        (s.nameEn||'').toLowerCase().includes(q) ||
+        (s.nameAr||'').toLowerCase().includes(q)
+      );
+      document.getElementById('suppliersTbody').innerHTML = renderSupplierRows(filtered);
+    };
+  } catch(e) {
+    setMain(`<div class="dash-card"><p style="color:#C0392B;">Error: ${e.message}</p></div>`);
+  }
+}
+
+function renderSupplierRows(suppliers) {
+  if (!suppliers.length) return '<tr><td colspan="7" style="text-align:center;color:#9A9AAA;padding:24px;">No suppliers found</td></tr>';
+  return suppliers.map(s => `
+    <tr id="supplier-row-${s.id}">
+      <td><strong>${s.nameEn || '—'}</strong><br><span style="font-size:.72rem;color:#9A9AAA;">${s.nameAr || ''}</span></td>
+      <td>${tierBadge(s.supplierProfile?.tier)}</td>
+      <td>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div class="progress-bar" style="width:60px;"><div class="progress-fill" style="width:${s.supplierProfile?.iktvaScore||0}%;background:${(s.supplierProfile?.iktvaScore||0)>=60?'#006C35':'#C8973A'};"></div></div>
+          <span style="font-size:.75rem;font-weight:700;">${s.supplierProfile?.iktvaScore||0}%</span>
+        </div>
+      </td>
+      <td style="font-size:.75rem;">${(s.supplierProfile?.pillars||[]).length} pillars</td>
+      <td>${s.supplierProfile?.isAramcoApproved ? '✅' : '—'}</td>
+      <td id="verified-${s.id}">${s.isVerified ? '<span class="badge-green">Verified</span>' : '<span class="badge-gray">Pending</span>'}</td>
+      <td>
+        ${!s.isVerified
+          ? `<button class="btn-action btn-verify" onclick="verifySupplier('${s.id}')">✅ Verify</button>`
+          : `<button class="btn-action btn-suspend" onclick="unverifySupplier('${s.id}')">❌ Unverify</button>`
+        }
+      </td>
+    </tr>
+  `).join('');
+}
+
+function tierBadge(tier) {
+  if (tier === 'ENTERPRISE') return '<span class="badge-gold">Enterprise</span>';
+  if (tier === 'PROFESSIONAL') return '<span class="badge-blue">Professional</span>';
+  return '<span class="badge-gray">Free</span>';
+}
+
+function filterSupplierVerification(type, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const filtered = type === 'verified' ? window._suppliers.filter(s=>s.isVerified)
+                 : type === 'pending'  ? window._suppliers.filter(s=>!s.isVerified)
+                 : window._suppliers;
+  document.getElementById('suppliersTbody').innerHTML = renderSupplierRows(filtered);
+}
+
+async function verifySupplier(id) {
+  try {
+    await apiPatch(`/suppliers/${id}/verify`, { isVerified: true });
+    document.getElementById(`verified-${id}`).innerHTML = '<span class="badge-green">Verified</span>';
+    const row = document.getElementById(`supplier-row-${id}`);
+    row.querySelector('td:last-child').innerHTML = `<button class="btn-action btn-suspend" onclick="unverifySupplier('${id}')">❌ Unverify</button>`;
+    const s = window._suppliers.find(s=>s.id===id);
+    if (s) s.isVerified = true;
+    toast('✅ Supplier verified successfully', '#006C35');
+  } catch(e) {
+    toast('Error: ' + e.message, '#C0392B');
+  }
+}
+
+async function unverifySupplier(id) {
+  try {
+    await apiPatch(`/suppliers/${id}/verify`, { isVerified: false });
+    document.getElementById(`verified-${id}`).innerHTML = '<span class="badge-gray">Pending</span>';
+    const row = document.getElementById(`supplier-row-${id}`);
+    row.querySelector('td:last-child').innerHTML = `<button class="btn-action btn-verify" onclick="verifySupplier('${id}')">✅ Verify</button>`;
+    const s = window._suppliers.find(s=>s.id===id);
+    if (s) s.isVerified = false;
+    toast('Supplier unverified', '#C8973A');
+  } catch(e) {
+    toast('Error: ' + e.message, '#C0392B');
+  }
+}
+
+// ══════════════════════════════════════════════════
+// RFQs
+// ══════════════════════════════════════════════════
+async function loadRfqs() {
+  setMain(`<div class="dash-loading"><div class="spinner"></div><p>Loading RFQs...</p></div>`);
+  try {
+    const data = await apiGet('/rfqs?limit=100');
+    const rfqs = data.rfqs || [];
+    setMain(`
+      <div class="page-header">
+        <div><h2>📋 All RFQs</h2><p>${rfqs.length} total requests for quotation</p></div>
+      </div>
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="filterRfqStatus('all',this)">All (${rfqs.length})</button>
+        <button class="tab-btn" onclick="filterRfqStatus('OPEN',this)">🟢 Open (${rfqs.filter(r=>r.status==='OPEN').length})</button>
+        <button class="tab-btn" onclick="filterRfqStatus('AWARDED',this)">🏆 Awarded (${rfqs.filter(r=>r.status==='AWARDED').length})</button>
+        <button class="tab-btn" onclick="filterRfqStatus('CLOSED',this)">⛔ Closed (${rfqs.filter(r=>r.status==='CLOSED').length})</button>
+      </div>
+      <div class="dash-card">
+        <table class="admin-table">
+          <thead><tr><th>Title</th><th>Pillar</th><th>Region</th><th>Budget</th><th>Responses</th><th>Status</th><th>Created</th></tr></thead>
+          <tbody id="rfqTbody">${renderRfqTable(rfqs)}</tbody>
+        </table>
+      </div>
+    `);
+    window._rfqs = rfqs;
+  } catch(e) {
+    setMain(`<div class="dash-card"><p style="color:#C0392B;">Error: ${e.message}</p></div>`);
+  }
+}
+
+function renderRfqTable(rfqs) {
+  if (!rfqs.length) return '<tr><td colspan="7" style="text-align:center;color:#9A9AAA;padding:24px;">No RFQs found</td></tr>';
+  const pillars = ['','Flow Control','Actuation','Safety','Industrial','Instrumentation','Maintenance'];
+  return rfqs.map(r => `
+    <tr>
+      <td><strong>${r.title||'—'}</strong></td>
+      <td style="font-size:.75rem;">${pillars[r.pillar]||r.pillar||'—'}</td>
+      <td style="font-size:.75rem;">${r.region||'All'}</td>
+      <td style="font-size:.75rem;">${r.budgetMax ? 'SAR '+Number(r.budgetMax).toLocaleString() : '—'}</td>
+      <td style="text-align:center;">${r._count?.responses||r.responses?.length||0}</td>
+      <td>${rfqStatusBadge(r.status)}</td>
+      <td style="font-size:.72rem;color:#9A9AAA;">${formatDate(r.createdAt)}</td>
+    </tr>
+  `).join('');
+}
+
+function rfqStatusBadge(s) {
+  if (s==='OPEN')    return '<span class="badge-green">Open</span>';
+  if (s==='AWARDED') return '<span class="badge-gold">Awarded</span>';
+  if (s==='CLOSED')  return '<span class="badge-gray">Closed</span>';
+  return `<span class="badge-gray">${s||'—'}</span>`;
+}
+
+function filterRfqStatus(status, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const filtered = status==='all' ? window._rfqs : window._rfqs.filter(r=>r.status===status);
+  document.getElementById('rfqTbody').innerHTML = renderRfqTable(filtered);
+}
+
+// ══════════════════════════════════════════════════
+// EMERGENCY RFQs
+// ══════════════════════════════════════════════════
+async function loadEmergency() {
+  setMain(`<div class="dash-loading"><div class="spinner"></div><p>Loading emergency requests...</p></div>`);
+  try {
+    const data = await apiGet('/rfqs/emergency/all');
+    const items = data.emergencies || data || [];
+    setMain(`
+      <div class="page-header">
+        <div><h2>🚨 Emergency RFQs</h2><p>${items.length} emergency requests</p></div>
+      </div>
+      <div class="dash-card">
+        <table class="admin-table">
+          <thead><tr><th>Contact</th><th>Phone</th><th>Location</th><th>Urgency</th><th>Pillar</th><th>Description</th><th>Received</th></tr></thead>
+          <tbody>
+            ${items.length ? items.map(e=>`
+              <tr>
+                <td><strong>${e.contactName||'—'}</strong></td>
+                <td>${e.phone||'—'}</td>
+                <td>${e.location||'—'}</td>
+                <td>${urgencyBadge(e.urgency)}</td>
+                <td style="font-size:.75rem;">${['','Flow','Actuation','Safety','Industrial','Instrumentation','Maintenance'][e.pillar]||e.pillar||'—'}</td>
+                <td style="max-width:200px;font-size:.75rem;color:#5A5A7A;">${(e.description||'').slice(0,80)}${(e.description||'').length>80?'...':''}</td>
+                <td style="font-size:.72rem;color:#9A9AAA;">${formatDate(e.createdAt)}</td>
+              </tr>
+            `).join('') : '<tr><td colspan="7" style="text-align:center;color:#9A9AAA;padding:24px;">No emergency requests</td></tr>'}
+          </tbody>
+        </table>
+      </div>
+    `);
+  } catch(e) {
+    setMain(`<div class="dash-card"><p style="color:#C0392B;">Error loading emergency RFQs: ${e.message}</p></div>`);
+  }
+}
+
+function urgencyBadge(u) {
+  if (u==='CRITICAL') return '<span class="badge-red">🔴 CRITICAL</span>';
+  if (u==='HIGH')     return '<span class="badge-gold">🟠 HIGH</span>';
+  return '<span class="badge-gray">🟡 MEDIUM</span>';
+}
+
+// ══════════════════════════════════════════════════
+// SUBSCRIPTIONS
+// ══════════════════════════════════════════════════
+async function loadSubscriptions() {
+  setMain(`<div class="dash-loading"><div class="spinner"></div><p>Loading subscriptions...</p></div>`);
+  try {
+    const data = await apiGet('/admin/subscriptions');
+    const subs = data.subscriptions || [];
+    setMain(`
+      <div class="page-header">
+        <div><h2>💳 Subscriptions</h2><p>${subs.length} active subscriptions</p></div>
+      </div>
+      <div class="stat-grid" style="grid-template-columns:repeat(3,1fr);">
+        <div class="stat-card stat-gray"><div class="stat-num">${subs.filter(s=>s.plan?.name==='Free').length}</div><div class="stat-label">Free Plan</div></div>
+        <div class="stat-card stat-green"><div class="stat-num">${subs.filter(s=>s.plan?.name==='Professional').length}</div><div class="stat-label">Professional</div></div>
+        <div class="stat-card stat-gold"><div class="stat-num">${subs.filter(s=>s.plan?.name==='Enterprise').length}</div><div class="stat-label">Enterprise</div></div>
+      </div>
+      <div class="dash-card">
+        <table class="admin-table">
+          <thead><tr><th>Company</th><th>Plan</th><th>Billing</th><th>Amount</th><th>Status</th><th>Expires</th></tr></thead>
+          <tbody>
+            ${subs.length ? subs.map(s=>`
+              <tr>
+                <td><strong>${s.company?.nameEn||'—'}</strong></td>
+                <td>${planBadge(s.plan?.name)}</td>
+                <td style="font-size:.75rem;">${s.billingCycle||'—'}</td>
+                <td style="font-size:.82rem;font-weight:700;">${s.plan?.price ? 'SAR '+Number(s.plan.price).toLocaleString() : 'Free'}</td>
+                <td>${s.status==='ACTIVE'?'<span class="badge-green">Active</span>':'<span class="badge-gray">'+s.status+'</span>'}</td>
+                <td style="font-size:.72rem;color:#9A9AAA;">${formatDate(s.endDate)}</td>
+              </tr>
+            `).join('') : '<tr><td colspan="6" style="text-align:center;color:#9A9AAA;padding:24px;">No subscriptions found</td></tr>'}
+          </tbody>
+        </table>
+      </div>
+    `);
+  } catch(e) {
+    setMain(`
+      <div class="page-header"><div><h2>💳 Subscriptions</h2></div></div>
+      <div class="dash-card">
+        <div class="empty-state">
+          <div class="empty-icon">🔧</div>
+          <p style="font-weight:700;color:#1A1A2E;">Admin subscriptions endpoint needed</p>
+          <p>Add <code>GET /api/admin/subscriptions</code> to backend</p>
+        </div>
+      </div>
+    `);
+  }
+}
+
+function planBadge(name) {
+  if (name==='Enterprise')   return '<span class="badge-gold">Enterprise</span>';
+  if (name==='Professional') return '<span class="badge-blue">Professional</span>';
+  return '<span class="badge-gray">Free</span>';
+}
+
+// ══════════════════════════════════════════════════
+// INVOICES
+// ══════════════════════════════════════════════════
+async function loadInvoices() {
+  setMain(`<div class="dash-loading"><div class="spinner"></div><p>Loading invoices...</p></div>`);
+  try {
+    const data = await apiGet('/invoices?limit=50');
+    const invoices = data.invoices || [];
+    const totalRevenue = invoices.reduce((sum, i) => sum + (Number(i.total)||0), 0);
+
+    setMain(`
+      <div class="page-header">
+        <div><h2>🧾 Invoices</h2><p>${invoices.length} total invoices</p></div>
+      </div>
+      <div class="stat-grid" style="grid-template-columns:repeat(3,1fr);">
+        <div class="stat-card stat-green">
+          <div class="stat-num">${invoices.length}</div>
+          <div class="stat-label">Total Invoices</div>
+        </div>
+        <div class="stat-card stat-gold">
+          <div class="stat-num">SAR ${totalRevenue.toLocaleString()}</div>
+          <div class="stat-label">Total Revenue</div>
+        </div>
+        <div class="stat-card stat-blue">
+          <div class="stat-num">SAR ${(totalRevenue*0.15/1.15).toLocaleFixed ? (totalRevenue*0.15/1.15).toFixed(0) : Math.round(totalRevenue*0.15/1.15)}</div>
+          <div class="stat-label">VAT Collected (15%)</div>
+        </div>
+      </div>
+      <div class="dash-card">
+        <table class="admin-table">
+          <thead><tr><th>Invoice #</th><th>Company</th><th>Subtotal</th><th>VAT 15%</th><th>Total</th><th>Status</th><th>Date</th></tr></thead>
+          <tbody>
+            ${invoices.length ? invoices.map(inv=>`
+              <tr>
+                <td><code style="font-size:.75rem;background:#F4F4F7;padding:2px 6px;border-radius:4px;">${inv.invoiceNumber||'—'}</code></td>
+                <td>${inv.company?.nameEn||'—'}</td>
+                <td>SAR ${Number(inv.subtotal||0).toLocaleString()}</td>
+                <td>SAR ${Number(inv.vatAmount||0).toLocaleString()}</td>
+                <td style="font-weight:700;">SAR ${Number(inv.total||0).toLocaleString()}</td>
+                <td>${inv.status==='PAID'?'<span class="badge-green">Paid</span>':'<span class="badge-gold">'+inv.status+'</span>'}</td>
+                <td style="font-size:.72rem;color:#9A9AAA;">${formatDate(inv.createdAt)}</td>
+              </tr>
+            `).join('') : '<tr><td colspan="7" style="text-align:center;color:#9A9AAA;padding:24px;">No invoices yet</td></tr>'}
+          </tbody>
+        </table>
+      </div>
+    `);
+  } catch(e) {
+    setMain(`<div class="dash-card"><p style="color:#C0392B;">Error: ${e.message}</p></div>`);
+  }
+}
+
+// ══════════════════════════════════════════════════
+// ANALYTICS
+// ══════════════════════════════════════════════════
+async function loadAnalytics() {
+  setMain(`<div class="dash-loading"><div class="spinner"></div><p>Loading analytics...</p></div>`);
+  try {
+    const [stats, suppliers, invoices] = await Promise.allSettled([
+      apiGet('/admin/stats'),
+      apiGet('/suppliers?limit=100'),
+      apiGet('/invoices?limit=100'),
+    ]);
+
+    const s   = stats.status     === 'fulfilled' ? stats.value     : {};
+    const sup = suppliers.status === 'fulfilled' ? suppliers.value : { suppliers: [] };
+    const inv = invoices.status  === 'fulfilled' ? invoices.value  : { invoices: [] };
+
+    const supplierList = sup.suppliers || [];
+    const invoiceList  = inv.invoices  || [];
+
+    // IKTVA distribution
+    const iktvaRanges = { '<20': 0, '20-40': 0, '40-60': 0, '≥60': 0 };
+    supplierList.forEach(s => {
+      const score = s.supplierProfile?.iktvaScore || 0;
+      if (score < 20) iktvaRanges['<20']++;
+      else if (score < 40) iktvaRanges['20-40']++;
+      else if (score < 60) iktvaRanges['40-60']++;
+      else iktvaRanges['≥60']++;
+    });
+
+    // Revenue by month (last 6 months)
+    const monthlyRevenue = {};
+    invoiceList.forEach(inv => {
+      const month = new Date(inv.createdAt).toLocaleDateString('en-SA', { month: 'short', year: '2-digit' });
+      monthlyRevenue[month] = (monthlyRevenue[month] || 0) + Number(inv.total || 0);
+    });
+    const months  = Object.keys(monthlyRevenue).slice(-6);
+    const revenue = months.map(m => monthlyRevenue[m]);
+
+    // Avg IKTVA
+    const avgIktva = supplierList.length
+      ? Math.round(supplierList.reduce((sum, s) => sum + (s.supplierProfile?.iktvaScore || 0), 0) / supplierList.length)
+      : 0;
+
+    const totalRevenue = invoiceList.reduce((sum, i) => sum + Number(i.total || 0), 0);
+
+    setMain(`
+      <div class="page-header"><div><h2>📈 Analytics</h2><p>Platform performance metrics</p></div></div>
+
+      <div class="stat-grid">
+        <div class="stat-card stat-green"><div class="stat-icon">🏭</div><div class="stat-num">${s.suppliers || supplierList.length}</div><div class="stat-label">Total Suppliers</div></div>
+        <div class="stat-card stat-gold"><div class="stat-icon">💰</div><div class="stat-num">SAR ${totalRevenue.toLocaleString()}</div><div class="stat-label">Total Revenue</div></div>
+        <div class="stat-card stat-blue"><div class="stat-icon">📋</div><div class="stat-num">${s.rfqs || '—'}</div><div class="stat-label">Total RFQs</div></div>
+        <div class="stat-card stat-purple"><div class="stat-icon">📊</div><div class="stat-num">${avgIktva}%</div><div class="stat-label">Avg IKTVA Score</div></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;">
+        <div class="dash-card">
+          <h3>💰 Revenue (SAR)</h3>
+          ${months.length ? `<canvas id="revenueChart" height="200"></canvas>` : '<div class="empty-state"><div class="empty-icon">📊</div><p>No revenue data yet</p></div>'}
+        </div>
+        <div class="dash-card">
+          <h3>📊 IKTVA Distribution</h3>
+          ${supplierList.length ? `<canvas id="iktvaChart" height="200"></canvas>` : '<div class="empty-state"><div class="empty-icon">📊</div><p>No suppliers yet</p></div>'}
+        </div>
+      </div>
+
+      <div class="dash-card">
+        <h3>🏆 Top Suppliers by IKTVA Score</h3>
+        <table class="admin-table">
+          <thead><tr><th>Company</th><th>IKTVA Score</th><th>Verified</th><th>Aramco</th></tr></thead>
+          <tbody>
+            ${supplierList
+              .filter(s => s.supplierProfile)
+              .sort((a,b) => (b.supplierProfile?.iktvaScore||0) - (a.supplierProfile?.iktvaScore||0))
+              .slice(0,10)
+              .map(s => `
+                <tr>
+                  <td><strong>${s.nameEn||'—'}</strong></td>
+                  <td>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <div class="progress-bar" style="width:80px;"><div class="progress-fill" style="width:${s.supplierProfile?.iktvaScore||0}%;"></div></div>
+                      <strong>${s.supplierProfile?.iktvaScore||0}%</strong>
+                    </div>
+                  </td>
+                  <td>${s.isVerified ? '✅' : '—'}</td>
+                  <td>${s.supplierProfile?.isAramcoApproved ? '✅ Preferred' : '—'}</td>
+                </tr>
+              `).join('') || '<tr><td colspan="4" style="text-align:center;color:#9A9AAA;padding:24px;">No suppliers yet</td></tr>'}
+          </tbody>
+        </table>
+      </div>
+    `);
+
+    // Draw charts after DOM is ready
+    setTimeout(() => {
+      if (months.length && document.getElementById('revenueChart')) {
+        new Chart(document.getElementById('revenueChart'), {
+          type: 'bar',
+          data: {
+            labels: months,
+            datasets: [{ label: 'Revenue (SAR)', data: revenue, backgroundColor: '#006C35', borderRadius: 6 }]
+          },
+          options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+        });
+      }
+      if (supplierList.length && document.getElementById('iktvaChart')) {
+        new Chart(document.getElementById('iktvaChart'), {
+          type: 'doughnut',
+          data: {
+            labels: ['< 20% Low', '20-40% Dev', '40-60% Good', '≥ 60% Excellent'],
+            datasets: [{ data: Object.values(iktvaRanges), backgroundColor: ['#EF5350','#FFA726','#66BB6A','#006C35'], borderWidth: 0 }]
+          },
+          options: { plugins: { legend: { position: 'bottom', labels: { font: { size: 11 } } } } }
+        });
+      }
+    }, 100);
+
+  } catch(e) {
+    setMain(`<div class="dash-card"><p style="color:#C0392B;">Error: ${e.message}</p></div>`);
+  }
+}
+
+// ══════════════════════════════════════════════════
+// HELPERS
+// ══════════════════════════════════════════════════
+function renderSuppliersTable(suppliers) {
+  if (!suppliers.length) return '<div class="empty-state"><div class="empty-icon">🏭</div><p>No suppliers yet</p></div>';
+  return `
+    <table class="admin-table">
+      <thead><tr><th>Company</th><th>IKTVA</th><th>Verified</th><th>Tier</th></tr></thead>
+      <tbody>
+        ${suppliers.map(s=>`
+          <tr>
+            <td><strong>${s.nameEn||'—'}</strong></td>
+            <td>${s.supplierProfile?.iktvaScore||0}%</td>
+            <td>${s.isVerified?'<span class="badge-green">✅ Yes</span>':'<span class="badge-gray">Pending</span>'}</td>
+            <td>${tierBadge(s.supplierProfile?.tier)}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>`;
+}
+
+function formatDate(d) {
+  if (!d) return '—';
+  return new Date(d).toLocaleDateString('en-SA', {day:'2-digit',month:'short',year:'numeric'});
+}
+
+function buildAdminEndpoint() {
+  alert('Add to backend:\n\nrouter.get("/admin/users", authenticate, authorize("ADMIN"), async (req, res) => {\n  const users = await prisma.user.findMany({ include: { company: true } });\n  res.json({ users });\n});');
+}
+</script>
+</body>
+</html>

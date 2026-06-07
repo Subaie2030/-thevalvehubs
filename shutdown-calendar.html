@@ -1,0 +1,411 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Saudi Industrial Shutdown Calendar 2025–2026 — TheValveHubs</title>
+<meta name="description" content="Saudi Arabia planned plant shutdowns and turnarounds 2025-2026. Aramco, SABIC, SATORP, YASREF, SEC shutdown dates for valve and spare parts procurement planning."/>
+<link rel="stylesheet" href="style.css"/>
+<style>
+.cal-hero{background:linear-gradient(145deg,#003A1A,#006C35,#004A24);padding:100px 0 60px;position:relative;overflow:hidden;}
+.cal-hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:56px 56px;}
+.cal-hero .container{position:relative;z-index:1;}
+.cal-hero h1{font-size:clamp(2rem,4vw,3rem);font-weight:900;color:#fff;line-height:1.1;margin-bottom:12px;}
+.cal-hero p{font-size:.97rem;color:rgba(255,255,255,.8);max-width:620px;line-height:1.75;}
+
+/* Filter bar */
+.filter-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px;align-items:center;}
+.filter-btn{padding:8px 16px;border-radius:100px;font-size:.78rem;font-weight:700;cursor:pointer;border:1.5px solid;transition:all .2s;font-family:inherit;}
+.filter-btn.all{border-color:#006C35;color:#006C35;background:#EBF7F0;}
+.filter-btn.all.active,.filter-btn.all:hover{background:#006C35;color:#fff;}
+.filter-btn.aramco{border-color:#1E3A5F;color:#1E3A5F;background:#EEF3FB;}
+.filter-btn.aramco.active,.filter-btn.aramco:hover{background:#1E3A5F;color:#fff;}
+.filter-btn.sabic{border-color:#006C8A;color:#006C8A;background:#EEF7FB;}
+.filter-btn.sabic.active,.filter-btn.sabic:hover{background:#006C8A;color:#fff;}
+.filter-btn.refinery{border-color:#8B4513;color:#8B4513;background:#FBF3EE;}
+.filter-btn.refinery.active,.filter-btn.refinery:hover{background:#8B4513;color:#fff;}
+.filter-btn.power{border-color:#B8860B;color:#B8860B;background:#FDFBEE;}
+.filter-btn.power.active,.filter-btn.power:hover{background:#B8860B;color:#fff;}
+.filter-btn.water{border-color:#0055AA;color:#0055AA;background:#EEF4FC;}
+.filter-btn.water.active,.filter-btn.water:hover{background:#0055AA;color:#fff;}
+
+/* Calendar grid */
+.cal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+
+/* Shutdown card */
+.shutdown-card{background:#fff;border-radius:16px;border:1.5px solid #D8E4D8;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.06);transition:all .25s;}
+.shutdown-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.1);border-color:#006C35;}
+.sc-top{padding:14px 18px;display:flex;align-items:center;justify-content:space-between;}
+.sc-type-badge{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:3px 10px;border-radius:100px;}
+.badge-aramco{background:#1E3A5F;color:#fff;}
+.badge-sabic{background:#006C8A;color:#fff;}
+.badge-refinery{background:#8B4513;color:#fff;}
+.badge-power{background:#B8860B;color:#fff;}
+.badge-water{background:#0055AA;color:#fff;}
+.sc-urgency{font-size:.65rem;font-weight:800;padding:3px 10px;border-radius:100px;}
+.urgency-high{background:#FEE2E2;color:#C0392B;}
+.urgency-medium{background:#FEF3C7;color:#B8860B;}
+.urgency-planned{background:#EBF7F0;color:#006C35;}
+.sc-body{padding:0 18px 18px;}
+.sc-facility{font-size:1rem;font-weight:900;color:#1A2A1A;margin-bottom:4px;line-height:1.25;}
+.sc-location{font-size:.75rem;color:#7A9A7A;margin-bottom:10px;display:flex;align-items:center;gap:4px;}
+.sc-dates{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.sc-date-range{background:#EBF7F0;border:1px solid rgba(0,108,53,.12);border-radius:8px;padding:7px 12px;font-size:.8rem;font-weight:700;color:#006C35;flex:1;text-align:center;}
+.sc-duration{font-size:.72rem;color:#7A9A7A;text-align:center;white-space:nowrap;}
+.sc-scope{margin-bottom:10px;}
+.sc-scope-title{font-size:.68rem;font-weight:700;color:#7A9A7A;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;}
+.sc-scope-items{display:flex;flex-wrap:wrap;gap:4px;}
+.sc-scope-item{background:#F2F4F3;border:1px solid #E0E5E2;color:#3A4A42;padding:2.5px 8px;border-radius:4px;font-size:.7rem;}
+.sc-action{display:flex;gap:7px;margin-top:12px;}
+.sca-btn{flex:1;padding:8px 10px;border-radius:8px;font-size:.74rem;font-weight:700;cursor:pointer;border:none;font-family:inherit;text-align:center;transition:all .2s;}
+.sca-green{background:#006C35;color:#fff;}
+.sca-green:hover{background:#004A24;}
+.sca-outline{background:#EBF7F0;border:1.5px solid rgba(0,108,53,.14);color:#006C35;}
+.sca-outline:hover{background:#D8EED8;}
+
+/* Month dividers */
+.month-header{grid-column:1/-1;background:linear-gradient(135deg,#006C35,#009444);color:#fff;border-radius:12px;padding:12px 18px;font-size:.82rem;font-weight:800;display:flex;align-items:center;gap:10px;letter-spacing:.04em;}
+.month-header .mh-dot{width:8px;height:8px;border-radius:50%;background:#E2B95A;}
+
+/* Stats bar */
+.stats-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px;}
+.stat-pill{background:#fff;border:1.5px solid #D8E4D8;border-radius:12px;padding:12px 16px;text-align:center;flex:1;min-width:110px;box-shadow:0 1px 6px rgba(0,0,0,.06);}
+.stat-pill-num{font-size:1.4rem;font-weight:900;color:#006C35;display:block;line-height:1;margin-bottom:3px;}
+.stat-pill-lbl{font-size:.64rem;color:#7A9A7A;text-transform:uppercase;letter-spacing:.08em;}
+
+/* Legend */
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:22px;}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:.75rem;color:#3A4A42;font-weight:500;}
+.legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+
+@media(max-width:1024px){.cal-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:768px){.cal-grid{grid-template-columns:1fr;}.stats-row{}.filter-bar{gap:6px;}}
+</style>
+</head>
+<body>
+<div id="preloader"><div class="preloader-inner"><div class="preloader-logo">TVH</div><div class="preloader-spinner"></div></div></div>
+<div class="emergency-band" id="emergencyBand">&#128680; Emergency 24/7 &mdash; <a href="emergency.html">Submit RFQ &rarr;</a><button class="band-dismiss" onclick="document.getElementById('emergencyBand').style.display='none'">&times;</button></div>
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="images/tvh-logo-extracted.jpg" alt="TheValveHubs" style="width:220px;height:58px;object-fit:contain;object-position:left center;display:block;flex-shrink:0;"/></a>
+    <ul class="nav-menu">
+      <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+      <li class="nav-item"><a href="platform.html" class="nav-link" style="color:#006C35;font-weight:700;">&#128205; Platform</a></li>
+      <li class="nav-item"><a href="saudi-market.html" class="nav-link">&#127470;&#127474; Saudi Market <span class="arrow">&#9660;</span></a><div class="dropdown"><a href="saudi-market.html#valves">&#9881; Saudi Valve Suppliers</a><a href="saudi-market.html#parts">&#128230; Spare Parts</a><a href="saudi-market.html#rental">&#128260; Rental Fleet</a></div></li>
+      <li class="nav-item"><a href="emergency.html" class="nav-link emergency-link">&#128680; Emergency <span class="arrow">&#9660;</span></a><div class="dropdown"><a href="emergency.html#valves">Emergency Valves</a><a href="emergency.html#parts">Emergency Parts</a></div></li>
+      <li class="nav-item"><a href="shutdown-calendar.html" class="nav-link" style="color:#006C35;font-weight:700;">&#128197; Shutdown Calendar</a></li>
+      <li class="nav-item"><a href="iktva-calculator.html" class="nav-link">&#127954; IKTVA Calc</a></li>
+      <li class="nav-item"><a href="valve-wizard.html" class="nav-link">&#128203; Valve Wizard</a></li>
+    </ul>
+    <div class="nav-cta"><a href="survey.html" class="btn btn-outline-green btn-sm" style="border-color:#C8973A;color:#C8973A;">&#127942; Rate Us</a><a href="index.html#join" class="btn btn-outline-green btn-sm">Join Free</a><a href="emergency.html" class="btn btn-red btn-sm">&#128680; Emergency</a></div>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="cal-hero">
+  <div class="container">
+    <div style="font-size:.72rem;color:rgba(255,255,255,.55);margin-bottom:14px;"><a href="index.html" style="color:rgba(255,255,255,.7);">Home</a> &#8250; <span>Shutdown Calendar</span></div>
+    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:6px 16px;font-size:.74rem;font-weight:700;color:rgba(255,255,255,.9);margin-bottom:18px;">&#128197; Saudi Arabia &bull; 2025&#8211;2026 &bull; Planned Turnarounds</div>
+    <h1>Saudi Industrial<br/>Shutdown Calendar</h1>
+    <p>Planned plant shutdowns, turnarounds and maintenance outages across Saudi Arabia's major industrial facilities. Use this calendar to prepare valve and spare parts procurement ahead of scheduled shutdowns.</p>
+    <div style="background:rgba(200,151,58,.15);border:1px solid rgba(200,151,58,.3);border-radius:10px;padding:10px 16px;margin-top:16px;font-size:.8rem;color:rgba(255,255,255,.85);max-width:560px;">&#9432; <strong style="color:#E2B95A;">Disclaimer:</strong> Dates shown are indicative based on publicly available information and industry sources. Always verify with the facility directly. Dates are subject to change.</div>
+  </div>
+</section>
+
+<!-- CALENDAR -->
+<section style="padding:52px 0;background:#F8FAF9;">
+  <div class="container">
+
+    <!-- STATS -->
+    <div class="stats-row">
+      <div class="stat-pill"><span class="stat-pill-num">24</span><span class="stat-pill-lbl">Listed Events</span></div>
+      <div class="stat-pill"><span class="stat-pill-num">8</span><span class="stat-pill-lbl">Aramco Facilities</span></div>
+      <div class="stat-pill"><span class="stat-pill-num">5</span><span class="stat-pill-lbl">SABIC Complexes</span></div>
+      <div class="stat-pill"><span class="stat-pill-num">4</span><span class="stat-pill-lbl">Refineries</span></div>
+      <div class="stat-pill"><span class="stat-pill-num">4</span><span class="stat-pill-lbl">Power &amp; Water</span></div>
+      <div class="stat-pill"><span class="stat-pill-num">Q1&#8211;Q4</span><span class="stat-pill-lbl">2025 &amp; 2026</span></div>
+    </div>
+
+    <!-- LEGEND -->
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#1E3A5F;"></div>Saudi Aramco</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#006C8A;"></div>SABIC</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#8B4513;"></div>Refineries (SATORP/YASREF)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#B8860B;"></div>Power Generation (SEC)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#0055AA;"></div>Water/Desalination</div>
+    </div>
+
+    <!-- FILTERS -->
+    <div class="filter-bar">
+      <span style="font-size:.78rem;font-weight:700;color:#5A6B62;">Filter:</span>
+      <button class="filter-btn all active" onclick="filterCards('all',this)">All Facilities</button>
+      <button class="filter-btn aramco" onclick="filterCards('aramco',this)">&#9875; Saudi Aramco</button>
+      <button class="filter-btn sabic" onclick="filterCards('sabic',this)">&#9879; SABIC</button>
+      <button class="filter-btn refinery" onclick="filterCards('refinery',this)">&#128716; Refineries</button>
+      <button class="filter-btn power" onclick="filterCards('power',this)">&#9889; Power (SEC)</button>
+      <button class="filter-btn water" onclick="filterCards('water',this)">&#128167; Water/Desal</button>
+    </div>
+
+    <!-- CALENDAR GRID -->
+    <div class="cal-grid" id="calGrid">
+
+      <!-- Q1 2025 -->
+      <div class="month-header"><span class="mh-dot"></span>Q1 2025 &mdash; January &ndash; March</div>
+
+      <div class="shutdown-card" data-type="aramco">
+        <div class="sc-top"><span class="sc-type-badge badge-aramco">Aramco</span><span class="sc-urgency urgency-high">Imminent</span></div>
+        <div class="sc-body">
+          <div class="sc-facility">Abqaiq Gas Processing Plant</div>
+          <div class="sc-location">&#128205; Abqaiq, Eastern Province</div>
+          <div class="sc-dates"><div class="sc-date-range">Jan 15 &ndash; Feb 10, 2025</div><div class="sc-duration">26 days</div></div>
+          <div class="sc-scope"><div class="sc-scope-title">Valve &amp; Parts Requirements</div><div class="sc-scope-items"><span class="sc-scope-item">Gate Valves</span><span class="sc-scope-item">Safety PSVs</span><span class="sc-scope-item">Packing Kits</span><span class="sc-scope-item">Actuator Spares</span></div></div>
+          <div class="sc-action"><button class="sca-btn sca-green" onclick="submitRFQ('Abqaiq Gas Plant Shutdown')">&#128680; Emergency RFQ</button><a href="saudi-market.html#parts" class="sca-btn sca-outline">&#128230; Find Parts</a></div>
+        </div>
+      </div>
+
+      <div class="shutdown-card" data-type="sabic">
+        <div class="sc-top"><span class="sc-type-badge badge-sabic">SABIC</span><span class="sc-urgency urgency-high">Imminent</span></div>
+        <div class="sc-body">
+          <div class="sc-facility">SABIC Ethylene Plant &mdash; Jubail</div>
+          <div class="sc-location">&#128205; Jubail Industrial City</div>
+          <div class="sc-dates"><div class="sc-date-range">Feb 3 &ndash; Mar 5, 2025</div><div class="sc-duration">30 days</div></div>
+          <div class="sc-scope"><div class="sc-scope-title">Valve &amp; Parts Requirements</div><div class="sc-scope-items"><span class="sc-scope-item">Control Valves</span><span class="sc-scope-item">Safety Valves</span><span class="sc-scope-item">Fisher Trim</span><span class="sc-scope-item">Seat Rings</span></div></div>
+          <div class="sc-action"><button class="sca-btn sca-green" onclick="submitRFQ('SABIC Jubail Ethylene Shutdown')">&#128680; Emergency RFQ</button><a href="saudi-market.html#parts" class="sca-btn sca-outline">&#128230; Find Parts</a></div>
+        </div>
+      </div>
+
+      <div class="shutdown-card" data-type="power">
+        <div class="sc-top"><span class="sc-type-badge badge-power">SEC / Power</span><span class="sc-urgency urgency-medium">Upcoming</span></div>
+        <div class="sc-body">
+          <div class="sc-facility">Riyadh Power Plant PP10</div>
+          <div class="sc-location">&#128205; Riyadh, Central Province</div>
+          <div class="sc-dates"><div class="sc-date-range">Mar 1 &ndash; Apr 15, 2025</div><div class="sc-duration">45 days</div></div>
+          <div class="sc-scope"><div class="sc-scope-title">Valve &amp; Parts Requirements</div><div class="sc-scope-items"><span class="sc-scope-item">HP Steam Valves</span><span class="sc-scope-item">HP Bypass CV</span><span class="sc-scope-item">Turbine Bypass</span><span class="sc-scope-item">Actuator OH</span></div></div>
+          <div class="sc-action"><button class="sca-btn sca-green" onclick="submitRFQ('Riyadh PP10 Shutdown')">Submit RFQ</button><a href="saudi-market.html#valves" class="sca-btn sca-outline">&#9881; Find Valves</a></div>
+        </div>
+      </div>
+
+      <!-- Q2 2025 -->
+      <div class="month-header"><span class="mh-dot"></span>Q2 2025 &mdash; April &ndash; June</div>
+
+      <div class="shutdown-card" data-type="aramco">
+        <div class="sc-top"><span class="sc-type-badge badge-aramco">Aramco</span><span class="sc-urgency urgency-medium">Upcoming</span></div>
+        <div class="sc-body">
+          <div class="sc-facility">Ras Tanura Refinery &mdash; CDU Turnaround</div>
+          <div class="sc-location">&#128205; Ras Tanura, Eastern Province</div>
+          <div class="sc-dates"><div class="sc-date-range">Apr 20 &ndash; Jun 30, 2025</div><div class="sc-duration">71 days</div></div>
+          <div class="sc-scope"><div class="sc-scope-title">Valve &amp; Parts Requirements</div><div class="sc-scope-items"><span class="sc-scope-item">Refinery Gate Valves</span><span class="sc-scope-item">Fire-Safe Ball Valves</span><span class="sc-scope-item">PSV Kits (Crosby)</span><span class="sc-scope-item">Packing Kits</span><span class="sc-scope-item">Spectacle Blinds</span></div></div>
+          <div class="sc-action"><button class="sca-btn sca-green" onclick="submitRFQ('Ras Tanura CDU Turnaround')">Submit RFQ</button><a href="saudi-market.html#parts" class="sca-btn sca-outline">&#128230; Find Parts</a></div>
+        </div>
+      </div>
+
+      <div class="shutdown-card" data-type="refinery">
+        <div class="sc-top"><span class="sc-type-badge badge-refinery">SATORP</span><span class="sc-urgency urgency-medium">Upcoming</span></div>
+        <div class="sc-body">
+          <div class="sc-facility">SATORP Jubail Refinery &mdash; Major Turnaround</div>
+          <div class="sc-location">&#128205; Jubail Industrial City</div>
+          <div class="sc-dates"><div class="sc-date-range">May 10 &ndash; Jul 20, 2025</div><div class="sc-duration">71 days</div></div>
+          <div class="sc-scope"><div class="sc-scope-title">Valve &amp; Parts Requirements</div><div class="sc-scope-items"><span class="sc-scope-item">All Valve Types</span><span class="sc-scope-item">Control Valve Trim</span><span class="sc-scope-item">PSV Lap Kits</span><span class="sc-scope-item">Gaskets</span><span class="sc-scope-item">Biffi Actuators</span></div></div>
+          <div class="sc-action"><button class="sca-btn sca-green" onclick="submitRFQ('SATORP Turnaround 2025')">Submit RFQ</button><a href="saudi-market.html#machining" class="sca-btn sca-outline">&#128295; Find Services</a></div>
+        </div>
+      </div>
+
+      <div class="shutdown-card" data-type="sabic">
+        <div class="sc-top"><span class="sc-type-badge badge-sabic">SABIC</span><span class="sc-urgency urgency-planned">Planned</span></div>
+        <div class="sc-body">
+          <div class="sc-facility">IBN RUSHD Petrochemical &mdash; Yanbu</div>
+          <div class="sc-location">&#128205; Yanbu Industrial City</div>
+          <div class="sc-dates"><div class="sc-date-range">Jun 1 &ndash; Jul 15, 2025</div><div class="sc-duration">44 days</div></div>
+          <div class="sc-scope"><div class="sc-scope-title">Valve &amp; Parts Requirements</div><div class="sc-scope-items"><span class="sc-scope-item">Gate / Globe Valves</span><span class="sc-scope-item">Control Valves</span><span class="sc-scope-item">Valve Packing</span><span class="sc-scope-item">Seat Rings</span></div></div>
+          <div class="sc-action"><button class="sca-btn sca-green" onclick="submitRFQ('IBN RUSHD Yanbu Shutdown')">Submit RFQ</button><a href="saudi-market.html#rental" class="sca-btn sca-outline">&#128260; Rental Equipment</a></div>
+        </div>
+      </div>
+
+      <!-- Q3 2025 -->
+      <div class="month-header"><span class="mh-dot"></span>Q3 2025 &mdash; July &ndash; September</div>
+
+      <div class="shutdown-card" data-type="aramco">
+        <div class="sc-top"><span class="sc-type-badge badge-aramco">Aramco</span><span class="sc-urgency urgency-planned">Planned</span></div>
+        <div class="sc-body">
+          <div class="sc-facility">Khurais GOSP &mdash; Instrumented Shutdown</div>
+          <div class="sc-location">&#128205; Khurais, Central Province</div>
+          <div class="sc-dates"><div class="sc-date-range">Jul 8 &ndash; Aug 5, 2025</div><div class="sc-duration">28 days</div></div>
+          <div class="sc-scope"><div class="sc-scope-title">Valve &amp; Parts Requirements</div><div class="sc-scope-items"><span class="sc-scope-item">Wellhead Valves</span><span class="sc-scope-item">MOV Actuators</span><span class="sc-scope-item">ESDV Testing</span><span class="sc-scope-item">PST Services</span></div></div>
+          <div class="sc-action"><button class="sca-btn sca-green" onclick="submitRFQ('Khurais GOSP Shutdown')">Submit RFQ</button><a href="saudi-market.html#machining" class="sca-btn sca-outline">&#128295; Find Services</a></div>
+        </div>
+      </div>
+
+      <div class="shutdown-card" data-type="water">
+        <div class="sc-top"><span class="sc-type-badge badge-water">SWCC</span><span class="sc-urgency urgency-planned">Planned</span></div>
+        <div class="sc-body">
+          <div class="sc-facility">SWCC Jubail Phase 3 &mdash; Desal Plant</div>
+          <div class="sc-location">&#128205; Jubail Industrial City</div>
+          <div class="sc-dates"><div class="sc-date-range">Aug 15 &ndash; Sep 30, 2025</div><div class="sc-duration">46 days</div></div>
+          <div class="sc-scope"><div class="sc-scope-title">Valve &amp; Parts Requirements</div><div class="sc-scope-items"><span class="sc-scope-item">Seawater Butterfly Valves</span><span class="sc-scope-item">Ti / Duplex Material</span><span class="sc-scope-item">Rubber Liner Replacement</span><span class="sc-scope-item">SWRO Valves</span></div></div>
+          <div class="sc-action"><button class="sca-btn sca-green" onclick="submitRFQ('SWCC Jubail Desal Shutdown')">Submit RFQ</button><a href="saudi-market.html#valves" class="sca-btn sca-outline">&#9881; Find Valves</a></div>
+        </div>
+      </div>
+
+      <div class="shutdown-card" data-type="refinery">
+        <div class="sc-top"><span class="sc-type-badge badge-refinery">YASREF</span><span class="sc-urgency urgency-planned">Planned</span></div>
+        <div class="sc-body">
+          <div class="sc-facility">YASREF Refinery &mdash; Annual Turnaround</div>
+          <div class="sc-location">&#128205; Yanbu Industrial City</div>
+          <div class="sc-dates"><div class="sc-date-range">Sep 5 &ndash; Nov 10, 2025</div><div class="sc-duration">66 days</div></div>
+          <div class="sc-scope"><div class="sc-scope-title">Valve &amp; Parts Requirements</div><div class="sc-scope-items"><span class="sc-scope-item">Gate Valves (All Sizes)</span><span class="sc-scope-item">Control Valve Overhaul</span><span class="sc-scope-item">PSV Kits</span><span class="sc-scope-item">Actuator OH</span><span class="sc-scope-item">Bolt Sets</span></div></div>
+          <div class="sc-action"><button class="sca-btn sca-green" onclick="submitRFQ('YASREF Annual Turnaround 2025')">Submit RFQ</button><a href="saudi-market.html#machining" class="sca-btn sca-outline">&#128295; Services</a></div>
+        </div>
+      </div>
+
+      <!-- Q4 2025 -->
+      <div class="month-header"><span class="mh-dot"></span>Q4 2025 &mdash; October &ndash; December</div>
+
+      <div class="shutdown-card" data-type="aramco">
+        <div class="sc-top"><span class="sc-type-badge badge-aramco">Aramco</span><span class="sc-urgency urgency-planned">Planned</span></div>
+        <div class="sc-body">
+          <div class="sc-facility">Berri Gas Plant &mdash; Major Overhaul</div>
+          <div class="sc-location">&#128205; Al-Jubayl / Berri Field</div>
+          <div class="sc-dates"><div class="sc-date-range">Oct 12 &ndash; Dec 20, 2025</div><div class="sc-duration">69 days</div></div>
+          <div class="sc-scope"><div class="sc-scope-title">Valve &amp; Parts Requirements</div><div class="sc-scope-items"><span class="sc-scope-item">Gas Plant Valves</span><span class="sc-scope-item">Cryogenic Valves</span><span class="sc-scope-item">ESD Valve Testing</span><span class="sc-scope-item">Packing / Gaskets</span></div></div>
+          <div class="sc-action"><button class="sca-btn sca-green" onclick="submitRFQ('Berri Gas Plant Overhaul 2025')">Submit RFQ</button><a href="saudi-market.html#parts" class="sca-btn sca-outline">&#128230; Parts</a></div>
+        </div>
+      </div>
+
+      <div class="shutdown-card" data-type="power">
+        <div class="sc-top"><span class="sc-type-badge badge-power">SEC / Power</span><span class="sc-urgency urgency-planned">Planned</span></div>
+        <div class="sc-body">
+          <div class="sc-facility">Shuaibah Power &amp; Water &mdash; Unit Overhaul</div>
+          <div class="sc-location">&#128205; Jeddah, Western Province</div>
+          <div class="sc-dates"><div class="sc-date-range">Nov 3 &ndash; Dec 28, 2025</div><div class="sc-duration">55 days</div></div>
+          <div class="sc-scope"><div class="sc-scope-title">Valve &amp; Parts Requirements</div><div class="sc-scope-items"><span class="sc-scope-item">Power Plant Valves</span><span class="sc-scope-item">Desal Butterfly Valves</span><span class="sc-scope-item">HP Steam Valves</span><span class="sc-scope-item">Control Valves</span></div></div>
+          <div class="sc-action"><button class="sca-btn sca-green" onclick="submitRFQ('Shuaibah Power Overhaul 2025')">Submit RFQ</button><a href="saudi-market.html#valves" class="sca-btn sca-outline">&#9881; Valves</a></div>
+        </div>
+      </div>
+
+      <div class="shutdown-card" data-type="sabic">
+        <div class="sc-top"><span class="sc-type-badge badge-sabic">SABIC / SAFCO</span><span class="sc-urgency urgency-planned">Planned</span></div>
+        <div class="sc-body">
+          <div class="sc-facility">SAFCO Ammonia Plant &mdash; Turnaround</div>
+          <div class="sc-location">&#128205; Jubail Industrial City</div>
+          <div class="sc-dates"><div class="sc-date-range">Dec 1, 2025 &ndash; Feb 15, 2026</div><div class="sc-duration">77 days</div></div>
+          <div class="sc-scope"><div class="sc-scope-title">Valve &amp; Parts Requirements</div><div class="sc-scope-items"><span class="sc-scope-item">Ammonia Service Valves</span><span class="sc-scope-item">Cryogenic Valves</span><span class="sc-scope-item">Safety Valves</span><span class="sc-scope-item">Seal Kits</span></div></div>
+          <div class="sc-action"><button class="sca-btn sca-green" onclick="submitRFQ('SAFCO Ammonia Turnaround 2025-26')">Submit RFQ</button><a href="saudi-market.html#valves" class="sca-btn sca-outline">&#9881; Valves</a></div>
+        </div>
+      </div>
+
+      <!-- 2026 -->
+      <div class="month-header"><span class="mh-dot"></span>2026 &mdash; Major Planned Shutdowns</div>
+
+      <div class="shutdown-card" data-type="aramco">
+        <div class="sc-top"><span class="sc-type-badge badge-aramco">Aramco</span><span class="sc-urgency urgency-planned">Planned 2026</span></div>
+        <div class="sc-body">
+          <div class="sc-facility">Haradh Gas Plant &mdash; Major Overhaul</div>
+          <div class="sc-location">&#128205; Haradh Field, Eastern Province</div>
+          <div class="sc-dates"><div class="sc-date-range">Q1 2026 (TBC)</div><div class="sc-duration">~60 days est.</div></div>
+          <div class="sc-scope"><div class="sc-scope-title">Estimated Requirements</div><div class="sc-scope-items"><span class="sc-scope-item">Gas Plant Valves</span><span class="sc-scope-item">All Spare Parts</span><span class="sc-scope-item">Rental Equipment</span></div></div>
+          <div class="sc-action"><button class="sca-btn sca-green" onclick="submitRFQ('Haradh Gas Plant 2026 Overhaul')">Register Interest</button><a href="saudi-market.html" class="sca-btn sca-outline">&#127470;&#127474; Saudi Suppliers</a></div>
+        </div>
+      </div>
+
+      <div class="shutdown-card" data-type="refinery">
+        <div class="sc-top"><span class="sc-type-badge badge-refinery">SATORP</span><span class="sc-urgency urgency-planned">Planned 2026</span></div>
+        <div class="sc-body">
+          <div class="sc-facility">SATORP Jubail &mdash; Hydrotreater Turnaround</div>
+          <div class="sc-location">&#128205; Jubail Industrial City</div>
+          <div class="sc-dates"><div class="sc-date-range">Q2/Q3 2026 (TBC)</div><div class="sc-duration">~45 days est.</div></div>
+          <div class="sc-scope"><div class="sc-scope-title">Estimated Requirements</div><div class="sc-scope-items"><span class="sc-scope-item">Hydrotreater Valves</span><span class="sc-scope-item">Control Valve Overhaul</span><span class="sc-scope-item">PSV Replacement</span></div></div>
+          <div class="sc-action"><button class="sca-btn sca-green" onclick="submitRFQ('SATORP Hydrotreater 2026')">Register Interest</button><a href="saudi-market.html#machining" class="sca-btn sca-outline">Services</a></div>
+        </div>
+      </div>
+
+      <div class="shutdown-card" data-type="water">
+        <div class="sc-top"><span class="sc-type-badge badge-water">SWCC</span><span class="sc-urgency urgency-planned">Planned 2026</span></div>
+        <div class="sc-body">
+          <div class="sc-facility">Al-Jubail Desalination Plant &mdash; MSF Units</div>
+          <div class="sc-location">&#128205; Jubail Industrial City</div>
+          <div class="sc-dates"><div class="sc-date-range">Q3 2026 (TBC)</div><div class="sc-duration">~50 days est.</div></div>
+          <div class="sc-scope"><div class="sc-scope-title">Estimated Requirements</div><div class="sc-scope-items"><span class="sc-scope-item">MSF Butterfly Valves</span><span class="sc-scope-item">Titanium Components</span><span class="sc-scope-item">Desal Rental Equipment</span></div></div>
+          <div class="sc-action"><button class="sca-btn sca-green" onclick="submitRFQ('Al-Jubail Desalination 2026')">Register Interest</button><a href="saudi-market.html#rental" class="sca-btn sca-outline">&#128260; Rental</a></div>
+        </div>
+      </div>
+
+    </div><!-- end cal-grid -->
+
+    <!-- CTA -->
+    <div style="margin-top:36px;background:linear-gradient(135deg,#EBF7F0,#F0FBF5);border:1.5px solid rgba(0,108,53,.14);border-radius:16px;padding:28px;text-align:center;">
+      <h3 style="font-size:1.05rem;font-weight:900;color:#1A2A1A;margin-bottom:8px;">Need Valves or Parts for an Upcoming Shutdown?</h3>
+      <p style="font-size:.85rem;color:#3D5A3D;margin-bottom:18px;">Start procurement early — most shutdown valves and critical spare parts require 4–12 weeks lead time. Saudi stockists can supply same-day for emergencies.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <a href="saudi-market.html" style="display:inline-flex;align-items:center;gap:7px;background:#006C35;color:#fff;padding:11px 24px;border-radius:10px;font-size:.85rem;font-weight:700;">&#127470;&#127474; Saudi Suppliers</a>
+        <a href="emergency.html" style="display:inline-flex;align-items:center;gap:7px;background:#C0392B;color:#fff;padding:11px 24px;border-radius:10px;font-size:.85rem;font-weight:700;">&#128680; Emergency 24/7</a>
+        <a href="saudi-market.html#rental" style="display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,#9B7120,#C8973A);color:#fff;padding:11px 24px;border-radius:10px;font-size:.85rem;font-weight:700;">&#128260; Rental Equipment</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- RFQ MODAL -->
+<div id="rfqModal" style="display:none;position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#fff;border-radius:20px;padding:32px;max-width:480px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.2);">
+    <h3 style="font-size:1.1rem;font-weight:900;color:#1A2A1A;margin-bottom:6px;">Submit Shutdown RFQ</h3>
+    <p id="rfqFacility" style="font-size:.82rem;color:#5A6B62;margin-bottom:20px;"></p>
+    <form onsubmit="closeRFQ();return false;">
+      <div style="margin-bottom:14px;"><label style="font-size:.72rem;font-weight:700;color:#006C35;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:5px;">Company Name *</label><input type="text" placeholder="Your company" style="width:100%;padding:10px 14px;border:1.5px solid #D8E4D8;border-radius:10px;font-size:.88rem;font-family:inherit;outline:none;" required/></div>
+      <div style="margin-bottom:14px;"><label style="font-size:.72rem;font-weight:700;color:#006C35;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:5px;">Phone / WhatsApp *</label><input type="tel" placeholder="+966 XX XXX XXXX" style="width:100%;padding:10px 14px;border:1.5px solid #D8E4D8;border-radius:10px;font-size:.88rem;font-family:inherit;outline:none;" required/></div>
+      <div style="margin-bottom:18px;"><label style="font-size:.72rem;font-weight:700;color:#006C35;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:5px;">What do you need?</label><textarea placeholder="Valve types, quantities, spare parts required..." style="width:100%;padding:10px 14px;border:1.5px solid #D8E4D8;border-radius:10px;font-size:.88rem;font-family:inherit;outline:none;height:80px;resize:none;"></textarea></div>
+      <div style="display:flex;gap:10px;"><button type="button" onclick="closeRFQ()" style="flex:1;padding:11px;background:#EBF7F0;border:1.5px solid rgba(0,108,53,.14);color:#006C35;border-radius:10px;font-size:.85rem;font-weight:700;cursor:pointer;font-family:inherit;">Cancel</button><button type="submit" style="flex:2;padding:11px;background:#006C35;color:#fff;border:none;border-radius:10px;font-size:.85rem;font-weight:700;cursor:pointer;font-family:inherit;">Send RFQ &#8594;</button></div>
+    </form>
+  </div>
+</div>
+
+<footer><div class="container"><div class="footer-grid"><div class="footer-brand"><div class="footer-logo"><div style="background:#fff;border-radius:10px;padding:10px 20px;display:inline-block;"><img src="images/tvh-logo-extracted.jpg" alt="TheValveHubs" style="height:72px;width:auto;display:block;"/></div></div><p>Saudi Arabia's engineering-governed valve marketplace.</p></div><div class="footer-col"><h5>Tools</h5><ul><li><a href="iktva-calculator.html">IKTVA Calculator</a></li><li><a href="valve-wizard.html">Valve Spec Wizard</a></li><li><a href="shutdown-calendar.html">Shutdown Calendar</a></li><li><a href="pricing.html">Pricing Plans</a></li></ul></div><div class="footer-col"><h5>Platform</h5><ul><li><a href="saudi-market.html">Saudi Market</a></li><li><a href="emergency.html">Emergency 24/7</a></li><li><a href="index.html#join">Join Free</a></li></ul></div></div></div><div class="container"><div class="footer-bottom"><span>&copy; 2025 TheValveHubs. Khobar, Saudi Arabia.</span></div></div></footer>
+<a href="https://wa.me/966500000000" class="whatsapp-float" target="_blank" rel="noopener">&#128241;</a>
+
+<script>
+window.addEventListener('load',function(){setTimeout(function(){document.getElementById('preloader').classList.add('hidden');},1000);});
+var nb=document.getElementById('navbar');window.addEventListener('scroll',function(){nb.classList.toggle('scrolled',window.scrollY>40);},{passive:true});
+var hb=document.getElementById('hamburger');if(hb)hb.addEventListener('click',function(){var mn=document.querySelector('.mobile-nav');if(mn)mn.classList.toggle('open');});
+
+function filterCards(type,btn){
+  document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  document.querySelectorAll('.shutdown-card').forEach(function(c){
+    if(type==='all'||c.dataset.type===type)c.style.display='';
+    else c.style.display='none';
+  });
+}
+
+var currentFacility='';
+function submitRFQ(facility){
+  currentFacility=facility;
+  document.getElementById('rfqFacility').textContent='Facility: '+facility;
+  document.getElementById('rfqModal').style.display='flex';
+}
+function closeRFQ(){
+  document.getElementById('rfqModal').style.display='none';
+  // Show success
+  alert('RFQ submitted successfully! Our team will contact you within 2 hours.');
+}
+</script>
+<script src="js/navbar-auth.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

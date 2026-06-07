@@ -1,0 +1,454 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>TVH News — Saudi Valve Industry News, Projects & Activities | TheValveHubs</title>
+<meta name="description" content="Saudi Arabia's valve industry news portal. Breaking news, project awards, supplier activities, client updates and industry intelligence — updated continuously."/>
+<link rel="stylesheet" href="style.css"/>
+<style>
+/* ── TVH NEWS PORTAL ── */
+.news-hero{background:linear-gradient(135deg,#0A1628,#1A3A6B);padding:0;overflow:hidden;}
+.news-ticker{background:#C0392B;padding:9px 0;overflow:hidden;white-space:nowrap;}
+.news-ticker-inner{display:inline-flex;gap:0;animation:ticker 40s linear infinite;}
+.cat-tabs{background:#fff;border-bottom:2px solid #D8E2DC;position:sticky;top:72px;z-index:100;overflow-x:auto;scrollbar-width:none;}
+.cat-tabs::-webkit-scrollbar{display:none;}
+.cat-tabs-inner{display:flex;max-width:1280px;margin:0 auto;padding:0 24px;min-width:max-content;}
+.cat-tab{padding:13px 18px;font-size:.8rem;font-weight:700;color:#5A6B62;border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap;transition:all .2s;text-decoration:none;}
+.cat-tab:hover,.cat-tab.active{color:#006C35;border-bottom-color:#006C35;}
+.cat-tab.active{color:#006C35;}
+
+/* Featured card */
+.news-featured{position:relative;border-radius:16px;overflow:hidden;cursor:pointer;min-height:420px;display:flex;align-items:flex-end;}
+.news-featured img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.news-featured-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.3) 50%,transparent 100%);}
+.news-featured-body{position:relative;z-index:1;padding:28px;}
+.news-tag{display:inline-block;border-radius:20px;padding:3px 11px;font-size:.7rem;font-weight:800;letter-spacing:.04em;margin-bottom:10px;}
+.news-featured h2{font-size:1.5rem;font-weight:900;color:#fff;line-height:1.25;margin-bottom:8px;}
+.news-featured .meta{font-size:.78rem;color:rgba(255,255,255,.65);}
+
+/* Standard news card */
+.news-card{background:#fff;border-radius:12px;border:1px solid #D8E2DC;overflow:hidden;cursor:pointer;transition:box-shadow .2s;display:flex;flex-direction:column;}
+.news-card:hover{box-shadow:0 6px 24px rgba(0,0,0,.1);}
+.news-card img{width:100%;height:160px;object-fit:cover;display:block;}
+.news-card-body{padding:16px;flex:1;display:flex;flex-direction:column;}
+.news-card h4{font-size:.9rem;font-weight:800;color:#1A2620;line-height:1.35;margin-bottom:6px;flex:1;}
+.news-card .meta{font-size:.74rem;color:#8A9E8F;margin-top:8px;}
+.news-card .snippet{font-size:.82rem;color:#5A6B62;line-height:1.6;margin-bottom:8px;}
+
+/* Compact list card */
+.news-list-item{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid #F2F4F3;cursor:pointer;}
+.news-list-item:last-child{border-bottom:none;}
+.news-list-item img{width:80px;height:64px;border-radius:8px;object-fit:cover;flex-shrink:0;}
+.news-list-item h5{font-size:.84rem;font-weight:700;color:#1A2620;line-height:1.35;margin-bottom:4px;}
+.news-list-item .meta{font-size:.72rem;color:#8A9E8F;}
+
+/* Supplier spotlight */
+.supplier-card{background:#fff;border-radius:12px;padding:18px;border:1px solid #D8E2DC;border-top:3px solid #006C35;transition:box-shadow .2s;}
+.supplier-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.08);}
+
+/* Client/buyer card */
+.client-card{background:#fff;border-radius:12px;padding:16px;border:1px solid #D8E2DC;display:flex;align-items:center;gap:12px;transition:box-shadow .2s;}
+.client-card:hover{box-shadow:0 3px 12px rgba(0,0,0,.08);}
+
+/* Sidebar */
+.sidebar-card{background:#fff;border-radius:12px;padding:18px;border:1px solid #D8E2DC;margin-bottom:16px;}
+.sidebar-card h4{font-size:.88rem;font-weight:800;margin-bottom:14px;color:#1A2620;border-bottom:2px solid #EBF7F0;padding-bottom:8px;}
+
+/* Section header */
+.section-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.section-hdr h2{font-size:1.1rem;font-weight:900;color:#1A2620;display:flex;align-items:center;gap:10px;}
+.section-hdr a{font-size:.8rem;font-weight:700;color:#006C35;text-decoration:none;}
+.section-line{height:3px;background:linear-gradient(90deg,#006C35,transparent);border-radius:2px;margin-bottom:20px;}
+</style>
+</head>
+<body>
+<div id="preloader"><div class="preloader-inner"><div class="preloader-logo">TVH</div><div class="preloader-spinner"></div><div class="preloader-text">Loading TVH News&hellip;</div></div></div>
+<div class="emergency-band" id="emergencyBand">&#128680; Emergency 24/7 &mdash; Valves &middot; Spare Parts &middot; Machining &middot; 3D Printing &middot; Consultation &middot; Rental &mdash; <a href="emergency.html">Submit Emergency RFQ &rarr;</a><button class="band-dismiss" onclick="document.getElementById('emergencyBand').style.display='none'">&times;</button></div>
+<nav class="navbar" id="navbar"><div class="nav-inner"><a href="index.html" class="nav-logo"><img src="images/tvh-logo-extracted.jpg" alt="TheValveHubs" style="width:220px;height:58px;object-fit:contain;object-position:left center;display:block;flex-shrink:0;"/></a><ul class="nav-menu"><li class="nav-item"><a href="about.html" class="nav-link">About</a></li><li class="nav-item"><a href="platform.html" class="nav-link" style="color:#006C35;font-weight:700;">&#128205; Platform</a></li><li class="nav-item"><a href="saudi-market.html" class="nav-link">&#127470;&#127474; Saudi Market</a></li><li class="nav-item"><a href="global-suppliers.html" class="nav-link">&#127760; Global Suppliers</a></li><li class="nav-item"><a href="emergency.html" class="nav-link emergency-link">&#128680; Emergency</a></li><li class="nav-item"><a href="projects.html" class="nav-link" style="color:#1A3A6B;font-weight:700;">&#128203; Watch Projects</a></li><li class="nav-item"><a href="intelligence.html" class="nav-link">&#128240; Intelligence</a></li><li class="nav-item"><a href="tvh-news.html" class="nav-link" style="color:#C0392B;font-weight:700;">&#128240; TVH News</a></li><li class="nav-item"><a href="invest-saudi.html" class="nav-link" style="color:#006C35;font-weight:700;">&#127868; Invest in Saudi</a></li></ul><div class="nav-cta"><a href="survey.html" class="btn btn-outline-green btn-sm" style="border-color:#C8973A;color:#C8973A;">&#127942; Rate Us</a><a href="index.html#join" class="btn btn-outline-green btn-sm">Join Free</a><a href="emergency.html" class="btn btn-red btn-sm">&#128680; Emergency</a></div><button class="hamburger" id="hamburger"><span></span><span></span><span></span></button></div></nav>
+
+<!-- BREAKING NEWS TICKER -->
+<div class="news-ticker">
+<div class="news-ticker-inner">
+<span style="color:#fff;font-weight:800;font-size:.78rem;margin:0 16px;background:rgba(255,255,255,.2);padding:2px 10px;border-radius:4px;">&#128308; BREAKING</span>
+<span style="color:rgba(255,255,255,.9);font-size:.78rem;margin:0 16px;">Aramco Awards $2.8B Ras Tanura Refinery Expansion — Record Valve Package</span>
+<span style="color:rgba(255,255,255,.4);margin:0 8px;">|</span>
+<span style="color:rgba(255,255,255,.9);font-size:.78rem;margin:0 16px;">IKTVA Threshold Raised to 40% for Industrial Valve Procurement — Effective Q1 2027</span>
+<span style="color:rgba(255,255,255,.4);margin:0 8px;">|</span>
+<span style="color:rgba(255,255,255,.9);font-size:.78rem;margin:0 16px;">SABIC Amiral Phase 2 — SAR 1.4B Valve Package Tendered — Jubail IC</span>
+<span style="color:rgba(255,255,255,.4);margin:0 8px;">|</span>
+<span style="color:rgba(255,255,255,.9);font-size:.78rem;margin:0 16px;">SWCC National Water Carrier — 22,000+ Valves Required Across 14 Plants</span>
+<span style="color:rgba(255,255,255,.4);margin:0 8px;">|</span>
+<span style="color:rgba(255,255,255,.9);font-size:.78rem;margin:0 16px;">TheValveHubs Partners with CAAST Italy — Elastomeric Sealing Solutions Now Available in KSA</span>
+<span style="color:rgba(255,255,255,.4);margin:0 8px;">|</span>
+<span style="color:rgba(255,255,255,.9);font-size:.78rem;margin:0 16px;">ValveWorld Dubai 2026 — Saudi Suppliers Capture 34% of Exhibition Floor Space</span>
+<span style="color:rgba(255,255,255,.4);margin:0 8px;">|</span>
+<span style="color:rgba(255,255,255,.9);font-size:.78rem;margin:0 16px;">Aramco Awards $2.8B Ras Tanura Refinery Expansion — Record Valve Package</span>
+</div>
+</div>
+
+<!-- CATEGORY TABS -->
+<div class="cat-tabs">
+<div class="cat-tabs-inner">
+<a href="#" class="cat-tab active" onclick="filterCat(this,'all')">&#127775; All News</a>
+<a href="#" class="cat-tab" onclick="filterCat(this,'og')">&#128739; Oil &amp; Gas</a>
+<a href="#" class="cat-tab" onclick="filterCat(this,'petro')">&#9881; Petrochemical</a>
+<a href="#" class="cat-tab" onclick="filterCat(this,'water')">&#128167; Water</a>
+<a href="#" class="cat-tab" onclick="filterCat(this,'power')">&#9889; Power</a>
+<a href="#" class="cat-tab" onclick="filterCat(this,'giga')">&#128679; Giga Projects</a>
+<a href="#" class="cat-tab" onclick="filterCat(this,'supplier')">&#127470;&#127474; Suppliers</a>
+<a href="#" class="cat-tab" onclick="filterCat(this,'client')">&#129309; Clients</a>
+<a href="#" class="cat-tab" onclick="filterCat(this,'tech')">&#128161; Technology</a>
+<a href="#" class="cat-tab" onclick="filterCat(this,'iktva')">&#127954; IKTVA</a>
+</div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div style="background:#F8FAF9;padding:32px 0 64px;">
+<div class="container">
+<div style="display:grid;grid-template-columns:1fr 340px;gap:24px;align-items:start;">
+
+<!-- LEFT: MAIN NEWS FEED -->
+<div>
+
+<!-- FEATURED ARTICLE -->
+<div class="section-hdr"><h2>&#128308; Top Story</h2><a href="intelligence.html">View All &rarr;</a></div>
+<div class="section-line"></div>
+<div class="news-featured" style="margin-bottom:28px;">
+<img src="images/r1-market.jpg" alt="Aramco Ras Tanura"/>
+<div class="news-featured-overlay"></div>
+<div class="news-featured-body">
+<span class="news-tag" style="background:#C0392B;color:#fff;">&#128308; BREAKING &bull; Oil &amp; Gas</span>
+<h2>Saudi Aramco Awards $2.8B Ras Tanura Refinery Expansion — Largest Single Valve Package in GCC History</h2>
+<p style="color:rgba(255,255,255,.8);font-size:.88rem;margin-bottom:10px;">Saudi Aramco has awarded the Ras Tanura refinery expansion EPC contract, including one of the largest single valve procurement packages ever tendered in the GCC. The package covers gate, globe, ball, control and safety relief valves across all pressure classes. IKTVA 35% minimum enforced for all suppliers.</p>
+<div class="meta">&#128197; June 2026 &nbsp;&bull;&nbsp; &#128205; Ras Tanura, Eastern Province &nbsp;&bull;&nbsp; &#9881; Saudi Aramco</div>
+</div>
+</div>
+
+<!-- NEWS GRID: 3 COLUMNS -->
+<div class="section-hdr"><h2>&#128240; Latest News</h2><a href="intelligence.html#news">All Articles &rarr;</a></div>
+<div class="section-line"></div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px;">
+
+<div class="news-card" data-cat="iktva">
+<img src="images/r2-iktva.jpg" alt="IKTVA"/>
+<div class="news-card-body">
+<span class="news-tag" style="background:#FDF3E3;color:#A67820;">&#9878; Regulation</span>
+<h4>IKTVA Threshold Raised to 40% for Valve Procurement — Effective Q1 2027</h4>
+<p class="snippet">Ministry of Industry and Mineral Resources announces increase in IKTVA minimum from 35% to 40% for all valve and flow control procurement contracts under Aramco and SABIC.</p>
+<div class="meta">May 2026 &bull; MIM &bull; Riyadh</div>
+</div>
+</div>
+
+<div class="news-card" data-cat="petro">
+<img src="images/p2-parts.jpg" alt="SABIC"/>
+<div class="news-card-body">
+<span class="news-tag" style="background:#F5EEFF;color:#7B2FA8;">&#9881; Petrochemical</span>
+<h4>SABIC Amiral Complex Phase 2 — SAR 1.4B Valve Package Tendered in Jubail</h4>
+<p class="snippet">SABIC issues tender packages for Phase 2 of the Amiral integrated petrochemical complex. Ball, butterfly, check and control valve packages with IKTVA preference for Saudi-manufactured products.</p>
+<div class="meta">May 2026 &bull; SABIC &bull; Jubail IC</div>
+</div>
+</div>
+
+<div class="news-card" data-cat="tech">
+<img src="images/p3-machining.jpg" alt="Smart Valve"/>
+<div class="news-card-body">
+<span class="news-tag" style="background:#F5EEFF;color:#7B2FA8;">&#128161; Technology</span>
+<h4>First Saudi-Made Smart Control Valves with IIoT Capability Certified by Aramco SAMSS</h4>
+<p class="snippet">A Jubail-based Saudi manufacturer achieves Aramco SAMSS certification for IIoT-enabled smart control valves — a historic Vision 2030 industrial localization milestone.</p>
+<div class="meta">April 2026 &bull; Jubail, Saudi Arabia</div>
+</div>
+</div>
+
+<div class="news-card" data-cat="water">
+<img src="images/r8-location.jpg" alt="Water"/>
+<div class="news-card-body">
+<span class="news-tag" style="background:#EEF2FF;color:#2C4A7C;">&#128167; Water</span>
+<h4>SWCC National Water Security Programme — 22,000+ Valves Required Across 14 Desalination Plants</h4>
+<p class="snippet">The Saudi Water Authority national desalination expansion programme is one of the largest valve procurement opportunities in KSA history. Saudi-first procurement policy mandated with 50% IKTVA target.</p>
+<div class="meta">March 2026 &bull; SWA &bull; Nationwide KSA</div>
+</div>
+</div>
+
+<div class="news-card" data-cat="supplier">
+<img src="images/p1-valves.jpg" alt="Suppliers"/>
+<div class="news-card-body">
+<span class="news-tag" style="background:#EBF7F0;color:#006C35;">&#127470;&#127474; Supplier News</span>
+<h4>TheValveHubs Partners with CAAST Italy — Elastomeric Sealing Solutions Now Accessible to Saudi Buyers</h4>
+<p class="snippet">TheValveHubs confirms supply partnership with CAAST, an Italian manufacturer with 20+ years in high-performance elastomeric sealing. Products now accessible to verified Saudi buyers through the platform.</p>
+<div class="meta">2026 &bull; CAAST &bull; Italy → Saudi Arabia</div>
+</div>
+</div>
+
+<div class="news-card" data-cat="giga">
+<img src="images/r4-giga.jpg" alt="NEOM"/>
+<div class="news-card-body">
+<span class="news-tag" style="background:#EBF7F0;color:#006C35;">&#128679; Giga Project</span>
+<h4>NEOM Green Hydrogen Plant — SAR 190M Smart Valve Package Upcoming Q2 2027</h4>
+<p class="snippet">NEOM's Green Hydrogen Company announces upcoming tender for smart valve package. Hydrogen-ready valves in Super Duplex and Inconel 625 required. IIoT-enabled actuators specified. IKTVA 45% target.</p>
+<div class="meta">2026–2027 &bull; NEOM &bull; Tabuk Province</div>
+</div>
+</div>
+
+</div>
+
+<!-- PROJECT ACTIVITIES -->
+<div class="section-hdr"><h2>&#128679; Active Project Awards &amp; Tenders</h2><a href="projects.html">Watch All Projects &rarr;</a></div>
+<div class="section-line"></div>
+<div style="display:flex;flex-direction:column;gap:12px;margin-bottom:32px;">
+
+<div class="news-list-item" data-cat="og">
+<img src="images/r1-market.jpg" alt="Aramco"/>
+<div>
+<h5>Aramco Abqaiq Gas Plant T&amp;I 2026 — Gate Valve Replacement Package — SAR 120M</h5>
+<p style="font-size:.8rem;color:#5A6B62;line-height:1.5;">Gate and Globe Valves Class 900–2500. SAMSS required. Aramco Approved Vendors only. Deadline: Aug 2026. Eastern Province.</p>
+<div class="meta">&#128994; Open &nbsp;&bull;&nbsp; Saudi Aramco &nbsp;&bull;&nbsp; IK-2026-1047 &nbsp;&bull;&nbsp; IKTVA 40%</div>
+</div>
+</div>
+
+<div class="news-list-item" data-cat="water">
+<img src="images/r8-location.jpg" alt="SWA"/>
+<div>
+<h5>SWA National Water Carrier Phase 3 — Isolation Valve Supply — SAR 85M</h5>
+<p style="font-size:.8rem;color:#5A6B62;line-height:1.5;">Butterfly and Gate Valves DN400–DN1200 actuated. Saudi Water Authority. Deadline: Aug 2026. Riyadh & Eastern Province.</p>
+<div class="meta">&#128994; Open &nbsp;&bull;&nbsp; Saudi Water Authority &nbsp;&bull;&nbsp; SWA-2026-0341 &nbsp;&bull;&nbsp; IKTVA 40%</div>
+</div>
+</div>
+
+<div class="news-list-item" data-cat="power">
+<img src="images/r3-vision2030.jpg" alt="SEC"/>
+<div>
+<h5>SEC Western Region Grid Expansion — Control Valve Package — SAR 42M</h5>
+<p style="font-size:.8rem;color:#5A6B62;line-height:1.5;">Control Valves, Safety Relief, Steam Service, Actuators. Saudi Electricity Company. Deadline: Sep 2026. Jeddah & Makkah Region.</p>
+<div class="meta">&#128994; Open &nbsp;&bull;&nbsp; Saudi Electricity Co. &nbsp;&bull;&nbsp; SEC-2026-1872 &nbsp;&bull;&nbsp; IKTVA 35%</div>
+</div>
+</div>
+
+<div class="news-list-item" data-cat="petro">
+<img src="images/p2-parts.jpg" alt="SABIC"/>
+<div>
+<h5>SABIC Jubail — Safety Relief Valve Replacement — SAR 22M</h5>
+<p style="font-size:.8rem;color:#5A6B62;line-height:1.5;">PRV/PSV replacements per API 520. SIL rated. API 598. SABIC Jubail Petrochemical Complex. Deadline: Jul 2026.</p>
+<div class="meta">&#128994; Open &nbsp;&bull;&nbsp; SABIC &nbsp;&bull;&nbsp; SABIC-2026-0441 &nbsp;&bull;&nbsp; IKTVA 35%</div>
+</div>
+</div>
+
+<div class="news-list-item" data-cat="giga">
+<img src="images/r4-giga.jpg" alt="RCJY"/>
+<div>
+<h5>Jubail IC Phase 3 Expansion — Infrastructure Valve Package — SAR 55M</h5>
+<p style="font-size:.8rem;color:#5A6B62;line-height:1.5;">Gate, Ball and Check Valves. RCJY Specification. IKTVA 45%+. Royal Commission for Jubail & Yanbu. Deadline: Oct 2026.</p>
+<div class="meta">&#128994; Open &nbsp;&bull;&nbsp; RCJY &nbsp;&bull;&nbsp; RCJY-2026-0512 &nbsp;&bull;&nbsp; IKTVA 45%</div>
+</div>
+</div>
+
+</div>
+
+<!-- SUPPLIER SPOTLIGHTS -->
+<div class="section-hdr"><h2>&#127470;&#127474; Saudi Supplier Spotlights</h2><a href="saudi-market.html">Full Directory &rarr;</a></div>
+<div class="section-line"></div>
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:32px;">
+
+<div class="supplier-card">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+<div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#006C35,#009444);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.7rem;font-weight:900;">SAVCO</div>
+<div><div style="font-size:.85rem;font-weight:800;">Saudi Valves Co. (SAVCO)</div><div style="font-size:.72rem;color:#5A6B62;">&#128205; Jubail IC &bull; Valve OEM Manufacturer</div></div>
+</div>
+<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;">
+<span style="background:#EBF7F0;color:#006C35;border-radius:12px;padding:2px 8px;font-size:.7rem;font-weight:700;">&#127919; Saudi Manufacturer</span>
+<span style="background:#EBF7F0;color:#006C35;border-radius:12px;padding:2px 8px;font-size:.7rem;font-weight:700;">IKTVA 68%</span>
+<span style="background:#EBF7F0;color:#006C35;border-radius:12px;padding:2px 8px;font-size:.7rem;font-weight:700;">Aramco Approved</span>
+</div>
+<div style="font-size:.8rem;color:#5A6B62;line-height:1.5;">Gate, Globe, Ball Valves. API 6D, ASME B16.34. Class up to 2500. Emergency 24/7 capability.</div>
+<a href="saudi-market.html#valves" style="display:block;margin-top:10px;background:#006C35;color:#fff;padding:7px;border-radius:7px;font-size:.78rem;font-weight:700;text-align:center;text-decoration:none;">View Profile &rarr;</a>
+</div>
+
+<div class="supplier-card" style="border-top-color:#2C4A7C;">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+<div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#2C4A7C,#1A3A6B);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.7rem;font-weight:900;">JIMC</div>
+<div><div style="font-size:.85rem;font-weight:800;">Jubail Industrial Machine Centre</div><div style="font-size:.72rem;color:#5A6B62;">&#128205; Jubail IC &bull; CNC Machining</div></div>
+</div>
+<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;">
+<span style="background:#EEF2FF;color:#2C4A7C;border-radius:12px;padding:2px 8px;font-size:.7rem;font-weight:700;">&#128295; Saudi Service</span>
+<span style="background:#EEF2FF;color:#2C4A7C;border-radius:12px;padding:2px 8px;font-size:.7rem;font-weight:700;">IKTVA 68%</span>
+<span style="background:#FDECEC;color:#C0392B;border-radius:12px;padding:2px 8px;font-size:.7rem;font-weight:700;">&#9889; Emergency 24/7</span>
+</div>
+<div style="font-size:.8rem;color:#5A6B62;line-height:1.5;">5-Axis CNC, Turning up to 2m diameter. CMM Inspection. PMI Testing. Reverse Engineering. API Q1.</div>
+<a href="manufacturing.html" style="display:block;margin-top:10px;background:#2C4A7C;color:#fff;padding:7px;border-radius:7px;font-size:.78rem;font-weight:700;text-align:center;text-decoration:none;">View Profile &rarr;</a>
+</div>
+
+<div class="supplier-card" style="border-top-color:#A67820;">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+<div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#8B5E1A,#C8973A);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.7rem;font-weight:900;">CAAST</div>
+<div><div style="font-size:.85rem;font-weight:800;">CAAST Sealing Solutions</div><div style="font-size:.72rem;color:#5A6B62;">&#127470;&#127481; Italy → Saudi Arabia &bull; Elastomeric Seals</div></div>
+</div>
+<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;">
+<span style="background:#FDF3E3;color:#A67820;border-radius:12px;padding:2px 8px;font-size:.7rem;font-weight:700;">&#127919; TVH Partner</span>
+<span style="background:#FDF3E3;color:#A67820;border-radius:12px;padding:2px 8px;font-size:.7rem;font-weight:700;">ISO 9001 &bull; EN 9100</span>
+</div>
+<div style="font-size:.8rem;color:#5A6B62;line-height:1.5;">Custom O-rings, Valve Seals, Large-Diameter Elastomers up to 3 metres. Oil & Gas, Petrochemical, Aerospace.</div>
+<a href="global-suppliers.html" style="display:block;margin-top:10px;background:#A67820;color:#fff;padding:7px;border-radius:7px;font-size:.78rem;font-weight:700;text-align:center;text-decoration:none;">View Profile &rarr;</a>
+</div>
+
+<div class="supplier-card" style="border-top-color:#C0392B;">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+<div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#7A1C1C,#C0392B);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.7rem;font-weight:900;">JCSC</div>
+<div><div style="font-size:.85rem;font-weight:800;">Jubail Cladding & Surface Centre</div><div style="font-size:.72rem;color:#5A6B62;">&#128205; Jubail IC &bull; Cladding & Hardfacing</div></div>
+</div>
+<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;">
+<span style="background:#FDECEC;color:#C0392B;border-radius:12px;padding:2px 8px;font-size:.7rem;font-weight:700;">&#128295; Saudi Service</span>
+<span style="background:#FDECEC;color:#C0392B;border-radius:12px;padding:2px 8px;font-size:.7rem;font-weight:700;">IKTVA 65%</span>
+<span style="background:#FDECEC;color:#C0392B;border-radius:12px;padding:2px 8px;font-size:.7rem;font-weight:700;">ASME IX</span>
+</div>
+<div style="font-size:.8rem;color:#5A6B62;line-height:1.5;">HVOF WC/CrC, Stellite 6/12, Inconel 625 Weld Overlay, ENP Plating. Saudi Arabia's most comprehensive cladding facility.</div>
+<a href="manufacturing.html" style="display:block;margin-top:10px;background:#C0392B;color:#fff;padding:7px;border-radius:7px;font-size:.78rem;font-weight:700;text-align:center;text-decoration:none;">View Profile &rarr;</a>
+</div>
+
+</div>
+
+<!-- CLIENT & BUYER REFERENCE -->
+<div class="section-hdr"><h2>&#129309; Key Clients &amp; Buyers</h2><a href="projects.html">View Projects &rarr;</a></div>
+<div class="section-line"></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:32px;">
+
+<div class="client-card">
+<img src="images/logos/logo-aramco.png" style="height:32px;width:auto;object-fit:contain;" onerror="this.style.display='none'"/>
+<div><div style="font-size:.82rem;font-weight:800;">Saudi Aramco</div><div style="font-size:.72rem;color:#5A6B62;">Oil & Gas · $40B/yr capex</div></div>
+</div>
+
+<div class="client-card">
+<img src="images/logos/logo-sabic.png" style="height:32px;width:auto;object-fit:contain;" onerror="this.style.display='none'"/>
+<div><div style="font-size:.82rem;font-weight:800;">SABIC</div><div style="font-size:.72rem;color:#5A6B62;">Petrochemical · Jubail & Yanbu</div></div>
+</div>
+
+<div class="client-card">
+<img src="images/logos/logo-water.svg" style="height:32px;width:auto;object-fit:contain;" onerror="this.style.display='none'"/>
+<div><div style="font-size:.82rem;font-weight:800;">Saudi Water Authority</div><div style="font-size:.72rem;color:#5A6B62;">Water & Desalination</div></div>
+</div>
+
+<div class="client-card">
+<img src="images/logos/logo-sec.svg" style="height:32px;width:auto;object-fit:contain;" onerror="this.style.display='none'"/>
+<div><div style="font-size:.82rem;font-weight:800;">Saudi Electricity Co.</div><div style="font-size:.72rem;color:#5A6B62;">Power & Utilities</div></div>
+</div>
+
+<div class="client-card">
+<img src="images/logos/logo-neom.svg" style="height:28px;width:auto;object-fit:contain;" onerror="this.style.display='none'"/>
+<div><div style="font-size:.82rem;font-weight:800;">NEOM</div><div style="font-size:.72rem;color:#5A6B62;">Giga Project · Tabuk</div></div>
+</div>
+
+<div class="client-card">
+<img src="images/logos/logo-maaden.svg" style="height:32px;width:auto;object-fit:contain;" onerror="this.style.display='none'"/>
+<div><div style="font-size:.82rem;font-weight:800;">Ma'aden</div><div style="font-size:.72rem;color:#5A6B62;">Mining · Northern Saudi</div></div>
+</div>
+
+<div class="client-card">
+<img src="images/logos/logo-redsea.svg" style="height:28px;width:auto;object-fit:contain;" onerror="this.style.display='none'"/>
+<div><div style="font-size:.82rem;font-weight:800;">Red Sea Global</div><div style="font-size:.72rem;color:#5A6B65;">Tourism · Infrastructure</div></div>
+</div>
+
+<div class="client-card">
+<img src="images/logos/logo-sidf.svg" style="height:28px;width:auto;object-fit:contain;" onerror="this.style.display='none'"/>
+<div><div style="font-size:.82rem;font-weight:800;">SIDF</div><div style="font-size:.72rem;color:#5A6B62;">Industrial Finance</div></div>
+</div>
+
+</div>
+
+</div><!-- end main -->
+
+<!-- RIGHT: SIDEBAR -->
+<div>
+
+<!-- INDUSTRY EVENTS -->
+<div class="sidebar-card">
+<h4>&#128197; Upcoming Events</h4>
+<div style="display:flex;flex-direction:column;gap:10px;">
+<div style="display:flex;gap:10px;align-items:center;">
+<div style="background:#FDECEC;border-radius:8px;padding:6px 10px;text-align:center;flex-shrink:0;"><div style="font-size:.65rem;font-weight:700;color:#C0392B;">NOV</div><div style="font-size:1.1rem;font-weight:900;color:#C0392B;line-height:1;">4</div></div>
+<div><div style="font-size:.82rem;font-weight:700;">ADIPEC 2026</div><div style="font-size:.72rem;color:#5A6B62;">Abu Dhabi, UAE</div></div>
+</div>
+<div style="display:flex;gap:10px;align-items:center;">
+<div style="background:#EEF2FF;border-radius:8px;padding:6px 10px;text-align:center;flex-shrink:0;"><div style="font-size:.65rem;font-weight:700;color:#2C4A7C;">DEC</div><div style="font-size:1.1rem;font-weight:900;color:#2C4A7C;line-height:1;">2</div></div>
+<div><div style="font-size:.82rem;font-weight:700;">Valve World Düsseldorf</div><div style="font-size:.72rem;color:#5A6B62;">Düsseldorf, Germany</div></div>
+</div>
+<div style="display:flex;gap:10px;align-items:center;">
+<div style="background:#EBF7F0;border-radius:8px;padding:6px 10px;text-align:center;flex-shrink:0;"><div style="font-size:.65rem;font-weight:700;color:#006C35;">OCT</div><div style="font-size:1.1rem;font-weight:900;color:#006C35;line-height:1;">12</div></div>
+<div><div style="font-size:.82rem;font-weight:700;">Saudi Industrial Forum</div><div style="font-size:.72rem;color:#5A6B62;">Riyadh, Saudi Arabia</div></div>
+</div>
+<div style="display:flex;gap:10px;align-items:center;">
+<div style="background:#FDF3E3;border-radius:8px;padding:6px 10px;text-align:center;flex-shrink:0;"><div style="font-size:.65rem;font-weight:700;color:#A67820;">SEP</div><div style="font-size:1.1rem;font-weight:900;color:#A67820;line-height:1;">8</div></div>
+<div><div style="font-size:.82rem;font-weight:700;">Saudi Manufacturing Show</div><div style="font-size:.72rem;color:#5A6B62;">Riyadh Exhibition Centre</div></div>
+</div>
+<a href="intelligence.html#events" style="display:block;background:#EBF7F0;color:#006C35;padding:8px;border-radius:8px;font-size:.78rem;font-weight:700;text-align:center;text-decoration:none;margin-top:6px;">View Full Calendar &rarr;</a>
+</div>
+</div>
+
+<!-- PROJECT VALUE TRACKER -->
+<div class="sidebar-card">
+<h4>&#128203; Project Value Tracker</h4>
+<div style="font-size:.72rem;color:#8A9E8F;margin-bottom:12px;">Live valve content tracked — Saudi Arabia</div>
+<div style="display:flex;flex-direction:column;gap:10px;">
+<div><div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span style="font-size:.78rem;font-weight:600;">&#128739; Oil & Gas</span><span style="font-size:.78rem;font-weight:800;color:#A67820;">SAR 525M</span></div><div style="background:#F2F4F3;border-radius:3px;height:5px;"><div style="background:#C8973A;border-radius:3px;height:5px;width:48%;"></div></div></div>
+<div><div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span style="font-size:.78rem;font-weight:600;">&#128167; Water</span><span style="font-size:.78rem;font-weight:800;color:#2C4A7C;">SAR 230M</span></div><div style="background:#F2F4F3;border-radius:3px;height:5px;"><div style="background:#2C4A7C;border-radius:3px;height:5px;width:21%;"></div></div></div>
+<div><div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span style="font-size:.78rem;font-weight:600;">&#128679; Giga</span><span style="font-size:.78rem;font-weight:800;color:#006C35;">SAR 190M</span></div><div style="background:#F2F4F3;border-radius:3px;height:5px;"><div style="background:#006C35;border-radius:3px;height:5px;width:17%;"></div></div></div>
+<div><div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span style="font-size:.78rem;font-weight:600;">&#127981; Industrial</span><span style="font-size:.78rem;font-weight:800;color:#2C4A7C;">SAR 55M</span></div><div style="background:#F2F4F3;border-radius:3px;height:5px;"><div style="background:#2C4A7C;border-radius:3px;height:5px;width:5%;"></div></div></div>
+<div><div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span style="font-size:.78rem;font-weight:600;">&#9889; Power</span><span style="font-size:.78rem;font-weight:800;color:#C0392B;">SAR 42M</span></div><div style="background:#F2F4F3;border-radius:3px;height:5px;"><div style="background:#C0392B;border-radius:3px;height:5px;width:4%;"></div></div></div>
+<div><div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span style="font-size:.78rem;font-weight:600;">&#128296; Mining</span><span style="font-size:.78rem;font-weight:800;color:#A67820;">SAR 38M</span></div><div style="background:#F2F4F3;border-radius:3px;height:5px;"><div style="background:#C8973A;border-radius:3px;height:5px;width:3%;"></div></div></div>
+<div style="border-top:2px solid #EBF7F0;padding-top:10px;margin-top:4px;"><div style="display:flex;justify-content:space-between;"><span style="font-size:.82rem;font-weight:800;">Total Tracked</span><span style="font-size:.9rem;font-weight:900;color:#006C35;">SAR 1.1B</span></div></div>
+</div>
+<a href="projects.html" style="display:block;background:#006C35;color:#fff;padding:8px;border-radius:8px;font-size:.78rem;font-weight:700;text-align:center;text-decoration:none;margin-top:12px;">View All Projects &rarr;</a>
+</div>
+
+<!-- QUICK LINKS -->
+<div class="sidebar-card">
+<h4>&#128640; Quick Access</h4>
+<div style="display:flex;flex-direction:column;gap:7px;">
+<a href="saudi-market.html" style="display:flex;align-items:center;gap:8px;padding:9px 12px;background:#EBF7F0;border-radius:8px;font-size:.82rem;font-weight:700;color:#006C35;text-decoration:none;">&#127470;&#127474; Saudi Market Directory</a>
+<a href="emergency.html" style="display:flex;align-items:center;gap:8px;padding:9px 12px;background:#FDECEC;border-radius:8px;font-size:.82rem;font-weight:700;color:#C0392B;text-decoration:none;">&#128680; Emergency 24/7</a>
+<a href="iktva-calculator.html" style="display:flex;align-items:center;gap:8px;padding:9px 12px;background:#FDF3E3;border-radius:8px;font-size:.82rem;font-weight:700;color:#A67820;text-decoration:none;">&#127954; IKTVA Calculator</a>
+<a href="projects.html" style="display:flex;align-items:center;gap:8px;padding:9px 12px;background:#EEF2FF;border-radius:8px;font-size:.82rem;font-weight:700;color:#2C4A7C;text-decoration:none;">&#128203; Watch Projects</a>
+<a href="valve-wizard.html" style="display:flex;align-items:center;gap:8px;padding:9px 12px;background:#F8FAF9;border-radius:8px;font-size:.82rem;font-weight:600;color:#1A2620;text-decoration:none;">&#9881; Valve Spec Wizard</a>
+<a href="index.html#join" style="display:flex;align-items:center;gap:8px;padding:9px 12px;background:#006C35;border-radius:8px;font-size:.82rem;font-weight:700;color:#fff;text-decoration:none;">&#9989; Join Free — Register Now</a>
+</div>
+</div>
+
+<!-- MARKET PULSE -->
+<div class="sidebar-card" style="background:linear-gradient(135deg,#004D26,#006C35);border:none;">
+<h4 style="color:#C8973A;border-bottom-color:rgba(200,151,58,.3);">&#128200; Market Pulse</h4>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+<div style="background:rgba(255,255,255,.1);border-radius:8px;padding:10px;text-align:center;"><div style="font-size:1.2rem;font-weight:900;color:#fff;">$7.2B</div><div style="font-size:.66rem;color:rgba(255,255,255,.7);margin-top:2px;">KSA Valve Market</div></div>
+<div style="background:rgba(255,255,255,.1);border-radius:8px;padding:10px;text-align:center;"><div style="font-size:1.2rem;font-weight:900;color:#C8973A;">340+</div><div style="font-size:.66rem;color:rgba(255,255,255,.7);margin-top:2px;">Verified Suppliers</div></div>
+<div style="background:rgba(255,255,255,.1);border-radius:8px;padding:10px;text-align:center;"><div style="font-size:1.2rem;font-weight:900;color:#fff;">8%</div><div style="font-size:.66rem;color:rgba(255,255,255,.7);margin-top:2px;">Annual Growth</div></div>
+<div style="background:rgba(255,255,255,.1);border-radius:8px;padding:10px;text-align:center;"><div style="font-size:1.2rem;font-weight:900;color:#C8973A;">40%</div><div style="font-size:.66rem;color:rgba(255,255,255,.7);margin-top:2px;">IKTVA Target</div></div>
+</div>
+</div>
+
+</div><!-- end sidebar -->
+</div><!-- end grid -->
+</div><!-- end container -->
+</div><!-- end main content -->
+
+<footer><div class="container"><div class="footer-bottom" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:24px 0;"><span style="color:#5A6B62;font-size:.82rem;">&copy; 2025 TheValveHubs &bull; TVH News Portal &bull; Al Khobar, Saudi Arabia</span><div style="display:flex;gap:14px;"><a href="intelligence.html" style="color:#006C35;font-size:.82rem;font-weight:600;text-decoration:none;">Intelligence</a><a href="projects.html" style="color:#006C35;font-size:.82rem;font-weight:600;text-decoration:none;">Watch Projects</a><a href="survey.html" style="color:#C8973A;font-size:.82rem;font-weight:600;text-decoration:none;">Rate Us</a></div></div></div></footer>
+
+<script>
+window.addEventListener('load',function(){setTimeout(function(){document.getElementById('preloader').classList.add('hidden');},1200);});
+var nb=document.getElementById('navbar');window.addEventListener('scroll',function(){nb.classList.toggle('scrolled',window.scrollY>40);},{passive:true});
+var hb=document.getElementById('hamburger'),mn=document.getElementById('mobileNav');
+if(hb&&mn){hb.addEventListener('click',function(){var o=mn.classList.toggle('open');hb.children[0].style.transform=o?'translateY(7px) rotate(45deg)':'';hb.children[1].style.opacity=o?'0':'';hb.children[2].style.transform=o?'translateY(-7px) rotate(-45deg)':'';});}
+
+function filterCat(el,cat){
+  document.querySelectorAll('.cat-tab').forEach(function(t){t.classList.remove('active');});
+  el.classList.add('active');
+  if(cat==='all'){
+    document.querySelectorAll('[data-cat]').forEach(function(c){c.style.display='';});
+  } else {
+    document.querySelectorAll('[data-cat]').forEach(function(c){
+      c.style.display=c.dataset.cat===cat?'':'none';
+    });
+  }
+  return false;
+}
+</script>
+<script src="js/navbar-auth.js"></script>
+</body>
+</html>
+

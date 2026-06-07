@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 100">
+  <!-- TheValveHubs Official Logo — Transparent Background -->
+  <!-- Colors: Navy #1B3058 · Green #2B8C3C -->
+
+  <!-- ══════════════ VALVE ICON ══════════════ -->
+  <!-- Handwheel ring (green) -->
+  <ellipse cx="52" cy="18" rx="28" ry="14" fill="none" stroke="#2B8C3C" stroke-width="5"/>
+  <!-- Handwheel spokes -->
+  <line x1="24" y1="18" x2="80" y2="18" stroke="#2B8C3C" stroke-width="4" stroke-linecap="round"/>
+  <line x1="52" y1="4"  x2="52" y2="32" stroke="#2B8C3C" stroke-width="4" stroke-linecap="round"/>
+  <!-- Handwheel center hub -->
+  <circle cx="52" cy="18" r="5" fill="#2B8C3C"/>
+
+  <!-- Valve stem -->
+  <rect x="47" y="30" width="10" height="14" rx="2" fill="#1B3058"/>
+
+  <!-- Valve bonnet (top of body) -->
+  <path d="M30,44 L74,44 L70,58 L34,58 Z" fill="#1B3058"/>
+
+  <!-- Valve body (main) -->
+  <rect x="26" y="58" width="52" height="28" rx="4" fill="#1B3058"/>
+
+  <!-- Left flange -->
+  <rect x="4"  y="62" width="22" height="20" rx="2" fill="#1B3058"/>
+  <!-- Left flange bolt lines -->
+  <line x1="10" y1="64" x2="10" y2="80" stroke="#3A5580" stroke-width="2"/>
+  <line x1="15" y1="64" x2="15" y2="80" stroke="#3A5580" stroke-width="2"/>
+  <line x1="20" y1="64" x2="20" y2="80" stroke="#3A5580" stroke-width="2"/>
+
+  <!-- Right flange -->
+  <rect x="78"  y="62" width="22" height="20" rx="2" fill="#1B3058"/>
+  <!-- Right flange bolt lines -->
+  <line x1="84" y1="64" x2="84" y2="80" stroke="#3A5580" stroke-width="2"/>
+  <line x1="89" y1="64" x2="89" y2="80" stroke="#3A5580" stroke-width="2"/>
+  <line x1="94" y1="64" x2="94" y2="80" stroke="#3A5580" stroke-width="2"/>
+
+  <!-- Valve body inner circle detail -->
+  <circle cx="52" cy="72" r="10" fill="none" stroke="#3A5580" stroke-width="2"/>
+
+  <!-- ══════════════ TEXT ══════════════ -->
+  <!-- "TheValve" in dark navy -->
+  <text x="118" y="74"
+        font-family="'Segoe UI','Arial',sans-serif"
+        font-size="46"
+        font-weight="700"
+        fill="#1B3058"
+        letter-spacing="-1">TheValve</text>
+  <!-- "Hubs" in green -->
+  <text x="330" y="74"
+        font-family="'Segoe UI','Arial',sans-serif"
+        font-size="46"
+        font-weight="700"
+        fill="#2B8C3C"
+        letter-spacing="-1">Hubs</text>
+</svg>

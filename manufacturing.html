@@ -1,0 +1,492 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Saudi Approved Machining, Cladding &amp; Welding Facilities | TheValveHubs</title>
+<meta name="description" content="Saudi Arabia and global directory of valve component machining, cladding, casting, forging and raw material suppliers. CNC machining, HVOF, investment casting, open-die forging and special alloys for the oil & gas sector."/>
+<link rel="stylesheet" href="style.css"/>
+<style>
+/* ── MANUFACTURING PAGE ── */
+.mfg-hero{background:linear-gradient(145deg,#0A1628,#163660,#0A2A4A);padding:100px 0 60px;position:relative;overflow:hidden;}
+.mfg-hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:56px 56px;}
+.mfg-hero::after{content:'';position:absolute;top:-20%;right:-5%;width:55%;height:130%;background:radial-gradient(ellipse,rgba(200,151,58,.18) 0%,transparent 60%);pointer-events:none;}
+.mfg-hero .container{position:relative;z-index:1;}
+.mfg-hero h1{font-size:clamp(2rem,4.5vw,3.2rem);font-weight:900;color:#fff;line-height:1.08;margin-bottom:14px;}
+.mfg-hero p{font-size:.97rem;color:rgba(255,255,255,.8);max-width:660px;line-height:1.8;}
+
+/* Sticky sub-nav */
+.sub-nav{background:#fff;border-bottom:1px solid #D8E4D8;padding:0;position:sticky;top:68px;z-index:90;box-shadow:0 2px 12px rgba(0,0,0,.06);}
+.sub-nav-inner{display:flex;overflow-x:auto;scrollbar-width:none;max-width:1280px;margin:0 auto;padding:0 24px;}
+.sub-nav-inner::-webkit-scrollbar{display:none;}
+.sn-item{display:flex;align-items:center;gap:7px;padding:14px 18px;font-size:.8rem;font-weight:700;color:#7A9A7A;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;text-decoration:none;flex-shrink:0;}
+.sn-item:hover{color:#006C35;}
+.sn-item.active{color:#006C35;border-bottom-color:#006C35;}
+
+/* Category section header */
+.cat-section-header{display:flex;align-items:center;gap:18px;background:linear-gradient(135deg,#F8FAF9,#EBF7F0);border:1.5px solid rgba(0,108,53,.14);border-radius:18px;padding:24px 28px;margin-bottom:28px;}
+.csh-icon{font-size:2.4rem;flex-shrink:0;}
+.csh-title h2{font-size:1.15rem;font-weight:900;color:#1A2A1A;margin-bottom:5px;}
+.csh-title p{font-size:.82rem;color:#5A6B62;line-height:1.6;max-width:700px;}
+.csh-count{margin-left:auto;background:#EBF7F0;border:1px solid rgba(0,108,53,.14);color:#006C35;padding:6px 16px;border-radius:100px;font-size:.78rem;font-weight:800;white-space:nowrap;flex-shrink:0;}
+
+/* Process cards (capabilities) */
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px;}
+.proc-card{background:#fff;border:1.5px solid #D8E4D8;border-radius:12px;padding:16px 14px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:all .22s;}
+.proc-card:hover{border-color:#006C35;transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,108,53,.1);}
+.proc-icon{font-size:1.6rem;margin-bottom:8px;}
+.proc-card h4{font-size:.78rem;font-weight:800;color:#1A2A1A;margin-bottom:4px;}
+.proc-card p{font-size:.7rem;color:#7A9A7A;line-height:1.5;}
+
+/* Company cards */
+.co-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(295px,1fr));gap:16px;margin-bottom:40px;}
+.co-card{background:#fff;border:1.5px solid #D8E4D8;border-radius:18px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.06);transition:all .25s;position:relative;}
+.co-card:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(0,0,0,.1);border-color:#006C35;}
+.co-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#006C35,#009444);transform:scaleX(0);transform-origin:left;transition:transform .25s;}
+.co-card:hover::before{transform:scaleX(1);}
+.co-top{padding:18px 20px 14px;border-bottom:1px solid #EBF7F0;}
+.co-logo-row{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px;}
+.co-logo{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;text-align:center;line-height:1.2;flex-shrink:0;}
+.co-meta h3{font-size:.88rem;font-weight:900;color:#1A2A1A;margin-bottom:3px;line-height:1.2;}
+.co-type{font-size:.7rem;color:#006C35;font-weight:600;}
+.co-loc{font-size:.68rem;color:#7A9A7A;margin-top:2px;}
+.co-badges{display:flex;flex-wrap:wrap;gap:4px;}
+.cb{padding:2.5px 7px;border-radius:20px;font-size:.66rem;font-weight:700;}
+.cb-green{background:#EBF7F0;border:1px solid rgba(0,108,53,.14);color:#006C35;}
+.cb-gold{background:#FDF3E3;border:1px solid rgba(200,151,58,.18);color:#9B7120;}
+.cb-red{background:#FEF2F2;border:1px solid rgba(192,57,43,.15);color:#C0392B;}
+.cb-navy{background:#EEF3FB;border:1px solid rgba(22,54,96,.14);color:#163660;}
+.cb-feat{background:linear-gradient(135deg,#9B7120,#C8973A);color:#fff;}
+.co-body{padding:14px 20px 18px;}
+.co-desc{font-size:.79rem;color:#3A4A42;line-height:1.6;margin-bottom:10px;}
+.co-caps{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;}
+.co-cap{background:#F2F4F3;border:1px solid #E0E5E2;color:#3A4A42;padding:2.5px 7px;border-radius:4px;font-size:.7rem;}
+.co-actions{display:flex;gap:7px;}
+.coa{flex:1;padding:8px 12px;border-radius:9px;font-size:.76rem;font-weight:700;cursor:pointer;border:none;font-family:inherit;text-align:center;transition:all .2s;}
+.coa-green{background:#006C35;color:#fff;}
+.coa-green:hover{background:#004A24;}
+.coa-outline{background:#EBF7F0;border:1.5px solid rgba(0,108,53,.14);color:#006C35;}
+.coa-outline:hover{background:#D8EED8;}
+.co-feat-badge{position:absolute;top:12px;right:12px;background:linear-gradient(135deg,#9B7120,#C8973A);color:#fff;padding:3px 10px;border-radius:100px;font-size:.6rem;font-weight:800;}
+
+/* Toolbar */
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:28px;}
+.tb-search{flex:1;min-width:200px;padding:11px 14px 11px 40px;border:1.5px solid #D8E4D8;border-radius:10px;font-size:.875rem;font-family:inherit;outline:none;transition:border-color .2s;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23B0BAB4' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'/%3E%3C/svg%3E") no-repeat 12px center/18px;}
+.tb-search:focus{border-color:#006C35;}
+.tb-sel{background:#fff;border:1.5px solid #D8E4D8;color:#1A2A1A;padding:11px 12px;border-radius:10px;font-size:.83rem;font-family:inherit;cursor:pointer;outline:none;}
+.tb-sel:focus{border-color:#006C35;}
+.tb-count{background:#EBF7F0;border:1px solid rgba(0,108,53,.14);color:#006C35;padding:8px 14px;border-radius:100px;font-size:.78rem;font-weight:700;white-space:nowrap;align-self:center;}
+
+/* Material chips */
+.material-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
+.mat-chip{background:#fff;border:1.5px solid #D8E4D8;border-radius:8px;padding:7px 14px;font-size:.75rem;font-weight:600;color:#1A2A1A;transition:all .2s;cursor:default;}
+.mat-chip:hover{border-color:#006C35;background:#EBF7F0;color:#006C35;}
+.mat-chip.alloy{border-color:#9B7120;background:#FDF3E3;color:#9B7120;}
+
+/* Stats bar */
+.stats-bar{display:grid;grid-template-columns:repeat(5,1fr);border:1.5px solid #D8E4D8;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:36px;}
+.sb{padding:18px 14px;text-align:center;border-right:1px solid #D8E4D8;transition:background .2s;}
+.sb:last-child{border-right:none;}
+.sb:hover{background:#EBF7F0;}
+.sb-num{font-size:1.4rem;font-weight:900;color:#006C35;display:block;line-height:1;margin-bottom:4px;}
+.sb-lbl{font-size:.62rem;color:#7A9A7A;text-transform:uppercase;letter-spacing:.1em;}
+
+/* CTA strips */
+.cta-strip{background:linear-gradient(135deg,#006C35,#009444);border-radius:16px;padding:26px 28px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:8px;}
+.cta-strip h3{font-size:.95rem;font-weight:900;color:#fff;margin-bottom:4px;}
+.cta-strip p{font-size:.8rem;color:rgba(255,255,255,.75);line-height:1.6;}
+.rfq-form-inline{background:#fff;border-radius:16px;padding:24px;box-shadow:0 4px 20px rgba(0,0,0,.07);margin-top:0;}
+.rfq-form-inline h3{font-size:.95rem;font-weight:900;color:#1A2A1A;margin-bottom:4px;}
+.rfq-form-inline p{font-size:.8rem;color:#5A6B62;margin-bottom:18px;}
+.rfi-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.rfi-full{grid-column:1/-1;}
+
+@media(max-width:1024px){.process-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:768px){.co-grid{grid-template-columns:1fr 1fr;}.process-grid{grid-template-columns:1fr 1fr;}.stats-bar{grid-template-columns:repeat(3,1fr);}.rfi-grid{grid-template-columns:1fr;}.cta-strip{flex-direction:column;text-align:center;}.cat-section-header{flex-wrap:wrap;}.csh-count{margin-left:0;}}
+@media(max-width:480px){.co-grid{grid-template-columns:1fr;}.process-grid{grid-template-columns:1fr 1fr;}.stats-bar{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+<div id="preloader"><div class="preloader-inner"><div class="preloader-logo">TVH</div><div class="preloader-spinner"></div><div class="preloader-text">Loading TheValveHubs&hellip;</div></div></div>
+
+<div class="emergency-band" id="emergencyBand">&#128680; Emergency 24/7 &mdash; Valves &middot; Machining &middot; Cladding &middot; Welding &mdash; <a href="emergency.html">Submit RFQ &rarr;</a><button class="band-dismiss" onclick="document.getElementById('emergencyBand').style.display='none'">&times;</button></div>
+
+<nav class="navbar" id="navbar"><div class="nav-inner"><a href="index.html" class="nav-logo"><img src="images/tvh-logo-extracted.jpg" alt="TheValveHubs" style="width:220px;height:58px;object-fit:contain;object-position:left center;display:block;flex-shrink:0;"/></a><ul class="nav-menu"><li class="nav-item"><a href="about.html" class="nav-link">About</a></li><li class="nav-item"><a href="platform.html" class="nav-link" style="color:#006C35;font-weight:700;">&#128205; Platform</a></li><li class="nav-item"><a href="saudi-market.html" class="nav-link">&#127470;&#127474; Saudi Market <span class="arrow">&#9660;</span></a><div class="dropdown"><div class="dropdown-group"><div class="dropdown-label">Saudi Verified Suppliers</div><a href="saudi-market.html#valves"><span class="d-icon">&#9881;</span> Industrial Valves</a><a href="saudi-market.html#parts"><span class="d-icon">&#128230;</span> Spare Parts</a><a href="manufacturing.html"><span class="d-icon">&#128297;</span> Machining &amp; Cladding</a><a href="saudi-market.html#rental"><span class="d-icon">&#128260;</span> Equipment Rental</a></div></div></li><li class="nav-item"><a href="global-suppliers.html" class="nav-link">&#127760; Global Suppliers <span class="arrow">&#9660;</span></a><div class="dropdown"><div class="dropdown-group"><div class="dropdown-label">When Saudi Unavailable</div><a href="global-suppliers.html#oem"><span class="d-icon">&#127981;</span> OEM Manufacturers</a><a href="global-suppliers.html#parts"><span class="d-icon">&#128230;</span> Global Parts</a></div></div></li><li class="nav-item"><a href="emergency.html" class="nav-link emergency-link">&#128680; Emergency <span class="arrow">&#9660;</span></a><div class="dropdown"><a href="emergency.html#valves">&#9881; Emergency Valves</a><a href="emergency.html#parts">&#128295; Emergency Parts</a><a href="emergency.html#fabrication">&#128736; Emergency Fabrication</a></div></li><li class="nav-item"><a href="projects.html" class="nav-link" style="color:#1A3A6B;font-weight:700;">&#128203; Watch Projects</a></li><li class="nav-item"><a href="tvh-news.html" class="nav-link" style="color:#C0392B;font-weight:700;">&#128240; TVH News</a></li><li class="nav-item"><a href="intelligence.html" class="nav-link">&#128240; Intelligence</a></li><li class="nav-item"><a href="valve-academy.html" class="nav-link">&#127891; Academy</a></li><li class="nav-item"><a href="#" class="nav-link">&#128736; Tools <span class="arrow">&#9660;</span></a><div class="dropdown"><div class="dropdown-group"><div class="dropdown-label">Free Tools</div><a href="iktva-calculator.html"><span class="d-icon">&#127954;</span> IKTVA Calculator</a><a href="valve-wizard.html"><span class="d-icon">&#128203;</span> Valve Spec Wizard</a></div><hr/><a href="pricing.html"><span class="d-icon">&#128176;</span> Pricing</a></div></li><li class="nav-item"><a href="invest-saudi.html" class="nav-link" style="color:#006C35;font-weight:700;">&#127868; Invest</a></li></ul><div class="nav-cta"><a href="survey.html" class="btn btn-outline-green btn-sm" style="border-color:#C8973A;color:#C8973A;">&#127942; Rate Us</a><a href="index.html#join" class="btn btn-outline-green btn-sm">Join Free</a><a href="emergency.html" class="btn btn-red btn-sm">&#128680; Emergency</a></div><button class="hamburger" id="hamburger"><span></span><span></span><span></span></button></div></nav>
+
+<div class="mobile-nav" id="mobileNav"><div class="mobile-nav-item"><a href="index.html" class="mobile-nav-link">Home</a></div><div class="mobile-nav-item"><a href="saudi-market.html" class="mobile-nav-link">&#127470;&#127474; Saudi Market</a></div><div class="mobile-nav-item"><a href="manufacturing.html" class="mobile-nav-link" style="color:#006C35;font-weight:700;">&#128297; Machining &amp; Cladding</a></div><div class="mobile-nav-item"><a href="emergency.html" class="mobile-nav-link" style="color:#C0392B">&#128680; Emergency 24/7</a></div><div class="mobile-nav-item"><a href="iktva-calculator.html" class="mobile-nav-link">&#127954; IKTVA Calculator</a></div><div class="mobile-cta"><a href="index.html#join" class="btn btn-green">Join Free</a><a href="emergency.html" class="btn btn-red">&#128680; Emergency</a></div></div>
+
+<!-- HERO -->
+<section class="mfg-hero">
+<div class="container">
+<div style="font-size:.72rem;color:rgba(255,255,255,.55);margin-bottom:14px;"><a href="index.html" style="color:rgba(255,255,255,.7);">Home</a> &rsaquo; <a href="saudi-market.html" style="color:rgba(255,255,255,.7);">Saudi Market</a> &rsaquo; <span>Manufacturing &amp; Materials</span></div>
+<div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:6px 16px;font-size:.74rem;font-weight:700;color:rgba(255,255,255,.9);margin-bottom:18px;">&#127470;&#127474; Saudi-Approved Facilities Only &bull; Aramco &bull; SABIC &bull; IKTVA Registered</div>
+<h1 class="mfg-hero" style="font-size:clamp(1.8rem,4vw,3rem);font-weight:900;color:#fff;line-height:1.1;margin-bottom:14px;background:none;padding:0;">Saudi Approved Machining,<br/>Cladding &amp; Welding Facilities</h1>
+<p style="font-size:.97rem;color:rgba(255,255,255,.8);max-width:660px;line-height:1.8;margin-bottom:22px;">Verified Saudi-based precision machining, hardfacing &amp; weld overlay cladding, and structural welding facilities. All Saudi Aramco and SABIC approved. IKTVA registered. Emergency capable.</p>
+<div style="display:flex;gap:12px;flex-wrap:wrap;">
+<a href="#machining" style="background:#fff;color:#163660;font-weight:800;padding:11px 22px;border-radius:8px;text-decoration:none;">&#128297; Machining</a>
+<a href="#cladding" style="border:2px solid rgba(255,255,255,.5);color:#fff;font-weight:600;padding:11px 22px;border-radius:8px;text-decoration:none;">&#128293; Cladding</a>
+<a href="#welding" style="border:2px solid rgba(255,255,255,.5);color:#fff;font-weight:600;padding:11px 22px;border-radius:8px;text-decoration:none;">&#9889; Welding</a>
+<a href="#rfq" style="background:#C0392B;color:#fff;font-weight:700;padding:11px 22px;border-radius:8px;text-decoration:none;">&#128680; Submit RFQ</a>
+</div>
+</div>
+</section>
+
+<!-- SUB NAV -->
+<nav class="sub-nav">
+<div class="sub-nav-inner">
+<a href="#machining" class="sn-item active" onclick="setActive(this)">&#128297; Precision Machining</a>
+<a href="#cladding"  class="sn-item" onclick="setActive(this)">&#128293; Cladding &amp; Hardfacing</a>
+<a href="#welding"   class="sn-item" onclick="setActive(this)">&#9889; Welding Fabrication</a>
+<a href="#rfq" class="sn-item" style="margin-left:auto;color:#C0392B;font-weight:700;" onclick="setActive(this)">&#128680; Submit RFQ</a>
+</div>
+</nav>
+
+<!-- MAIN -->
+<div style="background:#F8FAF9;">
+<div class="container" style="padding-top:40px;padding-bottom:60px;">
+
+<!-- TOOLBAR -->
+<div class="toolbar">
+<input class="tb-search" id="globalSearch" type="text" placeholder="Search company name, capability, location&hellip;" oninput="globalFilter()"/>
+<select class="tb-sel" id="locationFilter" onchange="globalFilter()">
+<option value="">All Saudi Cities</option>
+<option value="jubail">Jubail IC</option>
+<option value="dammam">Dammam</option>
+<option value="khobar">Al Khobar</option>
+<option value="yanbu">Yanbu IC</option>
+<option value="riyadh">Riyadh</option>
+</select>
+<select class="tb-sel" id="availFilter" onchange="globalFilter()">
+<option value="">All Facilities</option>
+<option value="emergency">&#9889; Emergency Capable</option>
+<option value="sa-approved">Aramco Approved</option>
+<option value="iktva">IKTVA Registered</option>
+</select>
+<span class="tb-count" id="globalCount">16 Saudi facilities</span>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+<div class="sb"><span class="sb-num">16</span><span class="sb-lbl">Saudi Facilities</span></div>
+<div class="sb"><span class="sb-num">3</span><span class="sb-lbl">Disciplines</span></div>
+<div class="sb"><span class="sb-num">5</span><span class="sb-lbl">Saudi Cities</span></div>
+<div class="sb"><span class="sb-num">24/7</span><span class="sb-lbl">Emergency</span></div>
+<div class="sb"><span class="sb-num">ASME IX</span><span class="sb-lbl">Welding Qualified</span></div>
+</div>
+
+<!-- APPROVAL LEGEND -->
+<div style="background:#EBF7F0;border:1.5px solid rgba(0,108,53,.15);border-radius:14px;padding:18px 22px;margin-bottom:32px;display:flex;gap:20px;flex-wrap:wrap;align-items:center;">
+<div style="font-size:.8rem;font-weight:800;color:#006C35;">&#127470;&#127474; Saudi-Approved Facilities Only:</div>
+<div style="display:flex;gap:10px;flex-wrap:wrap;">
+<span style="background:#fff;border:1px solid rgba(0,108,53,.2);color:#006C35;border-radius:20px;padding:4px 12px;font-size:.76rem;font-weight:700;">&#11035; SA Approved &mdash; Saudi Aramco Vendor List</span>
+<span style="background:#fff;border:1px solid rgba(0,108,53,.2);color:#006C35;border-radius:20px;padding:4px 12px;font-size:.76rem;font-weight:700;">&#127954; IKTVA Registered &mdash; In-Country Value</span>
+<span style="background:#FDECEC;border:1px solid rgba(192,57,43,.2);color:#C0392B;border-radius:20px;padding:4px 12px;font-size:.76rem;font-weight:700;">&#9889; Emergency &mdash; 24/7 Response</span>
+<span style="background:#EEF2FF;border:1px solid rgba(44,74,124,.2);color:#2C4A7C;border-radius:20px;padding:4px 12px;font-size:.76rem;font-weight:700;">&#9881; ASME IX &mdash; Welding Qualification</span>
+</div>
+</div>
+
+<!-- ═══ SECTION 1: MACHINING ═══ -->
+<section id="machining" style="padding-bottom:52px;border-bottom:1px solid #E0E5E2;margin-bottom:48px;">
+<div class="cat-section-header">
+<div class="csh-icon">&#128297;</div>
+<div class="csh-title"><h2>Precision CNC Machining</h2><p>Saudi-based CNC turning, 5-axis milling, grinding, boring and precision engineering for valve components. All facilities hold Saudi Aramco and/or SABIC approved vendor status and are IKTVA registered.</p></div>
+<span class="csh-count">6 Saudi Facilities</span>
+</div>
+<div class="process-grid">
+<div class="proc-card"><div class="proc-icon">&#128297;</div><h4>5-Axis CNC Machining</h4><p>Complex geometry valve components in single setup</p></div>
+<div class="proc-card"><div class="proc-icon">&#128260;</div><h4>CNC Turning</h4><p>Valve stems, seats and shafts up to 2m diameter</p></div>
+<div class="proc-card"><div class="proc-icon">&#9881;</div><h4>Precision Grinding</h4><p>Surface and cylindrical grinding to Ra 0.4&micro;m</p></div>
+<div class="proc-card"><div class="proc-icon">&#128269;</div><h4>CMM Inspection</h4><p>Coordinate measurement to API/ASME tolerances</p></div>
+<div class="proc-card"><div class="proc-icon">&#128200;</div><h4>PMI Testing</h4><p>Positive material identification on all components</p></div>
+<div class="proc-card"><div class="proc-icon">&#127919;</div><h4>Reverse Engineering</h4><p>3D scanning &rarr; CAD &rarr; machined replacement parts</p></div>
+<div class="proc-card"><div class="proc-icon">&#128293;</div><h4>Heat Treatment</h4><p>PWHT, annealing, normalising and hardening</p></div>
+<div class="proc-card"><div class="proc-icon">&#9876;</div><h4>Valve Overhaul</h4><p>Full disassembly, repair, reassembly and test</p></div>
+</div>
+<div class="co-grid"></div>
+</section>
+
+<!-- ═══ SECTION 2: CLADDING ═══ -->
+<section id="cladding" style="padding-bottom:52px;border-bottom:1px solid #E0E5E2;margin-bottom:48px;">
+<div class="cat-section-header" style="background:linear-gradient(135deg,#FEF2F2,#FFF5F5);border-color:rgba(192,57,43,.15);">
+<div class="csh-icon">&#128293;</div>
+<div class="csh-title"><h2>Cladding &amp; Hardfacing</h2><p>Saudi-based HVOF thermal spray, weld overlay (Inconel 625, Stellite 6/12), electroless nickel plating and anti-corrosion coatings. All facilities are ASME Section IX qualified and Saudi Aramco approved.</p></div>
+<span class="csh-count" style="background:#FEE2E2;color:#C0392B;border-color:rgba(192,57,43,.15);">4 Saudi Facilities</span>
+</div>
+<div class="process-grid">
+<div class="proc-card"><div class="proc-icon">&#128293;</div><h4>HVOF Coating</h4><p>Tungsten/chromium carbide for erosion-resistant surfaces</p></div>
+<div class="proc-card"><div class="proc-icon">&#9994;</div><h4>Stellite Overlay</h4><p>TIG Stellite 6/12 hardfacing for valve seat faces</p></div>
+<div class="proc-card"><div class="proc-icon">&#9734;</div><h4>Inconel 625 Cladding</h4><p>Weld overlay corrosion protection ASME Section IX</p></div>
+<div class="proc-card"><div class="proc-icon">&#128161;</div><h4>Electroless Nickel</h4><p>ENP plating for stems and actuator components</p></div>
+<div class="proc-card"><div class="proc-icon">&#129517;</div><h4>Hard Chrome Plating</h4><p>Dimensional restoration and wear protection</p></div>
+<div class="proc-card"><div class="proc-icon">&#127752;</div><h4>Plasma Spray</h4><p>Thermal barrier and ceramic coatings</p></div>
+<div class="proc-card"><div class="proc-icon">&#128200;</div><h4>Post-Coating NDT</h4><p>UT, DFT measurement and hardness testing</p></div>
+<div class="proc-card"><div class="proc-icon">&#128293;</div><h4>PWHT</h4><p>Post-weld heat treatment and stress relieving</p></div>
+</div>
+<div class="co-grid"></div>
+</section>
+
+<!-- ═══ SECTION 3: WELDING ═══ -->
+<section id="welding" style="padding-bottom:52px;border-bottom:1px solid #E0E5E2;margin-bottom:48px;">
+<div class="cat-section-header" style="background:linear-gradient(135deg,#EEF2FF,#F5F0FF);border-color:rgba(44,74,124,.15);">
+<div class="csh-icon">&#9889;</div>
+<div class="csh-title"><h2>Welding Fabrication</h2><p>Saudi-based ASME Section IX and API 1104 qualified welding contractors specialising in valve body repair welding, weld build-up, pressure equipment welding and exotic alloy piping fabrication. All IKTVA registered.</p></div>
+<span class="csh-count" style="background:#EEF2FF;color:#2C4A7C;border-color:rgba(44,74,124,.15);">6 Saudi Facilities</span>
+</div>
+<div class="process-grid">
+<div class="proc-card"><div class="proc-icon">&#9889;</div><h4>GTAW / TIG Welding</h4><p>Precision stainless, Inconel and duplex welding</p></div>
+<div class="proc-card"><div class="proc-icon">&#128293;</div><h4>SMAW / MMA</h4><p>Structural and pressure vessel manual arc welding</p></div>
+<div class="proc-card"><div class="proc-icon">&#128260;</div><h4>FCAW / MIG</h4><p>High-productivity flux-core and MIG welding</p></div>
+<div class="proc-card"><div class="proc-icon">&#128297;</div><h4>Valve Body Repair</h4><p>Weld build-up, defect repair and bore restoration</p></div>
+<div class="proc-card"><div class="proc-icon">&#128293;</div><h4>PWHT &amp; NDE</h4><p>Post-weld heat treatment and full NDT package</p></div>
+<div class="proc-card"><div class="proc-icon">&#128203;</div><h4>WPS / PQR</h4><p>Welding procedure specifications and qualifications</p></div>
+<div class="proc-card"><div class="proc-icon">&#128205;</div><h4>In-Situ / On-Site</h4><p>Mobile welding unit for plant site repairs</p></div>
+<div class="proc-card"><div class="proc-icon">&#128681;</div><h4>Exotic Alloys</h4><p>Duplex, Super Duplex, Inconel, Hastelloy welding</p></div>
+</div>
+<div class="co-grid"></div>
+</section>
+
+<!-- RFQ -->
+<section id="rfq" style="margin-top:0;">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;">
+<div>
+<div style="display:inline-flex;align-items:center;gap:7px;background:#EBF7F0;color:#006C35;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:5px 13px;border-radius:100px;margin-bottom:12px;border:1px solid rgba(0,108,53,.14);">Submit RFQ</div>
+<div style="width:44px;height:3px;background:linear-gradient(90deg,#006C35,#009444);border-radius:2px;margin-bottom:16px;"></div>
+<h2 style="font-size:1.5rem;font-weight:900;color:#1A2A1A;margin-bottom:12px;">Need Machining,<br/>Cladding or Welding?</h2>
+<p style="font-size:.88rem;color:#5A6B62;line-height:1.8;margin-bottom:18px;">Submit a single RFQ and receive responses from verified Saudi facilities. All listed companies are Saudi Aramco and/or SABIC approved with active IKTVA registration.</p>
+<ul style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px;">
+<li style="display:flex;align-items:flex-start;gap:9px;font-size:.83rem;color:#1A2A1A;"><span style="width:18px;height:18px;border-radius:50%;background:#006C35;color:#fff;font-size:.58rem;font-weight:900;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;">&#10003;</span>All facilities are Saudi-based and approved</li>
+<li style="display:flex;align-items:flex-start;gap:9px;font-size:.83rem;color:#1A2A1A;"><span style="width:18px;height:18px;border-radius:50%;background:#006C35;color:#fff;font-size:.58rem;font-weight:900;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;">&#10003;</span>IKTVA contribution on every job</li>
+<li style="display:flex;align-items:flex-start;gap:9px;font-size:.83rem;color:#1A2A1A;"><span style="width:18px;height:18px;border-radius:50%;background:#006C35;color:#fff;font-size:.58rem;font-weight:900;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;">&#10003;</span>Upload drawings, sketches or photos accepted</li>
+<li style="display:flex;align-items:flex-start;gap:9px;font-size:.83rem;color:#1A2A1A;"><span style="width:18px;height:18px;border-radius:50%;background:#006C35;color:#fff;font-size:.58rem;font-weight:900;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;">&#10003;</span>Emergency machining/welding &lt;72h available</li>
+</ul>
+<a href="emergency.html#fabrication" style="display:inline-flex;align-items:center;gap:7px;background:#C0392B;color:#fff;padding:11px 22px;border-radius:8px;font-weight:700;text-decoration:none;">&#128680; Emergency Fabrication RFQ &rarr;</a>
+</div>
+<div class="rfq-form-inline">
+<h3>Submit Machining / Cladding / Welding RFQ</h3>
+<p>We match you with the best Saudi-approved facility for your requirement. Response within 4 hours.</p>
+<form>
+<div class="rfi-grid">
+<div class="form-group"><label>Company Name *</label><input type="text" placeholder="Your company" required/></div>
+<div class="form-group"><label>Phone / WhatsApp *</label><input type="tel" placeholder="+966 XX XXX XXXX" required/></div>
+<div class="form-group"><label>Service Required *</label>
+<select required><option value="">Select service</option>
+<option>CNC Machining</option>
+<option>5-Axis Machining</option>
+<option>Valve Overhaul &amp; Machining</option>
+<option>Reverse Engineering</option>
+<option>HVOF Cladding</option>
+<option>Stellite Hardfacing</option>
+<option>Inconel 625 Weld Overlay</option>
+<option>ENP / Hard Chrome Plating</option>
+<option>GTAW / TIG Welding</option>
+<option>Valve Body Repair Welding</option>
+<option>ASME B31.3 Piping Welding</option>
+<option>Exotic Alloy Welding</option>
+<option>Multiple Services</option>
+</select>
+</div>
+<div class="form-group"><label>Urgency</label>
+<select><option>Standard (1&ndash;4 weeks)</option>
+<option>Urgent (3&ndash;7 days)</option>
+<option>Emergency (&lt;72h)</option>
+</select>
+</div>
+<div class="form-group rfi-full"><label>Material &amp; Specification</label><input type="text" placeholder="e.g. Inconel 625 overlay, Duplex 2205 GTAW, Stellite 6 seat cladding&hellip;"/></div>
+<div class="form-group rfi-full"><label>Requirement Description *</label>
+<textarea style="height:90px;" placeholder="Describe the component, process required, dimensions, material, standards (ASME, API, NACE), quantity and delivery location in Saudi Arabia&hellip;" required></textarea>
+</div>
+</div>
+<div style="margin-top:14px;"><button type="submit" style="width:100%;background:#006C35;color:#fff;padding:13px;border-radius:9px;font-size:.95rem;font-weight:800;border:none;cursor:pointer;">Submit Saudi Fabrication RFQ &rarr;</button></div>
+<p style="text-align:center;font-size:.76rem;color:#5A6B62;margin-top:8px;">Saudi-only suppliers &bull; IKTVA counted &bull; Response within 4 hours</p>
+</form>
+</div>
+</div>
+</section>
+
+</div><!-- /container -->
+</div><!-- /bg -->
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo"><div style="background:#fff;border-radius:10px;padding:10px 20px;display:inline-block;"><img src="images/tvh-logo-extracted.jpg" alt="TheValveHubs" style="height:72px;width:auto;display:block;"/></div></div>
+        <p>Saudi Arabia's engineering-governed industrial valve marketplace. Saudi suppliers first. International when unavailable.</p>
+        <p style="font-size:.8rem;opacity:.6;margin-top:8px;">HQ: Khobar, Saudi Arabia &bull; Vision 2030 &bull; IKTVA</p>
+        <div class="footer-social" style="margin-top:16px;"><a href="#">in</a><a href="#">&#128241;</a></div>
+      </div>
+      <div class="footer-col"><h5>Manufacturing</h5><ul>
+        <li><a href="manufacturing.html#machining">Precision Machining</a></li>
+        <li><a href="manufacturing.html#cladding">Cladding &amp; Hardfacing</a></li>
+        <li><a href="manufacturing.html#casting">Casting (Sand &amp; Investment)</a></li>
+        <li><a href="manufacturing.html#forging">Forging (Open &amp; Closed Die)</a></li>
+        <li><a href="manufacturing.html#materials">Raw Materials &amp; Alloys</a></li>
+      </ul></div>
+      <div class="footer-col"><h5>Tools &amp; Resources</h5><ul>
+        <li><a href="iktva-calculator.html">IKTVA Calculator</a></li>
+        <li><a href="valve-wizard.html">Valve Spec Wizard</a></li>
+        <li><a href="shutdown-calendar.html">Shutdown Calendar</a></li>
+        <li><a href="pricing.html">Pricing Plans</a></li>
+        <li><a href="experts.html">Experts &amp; Technicians</a></li>
+      </ul></div>
+      <div class="footer-col"><h5>Platform</h5><ul>
+        <li><a href="saudi-market.html">Saudi Market</a></li>
+        <li><a href="emergency.html">Emergency 24/7</a></li>
+        <li><a href="invest-saudi.html">Invest in Saudi</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="index.html#join">Join Free</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="container"><div class="footer-bottom"><span>&copy; 2025 TheValveHubs. All rights reserved. Khobar, Saudi Arabia.</span><span>Founded by Abdullah F. AlSubaie &bull; Vision 2030 &bull; IKTVA</span></div></div>
+</footer>
+
+<a href="https://wa.me/966500000000" class="whatsapp-float" target="_blank" rel="noopener" title="WhatsApp Emergency">&#128241;</a>
+
+<!-- RFQ MODAL -->
+<div id="rfqModal" style="display:none;position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.5);align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#fff;border-radius:20px;padding:30px;max-width:460px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.2);">
+    <h3 style="font-size:1rem;font-weight:900;color:#1A2A1A;margin-bottom:5px;">Request a Quote</h3>
+    <p id="rfqModalCompany" style="font-size:.82rem;color:#5A6B62;margin-bottom:18px;"></p>
+    <form onsubmit="closeRFQModal();return false;">
+      <div style="margin-bottom:12px;"><label style="font-size:.72rem;font-weight:700;color:#006C35;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:5px;">Company *</label><input type="text" placeholder="Your company name" required style="width:100%;padding:10px 14px;border:1.5px solid #D8E4D8;border-radius:10px;font-size:.875rem;font-family:inherit;outline:none;"/></div>
+      <div style="margin-bottom:12px;"><label style="font-size:.72rem;font-weight:700;color:#006C35;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:5px;">Phone / WhatsApp *</label><input type="tel" placeholder="+966 XX XXX XXXX" required style="width:100%;padding:10px 14px;border:1.5px solid #D8E4D8;border-radius:10px;font-size:.875rem;font-family:inherit;outline:none;"/></div>
+      <div style="margin-bottom:16px;"><label style="font-size:.72rem;font-weight:700;color:#006C35;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:5px;">Requirement *</label><textarea placeholder="Material, quantity, dimensions, urgency&hellip;" required style="width:100%;padding:10px 14px;border:1.5px solid #D8E4D8;border-radius:10px;font-size:.875rem;font-family:inherit;outline:none;height:75px;resize:none;"></textarea></div>
+      <div style="display:flex;gap:10px;"><button type="button" onclick="closeRFQModal()" style="flex:1;padding:11px;background:#EBF7F0;border:1.5px solid rgba(0,108,53,.14);color:#006C35;border-radius:10px;font-size:.85rem;font-weight:700;cursor:pointer;font-family:inherit;">Cancel</button><button type="submit" style="flex:2;padding:11px;background:#006C35;color:#fff;border:none;border-radius:10px;font-size:.85rem;font-weight:700;cursor:pointer;font-family:inherit;">Send RFQ &#8594;</button></div>
+    </form>
+  </div>
+</div>
+
+<script>
+// Preloader
+window.addEventListener('load', function() { setTimeout(function() { document.getElementById('preloader').classList.add('hidden'); }, 1200); });
+// Nav
+var nb = document.getElementById('navbar');
+window.addEventListener('scroll', function() { nb.classList.toggle('scrolled', window.scrollY > 40); }, { passive: true });
+var hb = document.getElementById('hamburger'), mn = document.getElementById('mobileNav');
+hb.addEventListener('click', function() { var o = mn.classList.toggle('open'); hb.children[0].style.transform = o ? 'translateY(7px) rotate(45deg)' : ''; hb.children[1].style.opacity = o ? '0' : ''; hb.children[2].style.transform = o ? 'translateY(-7px) rotate(-45deg)' : ''; });
+
+// Sub-nav active
+function setActive(el) { document.querySelectorAll('.sn-item').forEach(function(i) { i.classList.remove('active'); }); el.classList.add('active'); }
+
+// Section intersection observer for sub-nav
+var sections = ['machining','cladding','casting','forging','materials'];
+var secObs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) {
+      var id = e.target.id;
+      document.querySelectorAll('.sn-item').forEach(function(item) {
+        if (item.getAttribute('href') === '#' + id) item.classList.add('active');
+        else if (!item.getAttribute('href').includes('rfq')) item.classList.remove('active');
+      });
+    }
+  });
+}, { threshold: 0.3 });
+sections.forEach(function(id) { var el = document.getElementById(id); if (el) secObs.observe(el); });
+
+// Smooth scroll for sub-nav
+document.querySelectorAll('.sn-item[href^="#"]').forEach(function(a) {
+  a.addEventListener('click', function(e) {
+    var t = document.querySelector(this.getAttribute('href'));
+    if (t) { e.preventDefault(); window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 120, behavior: 'smooth' }); }
+  });
+});
+
+// Global filter
+function globalFilter() {
+  var q = (document.getElementById('globalSearch').value || '').toLowerCase();
+  var loc = document.getElementById('locationFilter').value;
+  var avail = document.getElementById('availFilter').value;
+  var v = 0;
+  document.querySelectorAll('.co-card').forEach(function(c) {
+    var show = (!q || c.innerText.toLowerCase().includes(q)) && (!loc || c.dataset.loc === loc) && (!avail || (c.dataset.avail || '').includes(avail));
+    c.style.display = show ? '' : 'none';
+    if (show) v++;
+  });
+  document.getElementById('globalCount').textContent = v + ' compan' + (v !== 1 ? 'ies' : 'y') + ' shown';
+}
+
+// Scroll reveal
+var rvObs = new IntersectionObserver(function(en) {
+  en.forEach(function(e, i) {
+    if (e.isIntersecting) {
+      setTimeout(function() { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; }, (i % 4) * 70);
+      rvObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.06 });
+document.querySelectorAll('.co-card, .proc-card, .how-card').forEach(function(el) {
+  el.style.opacity = '0'; el.style.transform = 'translateY(18px)'; el.style.transition = 'opacity .45s ease, transform .45s ease';
+  rvObs.observe(el);
+});
+
+// RFQ modal
+function submitRFQ(company) {
+  document.getElementById('rfqModalCompany').textContent = 'Supplier: ' + company;
+  document.getElementById('rfqModal').style.display = 'flex';
+}
+function closeRFQModal() {
+  document.getElementById('rfqModal').style.display = 'none';
+  alert('RFQ sent! Our team will contact you within 4 hours with a response from this supplier.');
+}
+
+// Main RFQ form
+function submitMfgRFQ(e) {
+  e.preventDefault();
+  var btn = e.target.querySelector('button[type="submit"]');
+  btn.textContent = 'Submitting...'; btn.disabled = true;
+  setTimeout(function() { document.getElementById('mfgRFQForm').style.display = 'none'; document.getElementById('mfgRFQSuccess').style.display = 'block'; }, 900);
+}
+</script>
+<script src="js/navbar-auth.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+window.addEventListener('load',function(){setTimeout(function(){document.getElementById('preloader').classList.add('hidden');},1200);});
+var nb=document.getElementById('navbar');window.addEventListener('scroll',function(){nb.classList.toggle('scrolled',window.scrollY>40);},{passive:true});
+var hb=document.getElementById('hamburger'),mn=document.getElementById('mobileNav');
+hb.addEventListener('click',function(){var o=mn.classList.toggle('open');hb.children[0].style.transform=o?'translateY(7px) rotate(45deg)':'';hb.children[1].style.opacity=o?'0':'';hb.children[2].style.transform=o?'translateY(-7px) rotate(-45deg)':'';});
+function setActive(el){document.querySelectorAll('.sn-item').forEach(function(i){i.classList.remove('active');});el.classList.add('active');}
+function globalFilter(){
+  var s=document.getElementById('globalSearch').value.toLowerCase();
+  var l=document.getElementById('locationFilter').value;
+  var a=document.getElementById('availFilter').value;
+  var cards=document.querySelectorAll('.co-card');
+  var vis=0;
+  cards.forEach(function(c){
+    var t=c.innerText.toLowerCase();
+    var cl=c.dataset.loc||'';
+    var av=c.dataset.avail||'';
+    var show=(!s||t.includes(s))&&(!l||cl.includes(l))&&(!a||av.includes(a));
+    c.style.display=show?'':'none';
+    if(show)vis++;
+  });
+  document.getElementById('globalCount').textContent=vis+' facilit'+(vis===1?'y':'ies')+' shown';
+}
+function submitRFQ(n){window.location.href='emergency.html#fabrication?company='+encodeURIComponent(n);}
+</script>
+<script src="js/navbar-auth.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

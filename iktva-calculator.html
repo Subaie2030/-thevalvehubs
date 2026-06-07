@@ -1,0 +1,428 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>IKTVA Score Calculator — TheValveHubs | Saudi Arabia Vision 2030</title>
+<meta name="description" content="Calculate your IKTVA (In-Kingdom Total Value Add) score. Free tool for valve and industrial suppliers in Saudi Arabia. Check Aramco compliance and improve your local content rating."/>
+<link rel="stylesheet" href="style.css"/>
+<style>
+/* ── IKTVA CALCULATOR ── */
+.calc-hero{background:linear-gradient(145deg,#003A1A,#006C35,#004A24);padding:100px 0 60px;position:relative;overflow:hidden;}
+.calc-hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:56px 56px;}
+.calc-hero::after{content:'';position:absolute;top:-20%;right:-5%;width:55%;height:130%;background:radial-gradient(ellipse,rgba(200,151,58,.18) 0%,transparent 60%);pointer-events:none;}
+.calc-hero .container{position:relative;z-index:1;}
+.calc-hero h1{font-size:clamp(2rem,4vw,3rem);font-weight:900;color:#fff;line-height:1.1;margin-bottom:12px;}
+.calc-hero p{font-size:.97rem;color:rgba(255,255,255,.8);max-width:620px;line-height:1.75;}
+
+/* Calculator wrapper */
+.calc-wrapper{display:grid;grid-template-columns:1fr 380px;gap:28px;margin-top:48px;align-items:start;}
+.calc-form-card{background:#fff;border-radius:20px;border:1.5px solid #D8E4D8;padding:32px;box-shadow:0 4px 24px rgba(0,108,53,.1);}
+.calc-form-card h3{font-size:1.05rem;font-weight:900;color:#1A2A1A;margin-bottom:6px;}
+.calc-form-card>p{font-size:.82rem;color:#5A6B62;margin-bottom:24px;line-height:1.65;}
+
+/* Category rows */
+.iktva-category{margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid #EBF7F0;}
+.iktva-category:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.cat-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.cat-label{font-size:.88rem;font-weight:700;color:#1A2A1A;display:flex;align-items:center;gap:8px;}
+.cat-label .cat-icon{font-size:1.1rem;}
+.cat-weight{font-size:.7rem;color:#7A9A7A;background:#EBF7F0;border:1px solid rgba(0,108,53,.12);padding:2px 8px;border-radius:100px;font-weight:700;}
+.cat-desc{font-size:.76rem;color:#5A6B62;margin-bottom:10px;line-height:1.55;}
+.slider-row{display:flex;align-items:center;gap:12px;}
+.iktva-slider{flex:1;-webkit-appearance:none;height:6px;border-radius:3px;outline:none;cursor:pointer;background:linear-gradient(to right,#006C35 0%,#006C35 0%,#EBF7F0 0%);}
+.iktva-slider::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#004A24,#006C35);cursor:pointer;box-shadow:0 2px 8px rgba(0,108,53,.3);}
+.slider-val{font-size:.92rem;font-weight:900;color:#006C35;min-width:40px;text-align:right;}
+
+/* Score panel */
+.score-panel{position:sticky;top:88px;}
+.score-card{background:#fff;border-radius:20px;border:1.5px solid #D8E4D8;padding:28px;box-shadow:0 4px 24px rgba(0,108,53,.1);text-align:center;margin-bottom:16px;}
+.score-donut{position:relative;width:180px;height:180px;margin:0 auto 18px;}
+.donut-svg{width:100%;height:100%;transform:rotate(-90deg);}
+.donut-bg{fill:none;stroke:#EBF7F0;stroke-width:16;}
+.donut-fill{fill:none;stroke:#006C35;stroke-width:16;stroke-linecap:round;transition:stroke-dashoffset 0.8s cubic-bezier(.4,0,.2,1);}
+.donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;}
+.score-big{font-size:2.4rem;font-weight:900;color:#006C35;display:block;line-height:1;}
+.score-label{font-size:.65rem;color:#7A9A7A;text-transform:uppercase;letter-spacing:.1em;display:block;margin-top:3px;}
+.score-status{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;border-radius:100px;font-size:.78rem;font-weight:700;margin-bottom:14px;}
+.status-pass{background:#EBF7F0;color:#006C35;border:1px solid rgba(0,108,53,.15);}
+.status-warn{background:#FFF9E6;color:#B8860B;border:1px solid rgba(184,134,11,.2);}
+.status-fail{background:#FEE2E2;color:#DC2626;border:1px solid rgba(220,38,38,.15);}
+.score-breakdown{text-align:left;}
+.score-breakdown h4{font-size:.75rem;font-weight:800;color:#7A9A7A;text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;}
+.score-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:.82rem;}
+.score-row-label{color:#1A2A1A;font-weight:500;display:flex;align-items:center;gap:6px;}
+.score-row-val{font-weight:800;color:#006C35;}
+.score-mini-bar{width:60px;height:5px;background:#EBF7F0;border-radius:3px;overflow:hidden;margin-left:8px;}
+.score-mini-fill{height:100%;background:#006C35;border-radius:3px;transition:width .6s ease;}
+
+/* Recommendations */
+.rec-card{background:#fff;border-radius:16px;border:1.5px solid #D8E4D8;padding:20px;box-shadow:0 2px 12px rgba(0,108,53,.07);}
+.rec-card h4{font-size:.82rem;font-weight:800;color:#1A2A1A;margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+.rec-item{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #EBF7F0;}
+.rec-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.rec-icon{font-size:1.1rem;flex-shrink:0;margin-top:1px;}
+.rec-text{font-size:.78rem;color:#3D5A3D;line-height:1.55;}
+.rec-text strong{color:#006C35;font-weight:700;}
+
+/* Target bar */
+.target-bar-wrap{background:#EBF7F0;border-radius:12px;padding:14px 16px;margin-top:14px;}
+.target-bar-label{display:flex;justify-content:space-between;font-size:.74rem;font-weight:700;margin-bottom:7px;}
+.target-bar-label span:first-child{color:#1A2A1A;}
+.target-bar-label span:last-child{color:#006C35;}
+.target-bar-track{background:#D8E4D8;border-radius:6px;height:10px;position:relative;}
+.target-bar-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,#006C35,#009444);transition:width .8s ease;}
+.target-marker{position:absolute;top:-3px;width:2px;height:16px;background:#C8973A;}
+.target-marker-label{position:absolute;top:-20px;font-size:.62rem;font-weight:800;color:#C8973A;white-space:nowrap;transform:translateX(-50%);}
+
+@media(max-width:1024px){.calc-wrapper{grid-template-columns:1fr;}.score-panel{position:static;}}
+@media(max-width:768px){.iktva-category{padding-bottom:16px;margin-bottom:16px;}}
+</style>
+</head>
+<body>
+<div id="preloader"><div class="preloader-inner"><div class="preloader-logo">TVH</div><div class="preloader-spinner"></div></div></div>
+<div class="emergency-band" id="emergencyBand">&#128680; Emergency 24/7 &mdash; Valves &middot; Spare Parts &middot; Machining &middot; Rental &mdash;<a href="emergency.html">Submit RFQ &rarr;</a><button class="band-dismiss" onclick="document.getElementById('emergencyBand').style.display='none'">&times;</button></div>
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="images/tvh-logo-extracted.jpg" alt="TheValveHubs" style="width:220px;height:58px;object-fit:contain;object-position:left center;display:block;flex-shrink:0;"/></a>
+    <ul class="nav-menu">
+      <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+      <li class="nav-item"><a href="platform.html" class="nav-link" style="color:#006C35;font-weight:700;">&#128205; Platform</a></li>
+      <li class="nav-item"><a href="saudi-market.html" class="nav-link">&#127470;&#127474; Saudi Market <span class="arrow">&#9660;</span></a><div class="dropdown"><a href="saudi-market.html#valves"><span class="d-icon">&#9881;</span> Saudi Valve Suppliers</a><a href="saudi-market.html#machining"><span class="d-icon">&#128295;</span> Valve Services</a><a href="saudi-market.html#parts"><span class="d-icon">&#128230;</span> Spare Parts</a><a href="saudi-market.html#rental"><span class="d-icon">&#128260;</span> Rental Fleet</a></div></li>
+      <li class="nav-item"><a href="global-suppliers.html" class="nav-link">&#127760; Global Suppliers <span class="arrow">&#9660;</span></a><div class="dropdown"><a href="global-suppliers.html#oem"><span class="d-icon">&#127981;</span> OEM Manufacturers</a><a href="global-suppliers.html#parts"><span class="d-icon">&#128230;</span> Global Parts</a></div></li>
+      <li class="nav-item"><a href="emergency.html" class="nav-link emergency-link">&#128680; Emergency <span class="arrow">&#9660;</span></a><div class="dropdown"><a href="emergency.html#valves">Emergency Valves</a><a href="emergency.html#parts">Emergency Parts</a><a href="emergency.html#rental">Emergency Rental</a></div></li>
+      <li class="nav-item"><a href="iktva-calculator.html" class="nav-link" style="color:#006C35;font-weight:700;">&#127954; IKTVA Calculator</a></li>
+      <li class="nav-item"><a href="manufacturing.html" class="nav-link">&#128297; Manufacturing</a></li>
+      <li class="nav-item"><a href="experts.html" class="nav-link">&#128119; Experts &amp; Technicians</a></li>
+      <li class="nav-item"><a href="invest-saudi.html" class="nav-link">&#127868; Invest in Saudi</a></li>
+    </ul>
+    <div class="nav-cta"><a href="survey.html" class="btn btn-outline-green btn-sm" style="border-color:#C8973A;color:#C8973A;">&#127942; Rate Us</a><a href="index.html#join" class="btn btn-outline-green btn-sm">Join Free</a><a href="emergency.html" class="btn btn-red btn-sm">&#128680; Emergency</a></div>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="calc-hero">
+  <div class="container">
+    <div style="font-size:.72rem;color:rgba(255,255,255,.55);margin-bottom:14px;"><a href="index.html" style="color:rgba(255,255,255,.7);">Home</a> &#8250; <span>IKTVA Calculator</span></div>
+    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:6px 16px;font-size:.74rem;font-weight:700;color:rgba(255,255,255,.9);margin-bottom:18px;">&#127470;&#127466; Saudi Aramco IKTVA Programme &bull; Free Tool</div>
+    <h1>IKTVA Score<br/>Calculator</h1>
+    <p>Calculate your company's In-Kingdom Total Value Add (IKTVA) score instantly. See where you stand against Saudi Aramco's requirements and get specific recommendations to improve your local content rating for Vision 2030.</p>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:18px;">
+      <div style="display:flex;align-items:center;gap:8px;font-size:.82rem;color:rgba(255,255,255,.8);"><span style="width:8px;height:8px;border-radius:50%;background:#22C55E;flex-shrink:0;"></span>Free to use &mdash; no registration required</div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:.82rem;color:rgba(255,255,255,.8);"><span style="width:8px;height:8px;border-radius:50%;background:#E2B95A;flex-shrink:0;"></span>Based on official Aramco IKTVA methodology</div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:.82rem;color:rgba(255,255,255,.8);"><span style="width:8px;height:8px;border-radius:50%;background:#60B4FF;flex-shrink:0;"></span>Instant results with improvement recommendations</div>
+    </div>
+  </div>
+</section>
+
+<!-- CALCULATOR -->
+<section style="padding:60px 0;background:#F8FAF9;">
+  <div class="container">
+    <div class="calc-wrapper">
+
+      <!-- FORM -->
+      <div class="calc-form-card">
+        <h3>&#127954; Enter Your Local Content Data</h3>
+        <p>Move the sliders to reflect your company's current level of Saudi / in-Kingdom content in each category. The score updates in real time.</p>
+
+        <div class="iktva-category">
+          <div class="cat-header"><span class="cat-label"><span class="cat-icon">&#127981;</span> Local Manufacturing &amp; Production</span><span class="cat-weight">Weight: 30%</span></div>
+          <div class="cat-desc">Percentage of products manufactured, assembled or processed inside Saudi Arabia. Includes raw material processing, fabrication and final assembly.</div>
+          <div class="slider-row"><input type="range" class="iktva-slider" id="s1" min="0" max="100" value="20" oninput="updateCalc()"/><span class="slider-val" id="v1">20%</span></div>
+        </div>
+
+        <div class="iktva-category">
+          <div class="cat-header"><span class="cat-label"><span class="cat-icon">&#127919;</span> Saudi Workforce Employment</span><span class="cat-weight">Weight: 25%</span></div>
+          <div class="cat-desc">Percentage of your workforce that are Saudi nationals (Saudisation ratio). Includes all full-time, part-time and contracted employees in Saudi Arabia.</div>
+          <div class="slider-row"><input type="range" class="iktva-slider" id="s2" min="0" max="100" value="30" oninput="updateCalc()"/><span class="slider-val" id="v2">30%</span></div>
+        </div>
+
+        <div class="iktva-category">
+          <div class="cat-header"><span class="cat-label"><span class="cat-icon">&#128200;</span> Local Procurement &amp; Supply Chain</span><span class="cat-weight">Weight: 20%</span></div>
+          <div class="cat-desc">Percentage of goods, materials and services purchased from Saudi-based or Saudi-owned suppliers and subcontractors in your supply chain.</div>
+          <div class="slider-row"><input type="range" class="iktva-slider" id="s3" min="0" max="100" value="25" oninput="updateCalc()"/><span class="slider-val" id="v3">25%</span></div>
+        </div>
+
+        <div class="iktva-category">
+          <div class="cat-header"><span class="cat-label"><span class="cat-icon">&#127891;</span> Training &amp; Development</span><span class="cat-weight">Weight: 10%</span></div>
+          <div class="cat-desc">Investment in training and developing Saudi national employees — technical training, certification programmes, on-the-job development and knowledge transfer.</div>
+          <div class="slider-row"><input type="range" class="iktva-slider" id="s4" min="0" max="100" value="15" oninput="updateCalc()"/><span class="slider-val" id="v4">15%</span></div>
+        </div>
+
+        <div class="iktva-category">
+          <div class="cat-header"><span class="cat-label"><span class="cat-icon">&#128161;</span> Technology Transfer &amp; R&amp;D</span><span class="cat-weight">Weight: 10%</span></div>
+          <div class="cat-desc">Investment in technology transfer to Saudi entities, R&amp;D activities conducted in Saudi Arabia, and intellectual property developed in-Kingdom.</div>
+          <div class="slider-row"><input type="range" class="iktva-slider" id="s5" min="0" max="100" value="5" oninput="updateCalc()"/><span class="slider-val" id="v5">5%</span></div>
+        </div>
+
+        <div class="iktva-category">
+          <div class="cat-header"><span class="cat-label"><span class="cat-icon">&#127968;</span> Community Investment</span><span class="cat-weight">Weight: 5%</span></div>
+          <div class="cat-desc">CSR activities, community investment programmes and social responsibility initiatives benefiting Saudi communities and aligned with Vision 2030.</div>
+          <div class="slider-row"><input type="range" class="iktva-slider" id="s6" min="0" max="100" value="10" oninput="updateCalc()"/><span class="slider-val" id="v6">10%</span></div>
+        </div>
+
+        <div style="margin-top:20px;padding-top:20px;border-top:1.5px solid #EBF7F0;">
+          <div style="background:linear-gradient(135deg,#EBF7F0,#F0FBF5);border:1.5px solid rgba(0,108,53,.14);border-radius:12px;padding:16px 18px;">
+            <div style="font-size:.76rem;color:#3D5A3D;line-height:1.65;"><strong style="color:#006C35;">&#9432; About IKTVA:</strong> The In-Kingdom Total Value Add programme is Saudi Aramco's mandatory local content programme. Suppliers must achieve minimum scores to qualify for procurement and must demonstrate continuous improvement toward 70%+ by 2030.</div>
+          </div>
+          <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
+            <button onclick="resetCalc()" style="flex:1;padding:11px;background:#EBF7F0;border:1.5px solid rgba(0,108,53,.14);color:#006C35;border-radius:10px;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .2s;" onmouseover="this.style.background='#D8EED8'" onmouseout="this.style.background='#EBF7F0'">&#8635; Reset</button>
+            <a href="index.html#join" style="flex:2;display:flex;align-items:center;justify-content:center;gap:8px;padding:11px;background:#006C35;color:#fff;border-radius:10px;font-size:.82rem;font-weight:700;transition:all .2s;" onmouseover="this.style.background='#004A24'" onmouseout="this.style.background='#006C35'">&#127954; List on TheValveHubs with IKTVA Score &#8594;</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCORE PANEL -->
+      <div class="score-panel">
+        <div class="score-card">
+          <div style="font-size:.7rem;font-weight:700;color:#7A9A7A;text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px;">Your IKTVA Score</div>
+          <div class="score-donut">
+            <svg class="donut-svg" viewBox="0 0 120 120">
+              <circle class="donut-bg" cx="60" cy="60" r="46"/>
+              <circle class="donut-fill" id="donutFill" cx="60" cy="60" r="46" stroke-dasharray="289" stroke-dashoffset="289"/>
+            </svg>
+            <div class="donut-center">
+              <span class="score-big" id="scoreDisplay">22</span>
+              <span class="score-label">IKTVA %</span>
+            </div>
+          </div>
+          <div id="scoreStatus" class="score-status status-fail">&#10005; Below Minimum Requirement</div>
+
+          <!-- Target bar -->
+          <div class="target-bar-wrap">
+            <div class="target-bar-label"><span>Your Score</span><span id="targetGap">Need +13% to reach 35%</span></div>
+            <div class="target-bar-track">
+              <div class="target-bar-fill" id="targetBarFill" style="width:22%;"></div>
+              <div class="target-marker" style="left:35%"><span class="target-marker-label">35% Min</span></div>
+              <div class="target-marker" style="left:70%;background:#006C35;"><span class="target-marker-label" style="color:#006C35;">70% Target</span></div>
+            </div>
+          </div>
+
+          <!-- Category breakdown -->
+          <div class="score-breakdown" style="margin-top:18px;">
+            <h4>Score Breakdown</h4>
+            <div class="score-row"><span class="score-row-label">&#127981; Manufacturing <div class="score-mini-bar"><div class="score-mini-fill" id="b1" style="width:20%"></div></div></span><span class="score-row-val" id="c1">6.0</span></div>
+            <div class="score-row"><span class="score-row-label">&#127919; Saudi Workforce <div class="score-mini-bar"><div class="score-mini-fill" id="b2" style="width:30%"></div></div></span><span class="score-row-val" id="c2">7.5</span></div>
+            <div class="score-row"><span class="score-row-label">&#128200; Local Procurement <div class="score-mini-bar"><div class="score-mini-fill" id="b3" style="width:25%"></div></div></span><span class="score-row-val" id="c3">5.0</span></div>
+            <div class="score-row"><span class="score-row-label">&#127891; Training &amp; Dev. <div class="score-mini-bar"><div class="score-mini-fill" id="b4" style="width:15%"></div></div></span><span class="score-row-val" id="c4">1.5</span></div>
+            <div class="score-row"><span class="score-row-label">&#128161; Tech Transfer <div class="score-mini-bar"><div class="score-mini-fill" id="b5" style="width:5%"></div></div></span><span class="score-row-val" id="c5">0.5</span></div>
+            <div class="score-row"><span class="score-row-label">&#127968; Community <div class="score-mini-bar"><div class="score-mini-fill" id="b6" style="width:10%"></div></div></span><span class="score-row-val" id="c6">0.5</span></div>
+          </div>
+        </div>
+
+        <!-- RECOMMENDATIONS -->
+        <div class="rec-card" id="recCard">
+          <h4>&#128161; Improvement Recommendations</h4>
+          <div id="recommendations"></div>
+        </div>
+
+        <!-- SAVE TO PROFILE -->
+        <div id="iktva-save-card" style="background:#fff;border-radius:16px;padding:20px;border:1.5px solid #D8E4D8;margin-top:16px;">
+          <div id="tvh-msg"></div>
+          <div id="iktva-save-form">
+            <div style="font-size:.8rem;font-weight:700;color:#006C35;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">💾 Save to Platform</div>
+            <input id="iktva-period" type="text" placeholder="Period: Q2 2026 / Annual 2026" style="width:100%;padding:8px 12px;border:1px solid #D8E2DC;border-radius:8px;font-size:.85rem;margin-bottom:10px;"/>
+            <input id="iktva-revenue" type="number" placeholder="Total Revenue (SAR)" style="width:100%;padding:8px 12px;border:1px solid #D8E2DC;border-radius:8px;font-size:.85rem;margin-bottom:10px;"/>
+            <button id="iktva-save-btn" onclick="saveIktvaToApi()" style="width:100%;background:#006C35;color:#fff;padding:10px;border-radius:8px;font-size:.85rem;font-weight:700;border:none;cursor:pointer;">📊 Save Score to My Profile</button>
+            <p style="font-size:.72rem;color:#7A9A7A;text-align:center;margin-top:6px;">Requires free account · Score appears on your supplier listing</p>
+          </div>
+          <div id="iktva-saved-msg" style="display:none;text-align:center;padding:12px;">
+            <div style="font-size:1.5rem;">✅</div>
+            <div style="font-weight:700;color:#006C35;margin-top:4px;">Score Saved!</div>
+            <div style="font-size:.8rem;color:#5A6B62;margin-top:4px;">Your IKTVA score is now visible on your supplier profile.</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+<script src="js/tvh-api.js"></script>
+<script>
+async function saveIktvaToApi() {
+  const btn     = document.getElementById('iktva-save-btn');
+  const period  = document.getElementById('iktva-period').value.trim();
+  const revenue = parseFloat(document.getElementById('iktva-revenue').value);
+  const score   = parseFloat(document.getElementById('scoreDisplay').textContent);
+
+  if (!TVH_API.isLoggedIn()) {
+    TVH_API.ui.error('Please <a href="index.html#join" style="color:#C0392B;font-weight:700;">create a free account</a> to save your IKTVA score.');
+    return;
+  }
+  if (!period || !revenue || revenue <= 0) {
+    TVH_API.ui.error('Please enter your reporting period and total revenue.');
+    return;
+  }
+
+  TVH_API.ui.setLoading(btn, true, '📊 Save Score to My Profile');
+  try {
+    // حساب المبالغ من النسب المئوية (sliders × revenue)
+    const s = (id) => parseFloat(document.getElementById(id).textContent) / 100;
+    await TVH_API.iktva.calculate({
+      totalRevenue:      revenue,
+      saudiLabourCost:   revenue * s('v2') * 0.25,
+      saudiMaterialCost: revenue * s('v1') * 0.30,
+      saudiServiceCost:  revenue * s('v3') * 0.20,
+      saudiOverheadCost: revenue * s('v4') * 0.10,
+      saudiCapexCost:    revenue * s('v5') * 0.10,
+      period,
+      saveResult: true,
+    });
+    document.getElementById('iktva-save-form').style.display = 'none';
+    document.getElementById('iktva-saved-msg').style.display = 'block';
+  } catch (err) {
+    TVH_API.ui.error(err.message || 'Could not save. Please try again.');
+    TVH_API.ui.setLoading(btn, false, '📊 Save Score to My Profile');
+  }
+}
+</script>
+
+<!-- INFO SECTION -->
+<section style="padding:60px 0;background:#fff;">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+      <div style="background:#EBF7F0;border:1.5px solid rgba(0,108,53,.14);border-radius:16px;padding:24px;">
+        <div style="font-size:2rem;margin-bottom:10px;">&#127954;</div>
+        <h4 style="font-size:.92rem;font-weight:800;color:#1A2A1A;margin-bottom:8px;">What is IKTVA?</h4>
+        <p style="font-size:.8rem;color:#3D5A3D;line-height:1.7;">IKTVA (In-Kingdom Total Value Add) is Saudi Aramco's mandatory local content programme requiring suppliers to progressively increase their in-Kingdom contributions — manufacturing, employment, procurement and training.</p>
+      </div>
+      <div style="background:#FDF3E3;border:1.5px solid rgba(200,151,58,.2);border-radius:16px;padding:24px;">
+        <div style="font-size:2rem;margin-bottom:10px;">&#127919;</div>
+        <h4 style="font-size:.92rem;font-weight:800;color:#1A2A1A;margin-bottom:8px;">IKTVA Targets</h4>
+        <ul style="font-size:.8rem;color:#3D5A3D;line-height:1.7;display:flex;flex-direction:column;gap:4px;">
+          <li>&#9679; <strong>35%+</strong> — Current Aramco minimum requirement</li>
+          <li>&#9679; <strong>50%+</strong> — Preferred vendor threshold</li>
+          <li>&#9679; <strong>70%+</strong> — Vision 2030 target by 2030</li>
+          <li>&#9679; Scores displayed on TheValveHubs profiles</li>
+        </ul>
+      </div>
+      <div style="background:#fff;border:1.5px solid #D8E4D8;border-radius:16px;padding:24px;">
+        <div style="font-size:2rem;margin-bottom:10px;">&#9650;</div>
+        <h4 style="font-size:.92rem;font-weight:800;color:#1A2A1A;margin-bottom:8px;">How to Improve</h4>
+        <ul style="font-size:.8rem;color:#3D5A3D;line-height:1.7;display:flex;flex-direction:column;gap:4px;">
+          <li>&#9679; Hire more Saudi national engineers</li>
+          <li>&#9679; Source materials from Saudi suppliers</li>
+          <li>&#9679; Set up in-Kingdom manufacturing</li>
+          <li>&#9679; Invest in Saudi employee training</li>
+          <li>&#9679; Partner with IKTVA-registered companies</li>
+        </ul>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:32px;padding:28px;background:linear-gradient(135deg,#EBF7F0,#F0FBF5);border:1.5px solid rgba(0,108,53,.14);border-radius:16px;">
+      <h3 style="font-size:1.05rem;font-weight:900;color:#1A2A1A;margin-bottom:8px;">Display Your IKTVA Score on TheValveHubs</h3>
+      <p style="font-size:.85rem;color:#3D5A3D;margin-bottom:18px;">Register your company on TheValveHubs and your verified IKTVA score will be prominently displayed on your profile — making you the preferred choice for Aramco and SABIC procurement teams.</p>
+      <a href="index.html#join" style="display:inline-flex;align-items:center;gap:8px;background:#006C35;color:#fff;padding:12px 28px;border-radius:10px;font-size:.88rem;font-weight:700;">Register Free &mdash; Show Your IKTVA Score &#8594;</a>
+    </div>
+  </div>
+</section>
+
+<footer><div class="container"><div class="footer-grid"><div class="footer-brand"><div class="footer-logo"><div style="background:#fff;border-radius:10px;padding:10px 20px;display:inline-block;"><img src="images/tvh-logo-extracted.jpg" alt="TheValveHubs" style="height:72px;width:auto;display:block;"/></div></div><p>Saudi Arabia's engineering-governed industrial valve marketplace.</p></div><div class="footer-col"><h5>Tools</h5><ul><li><a href="iktva-calculator.html">IKTVA Calculator</a></li><li><a href="valve-wizard.html">Valve Spec Wizard</a></li><li><a href="shutdown-calendar.html">Shutdown Calendar</a></li><li><a href="pricing.html">Pricing Plans</a></li>
+        <li><a href="manufacturing.html">Manufacturing &amp; Materials</a></li>
+        <li><a href="experts.html">Experts &amp; Technicians</a></li></ul></div><div class="footer-col"><h5>Platform</h5><ul><li><a href="saudi-market.html">Saudi Market</a></li><li><a href="emergency.html">Emergency 24/7</a></li><li><a href="invest-saudi.html">Invest in Saudi</a></li><li><a href="index.html#join">Join Free</a></li></ul></div><div class="footer-col"><h5>Company</h5><ul><li><a href="about.html">About</a></li><li><a href="index.html#join">Contact</a></li></ul></div></div></div><div class="container"><div class="footer-bottom"><span>&copy; 2025 TheValveHubs. Khobar, Saudi Arabia.</span><span>Vision 2030 &bull; IKTVA</span></div></div></footer>
+
+<a href="https://wa.me/966500000000" class="whatsapp-float" target="_blank" rel="noopener">&#128241;</a>
+
+<script>
+window.addEventListener('load',function(){setTimeout(function(){document.getElementById('preloader').classList.add('hidden');},1000);});
+var nb=document.getElementById('navbar');window.addEventListener('scroll',function(){nb.classList.toggle('scrolled',window.scrollY>40);},{passive:true});
+var hb=document.getElementById('hamburger'),mn=document.querySelector('.mobile-nav');
+if(hb&&mn)hb.addEventListener('click',function(){mn.classList.toggle('open');});
+
+var weights=[0.30,0.25,0.20,0.10,0.10,0.05];
+
+function updateCalc(){
+  var vals=[],score=0;
+  for(var i=1;i<=6;i++){
+    var v=parseInt(document.getElementById('s'+i).value);
+    vals.push(v);
+    document.getElementById('v'+i).textContent=v+'%';
+    var w=weights[i-1];
+    var contrib=(v*w).toFixed(1);
+    score+=parseFloat(contrib);
+    document.getElementById('c'+i).textContent=contrib;
+    document.getElementById('b'+i).style.width=v+'%';
+    // Update slider gradient
+    var sl=document.getElementById('s'+i);
+    sl.style.background='linear-gradient(to right, #006C35 0%, #006C35 '+v+'%, #EBF7F0 '+v+'%, #EBF7F0 100%)';
+  }
+  score=Math.round(score*10)/10;
+  document.getElementById('scoreDisplay').textContent=Math.round(score);
+
+  // Donut
+  var circ=289;
+  var offset=circ-(circ*(score/100));
+  document.getElementById('donutFill').style.strokeDashoffset=offset;
+
+  // Status
+  var st=document.getElementById('scoreStatus');
+  if(score>=70){st.className='score-status status-pass';st.innerHTML='&#10003; Excellent &mdash; Vision 2030 Target Achieved';}
+  else if(score>=50){st.className='score-status status-pass';st.innerHTML='&#10003; Good &mdash; Preferred Vendor Threshold';}
+  else if(score>=35){st.className='score-status status-warn';st.innerHTML='&#9888; Meets Minimum &mdash; Room to Improve';}
+  else{st.className='score-status status-fail';st.innerHTML='&#10005; Below Minimum &mdash; Action Required';}
+
+  // Target bar
+  document.getElementById('targetBarFill').style.width=Math.min(score,100)+'%';
+  var gap35=Math.max(0,35-score).toFixed(1);
+  var gap70=Math.max(0,70-score).toFixed(1);
+  if(score>=70)document.getElementById('targetGap').textContent='&#10003; Vision 2030 target achieved!';
+  else if(score>=35)document.getElementById('targetGap').textContent='Need +'+gap70+'% to reach 70% Vision target';
+  else document.getElementById('targetGap').textContent='Need +'+gap35+'% to reach 35% minimum';
+
+  // Recommendations
+  updateRecs(vals,score);
+}
+
+function updateRecs(vals,score){
+  var recs=[];
+  var labels=['Manufacturing','Saudi Workforce','Local Procurement','Training','Tech Transfer','Community'];
+  var icons=['&#127981;','&#127919;','&#128200;','&#127891;','&#128161;','&#127968;'];
+  var tips=[
+    'Set up an in-Kingdom manufacturing or assembly facility. Even partial in-Kingdom processing significantly boosts this category.',
+    'Increase Saudisation ratio by hiring Saudi national engineers, technicians and support staff. HRDF subsidies are available.',
+    'Shift more of your supply chain to IKTVA-registered Saudi suppliers. TheValveHubs can connect you with verified local sources.',
+    'Invest in technical training for Saudi employees. Aramco-approved training centres and TVTC programmes count toward this score.',
+    'Partner with Saudi universities or research centres for R&D activities. Technology transfer agreements with Saudi entities also qualify.',
+    'Implement community investment programmes aligned with Vision 2030 social objectives.'
+  ];
+  var sorted=vals.map(function(v,i){return{i:i,v:v,w:weights[i]};}).sort(function(a,b){return (a.v*a.w)-(b.v*b.w);});
+  for(var k=0;k<Math.min(3,sorted.length);k++){
+    var item=sorted[k];
+    if(item.v<70){
+      recs.push('<div class="rec-item"><span class="rec-icon">'+icons[item.i]+'</span><div class="rec-text"><strong>Improve '+labels[item.i]+'</strong> (currently '+item.v+'%)<br/>'+tips[item.i]+'</div></div>');
+    }
+  }
+  if(score>=70)recs=['<div class="rec-item"><span class="rec-icon">&#127942;</span><div class="rec-text"><strong>Excellent IKTVA score!</strong><br/>You have achieved the Vision 2030 70% target. Register on TheValveHubs to display this score to Saudi Aramco and SABIC procurement teams.</div></div>'];
+  document.getElementById('recommendations').innerHTML=recs.join('')||'<div class="rec-item"><span class="rec-icon">&#10003;</span><div class="rec-text">All categories are performing well. Keep improving to reach the 70% Vision 2030 target.</div></div>';
+}
+
+function resetCalc(){
+  var defaults=[20,30,25,15,5,10];
+  for(var i=1;i<=6;i++){document.getElementById('s'+i).value=defaults[i-1];}
+  updateCalc();
+}
+
+// Init
+updateCalc();
+</script>
+<script src="js/navbar-auth.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

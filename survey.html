@@ -1,0 +1,499 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Platform Evaluation Survey | TheValveHubs</title>
+<meta name="description" content="Help us build the best industrial valve marketplace in Saudi Arabia. Share your feedback on TheValveHubs platform."/>
+<link rel="stylesheet" href="style.css"/>
+<style>
+.survey-hero{background:linear-gradient(135deg,#0A1628,#1A3A6B,#004D26);padding:90px 0 60px;text-align:center;color:#fff;}
+.survey-section{background:#fff;border-radius:16px;padding:32px;border:1px solid #D8E2DC;margin-bottom:24px;box-shadow:0 2px 12px rgba(0,0,0,.06);}
+.survey-section h3{font-size:1.05rem;font-weight:900;color:#1A2620;margin-bottom:6px;display:flex;align-items:center;gap:10px;}
+.survey-section p.desc{font-size:.85rem;color:#5A6B62;margin-bottom:22px;line-height:1.6;}
+.q-block{margin-bottom:22px;}
+.q-label{font-size:.88rem;font-weight:700;color:#1A2620;margin-bottom:10px;line-height:1.5;}
+.q-num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#006C35;color:#fff;font-size:.7rem;font-weight:800;flex-shrink:0;margin-right:8px;}
+.scale-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.scale-btn{width:44px;height:44px;border-radius:8px;border:2px solid #D8E2DC;background:#F8FAF9;font-weight:700;font-size:.88rem;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;}
+.scale-btn:hover{border-color:#006C35;background:#EBF7F0;color:#006C35;}
+.scale-btn.selected{border-color:#006C35;background:#006C35;color:#fff;}
+.scale-label{font-size:.72rem;color:#8A9E8F;margin-left:4px;}
+.options-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;}
+.opt-btn{padding:10px 14px;border-radius:8px;border:1.5px solid #D8E2DC;background:#F8FAF9;font-size:.83rem;font-weight:600;cursor:pointer;text-align:left;transition:all .15s;color:#1A2620;}
+.opt-btn:hover{border-color:#006C35;background:#EBF7F0;}
+.opt-btn.selected{border-color:#006C35;background:#EBF7F0;color:#006C35;}
+.opt-btn.multi.selected{border-color:#006C35;background:#006C35;color:#fff;}
+textarea{width:100%;padding:12px 14px;border:1.5px solid #D8E2DC;border-radius:8px;font-size:.88rem;font-family:inherit;resize:vertical;min-height:80px;color:#1A2620;transition:border-color .2s;}
+textarea:focus{outline:none;border-color:#006C35;}
+input[type=text],input[type=email]{width:100%;padding:11px 14px;border:1.5px solid #D8E2DC;border-radius:8px;font-size:.88rem;font-family:inherit;color:#1A2620;}
+input:focus{outline:none;border-color:#006C35;}
+.section-num{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:#006C35;color:#fff;font-size:.85rem;font-weight:900;}
+.progress-bar{background:#F2F4F3;border-radius:4px;height:6px;margin-bottom:32px;}
+.progress-fill{background:linear-gradient(90deg,#006C35,#00843F);border-radius:4px;height:6px;width:0%;transition:width .4s;}
+.submit-btn{background:linear-gradient(135deg,#006C35,#00843F);color:#fff;padding:16px 40px;border-radius:10px;font-size:1rem;font-weight:800;border:none;cursor:pointer;width:100%;margin-top:8px;letter-spacing:.02em;}
+.submit-btn:hover{opacity:.9;}
+.thank-you{display:none;text-align:center;padding:48px 24px;background:linear-gradient(135deg,#EBF7F0,#fff);border-radius:16px;border:2px solid #006C35;}
+.star-row{display:flex;gap:6px;}
+.star{font-size:1.6rem;cursor:pointer;transition:transform .1s;}
+.star:hover,.star.lit{color:#C8973A;transform:scale(1.1);}
+.star{color:#D8E2DC;}
+</style>
+</head>
+<body>
+<div id="preloader"><div class="preloader-inner"><div class="preloader-logo">TVH</div><div class="preloader-spinner"></div><div class="preloader-text">Loading&hellip;</div></div></div>
+<div class="emergency-band" id="emergencyBand">&#128680; Emergency 24/7 &mdash; <a href="emergency.html">Submit Emergency RFQ &rarr;</a><button class="band-dismiss" onclick="document.getElementById('emergencyBand').style.display='none'">&times;</button></div>
+<nav class="navbar" id="navbar"><div class="nav-inner"><a href="index.html" class="nav-logo"><img src="images/tvh-logo-extracted.jpg" alt="TheValveHubs" style="width:220px;height:58px;object-fit:contain;object-position:left center;display:block;flex-shrink:0;"/></a><div class="nav-cta"><a href="index.html" class="btn btn-outline-green btn-sm">&#8592; Back to Home</a><a href="emergency.html" class="btn btn-red btn-sm">&#128680; Emergency</a></div></div></nav>
+
+<!-- HERO -->
+<section class="survey-hero">
+<div class="container">
+<div style="display:inline-block;background:rgba(200,151,58,.2);border:1px solid #C8973A;color:#C8973A;border-radius:40px;padding:5px 18px;font-size:.8rem;font-weight:700;margin-bottom:18px;">&#127942; PLATFORM EVALUATION — Your Opinion Shapes Our Future</div>
+<h1 style="font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;margin-bottom:14px;">TheValveHubs Platform Survey</h1>
+<p style="font-size:.97rem;opacity:.85;max-width:620px;margin:0 auto 10px;line-height:1.7;">Help us build the best industrial valve marketplace in Saudi Arabia and the GCC. Your feedback directly drives our development priorities.</p>
+<p style="font-size:.82rem;opacity:.65;margin-bottom:32px;">Takes 5–8 minutes &bull; Completely confidential &bull; All responses are anonymous</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;max-width:600px;margin:0 auto;">
+<div style="background:rgba(255,255,255,.1);border-radius:10px;padding:14px;"><div style="font-size:1.4rem;font-weight:900;color:#C8973A;">7</div><div style="font-size:.76rem;opacity:.75;margin-top:2px;">Sections</div></div>
+<div style="background:rgba(255,255,255,.1);border-radius:10px;padding:14px;"><div style="font-size:1.4rem;font-weight:900;color:#fff;">35+</div><div style="font-size:.76rem;opacity:.75;margin-top:2px;">Questions</div></div>
+<div style="background:rgba(255,255,255,.1);border-radius:10px;padding:14px;"><div style="font-size:1.4rem;font-weight:900;color:#C8973A;">5–8</div><div style="font-size:.76rem;opacity:.75;margin-top:2px;">Minutes</div></div>
+<div style="background:rgba(255,255,255,.1);border-radius:10px;padding:14px;"><div style="font-size:1.4rem;font-weight:900;color:#fff;">100%</div><div style="font-size:.76rem;opacity:.75;margin-top:2px;">Anonymous</div></div>
+</div>
+</div>
+</section>
+
+<!-- SURVEY FORM -->
+<section style="padding:48px 0;background:#F8FAF9;">
+<div class="container" style="max-width:780px;">
+
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+<form id="surveyForm" onsubmit="submitSurvey(event)">
+
+<!-- SECTION 1: WHO ARE YOU -->
+<div class="survey-section">
+<h3><span class="section-num">1</span> About You</h3>
+<p class="desc">Help us understand your role so we can tailor TheValveHubs to your specific needs.</p>
+
+<div class="q-block">
+<div class="q-label"><span class="q-num">1</span> What best describes your role?</div>
+<div class="options-grid">
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q1')">&#127981; Saudi Valve Manufacturer</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q1')">&#128230; Saudi Stockist / Distributor</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q1')">&#128297; Saudi Service Provider</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q1')">&#127760; International Supplier / OEM</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q1')">&#128203; Buyer / Procurement Manager</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q1')">&#9881; Valve Engineer / Consultant</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q1')">&#127981; EPC Contractor</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q1')">&#127868; Investor / Business Partner</button>
+</div>
+</div>
+
+<div class="q-block">
+<div class="q-label"><span class="q-num">2</span> Which sector do you primarily work in?</div>
+<div class="options-grid">
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q2')">&#128739; Oil &amp; Gas</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q2')">&#9881; Petrochemical</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q2')">&#128167; Water &amp; Desalination</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q2')">&#9889; Power &amp; Utilities</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q2')">&#128296; Mining</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q2')">&#128679; Giga Projects / NEOM</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q2')">&#127963; Infrastructure</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q2')">&#127981; General Industry</button>
+</div>
+</div>
+
+<div class="q-block">
+<div class="q-label"><span class="q-num">3</span> Where are you based?</div>
+<div class="options-grid">
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q3')">&#128205; Jubail</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q3')">&#128205; Dammam / Al Khobar</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q3')">&#128205; Riyadh</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q3')">&#128205; Jeddah</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q3')">&#128205; Yanbu</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q3')">&#128205; Other KSA</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q3')">&#127760; UAE / GCC</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q3')">&#127760; Europe / International</button>
+</div>
+</div>
+</div>
+
+<!-- SECTION 2: FIRST IMPRESSIONS -->
+<div class="survey-section">
+<h3><span class="section-num" style="background:#2C4A7C;">2</span> First Impressions &amp; Overall Experience</h3>
+<p class="desc">Your honest assessment of TheValveHubs as you experience it today.</p>
+
+<div class="q-block">
+<div class="q-label"><span class="q-num">4</span> How would you rate TheValveHubs overall? (1 = Poor, 10 = Excellent)</div>
+<div class="scale-row">
+<div id="stars" class="star-row">&#9733;&#9733;&#9733;&#9733;&#9733;&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+</div>
+<div class="scale-row" style="margin-top:10px;">
+{1..10 | % { "<button type='button' class='scale-btn' onclick='selectScale(this,\"q4\")'>${_}</button>" }}
+<span class="scale-label">1 = Poor &nbsp;&nbsp;&nbsp; 10 = World-class</span>
+</div>
+<div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;" id="scaleQ4">
+<button type="button" class="scale-btn" onclick="selectScale(this,'q4')">1</button>
+<button type="button" class="scale-btn" onclick="selectScale(this,'q4')">2</button>
+<button type="button" class="scale-btn" onclick="selectScale(this,'q4')">3</button>
+<button type="button" class="scale-btn" onclick="selectScale(this,'q4')">4</button>
+<button type="button" class="scale-btn" onclick="selectScale(this,'q4')">5</button>
+<button type="button" class="scale-btn" onclick="selectScale(this,'q4')">6</button>
+<button type="button" class="scale-btn" onclick="selectScale(this,'q4')">7</button>
+<button type="button" class="scale-btn" onclick="selectScale(this,'q4')">8</button>
+<button type="button" class="scale-btn" onclick="selectScale(this,'q4')">9</button>
+<button type="button" class="scale-btn" onclick="selectScale(this,'q4')">10</button>
+<span class="scale-label">1 = Poor &nbsp;&nbsp; 10 = World-class</span>
+</div>
+</div>
+
+<div class="q-block">
+<div class="q-label"><span class="q-num">5</span> How does TheValveHubs compare to other valve procurement platforms you have used?</div>
+<div class="options-grid">
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q5')">&#128640; Much better than others</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q5')">&#128077; Somewhat better</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q5')">&#9868; About the same</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q5')">&#128078; Needs improvement to compete</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q5')">&#10067; No other platforms to compare</button>
+</div>
+</div>
+
+<div class="q-block">
+<div class="q-label"><span class="q-num">6</span> What is TheValveHubs' strongest asset? (Select all that apply)</div>
+<div class="options-grid">
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#127470;&#127474; Saudi-First Procurement Model</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#127954; IKTVA Tools & Score Display</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#128240; Intelligence & News Hub</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#128203; Watch Projects Tracker</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#128680; Emergency 24/7 Network</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#9881; Saudi Market Supplier Directory</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#127868; Invest in Saudi Content</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#127891; Valve Academy Vision</button>
+</div>
+</div>
+</div>
+
+<!-- SECTION 3: CONTENT & FEATURES -->
+<div class="survey-section">
+<h3><span class="section-num" style="background:#C8973A;">3</span> Content Quality &amp; Platform Features</h3>
+<p class="desc">Rate each area of the platform to help us prioritise improvements.</p>
+
+<div class="q-block">
+<div class="q-label"><span class="q-num">7</span> Rate the following features (1 = Needs work, 5 = Excellent):</div>
+<div style="display:flex;flex-direction:column;gap:14px;margin-top:4px;">
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding:12px;background:#F8FAF9;border-radius:8px;">
+<span style="font-size:.85rem;font-weight:600;">&#127470;&#127474; Saudi Market — Supplier Directory</span>
+<div style="display:flex;gap:5px;" id="f1">
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f1')">1</button>
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f1')">2</button>
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f1')">3</button>
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f1')">4</button>
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f1')">5</button>
+</div>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding:12px;background:#F8FAF9;border-radius:8px;">
+<span style="font-size:.85rem;font-weight:600;">&#128240; TVH Intelligence — News & Market Data</span>
+<div style="display:flex;gap:5px;" id="f2">
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f2')">1</button>
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f2')">2</button>
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f2')">3</button>
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f2')">4</button>
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f2')">5</button>
+</div>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding:12px;background:#F8FAF9;border-radius:8px;">
+<span style="font-size:.85rem;font-weight:600;">&#128203; Watch Projects — Tender Tracker</span>
+<div style="display:flex;gap:5px;" id="f3">
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f3')">1</button>
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f3')">2</button>
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f3')">3</button>
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f3')">4</button>
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f3')">5</button>
+</div>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding:12px;background:#F8FAF9;border-radius:8px;">
+<span style="font-size:.85rem;font-weight:600;">&#127954; IKTVA Calculator Tool</span>
+<div style="display:flex;gap:5px;" id="f4">
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f4')">1</button>
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f4')">2</button>
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f4')">3</button>
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f4')">4</button>
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f4')">5</button>
+</div>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding:12px;background:#F8FAF9;border-radius:8px;">
+<span style="font-size:.85rem;font-weight:600;">&#128680; Emergency 24/7 Services</span>
+<div style="display:flex;gap:5px;" id="f5">
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f5')">1</button>
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f5')">2</button>
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f5')">3</button>
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f5')">4</button>
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f5')">5</button>
+</div>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding:12px;background:#F8FAF9;border-radius:8px;">
+<span style="font-size:.85rem;font-weight:600;">&#127868; Invest in Saudi — Market Data</span>
+<div style="display:flex;gap:5px;" id="f6">
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f6')">1</button>
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f6')">2</button>
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f6')">3</button>
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f6')">4</button>
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f6')">5</button>
+</div>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding:12px;background:#F8FAF9;border-radius:8px;">
+<span style="font-size:.85rem;font-weight:600;">&#127891; Valve Academy — Concept &amp; Vision</span>
+<div style="display:flex;gap:5px;" id="f7">
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f7')">1</button>
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f7')">2</button>
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f7')">3</button>
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f7')">4</button>
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f7')">5</button>
+</div>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding:12px;background:#F8FAF9;border-radius:8px;">
+<span style="font-size:.85rem;font-weight:600;">&#127760; Global Suppliers Directory</span>
+<div style="display:flex;gap:5px;" id="f8">
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f8')">1</button>
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f8')">2</button>
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f8')">3</button>
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f8')">4</button>
+<button type="button" class="scale-btn" style="width:36px;height:36px;font-size:.78rem;" onclick="selectScale(this,'f8')">5</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 4: GAPS & MISSING FEATURES -->
+<div class="survey-section">
+<h3><span class="section-num" style="background:#C0392B;">4</span> What's Missing? Critical Gaps</h3>
+<p class="desc">This is the most important section. Be brutally honest — what does TheValveHubs lack?</p>
+
+<div class="q-block">
+<div class="q-label"><span class="q-num">8</span> What features are MOST URGENTLY needed? (Select all that apply)</div>
+<div class="options-grid">
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#128269; Searchable supplier database</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#128203; Live RFQ submission system</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#128222; WhatsApp/SMS alerts for tenders</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#128179; Online payment / subscription</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#128241; Mobile app version</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#127468;&#127463; Arabic language version</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#128100; Supplier login & profile management</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#127919; IKTVA verification badge system</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#128176; Quotation / tender management tool</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#128200; Market price benchmarking</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#9200; Real-time Etimad tender alerts</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#128203; Document upload (drawings/specs)</button>
+</div>
+</div>
+
+<div class="q-block">
+<div class="q-label"><span class="q-num">9</span> What prevents you from using TheValveHubs more actively right now?</div>
+<div class="options-grid">
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#10067; Platform not yet well known</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#128203; No live RFQ / transaction system</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#128245; Supplier data needs verification</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#128100; No supplier login / self-service</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#127468;&#127463; No Arabic interface</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#128241; No mobile app</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#128176; Pricing not clear / too high</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#128683; Nothing — I use it regularly</button>
+</div>
+</div>
+
+<div class="q-block">
+<div class="q-label"><span class="q-num">10</span> Describe in your own words what TheValveHubs absolutely MUST have to become the #1 platform in Saudi Arabia:</div>
+<textarea placeholder="e.g. 'A live RFQ system where I can post a requirement and get quotes within 24 hours from verified Saudi suppliers...' or 'Real Aramco-approved supplier data with contact details and IKTVA scores I can trust...'"></textarea>
+</div>
+</div>
+
+<!-- SECTION 5: SAUDI MARKET FOCUS -->
+<div class="survey-section">
+<h3><span class="section-num" style="background:#006C35;">5</span> Saudi Market &amp; IKTVA Alignment</h3>
+<p class="desc">TheValveHubs is built around Saudi-first procurement and Vision 2030. How well are we delivering?</p>
+
+<div class="q-block">
+<div class="q-label"><span class="q-num">11</span> How valuable is the IKTVA score display on supplier profiles to your procurement process?</div>
+<div class="options-grid">
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q11')">&#128680; Extremely valuable — essential for compliance</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q11')">&#128077; Very useful — helps decision-making</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q11')">&#9868; Somewhat useful</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q11')">&#128078; Not relevant to my work</button>
+</div>
+</div>
+
+<div class="q-block">
+<div class="q-label"><span class="q-num">12</span> Does TheValveHubs adequately cover all Saudi supplier categories you need?</div>
+<div class="options-grid">
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q12')">&#9989; Yes — covers everything I need</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q12')">&#128203; Mostly — a few gaps</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q12')">&#10060; No — many gaps in my category</button>
+</div>
+</div>
+
+<div class="q-block">
+<div class="q-label"><span class="q-num">13</span> Which Saudi supplier categories are MISSING or need more listings?</div>
+<textarea placeholder="e.g. 'More valve testing labs, more Jubail-based machining companies, gasket manufacturers in Yanbu...'"></textarea>
+</div>
+
+<div class="q-block">
+<div class="q-label"><span class="q-num">14</span> How important is an Arabic version of the platform?</div>
+<div id="scaleQ14" style="display:flex;gap:6px;flex-wrap:wrap;">
+<button type="button" class="scale-btn" onclick="selectScale(this,'q14')">1</button>
+<button type="button" class="scale-btn" onclick="selectScale(this,'q14')">2</button>
+<button type="button" class="scale-btn" onclick="selectScale(this,'q14')">3</button>
+<button type="button" class="scale-btn" onclick="selectScale(this,'q14')">4</button>
+<button type="button" class="scale-btn" onclick="selectScale(this,'q14')">5</button>
+<span class="scale-label">1 = Not needed &nbsp;&nbsp; 5 = Critical priority</span>
+</div>
+</div>
+</div>
+
+<!-- SECTION 6: COMPETITION & POSITIONING -->
+<div class="survey-section">
+<h3><span class="section-num" style="background:#7B2FA8;">6</span> Competition &amp; Market Positioning</h3>
+<p class="desc">Understanding how TheValveHubs sits in the competitive landscape.</p>
+
+<div class="q-block">
+<div class="q-label"><span class="q-num">15</span> What other platforms or methods do you currently use to find Saudi valve suppliers?</div>
+<div class="options-grid">
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#128241; Phone calls / WhatsApp</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#128100; Personal contacts / network</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#127760; Global platforms (Alibaba, Thomasnet)</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#128197; Industry events / exhibitions</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#128269; Google search</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#128241; LinkedIn</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#127470;&#127474; Aramco / SABIC approved vendor lists</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#127981; Middle East Valve / similar sites</button>
+</div>
+</div>
+
+<div class="q-block">
+<div class="q-label"><span class="q-num">16</span> What would make TheValveHubs the ONLY platform you need for Saudi valve sourcing?</div>
+<textarea placeholder="e.g. 'If it had real verified contact details, live IKTVA scores, the ability to send RFQs and track responses all in one place...'"></textarea>
+</div>
+</div>
+
+<!-- SECTION 7: RECOMMENDATIONS & NEXT STEPS -->
+<div class="survey-section">
+<h3><span class="section-num" style="background:#0D7272;">7</span> Your Recommendations &amp; Final Thoughts</h3>
+<p class="desc">This section shapes our 2025–2026 development roadmap.</p>
+
+<div class="q-block">
+<div class="q-label"><span class="q-num">17</span> What should be TheValveHubs' TOP PRIORITY for the next 6 months?</div>
+<div class="options-grid">
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q17')">&#128100; Supplier onboarding — get real verified suppliers registered</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q17')">&#128203; Live RFQ system — allow real quote requests</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q17')">&#127468;&#127463; Arabic version — full bilingual platform</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q17')">&#128241; Mobile app — iOS and Android</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q17')">&#128679; Etimad integration — real-time tender alerts</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q17')">&#127979; Valve Academy — find training center partner</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q17')">&#127760; Marketing — make platform known across KSA</button>
+<button type="button" class="opt-btn" onclick="selectOpt(this,'q17')">&#128200; Data quality — verify all supplier information</button>
+</div>
+</div>
+
+<div class="q-block">
+<div class="q-label"><span class="q-num">18</span> How likely are you to recommend TheValveHubs to a colleague or business partner?</div>
+<div id="scaleQ18" style="display:flex;gap:6px;flex-wrap:wrap;">
+<button type="button" class="scale-btn" onclick="selectScale(this,'q18')">1</button>
+<button type="button" class="scale-btn" onclick="selectScale(this,'q18')">2</button>
+<button type="button" class="scale-btn" onclick="selectScale(this,'q18')">3</button>
+<button type="button" class="scale-btn" onclick="selectScale(this,'q18')">4</button>
+<button type="button" class="scale-btn" onclick="selectScale(this,'q18')">5</button>
+<button type="button" class="scale-btn" onclick="selectScale(this,'q18')">6</button>
+<button type="button" class="scale-btn" onclick="selectScale(this,'q18')">7</button>
+<button type="button" class="scale-btn" onclick="selectScale(this,'q18')">8</button>
+<button type="button" class="scale-btn" onclick="selectScale(this,'q18')">9</button>
+<button type="button" class="scale-btn" onclick="selectScale(this,'q18')">10</button>
+<span class="scale-label">1 = Definitely not &nbsp;&nbsp; 10 = Definitely yes (NPS)</span>
+</div>
+</div>
+
+<div class="q-block">
+<div class="q-label"><span class="q-num">19</span> Would you like to be involved in shaping TheValveHubs? (Select all that apply)</div>
+<div class="options-grid">
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#129309; Advisory Board Member</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#127470;&#127474; Saudi Supplier Partner</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#127760; Global Supplier Partner</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#127868; Investor / Strategic Partner</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#128203; Beta Tester for New Features</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#128218; Content Contributor / Expert Author</button>
+<button type="button" class="opt-btn multi" onclick="toggleMulti(this)">&#9201; Just keep me updated — not now</button>
+</div>
+</div>
+
+<div class="q-block">
+<div class="q-label"><span class="q-num">20</span> Any final message to the TheValveHubs team — advice, criticism, encouragement or ideas:</div>
+<textarea style="min-height:100px;" placeholder="Your message here..."></textarea>
+</div>
+
+<!-- Contact (optional) -->
+<div style="background:#F8FAF9;border-radius:10px;padding:18px;margin-top:8px;">
+<div style="font-size:.82rem;font-weight:700;color:#5A6B62;margin-bottom:12px;">OPTIONAL — Leave your contact if you'd like us to follow up on your feedback:</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+<div><label style="font-size:.78rem;font-weight:600;display:block;margin-bottom:4px;">Name</label><input type="text" placeholder="Your name (optional)"/></div>
+<div><label style="font-size:.78rem;font-weight:600;display:block;margin-bottom:4px;">Email / WhatsApp</label><input type="email" placeholder="contact@company.com (optional)"/></div>
+</div>
+</div>
+
+<div style="margin-top:24px;">
+<button type="submit" class="submit-btn">&#9989; Submit My Evaluation &amp; Recommendations</button>
+<p style="text-align:center;font-size:.75rem;color:#8A9E8F;margin-top:8px;">100% anonymous &bull; Your feedback goes directly to the TheValveHubs founder &bull; Thank you</p>
+</div>
+
+</div>
+</div>
+
+<!-- THANK YOU -->
+<div class="thank-you" id="thankYou">
+<div style="font-size:3rem;margin-bottom:16px;">&#127942;</div>
+<h2 style="font-size:1.7rem;font-weight:900;color:#006C35;margin-bottom:10px;">Thank You for Your Feedback!</h2>
+<p style="color:#5A6B62;font-size:.95rem;max-width:520px;margin:0 auto 24px;line-height:1.7;">Your evaluation has been submitted and will be reviewed personally by Abdullah F. AlSubaie, Founder of TheValveHubs. Your insights directly shape our development roadmap.</p>
+<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+<a href="index.html" style="background:#006C35;color:#fff;padding:12px 24px;border-radius:8px;font-weight:700;text-decoration:none;">Back to TheValveHubs</a>
+<a href="saudi-market.html" style="border:2px solid #006C35;color:#006C35;padding:12px 24px;border-radius:8px;font-weight:600;text-decoration:none;">&#127470;&#127474; Browse Saudi Suppliers</a>
+</div>
+</div>
+
+</form>
+</div>
+</section>
+
+<footer><div class="container"><div class="footer-bottom" style="text-align:center;padding:24px 0;"><span style="color:#5A6B62;font-size:.82rem;">&copy; 2025 TheValveHubs &bull; Al Khobar, Saudi Arabia &bull; info@thevalvehubs.com</span></div></div></footer>
+
+<script>
+window.addEventListener('load',function(){setTimeout(function(){document.getElementById('preloader').classList.add('hidden');},1200);});
+var nb=document.getElementById('navbar');window.addEventListener('scroll',function(){nb.classList.toggle('scrolled',window.scrollY>40);},{passive:true});
+
+function selectOpt(btn, group) {
+  document.querySelectorAll('[onclick*="selectOpt"][onclick*="' + group + '"]').forEach(function(b){ b.classList.remove('selected'); });
+  btn.classList.add('selected');
+  updateProgress();
+}
+function selectScale(btn, group) {
+  var parent = btn.parentElement;
+  parent.querySelectorAll('.scale-btn').forEach(function(b){ b.classList.remove('selected'); });
+  btn.classList.add('selected');
+  updateProgress();
+}
+function toggleMulti(btn) {
+  btn.classList.toggle('selected');
+  updateProgress();
+}
+function updateProgress() {
+  var selected = document.querySelectorAll('.selected').length;
+  var pct = Math.min(100, Math.round((selected / 30) * 100));
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+function submitSurvey(e) {
+  e.preventDefault();
+  document.getElementById('surveyForm').style.display = 'none';
+  document.getElementById('thankYou').style.display = 'block';
+  window.scrollTo({top: 400, behavior: 'smooth'});
+}
+</script>
+<script src="js/navbar-auth.js"></script>
+</body>
+</html>
+

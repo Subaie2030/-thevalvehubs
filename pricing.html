@@ -1,0 +1,404 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Pricing Plans — TheValveHubs | Join Saudi Arabia's Industrial Valve Marketplace</title>
+<meta name="description" content="TheValveHubs pricing plans for valve suppliers, service companies and industrial buyers in Saudi Arabia. Free to join. Premium plans for maximum visibility and RFQ access."/>
+<link rel="stylesheet" href="style.css"/>
+<style>
+.pricing-hero{background:linear-gradient(145deg,#003A1A,#006C35,#004A24);padding:100px 0 60px;position:relative;overflow:hidden;}
+.pricing-hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:56px 56px;}
+.pricing-hero::after{content:'';position:absolute;top:-20%;right:-5%;width:55%;height:130%;background:radial-gradient(ellipse,rgba(200,151,58,.18) 0%,transparent 60%);pointer-events:none;}
+.pricing-hero .container{position:relative;z-index:1;}
+.pricing-hero h1{font-size:clamp(2rem,4vw,3rem);font-weight:900;color:#fff;line-height:1.1;margin-bottom:12px;}
+.pricing-hero p{font-size:.97rem;color:rgba(255,255,255,.8);max-width:560px;line-height:1.75;}
+
+/* Toggle */
+.billing-toggle{display:flex;align-items:center;gap:12px;justify-content:center;margin-bottom:40px;}
+.toggle-label{font-size:.85rem;font-weight:600;color:#5A6B62;}
+.toggle-label.active{color:#006C35;font-weight:700;}
+.toggle-switch{width:50px;height:26px;background:#D8E4D8;border-radius:13px;position:relative;cursor:pointer;transition:background .2s;}
+.toggle-switch.on{background:#006C35;}
+.toggle-switch::after{content:'';position:absolute;width:20px;height:20px;background:#fff;border-radius:50%;top:3px;left:3px;transition:left .2s;box-shadow:0 2px 6px rgba(0,0,0,.15);}
+.toggle-switch.on::after{left:27px;}
+.save-badge{background:linear-gradient(135deg,#9B7120,#C8973A);color:#fff;font-size:.68rem;font-weight:800;padding:3px 10px;border-radius:100px;}
+
+/* Pricing grid */
+.pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:0;}
+
+/* Plan card */
+.plan-card{background:#fff;border-radius:20px;border:1.5px solid #D8E4D8;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.07);transition:transform .25s,box-shadow .25s;position:relative;}
+.plan-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.12);}
+.plan-card.featured{border-color:#006C35;box-shadow:0 8px 40px rgba(0,108,53,.2);}
+.plan-card.featured::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#004A24,#009444);}
+
+.plan-popular{position:absolute;top:12px;right:12px;background:linear-gradient(135deg,#006C35,#009444);color:#fff;font-size:.65rem;font-weight:800;padding:4px 12px;border-radius:100px;}
+
+.plan-header{padding:24px 22px 18px;}
+.plan-icon{font-size:1.8rem;margin-bottom:10px;}
+.plan-name{font-size:1.05rem;font-weight:900;color:#1A2A1A;margin-bottom:4px;}
+.plan-tagline{font-size:.78rem;color:#7A9A7A;line-height:1.5;}
+
+.plan-price{padding:0 22px 18px;border-bottom:1.5px solid #EBF7F0;}
+.price-amount{display:flex;align-items:flex-end;gap:4px;margin-bottom:3px;}
+.price-currency{font-size:1.1rem;font-weight:700;color:#1A2A1A;margin-bottom:6px;}
+.price-num{font-size:2.8rem;font-weight:900;color:#006C35;line-height:1;}
+.price-num.free{color:#006C35;}
+.price-period{font-size:.78rem;color:#7A9A7A;margin-bottom:6px;}
+.price-annual{font-size:.72rem;color:#C8973A;font-weight:700;background:#FDF3E3;border:1px solid rgba(200,151,58,.2);padding:2px 8px;border-radius:4px;display:inline-block;margin-top:4px;}
+.price-annual.hidden{display:none;}
+
+.plan-features{padding:18px 22px;}
+.pf-title{font-size:.68rem;font-weight:800;color:#7A9A7A;text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;}
+.pf-list{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
+.pf-item{display:flex;align-items:flex-start;gap:8px;font-size:.8rem;color:#1A2A1A;}
+.pf-icon{font-size:.85rem;flex-shrink:0;margin-top:1px;}
+.pf-item.muted{color:#B0BAB4;}
+.pf-item.muted .pf-icon{opacity:.4;}
+
+.plan-cta{padding:0 22px 22px;}
+.plan-btn{width:100%;padding:12px;border-radius:12px;font-size:.88rem;font-weight:700;cursor:pointer;border:none;font-family:inherit;transition:all .2s;text-align:center;display:block;}
+.plan-btn-free{background:#EBF7F0;color:#006C35;border:1.5px solid rgba(0,108,53,.14);}
+.plan-btn-free:hover{background:#D8EED8;}
+.plan-btn-primary{background:#006C35;color:#fff;}
+.plan-btn-primary:hover{background:#004A24;}
+.plan-btn-gold{background:linear-gradient(135deg,#9B7120,#C8973A);color:#fff;}
+.plan-btn-gold:hover{opacity:.9;}
+.plan-btn-enterprise{background:#1A2A1A;color:#fff;}
+.plan-btn-enterprise:hover{background:#000;}
+
+/* Comparison table */
+.compare-table{width:100%;border-collapse:collapse;margin-top:40px;}
+.compare-table th,.compare-table td{padding:12px 16px;text-align:left;border-bottom:1px solid #E0E5E2;font-size:.82rem;}
+.compare-table th{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#7A9A7A;background:#F8FAF9;}
+.compare-table td:first-child{font-weight:600;color:#1A2A1A;}
+.check{color:#006C35;font-weight:900;}
+.cross{color:#B0BAB4;}
+.compare-table tr:hover td{background:#FAFCFB;}
+
+/* FAQ */
+.faq-item{border-bottom:1px solid #E0E5E2;}
+.faq-q{padding:16px 0;font-size:.9rem;font-weight:700;color:#1A2A1A;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;}
+.faq-q::after{content:'+';font-size:1.3rem;color:#006C35;font-weight:900;flex-shrink:0;transition:transform .2s;}
+.faq-item.open .faq-q::after{transform:rotate(45deg);}
+.faq-a{display:none;padding:0 0 16px;font-size:.83rem;color:#5A6B62;line-height:1.75;}
+.faq-item.open .faq-a{display:block;}
+
+@media(max-width:1100px){.pricing-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:768px){.pricing-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div id="preloader"><div class="preloader-inner"><div class="preloader-logo">TVH</div><div class="preloader-spinner"></div></div></div>
+<div class="emergency-band" id="emergencyBand">&#128680; Emergency 24/7 &mdash; <a href="emergency.html">Submit RFQ &rarr;</a><button class="band-dismiss" onclick="document.getElementById('emergencyBand').style.display='none'">&times;</button></div>
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="images/tvh-logo-extracted.jpg" alt="TheValveHubs" style="width:220px;height:58px;object-fit:contain;object-position:left center;display:block;flex-shrink:0;"/></a>
+    <ul class="nav-menu">
+      <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+      <li class="nav-item"><a href="platform.html" class="nav-link" style="color:#006C35;font-weight:700;">&#128205; Platform</a></li>
+      <li class="nav-item"><a href="saudi-market.html" class="nav-link">&#127470;&#127474; Saudi Market <span class="arrow">&#9660;</span></a><div class="dropdown"><div class="dropdown-group"><div class="dropdown-label">6 Pillars &mdash; Saudi First</div><a href="saudi-market.html#valves"><span class="d-icon">&#9881;</span> Pillar 1 &mdash; Valves</a><a href="saudi-market.html#parts"><span class="d-icon">&#128230;</span> Pillar 2 &mdash; Spare Parts</a><a href="saudi-market.html#machining"><span class="d-icon">&#128297;</span> Pillar 3 &mdash; Machining</a><a href="saudi-market.html#printing"><span class="d-icon">&#128424;</span> Pillar 4 &mdash; 3D Printing</a><a href="saudi-market.html#tpi"><span class="d-icon">&#128203;</span> Pillar 5 &mdash; Consultation</a><a href="saudi-market.html#rental"><span class="d-icon">&#128260;</span> Pillar 6 &mdash; Rental</a></div></div></li>
+      <li class="nav-item"><a href="global-suppliers.html" class="nav-link">&#127760; Global Suppliers <span class="arrow">&#9660;</span></a><div class="dropdown"><div class="dropdown-group"><div class="dropdown-label">Priority 2 &mdash; When Saudi Unavailable</div><a href="global-suppliers.html#oem"><span class="d-icon">&#127981;</span> OEM Manufacturers</a><a href="global-suppliers.html#distributors"><span class="d-icon">&#127987;</span> UAE Distributors</a><a href="global-suppliers.html#parts"><span class="d-icon">&#128230;</span> Global Spare Parts</a></div></div></li>
+      <li class="nav-item"><a href="emergency.html" class="nav-link emergency-link">&#128680; Emergency <span class="arrow">&#9660;</span></a><div class="dropdown"><div class="dropdown-group"><div class="dropdown-label">24/7 Emergency Services</div><a href="emergency.html#valves">&#9881; Emergency Valves</a><a href="emergency.html#parts">&#128295; Emergency Spare Parts</a><a href="emergency.html#rental">&#128260; Emergency Rental</a></div><hr/><a href="emergency.html">&#128203; Submit Emergency RFQ</a></div></li>
+      <li class="nav-item"><a href="#" class="nav-link">&#128736; Tools <span class="arrow">&#9660;</span></a><div class="dropdown"><div class="dropdown-group"><div class="dropdown-label">Free Tools</div><a href="iktva-calculator.html"><span class="d-icon">&#127954;</span> IKTVA Score Calculator</a><a href="valve-wizard.html"><span class="d-icon">&#128203;</span> Valve Specification Wizard</a><a href="shutdown-calendar.html"><span class="d-icon">&#128197;</span> Shutdown Calendar 2025&ndash;26</a></div><hr/><a href="pricing.html"><span class="d-icon">&#128176;</span> Pricing Plans</a></div></li>
+      <li class="nav-item"><a href="invest-saudi.html" class="nav-link" style="color:#006C35;font-weight:700;">&#127868; Invest in Saudi</a></li>
+      <li class="nav-item"><a href="experts.html" class="nav-link">&#128119; Experts</a></li>
+    </ul>
+    <div class="nav-cta"><a href="survey.html" class="btn btn-outline-green btn-sm" style="border-color:#C8973A;color:#C8973A;">&#127942; Rate Us</a><a href="index.html#join" class="btn btn-outline-green btn-sm">Join Free</a><a href="emergency.html" class="btn btn-red btn-sm">&#128680; Emergency</a></div>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobileNav"><div class="mobile-nav-item"><a href="index.html" class="mobile-nav-link">Home</a></div><div class="mobile-nav-item"><a href="saudi-market.html" class="mobile-nav-link">&#127470;&#127474; Saudi Market</a></div><div class="mobile-nav-item"><a href="global-suppliers.html" class="mobile-nav-link">&#127760; Global Suppliers</a></div><div class="mobile-nav-item"><a href="emergency.html" class="mobile-nav-link" style="color:#C0392B">&#128680; Emergency 24/7</a></div><div class="mobile-nav-item"><a href="experts.html" class="mobile-nav-link">&#128119; Experts &amp; Technicians</a></div><div class="mobile-nav-item"><a href="iktva-calculator.html" class="mobile-nav-link">&#127954; IKTVA Calculator</a></div><div class="mobile-nav-item"><a href="valve-wizard.html" class="mobile-nav-link">&#128203; Valve Wizard</a></div><div class="mobile-nav-item"><a href="shutdown-calendar.html" class="mobile-nav-link">&#128197; Shutdown Calendar</a></div><div class="mobile-nav-item"><a href="pricing.html" class="mobile-nav-link" style="color:#006C35;font-weight:700;">&#128176; Pricing Plans</a></div><div class="mobile-nav-item"><a href="invest-saudi.html" class="mobile-nav-link">&#127868; Invest in Saudi</a></div><div class="mobile-nav-item"><a href="about.html" class="mobile-nav-link">About</a></div><div class="mobile-cta"><a href="index.html#join" class="btn btn-green">Join Free</a><a href="emergency.html" class="btn btn-red">&#128680; Emergency</a></div></div>
+
+<!-- HERO -->
+<section class="pricing-hero">
+  <div class="container">
+    <div style="font-size:.72rem;color:rgba(255,255,255,.55);margin-bottom:14px;"><a href="index.html" style="color:rgba(255,255,255,.7);">Home</a> &#8250; <span>Pricing</span></div>
+    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:6px 16px;font-size:.74rem;font-weight:700;color:rgba(255,255,255,.9);margin-bottom:18px;">&#128176; Simple, Transparent Pricing &bull; Start Free</div>
+    <h1>One Platform.<br/>Four Plans.</h1>
+    <p>Start free as an Early Industry Partner. Upgrade when you're ready to unlock premium visibility, priority RFQ matching and direct buyer access. All prices in SAR.</p>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section style="padding:52px 0;background:#F8FAF9;">
+  <div class="container">
+
+    <!-- BILLING TOGGLE -->
+    <div class="billing-toggle">
+      <span class="toggle-label active" id="monthlyLabel">Monthly</span>
+      <div class="toggle-switch" id="billingToggle" onclick="toggleBilling()"></div>
+      <span class="toggle-label" id="annualLabel">Annual</span>
+      <span class="save-badge">Save 20%</span>
+    </div>
+
+    <!-- PLAN CARDS -->
+    <div class="pricing-grid">
+
+      <!-- FREE -->
+      <div class="plan-card">
+        <div class="plan-header">
+          <div class="plan-icon">&#127807;</div>
+          <div class="plan-name">Early Partner</div>
+          <div class="plan-tagline">For new companies joining the platform during our launch phase</div>
+        </div>
+        <div class="plan-price">
+          <div class="price-amount"><span class="price-currency">SAR</span><span class="price-num free">0</span></div>
+          <div class="price-period">Forever free &mdash; during launch phase</div>
+          <div class="price-annual hidden" id="a0">&#10003; Always free during launch</div>
+        </div>
+        <div class="plan-features">
+          <div class="pf-title">What's included</div>
+          <div class="pf-list">
+            <div class="pf-item"><span class="pf-icon">&#10003;</span>Basic company profile listing</div>
+            <div class="pf-item"><span class="pf-icon">&#10003;</span>IKTVA score displayed</div>
+            <div class="pf-item"><span class="pf-icon">&#10003;</span>Certifications &amp; product tags</div>
+            <div class="pf-item"><span class="pf-icon">&#10003;</span>Appear in search results</div>
+            <div class="pf-item"><span class="pf-icon">&#10003;</span>Contact form (buyers reach you)</div>
+            <div class="pf-item"><span class="pf-icon">&#10003;</span>Access to IKTVA Calculator</div>
+            <div class="pf-item"><span class="pf-icon">&#10003;</span>Access to Valve Wizard</div>
+            <div class="pf-item muted"><span class="pf-icon">&#10005;</span>Priority placement</div>
+            <div class="pf-item muted"><span class="pf-icon">&#10005;</span>Direct RFQ notifications</div>
+            <div class="pf-item muted"><span class="pf-icon">&#10005;</span>Emergency RFQ alerts</div>
+          </div>
+        </div>
+        <div class="plan-cta"><a href="index.html#join" class="plan-btn plan-btn-free">Get Started Free &#8594;</a></div>
+      </div>
+
+      <!-- VERIFIED -->
+      <div class="plan-card">
+        <div class="plan-header">
+          <div class="plan-icon">&#127954;</div>
+          <div class="plan-name">Verified</div>
+          <div class="plan-tagline">For active Saudi suppliers ready to receive qualified procurement enquiries</div>
+        </div>
+        <div class="plan-price">
+          <div class="price-amount"><span class="price-currency">SAR</span><span class="price-num" id="p1">199</span></div>
+          <div class="price-period" id="pp1">per month</div>
+          <div style="margin-top:8px;"><div id="a1" style="display:inline-block;background:#EBF7F0;border:1.5px solid rgba(0,108,53,.25);color:#006C35;border-radius:8px;padding:6px 14px;font-size:.82rem;font-weight:900;">&#127919; SAR 1,995 / annum &mdash; one-time payment</div></div>
+        </div>
+        <div class="plan-features">
+          <div class="pf-title">Everything in Free, plus</div>
+          <div class="pf-list">
+            <div class="pf-item"><span class="pf-icon">&#10003;</span>&#10024; <strong>Verified badge</strong> on profile</div>
+            <div class="pf-item"><span class="pf-icon">&#10003;</span>Priority placement in search</div>
+            <div class="pf-item"><span class="pf-icon">&#10003;</span>Direct RFQ email notifications</div>
+            <div class="pf-item"><span class="pf-icon">&#10003;</span>Enhanced company profile (photos, video)</div>
+            <div class="pf-item"><span class="pf-icon">&#10003;</span>Product catalogue listing</div>
+            <div class="pf-item"><span class="pf-icon">&#10003;</span>Monthly performance report</div>
+            <div class="pf-item"><span class="pf-icon">&#10003;</span>IKTVA score verification</div>
+            <div class="pf-item muted"><span class="pf-icon">&#10005;</span>Homepage spotlight</div>
+            <div class="pf-item muted"><span class="pf-icon">&#10005;</span>Emergency RFQ priority</div>
+          </div>
+        </div>
+        <div class="plan-cta"><a href="index.html#join" class="plan-btn plan-btn-primary">Start Verified &#8594;</a></div>
+      </div>
+
+      <!-- PROFESSIONAL (FEATURED) -->
+      <div class="plan-card featured">
+        <span class="plan-popular">&#11088; Most Popular</span>
+        <div class="plan-header">
+          <div class="plan-icon">&#127942;</div>
+          <div class="plan-name">Professional</div>
+          <div class="plan-tagline">For established suppliers wanting maximum visibility and direct buyer access</div>
+        </div>
+        <div class="plan-price">
+          <div class="price-amount"><span class="price-currency">SAR</span><span class="price-num" id="p2">295</span></div>
+          <div class="price-period" id="pp2">per month</div>
+          <div style="margin-top:8px;"><div id="a2" style="display:inline-block;background:#EBF7F0;border:1.5px solid rgba(0,108,53,.25);color:#006C35;border-radius:8px;padding:6px 14px;font-size:.82rem;font-weight:900;">&#127919; SAR 2,995 / annum &mdash; one-time payment</div></div>
+        </div>
+        <div class="plan-features">
+          <div class="pf-title">Everything in Verified, plus</div>
+          <div class="pf-list">
+            <div class="pf-item"><span class="pf-icon">&#10003;</span>&#127942; <strong>Featured company spotlight</strong> &mdash; homepage &amp; pillar pages</div>
+            <div class="pf-item"><span class="pf-icon">&#10003;</span>Emergency RFQ priority alerts (24/7)</div>
+            <div class="pf-item"><span class="pf-icon">&#10003;</span>Top 3 placement per category</div>
+            <div class="pf-item"><span class="pf-icon">&#10003;</span>LinkedIn campaign inclusion (monthly)</div>
+            <div class="pf-item"><span class="pf-icon">&#10003;</span>Dedicated sector newsletter inclusion</div>
+            <div class="pf-item"><span class="pf-icon">&#10003;</span>IKTVA improvement consulting (1 session/mo)</div>
+            <div class="pf-item"><span class="pf-icon">&#10003;</span>Weekly RFQ digest summary</div>
+            <div class="pf-item"><span class="pf-icon">&#10003;</span>Buyer enquiry analytics dashboard</div>
+          </div>
+        </div>
+        <div class="plan-cta"><a href="index.html#join" class="plan-btn plan-btn-gold">Start Professional &#8594;</a></div>
+      </div>
+
+      <!-- ENTERPRISE -->
+      <div class="plan-card">
+        <div class="plan-header">
+          <div class="plan-icon">&#127963;</div>
+          <div class="plan-name">Enterprise</div>
+          <div class="plan-tagline">For OEM manufacturers, global distributors and companies with dedicated KSA sales strategy</div>
+        </div>
+        <div class="plan-price">
+          <div class="price-amount"><span class="price-currency">SAR</span><span class="price-num" id="p3">395</span></div>
+          <div class="price-period" id="pp3">per month</div>
+          <div style="margin-top:8px;"><div id="a3" style="display:inline-block;background:#EBF7F0;border:1.5px solid rgba(0,108,53,.25);color:#006C35;border-radius:8px;padding:6px 14px;font-size:.82rem;font-weight:900;">&#127919; SAR 3,950 / annum &mdash; one-time payment</div></div>
+        </div>
+        <div class="plan-features">
+          <div class="pf-title">Everything in Professional, plus</div>
+          <div class="pf-list">
+            <div class="pf-item"><span class="pf-icon">&#10003;</span>&#127963; <strong>Dedicated account manager</strong></div>
+            <div class="pf-item"><span class="pf-icon">&#10003;</span>Unlimited RFQ submissions</div>
+            <div class="pf-item"><span class="pf-icon">&#10003;</span>Custom landing page on TheValveHubs</div>
+            <div class="pf-item"><span class="pf-icon">&#10003;</span>Direct buyer introductions (EPCs, operators)</div>
+            <div class="pf-item"><span class="pf-icon">&#10003;</span>Saudi distributor search &amp; matching</div>
+            <div class="pf-item"><span class="pf-icon">&#10003;</span>Monthly market intelligence report</div>
+            <div class="pf-item"><span class="pf-icon">&#10003;</span>IKTVA programme full support</div>
+            <div class="pf-item"><span class="pf-icon">&#10003;</span>Priority Arabia Valve Summit listing</div>
+            <div class="pf-item"><span class="pf-icon">&#10003;</span>Quarterly strategy review call</div>
+          </div>
+        </div>
+        <div class="plan-cta"><a href="index.html#join" class="plan-btn plan-btn-enterprise">Contact Us &#8594;</a></div>
+      </div>
+
+    </div><!-- end pricing grid -->
+
+    <!-- BUYER PLANS NOTE -->
+    <div style="margin-top:24px;background:linear-gradient(135deg,#EBF7F0,#F0FBF5);border:1.5px solid rgba(0,108,53,.14);border-radius:16px;padding:22px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+      <div style="font-size:1.5rem;">&#127962;</div>
+      <div style="flex:1;">
+        <div style="font-size:.85rem;font-weight:800;color:#1A2A1A;margin-bottom:4px;">Industrial Buyers &amp; Operators &mdash; Always Free</div>
+        <div style="font-size:.8rem;color:#3D5A3D;line-height:1.65;">EPC contractors, operators and procurement teams access TheValveHubs at no cost. Post RFQs, browse verified Saudi suppliers, access emergency 24/7 and use all market intelligence tools — completely free.</div>
+      </div>
+      <a href="index.html#join" style="background:#006C35;color:#fff;padding:10px 22px;border-radius:10px;font-size:.82rem;font-weight:700;white-space:nowrap;flex-shrink:0;">Register as Buyer &#8594;</a>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON TABLE -->
+<section style="padding:52px 0;background:#fff;">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:32px;">
+      <div style="display:inline-flex;align-items:center;gap:7px;background:#EBF7F0;color:#006C35;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:5px 13px;border-radius:100px;margin-bottom:12px;border:1px solid rgba(0,108,53,.14);">Plan Comparison</div>
+      <h2 style="font-size:1.8rem;font-weight:900;color:#1A2A1A;line-height:1.1;">See What's Included</h2>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="compare-table">
+        <thead><tr><th>Feature</th><th>Free</th><th>Verified</th><th>Professional</th><th>Enterprise</th></tr></thead>
+        <tbody>
+          <tr><td>Company profile listing</td><td><span class="check">&#10003;</span></td><td><span class="check">&#10003;</span></td><td><span class="check">&#10003;</span></td><td><span class="check">&#10003;</span></td></tr>
+          <tr><td>IKTVA score display</td><td><span class="check">&#10003;</span></td><td><span class="check">&#10003; Verified</span></td><td><span class="check">&#10003; Verified</span></td><td><span class="check">&#10003; Verified</span></td></tr>
+          <tr><td>Search result placement</td><td>Standard</td><td>Priority</td><td>Top 3</td><td>Top 1</td></tr>
+          <tr><td>Direct RFQ notifications</td><td><span class="cross">&#10005;</span></td><td><span class="check">&#10003;</span></td><td><span class="check">&#10003;</span></td><td><span class="check">&#10003; Unlimited</span></td></tr>
+          <tr><td>Emergency RFQ alerts (24/7)</td><td><span class="cross">&#10005;</span></td><td><span class="cross">&#10005;</span></td><td><span class="check">&#10003; Priority</span></td><td><span class="check">&#10003; First</span></td></tr>
+          <tr><td>Homepage spotlight / Featured</td><td><span class="cross">&#10005;</span></td><td><span class="cross">&#10005;</span></td><td><span class="check">&#10003;</span></td><td><span class="check">&#10003; Custom page</span></td></tr>
+          <tr><td>LinkedIn campaign inclusion</td><td><span class="cross">&#10005;</span></td><td><span class="cross">&#10005;</span></td><td><span class="check">&#10003; Monthly</span></td><td><span class="check">&#10003; Weekly</span></td></tr>
+          <tr><td>Dedicated account manager</td><td><span class="cross">&#10005;</span></td><td><span class="cross">&#10005;</span></td><td><span class="cross">&#10005;</span></td><td><span class="check">&#10003;</span></td></tr>
+          <tr><td>Direct buyer introductions</td><td><span class="cross">&#10005;</span></td><td><span class="cross">&#10005;</span></td><td><span class="cross">&#10005;</span></td><td><span class="check">&#10003;</span></td></tr>
+          <tr><td>Monthly market intelligence report</td><td><span class="cross">&#10005;</span></td><td><span class="cross">&#10005;</span></td><td><span class="cross">&#10005;</span></td><td><span class="check">&#10003;</span></td></tr>
+          <tr><td>IKTVA Calculator &amp; Valve Wizard</td><td><span class="check">&#10003;</span></td><td><span class="check">&#10003;</span></td><td><span class="check">&#10003;</span></td><td><span class="check">&#10003;</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section style="padding:52px 0;background:#F8FAF9;">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">
+      <div style="background:#fff;border:1.5px solid #D8E4D8;border-radius:16px;padding:24px;box-shadow:0 2px 10px rgba(0,0,0,.06);">
+        <div style="font-size:.9rem;font-style:italic;color:#3A4A42;line-height:1.7;margin-bottom:14px;">"We registered on the free tier and received 3 RFQs from EPC contractors within the first week. The IKTVA badge instantly built credibility with procurement teams."</div>
+        <div style="display:flex;align-items:center;gap:10px;"><div style="width:36px;height:36px;border-radius:50%;background:#006C35;color:#fff;font-size:.75rem;font-weight:900;display:flex;align-items:center;justify-content:center;">MK</div><div><div style="font-size:.82rem;font-weight:700;color:#1A2A1A;">Mohammed K.</div><div style="font-size:.7rem;color:#7A9A7A;">Valve Distributor, Dammam</div></div></div>
+      </div>
+      <div style="background:#fff;border:1.5px solid #D8E4D8;border-radius:16px;padding:24px;box-shadow:0 2px 10px rgba(0,0,0,.06);">
+        <div style="font-size:.9rem;font-style:italic;color:#3A4A42;line-height:1.7;margin-bottom:14px;">"The Professional plan's emergency alert system sent us a plant-down RFQ at 2am. We responded within 30 minutes and secured the order. Worth every riyal."</div>
+        <div style="display:flex;align-items:center;gap:10px;"><div style="width:36px;height:36px;border-radius:50%;background:#C8973A;color:#fff;font-size:.75rem;font-weight:900;display:flex;align-items:center;justify-content:center;">AS</div><div><div style="font-size:.82rem;font-weight:700;color:#1A2A1A;">Ahmed S.</div><div style="font-size:.7rem;color:#7A9A7A;">Spare Parts Stockist, Jubail IC</div></div></div>
+      </div>
+      <div style="background:#fff;border:1.5px solid #D8E4D8;border-radius:16px;padding:24px;box-shadow:0 2px 10px rgba(0,0,0,.06);">
+        <div style="font-size:.9rem;font-style:italic;color:#3A4A42;line-height:1.7;margin-bottom:14px;">"Our Enterprise account manager introduced us directly to 4 EPC procurement teams. That single introduction was worth more than our annual subscription cost."</div>
+        <div style="display:flex;align-items:center;gap:10px;"><div style="width:36px;height:36px;border-radius:50%;background:#163660;color:#fff;font-size:.75rem;font-weight:900;display:flex;align-items:center;justify-content:center;">JR</div><div><div style="font-size:.82rem;font-weight:700;color:#1A2A1A;">James R.</div><div style="font-size:.7rem;color:#7A9A7A;">European OEM, Saudi Representative</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section style="padding:52px 0;background:#fff;">
+  <div class="container" style="max-width:760px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:32px;"><h2 style="font-size:1.8rem;font-weight:900;color:#1A2A1A;margin-bottom:8px;">Frequently Asked Questions</h2></div>
+    <div id="faqContainer">
+      <div class="faq-item"><div class="faq-q" onclick="toggleFAQ(this)">Is the free plan really free? How long?</div><div class="faq-a">Yes — completely free with no credit card required. During our Early Industry Partner launch phase, registration is free with no time limit on the free tier. Paid plans are optional to unlock additional features and visibility.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFAQ(this)">Can I upgrade or downgrade at any time?</div><div class="faq-a">Yes. You can upgrade to a higher tier at any time. You can also downgrade or cancel a paid subscription. For monthly plans, changes take effect at the next billing cycle. Annual plans run to their term end.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFAQ(this)">What currency are prices shown in?</div><div class="faq-a">All prices are displayed in Saudi Riyals (SAR). International payments are processed through Stripe or Tap at the current exchange rate. VAT (15%) is applied to all invoices as required by ZATCA regulations.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFAQ(this)">How does RFQ matching work?</div><div class="faq-a">When a buyer submits an RFQ, our engineering team reviews it technically and then matches it to verified suppliers by: product category, IKTVA status, location, certifications and availability. Verified and Professional members receive email/WhatsApp notifications first.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFAQ(this)">Is there a commission on orders placed through the platform?</div><div class="faq-a">Currently no. Subscriptions cover platform access and visibility. We do not charge commissions on transactions between buyers and suppliers. This may evolve as the platform develops its Smart RFQ engine.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFAQ(this)">What does "Emergency RFQ Priority" mean?</div><div class="faq-a">For Professional and Enterprise members, when a buyer submits an emergency RFQ (plant down, critical shortage), your company receives an immediate WhatsApp and email alert — ahead of Verified and Free members. Response speed is critical for emergency orders.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFAQ(this)">Is there a plan for industrial buyers?</div><div class="faq-a">Industrial buyers (EPC contractors, operators, procurement teams) access TheValveHubs completely free — no subscription required. Buyers can post RFQs, browse verified Saudi suppliers, use the IKTVA Calculator and access emergency 24/7 at no cost.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section style="padding:52px 0;background:#006C35;">
+  <div class="container" style="text-align:center;">
+    <h2 style="font-size:1.8rem;font-weight:900;color:#fff;margin-bottom:12px;">Start Free Today</h2>
+    <p style="font-size:.92rem;color:rgba(255,255,255,.75);max-width:520px;margin:0 auto 28px;line-height:1.75;">Join as an Early Industry Partner &mdash; no credit card, no commitment. Upgrade when you're ready to maximise your Saudi industrial market presence.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+      <a href="index.html#join" style="background:#fff;color:#006C35;padding:13px 30px;border-radius:12px;font-size:.9rem;font-weight:800;">Start Free &#8594;</a>
+      <a href="index.html#join" style="background:linear-gradient(135deg,#9B7120,#C8973A);color:#fff;padding:13px 30px;border-radius:12px;font-size:.9rem;font-weight:700;">Contact Enterprise Team</a>
+    </div>
+  </div>
+</section>
+
+<footer><div class="container"><div class="footer-grid"><div class="footer-brand"><div class="footer-logo"><div style="background:#fff;border-radius:10px;padding:10px 20px;display:inline-block;"><img src="images/tvh-logo-extracted.jpg" alt="TheValveHubs" style="height:72px;width:auto;display:block;"/></div></div><p>Saudi Arabia's engineering-governed valve marketplace.</p></div><div class="footer-col"><h5>Tools</h5><ul><li><a href="iktva-calculator.html">IKTVA Calculator</a></li><li><a href="valve-wizard.html">Valve Spec Wizard</a></li><li><a href="shutdown-calendar.html">Shutdown Calendar</a></li><li><a href="pricing.html">Pricing Plans</a></li></ul></div><div class="footer-col"><h5>Platform</h5><ul><li><a href="saudi-market.html">Saudi Market</a></li><li><a href="emergency.html">Emergency 24/7</a></li><li><a href="index.html#join">Join Free</a></li></ul></div></div></div><div class="container"><div class="footer-bottom"><span>&copy; 2025 TheValveHubs. Khobar, Saudi Arabia.</span></div></div></footer>
+<a href="https://wa.me/966500000000" class="whatsapp-float" target="_blank" rel="noopener">&#128241;</a>
+
+<script>
+window.addEventListener('load',function(){setTimeout(function(){document.getElementById('preloader').classList.add('hidden');},1000);});
+var nb=document.getElementById('navbar');window.addEventListener('scroll',function(){nb.classList.toggle('scrolled',window.scrollY>40);},{passive:true});
+var hb=document.getElementById('hamburger');if(hb)hb.addEventListener('click',function(){var mn=document.querySelector('.mobile-nav');if(mn)mn.classList.toggle('open');});
+
+var isAnnual=false;
+var monthly=[199,295,395];
+var annual=[1995,2995,3950];
+var labels=['Verified','Professional','Enterprise'];
+
+function toggleBilling(){
+  isAnnual=!isAnnual;
+  var toggle=document.getElementById('billingToggle');
+  toggle.classList.toggle('on',isAnnual);
+  document.getElementById('monthlyLabel').classList.toggle('active',!isAnnual);
+  document.getElementById('annualLabel').classList.toggle('active',isAnnual);
+  for(var i=0;i<3;i++){
+    var prices=isAnnual?annual:monthly;
+    document.getElementById('p'+(i+1)).textContent=prices[i].toLocaleString();
+    document.getElementById('pp'+(i+1)).textContent='per month';
+    var ab=document.getElementById('a'+(i+1));
+    if(ab)ab.classList.toggle('hidden',!isAnnual);
+  }
+}
+
+function toggleFAQ(el){
+  var item=el.parentElement;
+  var wasOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(function(f){f.classList.remove('open');});
+  if(!wasOpen)item.classList.add('open');
+}
+</script>
+<script src="js/navbar-auth.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
