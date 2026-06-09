@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="description" content="Saudi Arabia Major EPC Contractors, Valve Traders, and Key End-User Clients Directory — TheValveHubs. 25 EPC contractors, 20 traders, 15 end clients approved by Aramco, SABIC, Marafiq and more."/>
+<title>Major EPC Directory — Saudi Arabia Valve Buyers | TheValveHubs</title>
+<link rel="stylesheet" href="style.css"/>
+<style>
+
+/* ── HERO ── */
+.epc-hero{background:linear-gradient(135deg,#0A1628 0%,#163660 55%,#0A2A4A 100%);position:relative;overflow:hidden;padding:80px 0 64px;}
+.epc-hero::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,.03) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,.03) 40px);}
+.epc-hero-inner{position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:0 24px;}
+.epc-breadcrumb{font-size:.78rem;color:rgba(255,255,255,.5);margin-bottom:20px;}
+.epc-breadcrumb a{color:rgba(255,255,255,.5);text-decoration:none;}
+.epc-breadcrumb a:hover{color:#fff;}
+.epc-pill{display:inline-flex;align-items:center;gap:7px;background:rgba(200,151,58,.15);border:1px solid rgba(200,151,58,.4);border-radius:100px;padding:5px 16px;font-size:.72rem;font-weight:800;color:#C8973A;letter-spacing:.08em;margin-bottom:18px;}
+.epc-hero h1{font-size:clamp(1.8rem,4vw,2.9rem);font-weight:900;color:#fff;line-height:1.15;margin-bottom:14px;}
+.epc-hero h1 span{color:#C8973A;}
+.epc-hero p{font-size:1rem;color:rgba(255,255,255,.72);max-width:640px;line-height:1.75;margin-bottom:32px;}
+.epc-stats-bar{display:flex;flex-wrap:wrap;gap:24px;}
+.epc-stat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:14px 20px;text-align:center;min-width:110px;}
+.epc-stat-num{font-size:1.5rem;font-weight:900;color:#C8973A;line-height:1;}
+.epc-stat-lbl{font-size:.72rem;color:rgba(255,255,255,.6);margin-top:4px;}
+
+/* ── MARKET INSIGHT BAND ── */
+.insight-band{background:#fff;border-bottom:1px solid var(--border);padding:18px 0;}
+.insight-inner{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;}
+.insight-item{font-size:.82rem;color:#4A5E52;display:flex;align-items:center;gap:7px;}
+.insight-item strong{color:#1A2620;font-weight:700;}
+
+/* ── SUB NAV TABS ── */
+.epc-tabs{background:#fff;border-bottom:2px solid var(--border);position:sticky;top:68px;z-index:90;}
+.epc-tabs-inner{display:flex;max-width:1280px;margin:0 auto;padding:0 24px;overflow-x:auto;scrollbar-width:none;}
+.epc-tabs-inner::-webkit-scrollbar{display:none;}
+.epc-tab{padding:16px 22px;font-size:.85rem;font-weight:700;color:#5A6B62;border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap;transition:all .2s;text-decoration:none;display:flex;align-items:center;gap:7px;}
+.epc-tab.active,.epc-tab:hover{color:var(--green);border-bottom-color:var(--green);}
+.epc-tab-count{background:var(--green-light);color:var(--green);border-radius:100px;padding:2px 9px;font-size:.7rem;font-weight:800;}
+
+/* ── MAIN LAYOUT ── */
+.epc-main{padding:40px 0 80px;}
+.epc-section{display:none;}
+.epc-section.active{display:block;}
+
+/* ── CONTROLS ── */
+.epc-controls{background:#fff;border-radius:var(--radius-md);border:1px solid var(--border);padding:16px 20px;margin-bottom:24px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;}
+.epc-search{flex:1;min-width:200px;padding:10px 14px 10px 38px;border:1.5px solid var(--border);border-radius:8px;font-size:.88rem;font-family:var(--font);outline:none;background:#F8FAF9 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235A6B62' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E") 12px center no-repeat;}
+.epc-search:focus{border-color:var(--green);}
+.epc-filter{padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:.85rem;font-family:var(--font);background:#fff;color:#1A2620;outline:none;cursor:pointer;}
+.epc-filter:focus{border-color:var(--green);}
+.epc-count-badge{background:var(--green-light);color:var(--green);border-radius:100px;padding:5px 14px;font-size:.78rem;font-weight:800;white-space:nowrap;}
+
+/* ── CARD GRID ── */
+.epc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:18px;}
+
+/* ── COMPANY CARD ── */
+.co-card{background:#fff;border-radius:14px;border:1.5px solid var(--border);padding:22px;transition:all .2s;position:relative;overflow:hidden;}
+.co-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--green);transform:scaleX(0);transform-origin:left;transition:transform .25s;}
+.co-card:hover{border-color:var(--green);box-shadow:0 6px 24px rgba(0,108,53,.1);transform:translateY(-2px);}
+.co-card:hover::before{transform:scaleX(1);}
+.co-card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:14px;}
+.co-num{width:30px;height:30px;background:var(--green-light);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:900;color:var(--green);flex-shrink:0;}
+.co-spend{font-size:.7rem;font-weight:800;padding:3px 10px;border-radius:100px;white-space:nowrap;}
+.spend-very-high{background:#FFF0F0;color:#C0392B;}
+.spend-high{background:#FFF5E0;color:#C8973A;}
+.spend-medium-high{background:#EBF7F0;color:#006C35;}
+.spend-medium{background:#EBF0FF;color:#1A3A6B;}
+.spend-medium-low{background:#F5F5F5;color:#5A6B62;}
+.co-name{font-size:.97rem;font-weight:800;color:#1A2620;line-height:1.3;flex:1;}
+.co-meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+.co-tag{font-size:.72rem;font-weight:600;padding:3px 9px;border-radius:6px;background:#F0F4F1;color:#4A5E52;}
+.co-tag.origin{background:#EBF7F0;color:var(--green);}
+.co-tag.city{background:#EBF0FF;color:var(--navy);}
+.co-tag.sector{background:#FFF5E0;color:#8B6820;}
+.co-projects{font-size:.78rem;color:#5A6B62;line-height:1.6;margin-bottom:10px;padding-left:14px;border-left:2px solid var(--border);}
+.co-projects strong{color:#1A2620;display:block;font-size:.7rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:2px;}
+.co-approved{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;}
+.co-approved-lbl{font-size:.68rem;font-weight:700;color:#5A6B62;text-transform:uppercase;letter-spacing:.05em;width:100%;margin-bottom:2px;}
+.apv-badge{font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:5px;}
+.apv-aramco{background:#EBF7F0;color:#006C35;border:1px solid rgba(0,108,53,.2);}
+.apv-sabic{background:#EBF0FF;color:#1A3A6B;border:1px solid rgba(26,58,107,.2);}
+.apv-satorp{background:#FFF0F0;color:#C0392B;border:1px solid rgba(192,57,43,.15);}
+.apv-sadara{background:#FFF5E0;color:#8B6820;border:1px solid rgba(200,151,58,.25);}
+.apv-marafiq{background:#F0F0FF;color:#5555AA;border:1px solid rgba(85,85,170,.2);}
+.apv-nwc{background:#E8F8FF;color:#0077AA;border:1px solid rgba(0,119,170,.2);}
+.apv-swcc{background:#F0FFF8;color:#007744;border:1px solid rgba(0,119,68,.2);}
+.apv-sec{background:#FFF8E8;color:#886600;border:1px solid rgba(136,102,0,.2);}
+.apv-other{background:#F5F0F5;color:#663366;border:1px solid rgba(102,51,102,.15);}
+.co-website{font-size:.75rem;color:var(--green);font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:5px;}
+.co-website:hover{text-decoration:underline;}
+.co-notes{font-size:.76rem;color:#5A6B62;line-height:1.6;margin-top:8px;padding:8px 10px;background:#F8FAF9;border-radius:7px;}
+
+/* ── END CLIENT CARD (different layout) ── */
+.ec-card{background:#fff;border-radius:14px;border:1.5px solid var(--border);padding:22px;transition:all .2s;}
+.ec-card:hover{border-color:var(--gold);box-shadow:0 6px 24px rgba(200,151,58,.12);}
+.ec-abbr{display:inline-block;background:linear-gradient(135deg,var(--green-dark),var(--green));color:#fff;font-size:.8rem;font-weight:900;padding:6px 14px;border-radius:8px;margin-bottom:12px;}
+.ec-org{font-size:.97rem;font-weight:800;color:#1A2620;margin-bottom:6px;}
+.ec-sector{font-size:.78rem;color:#5A6B62;margin-bottom:12px;}
+.ec-spend-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.ec-spend-label{font-size:.7rem;font-weight:700;color:#5A6B62;text-transform:uppercase;letter-spacing:.05em;}
+.ec-portal{font-size:.76rem;color:var(--green);margin-bottom:10px;}
+.ec-portal a{color:var(--green);}
+
+/* ── HOW TO GET APPROVED ── */
+.approval-steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-top:24px;}
+.step-card{background:#fff;border-radius:12px;border:1.5px solid var(--border);padding:20px;display:flex;gap:14px;align-items:flex-start;}
+.step-num{width:36px;height:36px;background:linear-gradient(135deg,var(--green-dark),var(--green));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:900;flex-shrink:0;}
+.step-body h4{font-size:.9rem;font-weight:800;color:#1A2620;margin-bottom:4px;}
+.step-body p{font-size:.8rem;color:#5A6B62;line-height:1.6;}
+.step-body .step-time{font-size:.7rem;font-weight:700;color:var(--green);margin-top:5px;}
+
+/* ── SUMMARY SECTION ── */
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;}
+.summary-card{background:#fff;border-radius:12px;border:1.5px solid var(--border);padding:20px;}
+.summary-card h4{font-size:.82rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#5A6B62;margin-bottom:10px;}
+.summary-card p,.summary-card li{font-size:.84rem;color:#1A2620;line-height:1.7;}
+.summary-card ul{padding-left:16px;}
+
+/* ── CTA STRIP ── */
+.epc-cta{background:linear-gradient(135deg,var(--green-dark),var(--green));padding:56px 0;text-align:center;margin-top:60px;}
+.epc-cta h2{font-size:clamp(1.4rem,3vw,2rem);font-weight:900;color:#fff;margin-bottom:12px;}
+.epc-cta p{color:rgba(255,255,255,.8);font-size:.95rem;max-width:520px;margin:0 auto 28px;}
+.epc-cta-btns{display:flex;justify-content:center;flex-wrap:wrap;gap:14px;}
+.btn-gold{background:var(--gold);color:#fff;padding:14px 28px;border-radius:10px;font-weight:800;font-size:.95rem;text-decoration:none;transition:all .2s;}
+.btn-gold:hover{background:#B8872A;}
+.btn-outline-white{background:transparent;border:2px solid rgba(255,255,255,.5);color:#fff;padding:14px 28px;border-radius:10px;font-weight:700;font-size:.95rem;text-decoration:none;transition:all .2s;}
+.btn-outline-white:hover{border-color:#fff;background:rgba(255,255,255,.1);}
+
+/* ── EMPTY ROW ── */
+.no-results{grid-column:1/-1;text-align:center;padding:48px;color:#5A6B62;font-size:.9rem;}
+
+@media(max-width:640px){
+  .epc-grid{grid-template-columns:1fr;}
+  .epc-stats-bar{gap:10px;}
+  .epc-stat{min-width:80px;padding:10px 12px;}
+  .epc-stat-num{font-size:1.2rem;}
+  .approval-steps{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div id="preloader"><div class="preloader-inner"><div class="preloader-logo">TVH</div><div class="preloader-spinner"></div><div class="preloader-text">Loading TheValveHubs&hellip;</div></div></div>
+
+<div class="emergency-band" id="emergencyBand">&#128680; Emergency 24/7 &mdash; Valves &middot; Spare Parts &middot; Machining &middot; 3D Printing &middot; Consultation &middot; Rental &mdash; <a href="emergency.html">Submit Emergency RFQ &rarr;</a><button class="band-dismiss" onclick="document.getElementById('emergencyBand').style.display='none'">&times;</button></div>
+
+<nav class="navbar" id="navbar"><div class="nav-inner"><a href="index.html" class="nav-logo"><img src="images/tvh-logo-extracted.jpg" alt="TheValveHubs" style="width:220px;height:58px;object-fit:contain;object-position:left center;display:block;flex-shrink:0;"/></a><ul class="nav-menu"><li class="nav-item"><a href="about.html" class="nav-link">&#128101; About</a></li><li class="nav-item"><a href="platform.html" class="nav-link">&#128506; Platform</a></li><li class="nav-item"><a href="saudi-market.html" class="nav-link">&#127470;&#127474; Saudi Market</a></li><li class="nav-item"><a href="supplier-directory.html" class="nav-link">&#128196; Suppliers</a></li><li class="nav-item"><a href="epc-directory.html" class="nav-link">&#127959; EPC Directory</a></li><li class="nav-item"><a href="manufacturing.html" class="nav-link">&#9881; Manufacturing</a></li><li class="nav-item"><a href="experts.html" class="nav-link">&#128119; Experts</a></li><li class="nav-item"><a href="intelligence.html" class="nav-link">&#128200; Intelligence</a></li></ul><div class="nav-cta"><a href="survey.html" class="btn btn-outline-green btn-sm" style="border-color:#C8973A;color:#C8973A;">&#127942; Rate Us</a><a href="index.html#join" class="btn btn-outline-green btn-sm">Join Free</a><a href="emergency.html" class="btn btn-red btn-sm">&#128680; Emergency</a></div><button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button></div></nav>
+<div class="mobile-nav" id="mobileNav"><div class="mobile-nav-item"><a href="index.html" class="mobile-nav-link">&#127968; Home</a></div><div class="mobile-nav-item"><a href="about.html" class="mobile-nav-link">&#128101; About TVH</a></div><div class="mobile-nav-item"><a href="platform.html" class="mobile-nav-link">&#128506; Platform Overview</a></div><div class="mobile-nav-item"><a href="saudi-market.html" class="mobile-nav-link">&#127470;&#127474; Saudi Market</a></div><div class="mobile-nav-item"><a href="supplier-directory.html" class="mobile-nav-link">&#128196; Supplier Directory</a></div><div class="mobile-nav-item"><a href="epc-directory.html" class="mobile-nav-link">&#127959; EPC Directory</a></div><div class="mobile-nav-item"><a href="manufacturing.html" class="mobile-nav-link">&#9881; Manufacturing</a></div><div class="mobile-nav-item"><a href="experts.html" class="mobile-nav-link">&#128119; Experts &amp; Technicians</a></div><div class="mobile-nav-item"><a href="intelligence.html" class="mobile-nav-link">&#128200; Intelligence</a></div><div class="mobile-nav-item"><a href="projects.html" class="mobile-nav-link">&#128203; Watch Projects</a></div><div class="mobile-nav-item"><a href="invest-saudi.html" class="mobile-nav-link">&#127868; Invest in Saudi</a></div><div class="mobile-nav-item"><a href="valve-academy.html" class="mobile-nav-link" style="color:#C8973A;font-weight:700;">&#127891; Valve Academy</a></div><div class="mobile-nav-item"><a href="tvh-news.html" class="mobile-nav-link" style="color:#C0392B;font-weight:700;">&#128240; TVH News</a></div><div class="mobile-nav-item"><a href="pricing.html" class="mobile-nav-link">&#128176; Pricing Plans</a></div><div class="mobile-cta"><a href="index.html#join" class="btn btn-green">Join Free</a><a href="emergency.html" class="btn btn-red">&#128680; Emergency</a></div></div>
+
+</div>
+
+</div>
+
+<!-- HERO -->
+<section class="epc-hero" style="text-align:center;">
+  <div class="epc-hero-inner">
+    <div class="epc-breadcrumb"><a href="index.html">Home</a> &rsaquo; <a href="platform.html">Platform</a> &rsaquo; Major EPC Directory</div>
+    <div class="epc-pill">&#127470;&#127474; Saudi Arabia &bull; Valve Buyers Intelligence &bull; Vision 2030</div>
+    <h1>Major <span>EPC Contractors</span>,<br/>Traders &amp; End-User Clients</h1>
+    <p>The complete Saudi Arabia valve buyer intelligence report — 25 EPC contractors, 20 valve traders &amp; distributors, and 15 key end-user clients approved by Aramco, SABIC, Marafiq, SATORP, Sadara and more.</p>
+    <div class="epc-stats-bar">
+      <div class="epc-stat"><div class="epc-stat-num">25</div><div class="epc-stat-lbl">EPC Contractors</div></div>
+      <div class="epc-stat"><div class="epc-stat-num">20</div><div class="epc-stat-lbl">Traders &amp; Distributors</div></div>
+      <div class="epc-stat"><div class="epc-stat-num">15</div><div class="epc-stat-lbl">End-User Clients</div></div>
+      <div class="epc-stat"><div class="epc-stat-num">SAR 4–6B</div><div class="epc-stat-lbl">Annual Market Size</div></div>
+      <div class="epc-stat"><div class="epc-stat-num">9+</div><div class="epc-stat-lbl">Approved Entities</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET INSIGHT BAND -->
+<div class="insight-band">
+  <div class="container">
+    <div class="insight-inner">
+      <div class="insight-item">&#128200; <strong>Market Size:</strong> Est. SAR 4–6 Billion/year across all sectors</div>
+      <div class="insight-item">&#127981; <strong>Key Hubs:</strong> Jubail &middot; Yanbu &middot; Dammam / Al Khobar &middot; Riyadh</div>
+      <div class="insight-item">&#9989; <strong>Top Standards:</strong> API 600/602/6D, ASME B16.34, SAES-L-102, ISO 9001</div>
+      <div class="insight-item">&#9201; <strong>9COM Approval:</strong> 3–6 months — ISO 9001 + factory audit required</div>
+    </div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="epc-tabs">
+  <div class="epc-tabs-inner">
+    <a href="#" class="epc-tab active" onclick="switchTab('epc',this);return false;">&#127959; EPC Contractors <span class="epc-tab-count">25</span></a>
+    <a href="#" class="epc-tab" onclick="switchTab('traders',this);return false;">&#128201; Traders &amp; Distributors <span class="epc-tab-count">20</span></a>
+    <a href="#" class="epc-tab" onclick="switchTab('clients',this);return false;">&#127970; Key End Clients <span class="epc-tab-count">15</span></a>
+    <a href="#" class="epc-tab" onclick="switchTab('approval',this);return false;">&#9989; How to Get Approved</a>
+    <a href="#" class="epc-tab" onclick="switchTab('summary',this);return false;">&#128200; Market Summary</a>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="epc-main">
+<div class="container">
+
+<!-- ══ EPC CONTRACTORS ══ -->
+<div class="epc-section active" id="sec-epc">
+  <div class="epc-controls">
+    <input class="epc-search" id="epcSearch" type="text" placeholder="Search company, country, sector, project…" oninput="filterCards('epc')"/>
+    <select class="epc-filter" id="epcOrigin" onchange="filterCards('epc')">
+      <option value="">All Origins</option>
+      <option>Saudi Arabia</option>
+      <option>South Korea</option>
+      <option>India</option>
+      <option>USA</option>
+      <option>UK</option>
+      <option>Italy</option>
+      <option>France</option>
+      <option>China</option>
+      <option>Australia</option>
+      <option>Taiwan</option>
+    </select>
+    <select class="epc-filter" id="epcSpend" onchange="filterCards('epc')">
+      <option value="">All Spend Levels</option>
+      <option>Very High</option>
+      <option>High</option>
+      <option>Medium-High</option>
+      <option>Medium</option>
+    </select>
+    <span class="epc-count-badge" id="epcCountBadge">25 contractors</span>
+  </div>
+  <div class="epc-grid" id="epcGrid">
+    <!-- JS populated -->
+  </div>
+</div>
+
+<!-- ══ TRADERS & DISTRIBUTORS ══ -->
+<div class="epc-section" id="sec-traders">
+  <div class="epc-controls">
+    <input class="epc-search" id="tradersSearch" type="text" placeholder="Search company, city, products, brands…" oninput="filterCards('traders')"/>
+    <select class="epc-filter" id="tradersApproval" onchange="filterCards('traders')">
+      <option value="">All Approval Levels</option>
+      <option>Fully Approved</option>
+      <option>Aramco Approved</option>
+      <option>Aramco Registered</option>
+      <option>Approved</option>
+    </select>
+    <span class="epc-count-badge" id="tradersCountBadge">20 distributors</span>
+  </div>
+  <div class="epc-grid" id="tradersGrid">
+    <!-- JS populated -->
+  </div>
+</div>
+
+<!-- ══ KEY END CLIENTS ══ -->
+<div class="epc-section" id="sec-clients">
+  <div class="epc-controls">
+    <input class="epc-search" id="clientsSearch" type="text" placeholder="Search organization, sector, location…" oninput="filterCards('clients')"/>
+    <select class="epc-filter" id="clientsSpend" onchange="filterCards('clients')">
+      <option value="">All Spend Levels</option>
+      <option>Very High</option>
+      <option>High</option>
+      <option>Medium-High</option>
+      <option>Medium</option>
+    </select>
+    <span class="epc-count-badge" id="clientsCountBadge">15 clients</span>
+  </div>
+  <div class="epc-grid" id="clientsGrid">
+    <!-- JS populated -->
+  </div>
+</div>
+
+<!-- ══ HOW TO GET APPROVED ══ -->
+<div class="epc-section" id="sec-approval">
+  <div style="background:var(--green-light);border:1.5px solid rgba(0,108,53,.2);border-radius:14px;padding:24px 28px;margin-bottom:28px;">
+    <h3 style="font-size:1.1rem;font-weight:900;color:var(--green-dark);margin-bottom:8px;">&#127470;&#127474; How to Get Saudi Aramco 9COM Approval</h3>
+    <p style="font-size:.88rem;color:#4A5E52;line-height:1.7;">Getting onto the Aramco Approved Vendor List (AVL) opens the door to $500M+ annual valve procurement. Follow these 6 steps to get qualified as an approved valve supplier in Saudi Arabia.</p>
+  </div>
+  <div class="approval-steps">
+    <div class="step-card"><div class="step-num">1</div><div class="step-body"><h4>Register on Aramco Supplier Portal</h4><p>Submit your company profile on the ICV program / Aramco e-Marketplace. Initial registration is free.</p><div class="step-time">&#9201; 1–2 weeks &bull; iktva.sa / Aramco e-Marketplace</div></div></div>
+    <div class="step-card"><div class="step-num">2</div><div class="step-body"><h4>Submit ISO 9001 + Factory Audit Docs</h4><p>Mandatory for 9COM listing. Prepare your quality management certificate and be ready for a factory audit.</p><div class="step-time">&#9201; Ongoing preparation</div></div></div>
+    <div class="step-card"><div class="step-num">3</div><div class="step-body"><h4>Apply for Specific Commodity Code (9COM)</h4><p>Select the valve-specific commodity category relevant to your products. Each category is reviewed separately.</p><div class="step-time">&#9201; 3–6 months review</div></div></div>
+    <div class="step-card"><div class="step-num">4</div><div class="step-body"><h4>Submit Product Samples + Test Certificates</h4><p>API/ASME certificates are essential. Provide third-party test reports and product data sheets for each valve type.</p><div class="step-time">&#9201; Concurrent with Step 3</div></div></div>
+    <div class="step-card"><div class="step-num">5</div><div class="step-body"><h4>Get Listed on Approved Vendor List (AVL)</h4><p>Once approved you will receive your vendor number and be eligible to receive direct RFQs from Aramco procurement teams.</p><div class="step-time">&#9201; Post-approval activation</div></div></div>
+    <div class="step-card"><div class="step-num">6</div><div class="step-body"><h4>Appoint Local Saudi Agent / Distributor</h4><p>A local Saudi agent improves your In-Country Value (ICV) score significantly and helps navigate the procurement process.</p><div class="step-time">&#9201; Recommended — improves ICV score</div></div></div>
+  </div>
+  <div style="margin-top:32px;background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:24px;">
+    <h4 style="font-size:.9rem;font-weight:800;color:#1A2620;margin-bottom:16px;">&#128203; Key Standards Required</h4>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <span style="background:#EBF7F0;color:var(--green);padding:5px 12px;border-radius:7px;font-size:.78rem;font-weight:700;">API 600 — Gate Valves</span>
+      <span style="background:#EBF7F0;color:var(--green);padding:5px 12px;border-radius:7px;font-size:.78rem;font-weight:700;">API 602 — Small Forged Valves</span>
+      <span style="background:#EBF7F0;color:var(--green);padding:5px 12px;border-radius:7px;font-size:.78rem;font-weight:700;">API 6D — Pipeline Valves</span>
+      <span style="background:#EBF0FF;color:var(--navy);padding:5px 12px;border-radius:7px;font-size:.78rem;font-weight:700;">ASME B16.34</span>
+      <span style="background:#EBF0FF;color:var(--navy);padding:5px 12px;border-radius:7px;font-size:.78rem;font-weight:700;">SAES-L-102</span>
+      <span style="background:#FFF5E0;color:#8B6820;padding:5px 12px;border-radius:7px;font-size:.78rem;font-weight:700;">ISO 9001:2015</span>
+      <span style="background:#FFF5E0;color:#8B6820;padding:5px 12px;border-radius:7px;font-size:.78rem;font-weight:700;">PED 2014/68/EU</span>
+      <span style="background:#FFF0F0;color:var(--red);padding:5px 12px;border-radius:7px;font-size:.78rem;font-weight:700;">NACE MR0175</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MARKET SUMMARY ══ -->
+<div class="epc-section" id="sec-summary">
+  <div class="summary-grid">
+    <div class="summary-card">
+      <h4>&#128200; Market Overview</h4>
+      <ul>
+        <li><strong>Market Size:</strong> Est. SAR 4–6 Billion/year</li>
+        <li><strong>Primary Buyers:</strong> Aramco, SABIC, Marafiq, SATORP, Sadara, NWC, SWCC, YASREF, Petro Rabigh, Maaden</li>
+        <li><strong>Key Hubs:</strong> Jubail IC, Yanbu IC, Dammam / Al Khobar, Riyadh</li>
+      </ul>
+    </div>
+    <div class="summary-card">
+      <h4>&#128297; Top Valve Categories</h4>
+      <ul>
+        <li>Gate, Globe, Check Valves</li>
+        <li>Ball &amp; Butterfly Valves</li>
+        <li>Control &amp; Safety/Relief Valves</li>
+        <li>Plug Valves &amp; Actuated Valves</li>
+      </ul>
+    </div>
+    <div class="summary-card">
+      <h4>&#127942; Top 5 EPC by Valve Volume</h4>
+      <ol style="padding-left:16px;">
+        <li>Larsen &amp; Toubro (L&amp;T) — India</li>
+        <li>Samsung Engineering — South Korea</li>
+        <li>Sinopec Engineering Saudi — China</li>
+        <li>Hyundai E&amp;C (HDEC) — South Korea</li>
+        <li>Tecnimont / Maire Group — Italy</li>
+      </ol>
+    </div>
+    <div class="summary-card">
+      <h4>&#127462;&#127480; Top 5 Valve Distributors</h4>
+      <ol style="padding-left:16px;">
+        <li>IMCO (Al-Othman) — Dammam</li>
+        <li>RACO Group / ATT — Dammam</li>
+        <li>Middle East Valve — Dammam</li>
+        <li>AVK SVMC — Jeddah</li>
+        <li>ATCO (Al-Turki) — Dammam/Riyadh</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+</div><!-- /epc-main -->
+
+<!-- CTA -->
+<div class="epc-cta">
+  <div class="container">
+    <h2>Ready to Connect with Saudi Valve Buyers?</h2>
+    <p>Register your company on TheValveHubs and become visible to Aramco, SABIC, EPC procurement teams and global distributors actively sourcing industrial valves.</p>
+    <div class="epc-cta-btns">
+      <a href="join-as-supplier.html" class="btn-gold">Register as Supplier &rarr;</a>
+      <a href="supplier-directory.html" class="btn-outline-white">View Supplier Directory</a>
+    </div>
+  </div>
+</div>
+
+<footer><div class="container"><div class="footer-grid"><div class="footer-brand"><div class="footer-logo"><div style="background:#fff;border-radius:10px;padding:10px 20px;display:inline-block;"><img src="images/tvh-logo-extracted.jpg" alt="TheValveHubs" style="height:72px;width:auto;display:block;"/></div></div><p>Saudi Arabia&rsquo;s engineering-governed industrial valve marketplace. Saudi suppliers first. International when unavailable. Emergency 24/7.</p><p style="font-size:.8rem;opacity:.6;margin-top:8px;">HQ: Khobar, Saudi Arabia &bull; Vision 2030 &bull; IKTVA</p><div class="footer-social" style="margin-top:16px;"><a href="#">in</a><a href="#">&#128241;</a></div></div><div class="footer-col"><h5>EPC Directory</h5><ul><li><a href="epc-directory.html">EPC Contractors</a></li><li><a href="epc-directory.html?tab=traders">Valve Traders &amp; Distributors</a></li><li><a href="epc-directory.html?tab=clients">Key End Clients</a></li><li><a href="epc-directory.html?tab=approval">How to Get Approved</a></li><li><a href="epc-directory.html?tab=summary">Market Summary</a></li></ul></div><div class="footer-col"><h5>Saudi Market</h5><ul><li><a href="supplier-directory.html">Supplier Directory</a></li><li><a href="saudi-market.html">Saudi Market</a></li><li><a href="manufacturing.html">Manufacturing</a></li><li><a href="invest-saudi.html">Invest in Saudi</a></li></ul></div><div class="footer-col"><h5>Emergency &amp; Company</h5><ul><li><a href="emergency.html">&#128680; Emergency 24/7</a></li><li><a href="index.html#join">Join Free</a></li><li><a href="about.html">About Us</a></li></ul></div></div></div><div class="container"><div class="footer-bottom"><span>&copy; 2026 TheValveHubs. All rights reserved. Khobar, Saudi Arabia.</span><span>Founded by Abdullah F. AlSubaie &bull; Vision 2030 &bull; IKTVA &nbsp;&middot;&nbsp; <a href="terms.html" style="color:#9A9AAA;">Terms</a> &nbsp;&middot;&nbsp; <a href="privacy.html" style="color:#9A9AAA;">Privacy</a></span></div></div></footer>
+
+<a href="https://wa.me/966501099901" class="whatsapp-float" target="_blank" rel="noopener" title="WhatsApp">&#128241;</a>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────
+const EPC_DATA = [
+  {n:1,name:'Saudi Aramco (In-house EPC / Projects)',origin:'Saudi Arabia',city:'Dhahran',sectors:'Oil & Gas, Petrochemical, Pipeline',approved:'Aramco',projects:'Master Gas System, Jafurah, Haradh Gas',website:'www.aramco.com',spend:'Very High',notes:'Self-executing EPC mega-projects'},
+  {n:2,name:'Larsen & Toubro (L&T)',origin:'India',city:'Dammam / Al Khobar',sectors:'Oil & Gas, Petrochemical, Infrastructure',approved:'Aramco, SABIC, Sadara',projects:'Jafurah Gas Processing, Master Gas System Exp.',website:'www.larsentoubro.com',spend:'High',notes:"One of India's largest EPC in KSA"},
+  {n:3,name:'Sinopec Engineering Saudi Co. Ltd',origin:'China',city:'Jubail',sectors:'Refining, Petrochemical',approved:'Aramco, SATORP, SABIC',projects:'Amiral Complex (SATORP), Yanbu Green H2',website:'www.sec.net.cn',spend:'Very High',notes:'Won major SATORP Amiral award'},
+  {n:4,name:'Hyundai Engineering & Construction (HDEC)',origin:'South Korea',city:'Al Khobar',sectors:'Refining, Petrochemical, Infrastructure',approved:'Aramco, SATORP',projects:'SATORP Refinery Expansion, Amiral Packages',website:'www.hdec.kr',spend:'High',notes:'Largest order ever for HDEC in KSA'},
+  {n:5,name:'Samsung Engineering',origin:'South Korea',city:'Al Khobar / Riyadh',sectors:'Oil & Gas, Petrochemical',approved:'Aramco, SABIC, Sadara',projects:'Fadhili Gas, Ras Tanura, SABIC Petrochemical',website:'www.samsungengineering.com',spend:'High',notes:'Strong presence in KSA since 1980s'},
+  {n:6,name:'GS E&C (GS Engineering & Construction)',origin:'South Korea',city:'Al Khobar',sectors:'Oil & Gas, Refining, Petrochemical',approved:'Aramco, SABIC',projects:'Shaybah NGL, Jazan Refinery packages',website:'www.gsenc.com',spend:'High',notes:'Active on Jazan & Shaybah projects'},
+  {n:7,name:'Tecnimont / Maire Group',origin:'Italy',city:'Jubail / Riyadh',sectors:'Petrochemical, Polymers',approved:'Sadara, SABIC',projects:'Sadara Chemical Complex (multiple units)',website:'www.mairetecnimont.com',spend:'High',notes:'Key Sadara EPC contractor'},
+  {n:8,name:'Petrofac',origin:'UK',city:'Al Khobar',sectors:'Oil & Gas, Refining',approved:'Aramco, SABIC',projects:'Fadhili Gas Plant, Safaniya field',website:'www.petrofac.com',spend:'High',notes:'Long track record in Kingdom'},
+  {n:9,name:'McDermott International',origin:'USA',city:'Al Khobar',sectors:'Offshore, Onshore Oil & Gas',approved:'Aramco',projects:'Hasbah & Karan offshore, Berri Gas Plant',website:'www.mcdermott.com',spend:'High',notes:'Offshore pipeline & platform specialist'},
+  {n:10,name:'Fluor Daniel (Fluor Arabia)',origin:'USA',city:'Al Khobar',sectors:'Oil & Gas, Petrochemical, Infrastructure',approved:'Aramco, SABIC',projects:'Qatif Plant, Abu Hadriyah, Khursaniyah',website:'www.fluor.com',spend:'High',notes:'Premium EPC with Aramco decades-long tie'},
+  {n:11,name:'Saipem',origin:'Italy',city:'Al Khobar',sectors:'Offshore, Pipeline, Onshore Oil & Gas',approved:'Aramco',projects:'Marjan, Zuluf offshore, gas pipelines',website:'www.saipem.com',spend:'Medium-High',notes:'Strong offshore pipeline track record'},
+  {n:12,name:'TechnipFMC / Technip Energies',origin:'France',city:'Al Khobar',sectors:'LNG, Gas, Petrochemical',approved:'Aramco, SABIC',projects:'Gas compression, Ras Tanura LNG studies',website:'www.technipenergies.com',spend:'High',notes:'LNG & gas processing specialist'},
+  {n:13,name:'Wood Group (John Wood Group)',origin:'UK',city:'Al Khobar / Riyadh',sectors:'Oil & Gas, Chemicals',approved:'Aramco, SABIC',projects:'FEED, PMC, brownfield projects',website:'www.woodplc.com',spend:'Medium',notes:'Strong in FEED/PMC and operations'},
+  {n:14,name:'Worley (WorleyParsons)',origin:'Australia',city:'Al Khobar',sectors:'Oil & Gas, Refining, Chemicals',approved:'Aramco, SABIC, Marafiq',projects:'Jubail Refinery, Marafiq utility projects',website:'www.worley.com',spend:'Medium-High',notes:'Deep Marafiq relationship'},
+  {n:15,name:'Arabian Bemco Contracting',origin:'Saudi Arabia',city:'Jeddah',sectors:'Power, Oil & Gas, Utilities',approved:'SEC, SWCC, NWC, Aramco',projects:'Power plants, desalination, utility networks',website:'www.arabianbemco.com',spend:'Medium-High',notes:'Ranked #1 EPC contractor in KSA regionally'},
+  {n:16,name:'CTCI Corporation',origin:'Taiwan',city:'Jubail',sectors:'Petrochemical, Refining',approved:'Aramco, SABIC, Sadara',projects:'Olefins, aromatics units in Jubail',website:'www.ctci.com',spend:'Medium-High',notes:'Specialist in petrochemical process plants'},
+  {n:17,name:'Daewoo E&C',origin:'South Korea',city:'Al Khobar',sectors:'Oil & Gas, Petrochemical',approved:'Aramco, SABIC',projects:'Gas gathering, NGL fractionation',website:'www.daewooenc.com',spend:'Medium',notes:'Active on Aramco gas projects'},
+  {n:18,name:'SK Engineering & Construction',origin:'South Korea',city:'Al Khobar',sectors:'Oil & Gas, Petrochemical',approved:'Aramco, SABIC',projects:'Refinery upgrading, aromatics plants',website:'www.skec.co.kr',spend:'Medium',notes:'Part of SK Group — significant KSA footprint'},
+  {n:19,name:'Hanwha E&C',origin:'South Korea',city:'Riyadh / Jubail',sectors:'Infrastructure, Oil & Gas',approved:'NWC, SWCC, Aramco',projects:'Water networks, desalination, gas facilities',website:'www.hanwhaenc.com',spend:'Medium',notes:'Strong in water sector (NWC, SWCC)'},
+  {n:20,name:'Al-Arrab Contracting Company',origin:'Saudi Arabia',city:'Riyadh',sectors:'Oil & Gas, Petrochemical, Civil',approved:'Aramco, SABIC, Marafiq',projects:'Pipeline, civil and industrial KSA projects',website:'www.alarrab.com',spend:'Medium',notes:'Major local Saudi EPC contractor'},
+  {n:21,name:'NESMA & Partners Contracting',origin:'Saudi Arabia',city:'Jeddah',sectors:'Oil & Gas, Utilities, Infrastructure',approved:'Aramco, Marafiq, NWC',projects:'Pipelines, utilities, industrial works',website:'www.nesmapartners.com',spend:'Medium',notes:'Leading Saudi national EPC'},
+  {n:22,name:'Al Bawani Company',origin:'Saudi Arabia',city:'Riyadh',sectors:'Industrial, Infrastructure',approved:'NWC, SWCC, SABIC',projects:'Water treatment, industrial facilities',website:'www.albawani.com',spend:'Medium',notes:'Active in water & industrial sector'},
+  {n:23,name:'AlGihaz Holding',origin:'Saudi Arabia',city:'Riyadh',sectors:'Power, Water, Oil & Gas',approved:'SWCC, NWC, SEC',projects:'Desalination, water distribution networks',website:'www.algihaz.com',spend:'Medium',notes:'Strong SWCC/NWC approved contractor'},
+  {n:24,name:'SEPCO III (Saudi Power Company)',origin:'China / KSA JV',city:'Jubail / Yanbu',sectors:'Power, Petrochemical, Utilities',approved:'SWCC, Marafiq, Aramco',projects:'Power & desalination EPC packages',website:'www.sepcoiii.com',spend:'Medium',notes:'Chinese-Saudi JV with SWCC approvals'},
+  {n:25,name:'Saad Al Malki Company',origin:'Saudi Arabia',city:'Dammam',sectors:'Oil & Gas, Industrial',approved:'Aramco, SABIC',projects:'Mechanical, piping, valve installation works',website:'N/A',spend:'Medium-Low',notes:'Local Saudi EPC/construction'},
+];
+
+const TRADERS_DATA = [
+  {n:1,name:'IMCO – Al Othman Industrial Marketing Co.',city:'Dammam (+ Riyadh, Jeddah, Yanbu, Bahrain)',approval:'Fully Approved',approved:'Aramco, SABIC, SEC, SWCC, Marafiq, Sadara, NWC',products:'Gate, Globe, Check, Ball, Butterfly, Safety/Relief, Control Valves, Fittings, Flanges',brands:'Velan, Neles (Metso), Cameron, Emerson, Flowserve, Crane, Bonney Forge',position:'#1 Largest Stockist in KSA',website:'www.imco.com.sa',notes:'Part of Al-Othman Group. 100,000 sqm warehouse. Oldest & largest approved industrial stockist'},
+  {n:2,name:'RACO Group / ATT – Alasamer Technical Trading',city:'Dammam',approval:'Fully Approved',approved:'Aramco, SABIC, Sadara, Maaden, YASREF, Petro Rabigh',products:'Manual & Automated (Actuated) Valves, Ball, Gate, Globe, Butterfly, Control, Safety',brands:'Various international manufacturers',position:'Large – >SAR 150M+ business with SABIC & Sadara',website:'www.raco.com.sa',notes:'SAR 110M+ with SABIC, SAR 40M+ with Sadara. Strong automation/control valve portfolio'},
+  {n:3,name:'Middle East Valve',city:'Dammam',approval:'Fully Approved',approved:'Aramco, SABIC, SWCC, Maaden',products:'Gate, Globe, Check, Ball, Butterfly, Plug, Safety, Control Valves',brands:'Multiple API & Aramco-approved manufacturers',position:'Major Distributor',website:'www.middleeastvalve.com',notes:'Trusted Aramco-approved supplier for oil, gas & water projects across KSA'},
+  {n:4,name:'AVK Saudi Valves Manufacturing Co. (AVK SVMC)',city:'Jeddah',approval:'Fully Approved',approved:'Aramco, NWC, SWCC, SABIC, Royal Commission, Maaden, Civil Defense',products:'Water valves, Gate, Butterfly, Check, Air Release, Fire Hydrants',brands:'AVK Group (Denmark) – local manufacturing JV',position:'Leading Local Manufacturer',website:'www.avksvmc.com',notes:'Manufacturing in Jeddah since 1985. Part of international AVK Group'},
+  {n:5,name:'GCC Valves',city:'Dubai / Saudi Arabia',approval:'Aramco Approved',approved:'Aramco (9COM/9CAT), ADNOC, BAPCO, SABIC, Qatar Energy, KNPC, KOC, Maaden',products:'Ball, Gate, Globe, Check, Butterfly, Safety, Control, Plug Valves',brands:'Aramco 9COM & SAES-L-102 compliant manufacturers',position:'Major Distributor',website:'www.gccvalves.com',notes:'Specialized in Aramco-standard valves with proper vendor codes (9COM, 9CAT, MSG)'},
+  {n:6,name:'SPSV – Saudi Process & Standard Valves',city:'Dammam (Jubail)',approval:'Aramco Approved',approved:'Aramco, SABIC, Petro Rabigh',products:'Industrial Gate, Globe, Check, Ball, Butterfly, Plug, Safety Valves',brands:'OMB Valves (Italy), IVM, Orion Valves (Italy) – JV manufacturing',position:'Mid-size Manufacturer / Distributor',website:'N/A',notes:'Formed 2012; Italian-Saudi JV. Manufacturer of valves for energy sector'},
+  {n:7,name:'KSA Valve / Zebco Engineering',city:'Al Khobar / Dammam',approval:'Aramco Approved',approved:'Aramco, SABIC, Petro Rabigh',products:'Gate, Globe, Check, Ball, Control, Actuated Valves',brands:'Various API-approved brands',position:'Mid-size Distributor',website:'www.zebcoeng.com',notes:'Aramco-approved supplier; active in oil, gas & petrochemical'},
+  {n:8,name:'RAVSCO – Al-Riyadah Al-Oula Valve Service Co.',city:'Dammam',approval:'Aramco Approved',approved:'Aramco, SABIC',products:'Valve repair, maintenance, testing & supply; Gate, Globe, Ball, Control',brands:'Multiple brands',position:'Specialist Valve Services',website:'N/A',notes:'Valve service & repair specialist; Aramco registered vendor'},
+  {n:9,name:'GO-Tech',city:'Al Khobar',approval:'Aramco Registered',approved:'Aramco, SABIC',products:'Instrumentation, Control Valves, Safety Valves, Actuators',brands:'Various instrumentation & valve brands',position:'Mid-size Distributor',website:'N/A',notes:'Registered Aramco vendor; instrumentation & control valve focus'},
+  {n:10,name:'DAC Company',city:'Dammam / Jubail',approval:'Approved',approved:'Aramco, SABIC, Sadara, Marafiq',products:'Piping, Valves, Fittings, Flanges',brands:'Multiple manufacturers',position:'Mid-size Distributor',website:'N/A',notes:'Broad piping & valve material supply to major industries'},
+  {n:11,name:'Al-Arham Engineering Co.',city:'Dammam / Jeddah',approval:'Approved',approved:'Aramco, SABIC, NWC, SWCC',products:'Gate, Globe, Ball, Check, Butterfly Valves; piping accessories',brands:'Various API brands',position:'Mid-size Distributor',website:'N/A',notes:'Multi-city presence; serves oil & water sectors'},
+  {n:12,name:'Riyadh Valves Trading Co.',city:'Riyadh',approval:'Approved',approved:'Aramco, SABIC, NWC',products:'Ball, Gate, Globe, Butterfly, Check Valves',brands:'Various manufacturers',position:'Regional Distributor',website:'N/A',notes:'Riyadh-based; serves central region industrial & water projects'},
+  {n:13,name:'Al-Faris Group (Industrial Division)',city:'Dammam',approval:'Approved',approved:'Aramco, SABIC, SWCC',products:'Valves, Piping, Instrumentation, Industrial Equipment',brands:'Multiple brands',position:'Large Industrial Supplier',website:'www.al-faris.com',notes:'Diversified group with valve & piping supply division'},
+  {n:14,name:'ATCO (Al-Turki Enterprises)',city:'Dammam / Riyadh',approval:'Fully Approved',approved:'Aramco, SABIC, SEC, SWCC, NWC, Marafiq',products:'Mechanical, Electrical, Instrumentation, Valves, Piping',brands:'Various approved manufacturers',position:'Major Industrial Supplier',website:'www.atco-ksa.com',notes:"One of KSA's largest diversified industrial groups"},
+  {n:15,name:'Al-Rushaid Group (Industrial / Trading)',city:'Al Khobar',approval:'Fully Approved',approved:'Aramco, SABIC, SWCC, Sadara',products:'Valves, Piping, Industrial Materials, Maintenance Services',brands:'Multiple international brands',position:'Large Conglomerate',website:'www.al-rushaid.com',notes:'Strong Group with Aramco & SABIC long-term relationships'},
+  {n:16,name:'Algosaibi Services',city:'Al Khobar',approval:'Approved',approved:'Aramco, SABIC, Marafiq',products:'Industrial valves, piping, instrumentation',brands:'Various API-approved brands',position:'Established Distributor',website:'www.algosaibi.com.sa',notes:'Established Saudi trading group; industrial division handles valves'},
+  {n:17,name:'Arabian Industries & Services Co. (ARISCO)',city:'Dammam',approval:'Approved',approved:'Aramco, SABIC',products:'Valves, Piping, Fittings, Gaskets',brands:'Various approved brands',position:'Regional Distributor',website:'N/A',notes:'Serves Eastern Province oil & gas sector'},
+  {n:18,name:'National Pipes Co. (NPC) – Trading Arm',city:'Al Khobar',approval:'Aramco Approved',approved:'Aramco, SABIC, Petro Rabigh, SATORP',products:'Pipes, Fittings, Flanges, Valves – complete piping packages',brands:'Multiple manufacturers',position:'Large Pipe & Valve Supplier',website:'www.npc.com.sa',notes:'Pipeline material specialist; often bundles valves with pipe supply'},
+  {n:19,name:'Al-Zamil Group – Industrial Division',city:'Al Khobar / Dammam',approval:'Fully Approved',approved:'Aramco, SABIC, SWCC, Marafiq, NWC',products:'Industrial valves, piping, mechanical & electrical materials',brands:'Various international brands',position:'Major Conglomerate',website:'www.zamil.com',notes:'Diversified Saudi conglomerate; long standing Aramco & SABIC approval'},
+  {n:20,name:'Electrical & Industrial Services Co. (EISCO)',city:'Dammam',approval:'Approved',approved:'Aramco, SABIC, SEC',products:'Electrical, Instrumentation, Control Valves, Actuators',brands:'Emerson, Honeywell, Siemens among others',position:'Mid-size Distributor',website:'N/A',notes:'E&I focus; control valves & actuators for automation projects'},
+];
+
+const CLIENTS_DATA = [
+  {n:1,abbr:'Aramco',org:'Saudi Aramco',sector:'Oil & Gas (Upstream, Downstream, Midstream)',hq:'Dhahran',spend:'Very High (>$500M/yr)',portal:'www.aramco.com | e-Marketplace / 9COM AVL',notes:"World's largest oil company. Manages own AVL (9COM). Valve standards: SAES-L-102, API, ASME"},
+  {n:2,abbr:'SABIC',org:'Saudi Basic Industries Corporation',sector:'Petrochemicals, Polymers, Fertilizers',hq:'Riyadh (Plants: Jubail, Yanbu)',spend:'Very High (>$200M/yr)',portal:'www.sabic.com | SAP SRM portal',notes:'JV with Aramco (70%). Major valve buyer across 30+ facilities in Jubail & Yanbu'},
+  {n:3,abbr:'Marafiq',org:'Marafiq – Power & Water Utility',sector:'Power Generation, Utilities, Water',hq:'Jubail & Yanbu',spend:'High',portal:'www.marafiq.com.sa',notes:'Utility provider for Jubail & Yanbu industrial cities. Buys water, industrial & power valves'},
+  {n:4,abbr:'SATORP',org:'Saudi Aramco Total Refining & Petrochemical Co.',sector:'Refining, Petrochemical',hq:'Jubail',spend:'High (active expansion – Amiral)',portal:'Via Aramco/TotalEnergies procurement portals',notes:'$11B Amiral complex expansion underway. Major valve procurement through EPC contractors'},
+  {n:5,abbr:'Sadara',org:'Sadara Chemical Company',sector:'Petrochemicals, Polymers',hq:'Jubail',spend:'High',portal:'www.sadara.com | Procurement portal',notes:'Aramco–Dow JV. 26 manufacturing units. Full operation = large MRO & project valve buys'},
+  {n:6,abbr:'NWC',org:'National Water Company',sector:'Water & Wastewater',hq:'Riyadh (Nationwide)',spend:'Medium-High',portal:'www.nwc.com.sa | Vendor portal',notes:'Operates water networks nationwide. Buys water isolation valves, butterfly, gate, check, PRVs'},
+  {n:7,abbr:'SWCC',org:'Saline Water Conversion Corporation',sector:'Desalination, Water Transmission',hq:'Riyadh (Plants across coast)',spend:'Medium-High',portal:'www.swcc.gov.sa',notes:'Mega desalination plants along Red Sea & Gulf Coast. Buys large-bore isolation & control valves'},
+  {n:8,abbr:'YASREF',org:'Yanbu Aramco Sinopec Refining Co.',sector:'Refining',hq:'Yanbu',spend:'Medium',portal:'Via Aramco procurement framework',notes:'Aramco–Sinopec JV refinery. Valve supply largely through approved Aramco vendors'},
+  {n:9,abbr:'Petro Rabigh',org:'Petro Rabigh (Rabigh Refining & Petrochemical)',sector:'Refining, Petrochemical',hq:'Rabigh',spend:'Medium',portal:'www.petrorabigh.com',notes:'Aramco–Sumitomo JV. Buys valves for refinery & Phase II petrochemical complex'},
+  {n:10,abbr:'Maaden',org:"Ma'aden – Saudi Arabian Mining Company",sector:'Mining, Phosphate, Aluminium',hq:'Riyadh (Plants: Jubail, Ras Al-Khair)',spend:'Medium',portal:'www.maaden.com.sa',notes:'Large mining & processing operations. Buys industrial valves for phosphate & aluminium plants'},
+  {n:11,abbr:'RCJY',org:'Royal Commission for Jubail & Yanbu',sector:'Infrastructure, Utilities',hq:'Jubail & Yanbu',spend:'Medium',portal:'www.rcjy.gov.sa',notes:'Manages infrastructure of both industrial cities. Buys utility & water valves'},
+  {n:12,abbr:'SEC',org:'Saudi Electricity Company',sector:'Power Generation & Transmission',hq:'Riyadh (Nationwide)',spend:'Medium',portal:'www.se.com.sa',notes:'National electricity provider. Buys steam, water & utility valves for power plants'},
+  {n:13,abbr:'Petro Rabigh 2',org:'Petro Rabigh Phase 2',sector:'Petrochemical',hq:'Rabigh',spend:'Medium',portal:'Same as Petro Rabigh',notes:'Phase 2 expansion – additional petrochemical units'},
+  {n:14,abbr:'Aramco Gas',org:'Hasbah & Arabiyah Gas Plants (Aramco)',sector:'Gas Processing',hq:'Eastern Province',spend:'High',portal:'Via Aramco EPC/procurement',notes:'Gas processing projects with significant valve packages'},
+  {n:15,abbr:'Jafurah',org:'Jafurah Unconventional Gas Development',sector:'Gas Upstream',hq:'Eastern Province',spend:'Very High (active)',portal:'Via Aramco EPC procurement',notes:'Mega unconventional gas project. Billions in EPC contracts = very large valve demand'},
+];
+
+// ── RENDER ──────────────────────────────────────────────────────────
+function spendClass(s){
+  if(!s) return 'spend-medium';
+  s = s.toLowerCase();
+  if(s.includes('very high')) return 'spend-very-high';
+  if(s.includes('medium-high')||s.includes('medium high')) return 'spend-medium-high';
+  if(s.includes('medium-low')||s.includes('medium low')) return 'spend-medium-low';
+  if(s.includes('medium')) return 'spend-medium';
+  if(s.includes('high')) return 'spend-high';
+  return 'spend-medium';
+}
+function apvBadges(str){
+  if(!str) return '';
+  return str.split(',').map(a=>{
+    const k=a.trim().toLowerCase();
+    let cls='apv-other';
+    if(k.includes('aramco')) cls='apv-aramco';
+    else if(k.includes('sabic')) cls='apv-sabic';
+    else if(k.includes('satorp')) cls='apv-satorp';
+    else if(k.includes('sadara')) cls='apv-sadara';
+    else if(k.includes('marafiq')) cls='apv-marafiq';
+    else if(k.includes('nwc')) cls='apv-nwc';
+    else if(k.includes('swcc')) cls='apv-swcc';
+    else if(k.includes('sec')) cls='apv-sec';
+    return `<span class="apv-badge ${cls}">${a.trim()}</span>`;
+  }).join('');
+}
+function renderEPC(data){
+  return data.map(d=>`
+    <div class="co-card" data-origin="${d.origin}" data-spend="${d.spend}" data-text="${(d.name+d.origin+d.city+d.sectors+d.approved+d.projects+d.notes).toLowerCase()}">
+      <div class="co-card-header">
+        <div class="co-num">${d.n}</div>
+        <div class="co-name">${d.name}</div>
+        <span class="co-spend ${spendClass(d.spend)}">${d.spend}</span>
+      </div>
+      <div class="co-meta">
+        <span class="co-tag origin">&#127760; ${d.origin}</span>
+        <span class="co-tag city">&#128205; ${d.city}</span>
+        ${d.sectors.split(',').slice(0,2).map(s=>`<span class="co-tag sector">${s.trim()}</span>`).join('')}
+      </div>
+      <div class="co-projects"><strong>Major KSA Projects</strong>${d.projects}</div>
+      <div class="co-approved">
+        <span class="co-approved-lbl">Approved By</span>
+        ${apvBadges(d.approved)}
+      </div>
+      ${d.website&&d.website!='N/A'?`<a href="https://${d.website}" target="_blank" rel="noopener" class="co-website">&#127758; ${d.website}</a>`:''}
+      ${d.notes?`<div class="co-notes">${d.notes}</div>`:''}
+    </div>`).join('');
+}
+function renderTraders(data){
+  return data.map(d=>`
+    <div class="co-card" data-approval="${d.approval}" data-text="${(d.name+d.city+d.approval+d.approved+d.products+d.brands+d.position+d.notes).toLowerCase()}">
+      <div class="co-card-header">
+        <div class="co-num">${d.n}</div>
+        <div class="co-name">${d.name}</div>
+        <span class="co-spend ${d.approval==='Fully Approved'?'spend-very-high':d.approval.includes('Aramco')?'spend-high':'spend-medium-high'}">${d.approval}</span>
+      </div>
+      <div class="co-meta">
+        <span class="co-tag city">&#128205; ${d.city}</span>
+        <span class="co-tag sector">${d.position}</span>
+      </div>
+      <div class="co-projects"><strong>Products</strong>${d.products}</div>
+      <div class="co-projects" style="margin-top:6px;"><strong>Brands Represented</strong>${d.brands}</div>
+      <div class="co-approved" style="margin-top:10px;">
+        <span class="co-approved-lbl">Approved By</span>
+        ${apvBadges(d.approved)}
+      </div>
+      ${d.website&&d.website!='N/A'?`<a href="https://${d.website}" target="_blank" rel="noopener" class="co-website">&#127758; ${d.website}</a>`:''}
+      ${d.notes?`<div class="co-notes">${d.notes}</div>`:''}
+    </div>`).join('');
+}
+function renderClients(data){
+  return data.map(d=>`
+    <div class="ec-card" data-spend="${d.spend}" data-text="${(d.abbr+d.org+d.sector+d.hq+d.notes).toLowerCase()}">
+      <div class="ec-abbr">${d.abbr}</div>
+      <div class="ec-org">${d.org}</div>
+      <div class="ec-sector">&#127981; ${d.sector} &bull; &#128205; ${d.hq}</div>
+      <div class="ec-spend-row">
+        <span class="ec-spend-label">Valve Spend:</span>
+        <span class="co-spend ${spendClass(d.spend)}">${d.spend}</span>
+      </div>
+      <div class="ec-portal">&#128203; ${d.portal}</div>
+      <div class="co-notes">${d.notes}</div>
+    </div>`).join('');
+}
+
+// ── FILTER ──────────────────────────────────────────────────────────
+function filterCards(type){
+  if(type==='epc'){
+    const q=(document.getElementById('epcSearch').value||'').toLowerCase();
+    const origin=(document.getElementById('epcOrigin').value||'').toLowerCase();
+    const spend=(document.getElementById('epcSpend').value||'').toLowerCase();
+    const filtered=EPC_DATA.filter(d=>{
+      const txt=(d.name+d.origin+d.city+d.sectors+d.approved+d.projects+d.notes).toLowerCase();
+      return (!q||txt.includes(q))&&(!origin||d.origin.toLowerCase().includes(origin))&&(!spend||d.spend.toLowerCase().includes(spend));
+    });
+    document.getElementById('epcGrid').innerHTML=filtered.length?renderEPC(filtered):'<div class="no-results">No contractors match your filters.</div>';
+    document.getElementById('epcCountBadge').textContent=filtered.length+' contractor'+(filtered.length!==1?'s':'');
+  } else if(type==='traders'){
+    const q=(document.getElementById('tradersSearch').value||'').toLowerCase();
+    const apv=(document.getElementById('tradersApproval').value||'').toLowerCase();
+    const filtered=TRADERS_DATA.filter(d=>{
+      const txt=(d.name+d.city+d.approval+d.approved+d.products+d.brands+d.notes).toLowerCase();
+      return (!q||txt.includes(q))&&(!apv||d.approval.toLowerCase().includes(apv));
+    });
+    document.getElementById('tradersGrid').innerHTML=filtered.length?renderTraders(filtered):'<div class="no-results">No distributors match your filters.</div>';
+    document.getElementById('tradersCountBadge').textContent=filtered.length+' distributor'+(filtered.length!==1?'s':'');
+  } else if(type==='clients'){
+    const q=(document.getElementById('clientsSearch').value||'').toLowerCase();
+    const spend=(document.getElementById('clientsSpend').value||'').toLowerCase();
+    const filtered=CLIENTS_DATA.filter(d=>{
+      const txt=(d.abbr+d.org+d.sector+d.hq+d.notes).toLowerCase();
+      return (!q||txt.includes(q))&&(!spend||d.spend.toLowerCase().includes(spend));
+    });
+    document.getElementById('clientsGrid').innerHTML=filtered.length?renderClients(filtered):'<div class="no-results">No clients match your filters.</div>';
+    document.getElementById('clientsCountBadge').textContent=filtered.length+' client'+(filtered.length!==1?'s':'');
+  }
+}
+
+// ── TAB SWITCH ──────────────────────────────────────────────────────
+function switchTab(tab, el){
+  document.querySelectorAll('.epc-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.epc-section').forEach(s=>s.classList.remove('active'));
+  if(el) el.classList.add('active');
+  document.getElementById('sec-'+tab).classList.add('active');
+}
+
+// ── URL PARAM AUTO-TAB ───────────────────────────────────────────────
+function initFromURL(){
+  const tab=new URLSearchParams(location.search).get('tab');
+  if(tab){
+    const map={epc:'epc',traders:'traders',clients:'clients',approval:'approval',summary:'summary'};
+    if(map[tab]){
+      const idx={epc:0,traders:1,clients:2,approval:3,summary:4}[tab];
+      const tabs=document.querySelectorAll('.epc-tab');
+      switchTab(map[tab],tabs[idx]);
+    }
+  }
+}
+
+// ── INIT ─────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('epcGrid').innerHTML=renderEPC(EPC_DATA);
+  document.getElementById('tradersGrid').innerHTML=renderTraders(TRADERS_DATA);
+  document.getElementById('clientsGrid').innerHTML=renderClients(CLIENTS_DATA);
+  initFromURL();
+});
+
+window.addEventListener('load',function(){setTimeout(function(){document.getElementById('preloader').classList.add('hidden');},1200);});
+var nb=document.getElementById('navbar');
+window.addEventListener('scroll',function(){nb.classList.toggle('scrolled',window.scrollY>40);},{passive:true});
+var hb=document.getElementById('hamburger'),mn=document.getElementById('mobileNav');
+hb.addEventListener('click',function(){var o=mn.classList.toggle('open');hb.children[0].style.transform=o?'translateY(7px) rotate(45deg)':'';hb.children[1].style.opacity=o?'0':'';hb.children[2].style.transform=o?'translateY(-7px) rotate(-45deg)':'';});
+</script>
+<script src="js/navbar-auth.js"></script>
+</body>
+</html>
