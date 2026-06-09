@@ -393,20 +393,6 @@
   </div>
 </section>
 
-<!-- TVH REGISTERED MEMBERS (loaded from API) -->
-<section id="tvh-members-section" style="display:none;padding:50px 0;background:#F0F7F3;">
-  <div class="container">
-    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:24px;">
-      <div>
-        <h2 style="color:#006C35;font-size:1.6rem;margin:0 0 4px;">🏭 Registered TVH Suppliers</h2>
-        <p style="color:#5A6B62;font-size:.92rem;margin:0;">Live registered members on TheValveHubs platform &mdash; <span class="members-count" style="font-weight:700;color:#006C35;"></span></p>
-      </div>
-      <a href="index.html#join" style="background:#006C35;color:#fff;padding:10px 22px;border-radius:8px;font-weight:700;font-size:.88rem;text-decoration:none;">+ Register Your Company</a>
-    </div>
-    <div class="members-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;"></div>
-  </div>
-</section>
-
 <!-- CTA STRIP -->
 <section class="sd-cta">
   <div class="container">
@@ -506,58 +492,6 @@ function setView(v){
   renderSuppliers();
 }
 
-// ── TVH Members API layer ─────────────────────────────────────────────
-// Loads live registered suppliers from the backend.
-// Falls back gracefully to static AVL data if API is not yet live.
-var TVH_MEMBERS = [];
-
-async function loadTvhMembers() {
-  try {
-    var res = await fetch('/api/suppliers?limit=50&tier=P1');
-    if (!res.ok) throw new Error('API not ready');
-    var data = await res.json();
-    if (data.suppliers && data.suppliers.length > 0) {
-      TVH_MEMBERS = data.suppliers;
-      renderMembersSection();
-    }
-  } catch(e) {
-    // Silently fall back — static data still renders
-  }
-}
-
-function pillarLabel(p) {
-  var map = {valves:'Valves',parts:'Parts & Components',machining:'Machining',
-             '3dprint':'3D Printing','tpi':'TPI & Inspection',rental:'Equipment Rental'};
-  return map[p] || p;
-}
-
-function renderMembersSection() {
-  var sec = document.getElementById('tvh-members-section');
-  if (!sec || TVH_MEMBERS.length === 0) return;
-  sec.style.display = 'block';
-  var html = TVH_MEMBERS.map(function(m) {
-    var pillars = (m.pillars||[]).filter(function(p){return p.pillar;})
-      .map(function(p){ return '<span style="background:#EBF7F0;color:#006C35;padding:2px 8px;border-radius:20px;font-size:.73rem;font-weight:600;">'+pillarLabel(p.pillar)+'</span>'; }).join('');
-    var aramco = m.aramco ? '<span style="background:#FFF8E7;color:#C8973A;padding:2px 8px;border-radius:20px;font-size:.73rem;font-weight:700;">✓ Aramco</span>' : '';
-    var sabic  = m.sabic  ? '<span style="background:#EEF4FF;color:#1A3A6B;padding:2px 8px;border-radius:20px;font-size:.73rem;font-weight:700;">✓ SABIC</span>'   : '';
-    var emergency = m.emergency_capable ? '<span style="background:#FFEAEA;color:#C0392B;padding:2px 7px;border-radius:20px;font-size:.73rem;font-weight:700;">⚡ 24/7</span>' : '';
-    var verified  = m.verified ? '<span style="background:#006C35;color:#fff;padding:2px 8px;border-radius:20px;font-size:.73rem;font-weight:700;">✓ TVH Verified</span>' : '';
-    var iktva = m.iktva_score ? '<div style="font-size:.8rem;color:#5A6B62;margin-top:6px;">IKTVA: <strong style="color:#006C35;">'+m.iktva_score+'%</strong></div>' : '';
-    return '<div class="sd-card" style="position:relative;">'
-      + (m.verified ? '<div style="position:absolute;top:10px;right:10px;background:#006C35;color:#fff;font-size:.7rem;font-weight:800;padding:2px 8px;border-radius:20px;">TVH</div>' : '')
-      + '<div class="sd-card-top"><div class="sd-card-name">'+(m.name||'')+'</div></div>'
-      + '<div style="font-size:.82rem;color:#5A6B62;margin-bottom:8px;">📍 '+(m.city||'Saudi Arabia')+'</div>'
-      + '<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;">'+verified+aramco+sabic+emergency+'</div>'
-      + '<div style="display:flex;flex-wrap:wrap;gap:4px;">'+pillars+'</div>'
-      + iktva
-      + (m.description ? '<div style="font-size:.81rem;color:#3A4A3F;margin-top:8px;line-height:1.5;">'+m.description.slice(0,100)+(m.description.length>100?'…':'')+'</div>' : '')
-      + '</div>';
-  }).join('');
-  sec.querySelector('.members-grid').innerHTML = html;
-  sec.querySelector('.members-count').textContent = TVH_MEMBERS.length + ' registered TVH member' + (TVH_MEMBERS.length !== 1 ? 's' : '');
-}
-
-loadTvhMembers();
 renderSuppliers();
 
 window.addEventListener('load',function(){setTimeout(function(){document.getElementById('preloader').classList.add('hidden');},1200);});
