@@ -6,7 +6,7 @@
 
 const TVH_API = (() => {
 
-  const BASE = 'https://thevalvehubs-backend-production.up.railway.app/api';
+  const BASE = '/api';
 
   // ── Token Management ─────────────────────────────
   const getToken  = ()        => localStorage.getItem('tvh_token');
@@ -96,6 +96,38 @@ const TVH_API = (() => {
     benchmark: ()      => request('GET', '/iktva/benchmark'),
   };
 
+  // ── PROJECTS ─────────────────────────────────────
+  const projects = {
+    list:   (params={}) => request('GET', '/projects?' + new URLSearchParams(params)),
+    get:    (id)        => request('GET', `/projects/${id}`),
+    create: (data)      => request('POST', '/projects', data, true),
+  };
+
+  // ── EXPERTS ──────────────────────────────────────
+  const experts = {
+    list:     (params={}) => request('GET', '/experts?' + new URLSearchParams(params)),
+    register: (data)      => request('POST', '/experts', data, true),
+  };
+
+  // ── MANUFACTURING ────────────────────────────────
+  const manufacturing = {
+    register: (data) => request('POST', '/manufacturing/register', data, true),
+  };
+
+  // ── SURVEY ───────────────────────────────────────
+  const survey = {
+    submit: (data) => request('POST', '/survey', data, false),
+  };
+
+  // ── ADMIN ─────────────────────────────────────────
+  const admin = {
+    stats:           ()     => request('GET',  '/admin/stats', null, true),
+    users:           ()     => request('GET',  '/admin/users', null, true),
+    pending:         ()     => request('GET',  '/admin/pending-suppliers', null, true),
+    verify:          (id)   => request('PUT',  `/admin/verify/${id}`, {}, true),
+    emergencies:     ()     => request('GET',  '/admin/emergency', null, true),
+  };
+
   // ── UI Helpers ───────────────────────────────────
   const ui = {
     // عرض رسالة نجاح
@@ -132,6 +164,6 @@ const TVH_API = (() => {
   // تهيئة تلقائية عند تحميل أي صفحة
   document.addEventListener('DOMContentLoaded', () => ui.updateNav());
 
-  return { auth, suppliers, subscriptions, rfqs, emergency, iktva, ui, isLoggedIn, getUser, getToken };
+  return { auth, suppliers, subscriptions, rfqs, emergency, iktva, projects, experts, manufacturing, survey, admin, ui, isLoggedIn, getUser, getToken, setUser, setToken };
 
 })();

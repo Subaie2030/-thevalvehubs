@@ -1,0 +1,217 @@
+# TheValveHubs — Netlify Configuration
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+  included_files = ["netlify/functions/_db.js", "netlify/functions/_auth.js", "netlify/functions/_cors.js"]
+
+# ─── API Route Redirects ─────────────────────────────────────────────
+[[redirects]]
+  from = "/api/auth/register"
+  to = "/.netlify/functions/auth-register"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/auth/login"
+  to = "/.netlify/functions/auth-login"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/auth/me"
+  to = "/.netlify/functions/auth-me"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/auth/forgot-password"
+  to = "/.netlify/functions/auth-forgot"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/suppliers/me/profile"
+  to = "/.netlify/functions/supplier-profile"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/suppliers/certs"
+  to = "/.netlify/functions/supplier-certs"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/suppliers/profile"
+  to = "/.netlify/functions/supplier-profile"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/suppliers/:id"
+  to = "/.netlify/functions/supplier-get"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/suppliers"
+  to = "/.netlify/functions/suppliers"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/rfqs/emergency/:id"
+  to = "/.netlify/functions/emergency-rfq"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/rfqs/emergency"
+  to = "/.netlify/functions/emergency-rfq"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/rfqs/:id/respond"
+  to = "/.netlify/functions/rfq-respond"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/rfqs/:id/award"
+  to = "/.netlify/functions/rfq-award"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/rfqs/my"
+  to = "/.netlify/functions/rfqs"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/rfqs/inbox"
+  to = "/.netlify/functions/rfqs"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/rfqs/:id"
+  to = "/.netlify/functions/rfq-get"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/rfqs"
+  to = "/.netlify/functions/rfqs"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/projects/:id"
+  to = "/.netlify/functions/projects"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/projects"
+  to = "/.netlify/functions/projects"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/iktva/calculate"
+  to = "/.netlify/functions/iktva-calculate"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/iktva/history"
+  to = "/.netlify/functions/iktva-calculate"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/iktva/benchmark"
+  to = "/.netlify/functions/iktva-calculate"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/plans"
+  to = "/.netlify/functions/plans"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/subscriptions/current"
+  to = "/.netlify/functions/subscriptions"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/subscriptions/:id"
+  to = "/.netlify/functions/subscriptions"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/subscriptions"
+  to = "/.netlify/functions/subscriptions"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/invoices"
+  to = "/.netlify/functions/invoices"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/experts"
+  to = "/.netlify/functions/experts"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/survey"
+  to = "/.netlify/functions/submit-survey"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/manufacturing/register"
+  to = "/.netlify/functions/register-manufacturing"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/admin/*"
+  to = "/.netlify/functions/admin"
+  status = 200
+  force = true
+
+# ─── SPA Fallback ────────────────────────────────────────────────────
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# ─── Headers ─────────────────────────────────────────────────────────
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/.netlify/functions/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Headers = "Content-Type, Authorization"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"

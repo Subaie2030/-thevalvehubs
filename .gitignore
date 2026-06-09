@@ -1,0 +1,19 @@
+# Environment variables — NEVER commit these
+.env
+.env.local
+.env.production
+
+# Node modules
+node_modules/
+npm-debug.log*
+
+# Build output
+.netlify/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+*.swp

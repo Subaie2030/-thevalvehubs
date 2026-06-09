@@ -125,7 +125,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#F4F7F5;color:#1A2A1A;}
 </div>
 
 <script>
-const API    = 'https://thevalvehubs-backend-production.up.railway.app';
+const API    = '';
 const token  = localStorage.getItem('tvh_token');
 const params = new URLSearchParams(location.search);
 const rfqId  = params.get('id');
@@ -353,5 +353,7 @@ async function load() {
 
 load();
 </script>
+<script src="js/tvh-api.js"></script>
+<script src="js/navbar-auth.js"></script>
 </body>
 </html>

@@ -2,257 +2,501 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Master Supplier Directory &mdash; TheValveHubs</title>
-<meta name="description" content="Saudi Arabia's authoritative valve supplier directory &mdash; 87 vetted manufacturers approved by Aramco, NWC, SABIC, MARAFIQ and MAADEN."/>
-<link rel="stylesheet" href="css/style.css"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Master Supplier Directory — TheValveHubs</title>
+<meta name="description" content="Saudi Arabia's authoritative valve supplier directory — 87 vetted manufacturers approved by Aramco, NWC, SABIC, MARAFIQ and MAADEN."/>
+<link rel="stylesheet" href="style.css"/>
 <style>
-.dir-hero{background:linear-gradient(135deg,#0A1F14 0%,#1B3A2A 60%,#2C4F35 100%);padding:88px 0 60px;position:relative;overflow:hidden;}
-.dir-hero::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 48px,rgba(255,255,255,.03) 48px,rgba(255,255,255,.03) 49px),repeating-linear-gradient(90deg,transparent,transparent 48px,rgba(255,255,255,.03) 48px,rgba(255,255,255,.03) 49px);}
-.dir-hero-inner{position:relative;z-index:1;text-align:center;}
-.dir-hero h1{font-size:clamp(1.8rem,4vw,2.8rem);color:#fff;font-weight:800;margin-bottom:.5rem;}
-.dir-hero .sub{color:#A8C5A0;font-size:1.05rem;margin-bottom:1.5rem;}
-.dir-badges{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:1rem;}
-.dir-badge{padding:.3rem .9rem;border-radius:20px;font-size:.78rem;font-weight:700;letter-spacing:.5px;}
-.badge-aramco{background:#0A1F14;border:1.5px solid #00A650;color:#00A650;}
-.badge-nwc{background:#0A1F14;border:1.5px solid #0066CC;color:#6AB4FF;}
-.badge-sabic{background:#0A1F14;border:1.5px solid #E65C00;color:#FFA060;}
-.badge-marafiq{background:#0A1F14;border:1.5px solid #7B2FBE;color:#C78EFF;}
-.badge-maaden{background:#0A1F14;border:1.5px solid #C8973A;color:#F0C060;}
-.dir-stats{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin-top:1.5rem;}
-.dir-stat{text-align:center;}
-.dir-stat .num{font-size:2rem;font-weight:800;color:#F0C060;}
-.dir-stat .lbl{font-size:.78rem;color:#A8C5A0;text-transform:uppercase;letter-spacing:.5px;}
-.dir-controls{background:#F7F9F7;border-bottom:1.5px solid #DDE8DD;padding:1.2rem 0;position:sticky;top:68px;z-index:90;}
-.controls-inner{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;}
-.search-wrap{position:relative;flex:1;min-width:200px;}
-.search-wrap input{width:100%;padding:.65rem 1rem .65rem 2.6rem;border:1.5px solid #C5D8C5;border-radius:8px;font-size:.9rem;outline:none;transition:border-color .2s;box-sizing:border-box;}
-.search-wrap input:focus{border-color:#2D6A4F;}
-.search-icon{position:absolute;left:.8rem;top:50%;transform:translateY(-50%);color:#7A9A7A;font-size:.95rem;pointer-events:none;}
-.filter-select{padding:.65rem .9rem;border:1.5px solid #C5D8C5;border-radius:8px;font-size:.85rem;color:#2A3A2A;background:#fff;cursor:pointer;outline:none;}
-.filter-select:focus{border-color:#2D6A4F;}
-.results-count{font-size:.82rem;color:#5A6B62;white-space:nowrap;}
-.view-btns{display:flex;gap:.3rem;}
-.view-btn{padding:.45rem .7rem;border:1.5px solid #C5D8C5;border-radius:6px;background:#fff;cursor:pointer;font-size:.95rem;color:#5A6B62;transition:all .2s;line-height:1;}
-.view-btn.active{background:#2D6A4F;border-color:#2D6A4F;color:#fff;}
-.dir-section{padding:2rem 0 4rem;}
-.supplier-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.2rem;margin-top:.5rem;}
-.supplier-card{background:#fff;border:1.5px solid #DDE8DD;border-radius:12px;padding:1.25rem;transition:box-shadow .2s,border-color .2s;}
-.supplier-card:hover{box-shadow:0 6px 24px rgba(0,0,0,.1);border-color:#2D6A4F;}
-.card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem;margin-bottom:.7rem;}
-.card-name{font-size:.97rem;font-weight:700;color:#0A1F14;line-height:1.3;}
-.card-num{font-size:.7rem;font-weight:700;color:#A8C5A0;background:#F0F7F0;padding:.2rem .45rem;border-radius:10px;white-space:nowrap;}
-.card-meta{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.7rem;}
-.tag{display:inline-block;padding:.2rem .6rem;border-radius:12px;font-size:.72rem;font-weight:600;}
-.tag-entity-Aramco{background:#E8F5E9;color:#1B5E20;}
-.tag-entity-NWC{background:#E3F2FD;color:#0D47A1;}
-.tag-entity-SABIC{background:#FFF3E0;color:#E65100;}
-.tag-entity-MARAFIQ{background:#F3E5F5;color:#4A148C;}
-.tag-entity-MAADEN{background:#FFF8E1;color:#827717;}
-.tag-tier{background:#F5F5F5;color:#444;}
-.tag-tier-global{background:#FFF8E1;color:#F57F17;}
-.tag-tier-regional{background:#E8F5E9;color:#2E7D32;}
-.tag-tier-local{background:#E3F2FD;color:#1565C0;}
-.tag-tier-stockist{background:#F3E5F5;color:#6A1B9A;}
-.card-info{display:grid;grid-template-columns:1fr 1fr;gap:.3rem .8rem;font-size:.78rem;}
-.card-info-row{display:flex;flex-direction:column;}
-.card-info-lbl{color:#7A9A7A;font-size:.68rem;text-transform:uppercase;letter-spacing:.4px;margin-bottom:.1rem;}
-.card-info-val{color:#2A3A2A;font-weight:500;}
-.card-valves{margin-top:.7rem;padding-top:.6rem;border-top:1px dashed #DDE8DD;font-size:.76rem;color:#4A5A4A;}
-.card-approval{margin-top:.5rem;font-size:.74rem;font-weight:600;color:#2D6A4F;}
-.supplier-table-wrap{overflow-x:auto;margin-top:.5rem;}
-.supplier-table{width:100%;border-collapse:collapse;font-size:.82rem;}
-.supplier-table thead tr{background:#0A1F14;color:#fff;}
-.supplier-table thead th{padding:.65rem 1rem;text-align:left;font-weight:600;white-space:nowrap;}
-.supplier-table tbody tr{border-bottom:1px solid #EEF3EE;transition:background .15s;}
-.supplier-table tbody tr:hover{background:#F5FAF5;}
-.supplier-table tbody td{padding:.6rem 1rem;vertical-align:top;}
-.num-cell{color:#7A9A7A;font-size:.75rem;width:40px;}
-.empty-state{text-align:center;padding:4rem 1rem;color:#7A9A7A;}
-.empty-state .icon{font-size:2.5rem;margin-bottom:.5rem;}
+/* ── Page-specific overrides ── */
+.sd-hero{
+  background:linear-gradient(135deg,#004D26 0%,#006C35 55%,#1A3A6B 100%);
+  padding:110px 0 64px;
+  position:relative;
+  overflow:hidden;
+  text-align:center;
+  color:#fff;
+}
+.sd-hero::before{
+  content:'';
+  position:absolute;inset:0;
+  background-image:
+    repeating-linear-gradient(0deg,transparent,transparent 56px,rgba(255,255,255,.025) 56px,rgba(255,255,255,.025) 57px),
+    repeating-linear-gradient(90deg,transparent,transparent 56px,rgba(255,255,255,.025) 56px,rgba(255,255,255,.025) 57px);
+  pointer-events:none;
+}
+.sd-hero-inner{position:relative;z-index:1;}
+.sd-pill{
+  display:inline-block;
+  background:rgba(200,151,58,.18);
+  border:1px solid #C8973A;
+  color:#C8973A;
+  border-radius:40px;
+  padding:5px 18px;
+  font-size:.78rem;
+  font-weight:700;
+  letter-spacing:.04em;
+  margin-bottom:20px;
+}
+.sd-hero h1{
+  font-size:clamp(1.8rem,4vw,2.9rem);
+  font-weight:900;
+  margin-bottom:14px;
+  line-height:1.15;
+}
+.sd-hero .sub{
+  font-size:1rem;
+  opacity:.8;
+  max-width:580px;
+  margin:0 auto 28px;
+}
+.sd-entity-badges{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  justify-content:center;
+  margin-bottom:36px;
+}
+.sd-ebadge{
+  padding:5px 14px;
+  border-radius:20px;
+  font-size:.75rem;
+  font-weight:700;
+  letter-spacing:.03em;
+  border:1.5px solid;
+}
+.eb-aramco{border-color:#00A650;color:#00A650;background:rgba(0,166,80,.08);}
+.eb-nwc   {border-color:#4A9FE0;color:#4A9FE0;background:rgba(74,159,224,.08);}
+.eb-sabic {border-color:#E8873A;color:#E8873A;background:rgba(232,135,58,.08);}
+.eb-marafiq{border-color:#B47FE0;color:#B47FE0;background:rgba(180,127,224,.08);}
+.eb-maaden{border-color:#C8973A;color:#C8973A;background:rgba(200,151,58,.08);}
+
+.sd-stats{
+  display:flex;
+  gap:0;
+  justify-content:center;
+  flex-wrap:wrap;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:16px;
+  max-width:640px;
+  margin:0 auto;
+  overflow:hidden;
+}
+.sd-stat{
+  flex:1;
+  min-width:120px;
+  padding:20px 16px;
+  border-right:1px solid rgba(255,255,255,.1);
+}
+.sd-stat:last-child{border-right:none;}
+.sd-stat .num{font-size:1.9rem;font-weight:900;color:#C8973A;line-height:1;}
+.sd-stat .lbl{font-size:.72rem;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.06em;margin-top:4px;}
+
+/* ── Controls bar ── */
+.sd-controls{
+  background:#fff;
+  border-bottom:1.5px solid var(--border);
+  padding:14px 0;
+  position:sticky;
+  top:72px;
+  z-index:90;
+  box-shadow:0 2px 12px rgba(0,0,0,.05);
+}
+.sd-controls-inner{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+}
+.sd-search{
+  position:relative;
+  flex:1;
+  min-width:220px;
+}
+.sd-search-icon{
+  position:absolute;left:.85rem;top:50%;
+  transform:translateY(-50%);
+  color:var(--gray-3);
+  font-size:.95rem;
+  pointer-events:none;
+}
+.sd-search input{
+  width:100%;
+  padding:.65rem 1rem .65rem 2.6rem;
+  border:1.5px solid var(--border);
+  border-radius:8px;
+  font-size:.88rem;
+  outline:none;
+  transition:border-color .2s;
+  box-sizing:border-box;
+  color:var(--text);
+}
+.sd-search input:focus{border-color:var(--green);}
+.sd-select{
+  padding:.65rem .9rem;
+  border:1.5px solid var(--border);
+  border-radius:8px;
+  font-size:.84rem;
+  color:var(--text);
+  background:#fff;
+  cursor:pointer;
+  outline:none;
+  transition:border-color .2s;
+}
+.sd-select:focus{border-color:var(--green);}
+.sd-count{font-size:.82rem;color:var(--text-muted);white-space:nowrap;font-weight:500;}
+.sd-view-btns{display:flex;gap:4px;}
+.sd-vbtn{
+  padding:.46rem .72rem;
+  border:1.5px solid var(--border);
+  border-radius:6px;
+  background:#fff;
+  cursor:pointer;
+  font-size:.95rem;
+  color:var(--gray-4);
+  transition:all .2s;
+  line-height:1;
+}
+.sd-vbtn.active{background:var(--green);border-color:var(--green);color:#fff;}
+
+/* ── Section ── */
+.sd-section{padding:2.5rem 0 5rem;}
+
+/* ── Grid cards ── */
+.sd-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:1.1rem;
+}
+.sd-card{
+  background:#fff;
+  border:1.5px solid var(--border);
+  border-radius:var(--radius-md);
+  padding:1.2rem 1.3rem;
+  transition:box-shadow .2s, border-color .2s, transform .2s;
+  display:flex;
+  flex-direction:column;
+  gap:.6rem;
+}
+.sd-card:hover{
+  box-shadow:var(--shadow-md);
+  border-color:var(--green);
+  transform:translateY(-2px);
+}
+.sd-card-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:.5rem;
+}
+.sd-card-name{
+  font-size:.96rem;
+  font-weight:700;
+  color:var(--text);
+  line-height:1.3;
+}
+.sd-card-num{
+  font-size:.7rem;
+  font-weight:700;
+  color:var(--green);
+  background:var(--green-light);
+  padding:.18rem .5rem;
+  border-radius:10px;
+  white-space:nowrap;
+  flex-shrink:0;
+}
+.sd-tags{display:flex;flex-wrap:wrap;gap:.35rem;}
+.sd-tag{
+  display:inline-block;
+  padding:.18rem .55rem;
+  border-radius:10px;
+  font-size:.7rem;
+  font-weight:600;
+  line-height:1.5;
+}
+.te-Aramco {background:#E8F5E9;color:#1B5E20;}
+.te-NWC    {background:#E3F2FD;color:#0D47A1;}
+.te-SABIC  {background:#FFF3E0;color:#E65100;}
+.te-MARAFIQ{background:#F3E5F5;color:#4A148C;}
+.te-MAADEN {background:#FFF8E1;color:#7A6200;}
+.tt-global  {background:#FFF8E1;color:#B45309;}
+.tt-regional{background:var(--green-light);color:#14532D;}
+.tt-local   {background:#EFF6FF;color:#1E40AF;}
+.tt-stockist{background:#F5F3FF;color:#5B21B6;}
+
+.sd-card-info{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:.25rem .8rem;
+  font-size:.77rem;
+}
+.sd-info-row{display:flex;flex-direction:column;}
+.sd-info-lbl{
+  color:var(--gray-3);
+  font-size:.66rem;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+  margin-bottom:.1rem;
+}
+.sd-info-val{color:var(--text);font-weight:500;}
+.sd-card-valves{
+  font-size:.75rem;
+  color:var(--text-muted);
+  padding-top:.55rem;
+  border-top:1px dashed var(--border);
+}
+.sd-card-status{
+  font-size:.74rem;
+  font-weight:600;
+  color:var(--green);
+}
+
+/* ── Table ── */
+.sd-table-wrap{overflow-x:auto;margin-top:.5rem;border-radius:var(--radius-md);border:1.5px solid var(--border);}
+.sd-table{width:100%;border-collapse:collapse;font-size:.82rem;}
+.sd-table thead tr{background:var(--green-dark);color:#fff;}
+.sd-table thead th{padding:.7rem 1rem;text-align:left;font-weight:600;white-space:nowrap;font-size:.8rem;}
+.sd-table tbody tr{border-bottom:1px solid var(--gray-1);transition:background .15s;}
+.sd-table tbody tr:hover{background:var(--green-light);}
+.sd-table tbody td{padding:.65rem 1rem;vertical-align:middle;}
+.sd-num-cell{color:var(--gray-3);font-size:.74rem;width:40px;}
+
+/* ── Empty state ── */
+.sd-empty{text-align:center;padding:5rem 1rem;color:var(--text-muted);}
+.sd-empty .icon{font-size:2.8rem;margin-bottom:.75rem;}
+.sd-empty p{font-size:.95rem;}
+
+/* ── CTA strip ── */
+.sd-cta{
+  background:linear-gradient(135deg,var(--green-dark),var(--green));
+  color:#fff;
+  padding:56px 0;
+  text-align:center;
+}
+.sd-cta h2{font-size:1.55rem;font-weight:800;margin-bottom:8px;}
+.sd-cta p{opacity:.8;margin-bottom:26px;}
+.sd-cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.sd-cta-btns a{
+  padding:12px 26px;
+  border-radius:8px;
+  font-weight:700;
+  font-size:.95rem;
+  display:inline-block;
+  transition:opacity .2s;
+}
+.sd-cta-btns a:hover{opacity:.88;}
+.cta-gold{background:var(--gold);color:#fff;}
+.cta-outline{border:2px solid rgba(255,255,255,.5);color:#fff;}
+
 @media(max-width:640px){
-  .controls-inner{flex-direction:column;align-items:stretch;}
-  .supplier-grid{grid-template-columns:1fr;}
+  .sd-controls-inner{flex-direction:column;align-items:stretch;}
+  .sd-grid{grid-template-columns:1fr;}
+  .sd-stat{min-width:90px;padding:14px 10px;}
+  .sd-stat .num{font-size:1.5rem;}
 }
 </style>
 </head>
 <body>
 
-<div id="preloader" class="preloader"><div class="preloader-inner"><div class="spinner"></div></div></div>
+<div id="preloader"><div class="preloader-inner"><div class="preloader-logo">TVH</div><div class="preloader-spinner"></div><div class="preloader-text">Loading TheValveHubs&hellip;</div></div></div>
 
-<nav class="navbar" id="navbar">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo"><img src="images/tvh-logo-extracted.jpg" alt="TheValveHubs" style="width:220px;height:58px;object-fit:contain;object-position:left center;display:block;flex-shrink:0;"/></a>
-    <ul class="nav-menu">
-      <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-      <li class="nav-item"><a href="saudi-market.html" class="nav-link">&#127470;&#127474; Saudi Market</a></li>
-      <li class="nav-item"><a href="supplier-directory.html" class="nav-link active">&#128196; Supplier Directory</a></li>
-      <li class="nav-item"><a href="global-suppliers.html" class="nav-link">&#127760; Global Suppliers</a></li>
-      <li class="nav-item"><a href="emergency.html" class="nav-link emergency-link">&#128680; Emergency</a></li>
-      <li class="nav-item"><a href="pricing.html" class="nav-link">&#128176; Pricing</a></li>
-    </ul>
-    <div class="nav-cta">
-      <a href="index.html#join" class="btn btn-outline-green btn-sm">Join Free</a>
-      <a href="emergency.html" class="btn btn-red btn-sm">&#128680; Emergency</a>
-    </div>
-    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
-  </div>
-</nav>
+<div class="emergency-band" id="emergencyBand">&#128680; Emergency 24/7 &mdash; Valves &middot; Spare Parts &middot; Machining &middot; 3D Printing &middot; Consultation &middot; Rental &mdash; <a href="emergency.html">Submit Emergency RFQ &rarr;</a><button class="band-dismiss" onclick="document.getElementById('emergencyBand').style.display='none'">&times;</button></div>
 
-<section class="dir-hero">
-  <div class="container dir-hero-inner">
+<nav class="navbar" id="navbar"><div class="nav-inner"><a href="index.html" class="nav-logo"><img src="images/tvh-logo-extracted.jpg" alt="TheValveHubs" style="width:220px;height:58px;object-fit:contain;object-position:left center;display:block;flex-shrink:0;"/></a><ul class="nav-menu"><li class="nav-item"><a href="about.html" class="nav-link">&#128101; About</a></li><li class="nav-item"><a href="platform.html" class="nav-link">&#128506; Platform</a></li><li class="nav-item"><a href="saudi-market.html" class="nav-link">&#127470;&#127474; Saudi Market</a></li><li class="nav-item"><a href="supplier-directory.html" class="nav-link">&#128196; Suppliers</a></li><li class="nav-item"><a href="epc-directory.html" class="nav-link">&#127959; EPC Directory</a></li><li class="nav-item"><a href="manufacturing.html" class="nav-link">&#9881; Manufacturing</a></li><li class="nav-item"><a href="experts.html" class="nav-link">&#128119; Experts</a></li><li class="nav-item"><a href="intelligence.html" class="nav-link">&#128200; Intelligence</a></li></ul><div class="nav-cta"><a href="survey.html" class="btn btn-outline-green btn-sm" style="border-color:#C8973A;color:#C8973A;">&#127942; Rate Us</a><a href="index.html#join" class="btn btn-outline-green btn-sm">Join Free</a><a href="emergency.html" class="btn btn-red btn-sm">&#128680; Emergency</a></div><button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button></div></nav>
+<div class="mobile-nav" id="mobileNav"><div class="mobile-nav-item"><a href="index.html" class="mobile-nav-link">&#127968; Home</a></div><div class="mobile-nav-item"><a href="about.html" class="mobile-nav-link">&#128101; About TVH</a></div><div class="mobile-nav-item"><a href="platform.html" class="mobile-nav-link">&#128506; Platform Overview</a></div><div class="mobile-nav-item"><a href="saudi-market.html" class="mobile-nav-link">&#127470;&#127474; Saudi Market</a></div><div class="mobile-nav-item"><a href="supplier-directory.html" class="mobile-nav-link">&#128196; Supplier Directory</a></div><div class="mobile-nav-item"><a href="epc-directory.html" class="mobile-nav-link">&#127959; EPC Directory</a></div><div class="mobile-nav-item"><a href="manufacturing.html" class="mobile-nav-link">&#9881; Manufacturing</a></div><div class="mobile-nav-item"><a href="experts.html" class="mobile-nav-link">&#128119; Experts &amp; Technicians</a></div><div class="mobile-nav-item"><a href="intelligence.html" class="mobile-nav-link">&#128200; Intelligence</a></div><div class="mobile-nav-item"><a href="projects.html" class="mobile-nav-link">&#128203; Watch Projects</a></div><div class="mobile-nav-item"><a href="invest-saudi.html" class="mobile-nav-link">&#127868; Invest in Saudi</a></div><div class="mobile-nav-item"><a href="valve-academy.html" class="mobile-nav-link" style="color:#C8973A;font-weight:700;">&#127891; Valve Academy</a></div><div class="mobile-nav-item"><a href="tvh-news.html" class="mobile-nav-link" style="color:#C0392B;font-weight:700;">&#128240; TVH News</a></div><div class="mobile-nav-item"><a href="pricing.html" class="mobile-nav-link">&#128176; Pricing Plans</a></div><div class="mobile-cta"><a href="index.html#join" class="btn btn-green">Join Free</a><a href="emergency.html" class="btn btn-red">&#128680; Emergency</a></div></div>
+
+</div>
+
+</div>
+
+<!-- HERO -->
+<section class="sd-hero">
+  <div class="container sd-hero-inner">
+    <div class="sd-pill">Saudi Vision 2030 &bull; IKTVA &bull; 5 Industrial Entities</div>
     <h1>&#128196; Master Supplier Directory</h1>
-    <p class="sub">Saudi Arabia&rsquo;s authoritative valve supplier registry &mdash; approved by the Kingdom&rsquo;s top industrial entities</p>
-    <div class="dir-badges">
-      <span class="dir-badge badge-aramco">&#129687; Aramco AVL</span>
-      <span class="dir-badge badge-nwc">&#128167; NWC Approved</span>
-      <span class="dir-badge badge-sabic">SABIC Qualified</span>
-      <span class="dir-badge badge-marafiq">&#127981; MARAFIQ Listed</span>
-      <span class="dir-badge badge-maaden">MAADEN Approved</span>
+    <p class="sub">Saudi Arabia&rsquo;s authoritative valve supplier registry &mdash; 87 vetted manufacturers approved by the Kingdom&rsquo;s top industrial entities</p>
+    <div class="sd-entity-badges">
+      <span class="sd-ebadge eb-aramco">&#9881; Aramco AVL</span>
+      <span class="sd-ebadge eb-nwc">&#128167; NWC Approved</span>
+      <span class="sd-ebadge eb-sabic">&#9877; SABIC Qualified</span>
+      <span class="sd-ebadge eb-marafiq">&#127981; MARAFIQ Listed</span>
+      <span class="sd-ebadge eb-maaden">&#9935; MAADEN Approved</span>
     </div>
-    <div class="dir-stats">
-      <div class="dir-stat"><div class="num">87</div><div class="lbl">Verified Suppliers</div></div>
-      <div class="dir-stat"><div class="num">5</div><div class="lbl">Saudi Entities</div></div>
-      <div class="dir-stat"><div class="num">30+</div><div class="lbl">Countries</div></div>
-      <div class="dir-stat"><div class="num">4</div><div class="lbl">Approval Tiers</div></div>
+    <div class="sd-stats">
+      <div class="sd-stat"><div class="num">87</div><div class="lbl">Verified Suppliers</div></div>
+      <div class="sd-stat"><div class="num">5</div><div class="lbl">Saudi Entities</div></div>
+      <div class="sd-stat"><div class="num">30+</div><div class="lbl">Countries</div></div>
+      <div class="sd-stat"><div class="num">4</div><div class="lbl">Approval Tiers</div></div>
     </div>
   </div>
 </section>
 
-<div class="dir-controls">
-  <div class="container controls-inner">
-    <div class="search-wrap">
-      <span class="search-icon">&#128269;</span>
+<!-- CONTROLS -->
+<div class="sd-controls">
+  <div class="container sd-controls-inner">
+    <div class="sd-search">
+      <span class="sd-search-icon">&#128269;</span>
       <input type="text" id="searchInput" placeholder="Search supplier, valve type, location&hellip;" oninput="renderSuppliers()"/>
     </div>
-    <select class="filter-select" id="filterEntity" onchange="renderSuppliers()">
+    <select class="sd-select" id="filterEntity" onchange="renderSuppliers()">
       <option value="">All Entities</option>
-      <option value="Aramco">&#129687; Aramco</option>
+      <option value="Aramco">&#9881; Aramco</option>
       <option value="NWC">&#128167; NWC</option>
       <option value="SABIC">SABIC</option>
       <option value="MARAFIQ">&#127981; MARAFIQ</option>
       <option value="MAADEN">MAADEN</option>
     </select>
-    <select class="filter-select" id="filterTier" onchange="renderSuppliers()">
+    <select class="sd-select" id="filterTier" onchange="renderSuppliers()">
       <option value="">All Tiers</option>
       <option value="Global OEM">Global OEM</option>
       <option value="Regional OEM">Regional OEM</option>
       <option value="Local Approved">Local Approved</option>
       <option value="Approved Stockist">Approved Stockist</option>
     </select>
-    <select class="filter-select" id="filterCountry" onchange="renderSuppliers()">
+    <select class="sd-select" id="filterCountry" onchange="renderSuppliers()">
       <option value="">All Countries</option>
     </select>
-    <span class="results-count" id="resultsCount">87 suppliers</span>
-    <div class="view-btns">
-      <button class="view-btn active" id="btnGrid" onclick="setView('grid')" title="Grid view">&#9783;</button>
-      <button class="view-btn" id="btnTable" onclick="setView('table')" title="Table view">&#9776;</button>
+    <span class="sd-count" id="resultsCount">87 suppliers</span>
+    <div class="sd-view-btns">
+      <button class="sd-vbtn active" id="btnGrid" onclick="setView('grid')" title="Grid view">&#9783;</button>
+      <button class="sd-vbtn" id="btnTable" onclick="setView('table')" title="Table view">&#9776;</button>
     </div>
   </div>
 </div>
 
-<section class="dir-section">
+<!-- RESULTS -->
+<section class="sd-section">
   <div class="container">
-    <div id="gridView" class="supplier-grid"></div>
-    <div id="tableView" class="supplier-table-wrap" style="display:none">
-      <table class="supplier-table">
+    <div id="gridView" class="sd-grid"></div>
+    <div id="tableView" class="sd-table-wrap" style="display:none">
+      <table class="sd-table">
         <thead>
           <tr>
-            <th>#</th><th>Supplier / Manufacturer</th><th>Entity</th><th>Tier</th>
-            <th>Country</th><th>KSA Location</th><th>Valve Types</th><th>Approval Status</th><th>Est.</th>
+            <th>#</th>
+            <th>Supplier / Manufacturer</th>
+            <th>Entity</th>
+            <th>Tier</th>
+            <th>Country</th>
+            <th>KSA Location</th>
+            <th>Valve Types</th>
+            <th>Approval Status</th>
+            <th>Est.</th>
           </tr>
         </thead>
         <tbody id="tableBody"></tbody>
       </table>
     </div>
-    <div id="emptyState" class="empty-state" style="display:none">
+    <div id="emptyState" class="sd-empty" style="display:none">
       <div class="icon">&#128269;</div>
-      <p>No suppliers match your filters.<br>Try adjusting the search or filters.</p>
+      <p>No suppliers match your filters.<br>Try adjusting the search or filters above.</p>
     </div>
   </div>
 </section>
 
-<footer><div class="container"><div class="footer-grid"><div class="footer-brand"><div class="footer-logo"><div style="background:#fff;border-radius:10px;padding:10px 20px;display:inline-block;"><img src="images/tvh-logo-extracted.jpg" alt="TheValveHubs" style="height:72px;width:auto;display:block;"/></div></div><p>Saudi Arabia&rsquo;s engineering-governed valve marketplace.</p></div><div class="footer-col"><h5>Legal</h5><ul><li><a href="privacy.html" style="color:#C8973A;">Privacy Policy</a></li><li><a href="terms.html">Terms of Service</a></li></ul></div><div class="footer-col"><h5>Platform</h5><ul><li><a href="saudi-market.html">Saudi Market</a></li><li><a href="supplier-directory.html">Supplier Directory</a></li><li><a href="emergency.html">Emergency 24/7</a></li><li><a href="pricing.html">Pricing</a></li></ul></div><div class="footer-col"><h5>Company</h5><ul><li><a href="about.html">About Us</a></li><li><a href="index.html#join">Join Free</a></li></ul></div></div></div><div class="container"><div class="footer-bottom"><span>&copy; 2026 TheValveHubs. Khobar, Saudi Arabia. Governed by Saudi PDPL.</span><span><a href="terms.html" style="color:#9A9AAA;">Terms</a> &nbsp;&middot;&nbsp; <a href="privacy.html" style="color:#C8973A;">Privacy</a></span></div></div></footer>
-<a href="https://wa.me/966501099901" class="whatsapp-float" target="_blank" rel="noopener">&#128241;</a>
+<!-- TVH REGISTERED MEMBERS (loaded from API) -->
+<section id="tvh-members-section" style="display:none;padding:50px 0;background:#F0F7F3;">
+  <div class="container">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:24px;">
+      <div>
+        <h2 style="color:#006C35;font-size:1.6rem;margin:0 0 4px;">🏭 Registered TVH Suppliers</h2>
+        <p style="color:#5A6B62;font-size:.92rem;margin:0;">Live registered members on TheValveHubs platform &mdash; <span class="members-count" style="font-weight:700;color:#006C35;"></span></p>
+      </div>
+      <a href="index.html#join" style="background:#006C35;color:#fff;padding:10px 22px;border-radius:8px;font-weight:700;font-size:.88rem;text-decoration:none;">+ Register Your Company</a>
+    </div>
+    <div class="members-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;"></div>
+  </div>
+</section>
+
+<!-- CTA STRIP -->
+<section class="sd-cta">
+  <div class="container">
+    <h2>Ready to Join the Directory?</h2>
+    <p>List your company as a verified Saudi valve supplier. Free registration. IKTVA aligned. Vision 2030 ready.</p>
+    <div class="sd-cta-btns">
+      <a href="index.html#join" class="cta-gold">Join as Supplier</a>
+      <a href="global-suppliers.html" class="cta-outline">International Suppliers</a>
+      <a href="emergency.html" style="background:#C0392B;color:#fff;padding:12px 26px;border-radius:8px;font-weight:700;display:inline-block;">&#128680; Emergency 24/7</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer><div class="container"><div class="footer-grid"><div class="footer-brand"><div class="footer-logo"><div style="background:#fff;border-radius:10px;padding:10px 20px;display:inline-block;"><img src="images/tvh-logo-extracted.jpg" alt="TheValveHubs" style="height:72px;width:auto;display:block;"/></div></div><p>Saudi Arabia&rsquo;s engineering-governed industrial valve marketplace. Saudi suppliers first. International when unavailable. Emergency 24/7.</p><p style="font-size:.8rem;opacity:.6;margin-top:8px;">HQ: Khobar, Saudi Arabia &bull; Vision 2030 &bull; IKTVA</p><div class="footer-social" style="margin-top:16px;"><a href="#">in</a><a href="#">&#128241;</a></div></div><div class="footer-col"><h5>Saudi Market</h5><ul><li><a href="pricing.html">Pricing Plans</a></li><li><a href="manufacturing.html">Manufacturing &amp; Materials</a></li><li><a href="experts.html">Experts &amp; Technicians</a></li><li><a href="invest-saudi.html">Invest in Saudi</a></li></ul></div><div class="footer-col"><h5>Directory</h5><ul><li><a href="supplier-directory.html">Supplier Directory</a></li><li><a href="global-suppliers.html">Global Suppliers</a></li><li><a href="saudi-market.html">Saudi Market</a></li><li><a href="intelligence.html">TVH Intelligence</a></li></ul></div><div class="footer-col"><h5>Emergency &amp; Company</h5><ul><li><a href="emergency.html">Emergency 24/7</a></li><li><a href="about.html">About Us</a></li><li><a href="index.html#join">Join Free</a></li></ul></div></div></div><div class="container"><div class="footer-bottom"><span>&copy; 2026 TheValveHubs. All rights reserved. Khobar, Saudi Arabia.</span><span>Founded by Abdullah F. AlSubaie &bull; Vision 2030 &bull; IKTVA &nbsp;&middot;&nbsp; <a href="terms.html" style="color:#9A9AAA;">Terms</a> &nbsp;&middot;&nbsp; <a href="privacy.html" style="color:#9A9AAA;">Privacy</a></span></div></div></footer>
+
+<a href="https://wa.me/966501099901" class="whatsapp-float" target="_blank" rel="noopener" title="WhatsApp">&#128241;</a>
 
 <script>
-var SUPPLIERS = [{"num": 1, "entity": "Aramco", "tier": "Global OEM", "name": "Emerson / Fisher Valves", "country": "🇺🇸 USA", "location": "Jubail + Yanbu", "valveTypes": "Control Valve, Digital Valve", "approvalStatus": "Aramco AVL, IKTVA Award 2026", "estYear": 2000}, {"num": 2, "entity": "Aramco", "tier": "Global OEM", "name": "Flowserve Corporation (incl. Valbart)", "country": "🇺🇸 USA", "location": "Dammam", "valveTypes": "Gate, Globe, Check, Ball, Trunnion Ball", "approvalStatus": "Aramco AVL, Valbart Trunnion Ball", "estYear": 2001}, {"num": 3, "entity": "Aramco", "tier": "Global OEM", "name": "Crane ChemPharma & Energy", "country": "🇺🇸 USA", "location": "Regional", "valveTypes": "Gate, Globe, Check, Ball", "approvalStatus": "Aramco AVL", "estYear": 1998}, {"num": 4, "entity": "Aramco", "tier": "Global OEM", "name": "PetrolValves S.p.A.", "country": "🇮🇹 Italy", "location": "Dammam", "valveTypes": "Trunnion Ball, Gate, Check", "approvalStatus": "Aramco AVL, API 6D", "estYear": 2004}, {"num": 5, "entity": "Aramco", "tier": "Global OEM", "name": "KITZ Corporation", "country": "🇯🇵 Japan", "location": "Regional", "valveTypes": "Gate, Globe, Check, Ball, Butterfly", "approvalStatus": "Aramco AVL, SAMREF AML", "estYear": 2005}, {"num": 6, "entity": "Aramco", "tier": "Global OEM", "name": "PERAR S.p.A.", "country": "🇮🇹 Italy", "location": "Regional", "valveTypes": "Gate, Globe, Check", "approvalStatus": "Aramco AVL", "estYear": 2006}, {"num": 7, "entity": "Aramco", "tier": "Global OEM", "name": "Hartmann Valves", "country": "🇩🇪 Germany", "location": "Regional", "valveTypes": "Gate, Globe, Check, Butterfly", "approvalStatus": "Aramco AVL", "estYear": 2007}, {"num": 8, "entity": "Aramco", "tier": "Global OEM", "name": "Oliver Valves (part of Oliver Valves Ltd)", "country": "🇬🇧 UK", "location": "Regional", "valveTypes": "Instrumentation Valve, Double Block & Bleed", "approvalStatus": "Aramco AVL", "estYear": 2008}, {"num": 9, "entity": "Aramco", "tier": "Global OEM", "name": "Goodwin International", "country": "🇬🇧 UK", "location": "Regional", "valveTypes": "Check Valve, Gate Valve", "approvalStatus": "Aramco AVL", "estYear": 2007}, {"num": 10, "entity": "Aramco", "tier": "Global OEM", "name": "Biffi (Emerson Automation)", "country": "🇮🇹 Italy", "location": "Regional", "valveTypes": "Pneumatic & Electric Actuator, Quarter-Turn", "approvalStatus": "Aramco AVL", "estYear": 2005}, {"num": 11, "entity": "Aramco", "tier": "Global OEM", "name": "Metso Neles", "country": "🇫🇮 Finland", "location": "Riyadh", "valveTypes": "Segment Ball, Butterfly, Control Valve", "approvalStatus": "Aramco AVL", "estYear": 2010}, {"num": 12, "entity": "Aramco", "tier": "Global OEM", "name": "IMI CCI (Truflo)", "country": "🇬🇧 UK", "location": "Regional", "valveTypes": "Severe Service Control Valve", "approvalStatus": "Aramco AVL", "estYear": 2008}, {"num": 13, "entity": "Aramco", "tier": "Regional OEM", "name": "IMI Saudi Industry", "country": "🇸🇦 Saudi Arabia", "location": "Al Jubail", "valveTypes": "Gate, Globe, Check, Ball", "approvalStatus": "Aramco CPA, IKTVA", "estYear": 2015}, {"num": 14, "entity": "Aramco", "tier": "Regional OEM", "name": "L&T Valves Arabia", "country": "🇸🇦 Saudi Arabia", "location": "Dammam", "valveTypes": "Gate, Globe, Check, Ball, Butterfly", "approvalStatus": "Aramco CPA, IKTVA", "estYear": 2018}, {"num": 15, "entity": "Aramco", "tier": "Regional OEM", "name": "AVK Saudi Valves Mfg", "country": "🇸🇦 Saudi Arabia", "location": "Jeddah", "valveTypes": "Gate, Butterfly, Plug, Globe", "approvalStatus": "Aramco Approved, IKTVA", "estYear": 1985}, {"num": 16, "entity": "Aramco", "tier": "Regional OEM", "name": "IVM OMB Saudi", "country": "🇮🇹 Italy/🇸🇦 KSA", "location": "Dammam", "valveTypes": "Ball Valve, Gate, Check", "approvalStatus": "Aramco AVL, SABIC Approved", "estYear": 2012}, {"num": 17, "entity": "Aramco", "tier": "Regional OEM", "name": "ZEBCO Engineering", "country": "🇸🇦 Saudi Arabia", "location": "Al Jubail", "valveTypes": "Ball Valve, Gate Valve", "approvalStatus": "Aramco Approved, SABIC Approved", "estYear": 2008}, {"num": 18, "entity": "Aramco", "tier": "Regional OEM", "name": "GCC Valves", "country": "🇦🇪 UAE/🇸🇦 KSA", "location": "Dubai / Al Khobar", "valveTypes": "Gate, Globe, Check, Ball, Butterfly", "approvalStatus": "Aramco AVL, SABIC Approved", "estYear": 2006}, {"num": 19, "entity": "Aramco", "tier": "Local Approved", "name": "Middle East Valve", "country": "🇸🇦 Saudi Arabia", "location": "Riyadh / Al Khobar", "valveTypes": "Full Range Distribution", "approvalStatus": "Trusted by Aramco, SABIC, SWCC, Maaden", "estYear": 2010}, {"num": 20, "entity": "Aramco", "tier": "Local Approved", "name": "Pan Gulf Valve Services (Valvserve)", "country": "🇸🇦 Saudi Arabia", "location": "Al Jubail", "valveTypes": "Control, SRV, Gate, Globe", "approvalStatus": "Aramco Approved, MARAFIQ Approved", "estYear": 2003}, {"num": 21, "entity": "Aramco", "tier": "Local Approved", "name": "NASICO Industrial Services", "country": "🇸🇦 Saudi Arabia", "location": "Al Jubail", "valveTypes": "Valve Overhaul, Control, Relief", "approvalStatus": "Aramco Affiliate Service", "estYear": 1995}, {"num": 22, "entity": "Aramco", "tier": "Local Approved", "name": "Al-Rashid Trading (Valves)", "country": "🇸🇦 Saudi Arabia", "location": "Al Khobar", "valveTypes": "Full Range (Local Stock)", "approvalStatus": "Aramco Area Supplier", "estYear": 1990}, {"num": 23, "entity": "Aramco", "tier": "Approved Stockist", "name": "MRC Transmark Middle East", "country": "🇦🇪 UAE", "location": "Jebel Ali FZ", "valveTypes": "All Types (MRO)", "approvalStatus": "SABIC Master Contract, Aramco Stockist", "estYear": 2015}, {"num": 24, "entity": "Aramco", "tier": "Approved Stockist", "name": "Saudi Valve & Fitting Co (SVFC)", "country": "🇸🇦 Saudi Arabia", "location": "Al Jubail", "valveTypes": "All Types (Stock)", "approvalStatus": "Aramco Area Stockist", "estYear": 2005}, {"num": 25, "entity": "Aramco", "tier": "Approved Stockist", "name": "Al-Aoun Trading", "country": "🇸🇦 Saudi Arabia", "location": "Dammam", "valveTypes": "Gate, Globe, Ball (Stock)", "approvalStatus": "Aramco Eastern Province Stockist", "estYear": 2000}, {"num": 26, "entity": "Aramco", "tier": "Approved Stockist", "name": "Haasco (Gulf Supplies)", "country": "🇸🇦 Saudi Arabia", "location": "Al Khobar", "valveTypes": "Full Range", "approvalStatus": "Aramco Preferred Stockist", "estYear": 2002}, {"num": 27, "entity": "NWC", "tier": "Global OEM", "name": "AVK International", "country": "🇩🇰 Denmark", "location": "Jeddah (Local Mfg)", "valveTypes": "Resilient Gate, Butterfly, Check", "approvalStatus": "NWC Approved, AWWA C509", "estYear": 1985}, {"num": 28, "entity": "NWC", "tier": "Global OEM", "name": "Tyco Water (Pentair)", "country": "🇺🇸 USA", "location": "Regional", "valveTypes": "Gate, Butterfly, Air Release", "approvalStatus": "NWC Approved, BS 5163", "estYear": 2005}, {"num": 29, "entity": "NWC", "tier": "Global OEM", "name": "Kennedy Valve (McWane)", "country": "🇺🇸 USA", "location": "Regional", "valveTypes": "Gate, Check, Fire Hydrant Valve", "approvalStatus": "NWC Approved, AWWA C509", "estYear": 2003}, {"num": 30, "entity": "NWC", "tier": "Global OEM", "name": "Erhard (AVK Group)", "country": "🇩🇪 Germany", "location": "Regional", "valveTypes": "Gate, Butterfly, Air Valve, Plunger", "approvalStatus": "NWC Approved, EN 1171", "estYear": 2006}, {"num": 31, "entity": "NWC", "tier": "Global OEM", "name": "VAG Valves (KSB Group)", "country": "🇩🇪 Germany", "location": "Regional", "valveTypes": "Gate, Butterfly, Pressure Reducing", "approvalStatus": "NWC Approved, EN 1171", "estYear": 2007}, {"num": 32, "entity": "NWC", "tier": "Global OEM", "name": "Singer Valve", "country": "🇨🇦 Canada", "location": "Regional", "valveTypes": "Pressure Reducing, Float Control, Check", "approvalStatus": "NWC Approved", "estYear": 2004}, {"num": 33, "entity": "NWC", "tier": "Global OEM", "name": "Cla-Val Company", "country": "🇺🇸 USA", "location": "Regional", "valveTypes": "Pressure Reducing, Check, Float", "approvalStatus": "NWC Approved", "estYear": 2003}, {"num": 34, "entity": "NWC", "tier": "Regional OEM", "name": "AVK Saudi Valves Mfg (AVKSVMC)", "country": "🇸🇦 Saudi Arabia", "location": "Jeddah", "valveTypes": "Gate, Butterfly, Hydrant Valve", "approvalStatus": "NWC Approved, IKTVA", "estYear": 1985}, {"num": 35, "entity": "NWC", "tier": "Regional OEM", "name": "Saudi Valve Manufacturing (SVM)", "country": "🇸🇦 Saudi Arabia", "location": "Jeddah", "valveTypes": "Gate, Globe, Check (Local)", "approvalStatus": "NWC Local Mfg, IKTVA", "estYear": 2000}, {"num": 36, "entity": "NWC", "tier": "Regional OEM", "name": "Al-Ahmadi Industrial (Mecca)", "country": "🇸🇦 Saudi Arabia", "location": "Mecca", "valveTypes": "Gate, Butterfly (Local)", "approvalStatus": "NWC Western Region", "estYear": 2008}, {"num": 37, "entity": "NWC", "tier": "Local Approved", "name": "Al-Ajlan Trading (Water Valves)", "country": "🇸🇦 Saudi Arabia", "location": "Riyadh", "valveTypes": "Gate, Butterfly, PRV (Stock)", "approvalStatus": "NWC Approved Stockist", "estYear": 2005}, {"num": 38, "entity": "NWC", "tier": "Local Approved", "name": "Consolidated Contractors (CCC) Supply", "country": "🇱🇧 Lebanon/🇸🇦 KSA", "location": "Al Khobar", "valveTypes": "Full Range Water Valves", "approvalStatus": "NWC EPC Contractor Supply", "estYear": 2000}, {"num": 39, "entity": "NWC", "tier": "Local Approved", "name": "Techno Valley Trading", "country": "🇸🇦 Saudi Arabia", "location": "Jeddah", "valveTypes": "Gate, Globe, Check, PRV", "approvalStatus": "NWC Western Region Supplier", "estYear": 2009}, {"num": 40, "entity": "NWC", "tier": "Approved Stockist", "name": "Middle East Valve (Water Div)", "country": "🇸🇦 Saudi Arabia", "location": "Riyadh", "valveTypes": "Full Range Water Valves", "approvalStatus": "NWC Trusted Supplier", "estYear": 2010}, {"num": 41, "entity": "NWC", "tier": "Approved Stockist", "name": "National Pipes Company (NPC)", "country": "🇸🇦 Saudi Arabia", "location": "Riyadh", "valveTypes": "Gate, Butterfly (with Pipe)", "approvalStatus": "NWC Pipe+Valve Package", "estYear": 2001}, {"num": 42, "entity": "NWC", "tier": "Approved Stockist", "name": "NWPH Saudi", "country": "🇸🇦 Saudi Arabia", "location": "Al Khobar", "valveTypes": "Gate, Butterfly, Non-Return", "approvalStatus": "NWC Eastern Region", "estYear": 2007}, {"num": 43, "entity": "SABIC", "tier": "Global OEM", "name": "Emerson / Fisher Valves", "country": "🇺🇸 USA", "location": "Jubail + Yanbu", "valveTypes": "Control Valve, Digital Valve, PRV", "approvalStatus": "Aramco AVL, SABIC Approved", "estYear": 2009}, {"num": 44, "entity": "SABIC", "tier": "Global OEM", "name": "Flowserve Corporation", "country": "🇺🇸 USA", "location": "Dammam", "valveTypes": "Gate, Globe, Check, Ball, Butterfly, Control", "approvalStatus": "SABIC Approved, Aramco AVL", "estYear": 2001}, {"num": 45, "entity": "SABIC", "tier": "Global OEM", "name": "MRC Global / MRC Transmark ME", "country": "🇺🇸 USA", "location": "Jebel Ali FZ", "valveTypes": "All Valve Types (MRO)", "approvalStatus": "SABIC Master Contract", "estYear": 2015}, {"num": 46, "entity": "SABIC", "tier": "Global OEM", "name": "Metso Neles", "country": "🇫🇮 Finland", "location": "Riyadh", "valveTypes": "Control Valve, Ball, Butterfly", "approvalStatus": "SABIC Approved", "estYear": 2010}, {"num": 47, "entity": "SABIC", "tier": "Global OEM", "name": "IMI CCI (Truflo)", "country": "🇬🇧 UK", "location": "Regional", "valveTypes": "Severe Service Control Valve", "approvalStatus": "SABIC Approved", "estYear": 2008}, {"num": 48, "entity": "SABIC", "tier": "Global OEM", "name": "Tyco / Pentair Valves", "country": "🇺🇸 USA", "location": "Jubail", "valveTypes": "Safety Relief Valve, Gate, Globe", "approvalStatus": "SABIC Approved, MARAFIQ AML", "estYear": 2005}, {"num": 49, "entity": "SABIC", "tier": "Global OEM", "name": "Dresser Industries (Baker Hughes)", "country": "🇺🇸 USA", "location": "Regional", "valveTypes": "Safety Relief Valve, Control", "approvalStatus": "SABIC Approved", "estYear": 2000}, {"num": 50, "entity": "SABIC", "tier": "Regional OEM", "name": "AVK Saudi Valves Mfg (AVKSVMC)", "country": "🇸🇦 Saudi Arabia", "location": "Jeddah", "valveTypes": "Gate, Butterfly, Plug, Globe", "approvalStatus": "SABIC Approved, Maaden Approved", "estYear": 1985}, {"num": 51, "entity": "SABIC", "tier": "Regional OEM", "name": "IVM OMB Saudi", "country": "🇮🇹 Italy/🇸🇦 KSA", "location": "Dammam", "valveTypes": "Ball Valve, Gate, Check", "approvalStatus": "SABIC Approved, Aramco Approved", "estYear": 2012}, {"num": 52, "entity": "SABIC", "tier": "Regional OEM", "name": "ZEBCO Engineering", "country": "🇸🇦 Saudi Arabia", "location": "Al Jubail", "valveTypes": "Ball Valve, Gate Valve", "approvalStatus": "SABIC Approved, Aramco Approved", "estYear": 2008}, {"num": 53, "entity": "SABIC", "tier": "Regional OEM", "name": "GCC Valves", "country": "🇦🇪 UAE/🇸🇦 KSA", "location": "Dubai / Al Khobar", "valveTypes": "Gate, Globe, Check, Ball, Butterfly", "approvalStatus": "SABIC Approved", "estYear": 2006}, {"num": 54, "entity": "SABIC", "tier": "Local Approved", "name": "NASICO Valve Services", "country": "🇸🇦 Saudi Arabia", "location": "Al Jubail", "valveTypes": "Valve Overhaul, Control, SRV", "approvalStatus": "SABIC Affiliate Service", "estYear": 1995}, {"num": 55, "entity": "SABIC", "tier": "Local Approved", "name": "Pan Gulf Valve Services (Valvserve)", "country": "🇸🇦 Saudi Arabia", "location": "Al Jubail", "valveTypes": "Control, SRV, Gate", "approvalStatus": "SABIC Approved, MARAFIQ Approved", "estYear": 2003}, {"num": 56, "entity": "SABIC", "tier": "Local Approved", "name": "Middle East Valve", "country": "🇸🇦 Saudi Arabia", "location": "Riyadh / Al Khobar", "valveTypes": "Full Range", "approvalStatus": "SABIC Trusted Supplier", "estYear": 2010}, {"num": 57, "entity": "SABIC", "tier": "Approved Stockist", "name": "MRC Transmark Middle East", "country": "🇦🇪 UAE", "location": "Jebel Ali FZ", "valveTypes": "All Types (MRO)", "approvalStatus": "SABIC Master Contract Stockist", "estYear": 2015}, {"num": 58, "entity": "SABIC", "tier": "Approved Stockist", "name": "Al-Najim Industrial Services", "country": "🇸🇦 Saudi Arabia", "location": "Al Jubail", "valveTypes": "Gate, Globe, Check, SRV (Stock)", "approvalStatus": "SABIC Area Stockist", "estYear": 2001}, {"num": 59, "entity": "MARAFIQ", "tier": "Global OEM", "name": "Dresser / Baker Hughes (Masoneilan)", "country": "🇺🇸 USA", "location": "Regional", "valveTypes": "Safety Relief Valve, Control Valve", "approvalStatus": "MARAFIQ AML", "estYear": 2002}, {"num": 60, "entity": "MARAFIQ", "tier": "Global OEM", "name": "Anderson Greenwood Crosby (Emerson)", "country": "🇺🇸 USA", "location": "Regional", "valveTypes": "Safety Relief Valve, Pilot Operated", "approvalStatus": "MARAFIQ AML", "estYear": 2000}, {"num": 61, "entity": "MARAFIQ", "tier": "Global OEM", "name": "Farris Engineering (Curtiss-Wright)", "country": "🇺🇸 USA", "location": "Stafford TX", "valveTypes": "Safety Relief Valve", "approvalStatus": "MARAFIQ AML", "estYear": 2003}, {"num": 62, "entity": "MARAFIQ", "tier": "Global OEM", "name": "Tyco / Pentair (Valves & Controls)", "country": "🇺🇸 USA", "location": "Jubail / Regional", "valveTypes": "Safety Relief, Gate, Globe, Check", "approvalStatus": "MARAFIQ AML, SABIC Approved", "estYear": 2005}, {"num": 63, "entity": "MARAFIQ", "tier": "Global OEM", "name": "L&J Technologies", "country": "🇺🇸 USA", "location": "Manchester TX", "valveTypes": "Safety Relief Valve, Level Gauge", "approvalStatus": "MARAFIQ AML", "estYear": 2004}, {"num": 64, "entity": "MARAFIQ", "tier": "Global OEM", "name": "Emerson / Fisher Valves", "country": "🇺🇸 USA", "location": "Jubail + Yanbu", "valveTypes": "Control Valve, Pressure Reducing", "approvalStatus": "MARAFIQ Approved", "estYear": 2003}, {"num": 65, "entity": "MARAFIQ", "tier": "Global OEM", "name": "Neway Valve (Suzhou)", "country": "🇨🇳 China", "location": "Regional", "valveTypes": "Gate, Globe, Check, Ball", "approvalStatus": "MARAFIQ Approved", "estYear": 2008}, {"num": 66, "entity": "MARAFIQ", "tier": "Regional OEM", "name": "AVK Saudi Valves Mfg (AVKSVMC)", "country": "🇸🇦 Saudi Arabia", "location": "Jeddah", "valveTypes": "Gate, Butterfly, Globe, Resilient Seat", "approvalStatus": "MARAFIQ Approved", "estYear": 1985}, {"num": 67, "entity": "MARAFIQ", "tier": "Regional OEM", "name": "GCC Valves", "country": "🇦🇪 UAE", "location": "Dubai / Al Khobar", "valveTypes": "Gate, Globe, Check, Ball, Butterfly", "approvalStatus": "MARAFIQ Approved", "estYear": 2006}, {"num": 68, "entity": "MARAFIQ", "tier": "Regional OEM", "name": "NWPH Saudi", "country": "🇸🇦 Saudi Arabia", "location": "Al Khobar", "valveTypes": "Gate, Butterfly, Non-Return", "approvalStatus": "MARAFIQ Area Supplier", "estYear": 2007}, {"num": 69, "entity": "MARAFIQ", "tier": "Local Approved", "name": "Pan Gulf Valve Services (Valvserve)", "country": "🇸🇦 Saudi Arabia", "location": "Al Jubail", "valveTypes": "Control, SRV, Gate, Globe", "approvalStatus": "MARAFIQ Approved, SABIC Approved", "estYear": 2003}, {"num": 70, "entity": "MARAFIQ", "tier": "Local Approved", "name": "NASICO Industrial Services", "country": "🇸🇦 Saudi Arabia", "location": "Al Jubail", "valveTypes": "Valve Overhaul, Control, Relief", "approvalStatus": "MARAFIQ Area Service", "estYear": 1995}, {"num": 71, "entity": "MARAFIQ", "tier": "Local Approved", "name": "Al-Najim Valve Services", "country": "🇸🇦 Saudi Arabia", "location": "Al Jubail", "valveTypes": "SRV, Gate, Globe (Service)", "approvalStatus": "MARAFIQ Service Provider", "estYear": 2000}, {"num": 72, "entity": "MARAFIQ", "tier": "Approved Stockist", "name": "Middle East Valve", "country": "🇸🇦 Saudi Arabia", "location": "Riyadh / Al Khobar", "valveTypes": "Full Range", "approvalStatus": "MARAFIQ Trusted Supplier", "estYear": 2010}, {"num": 73, "entity": "MARAFIQ", "tier": "Approved Stockist", "name": "Saudi Valve & Fitting Co (SVFC)", "country": "🇸🇦 Saudi Arabia", "location": "Al Jubail", "valveTypes": "All Types (Stock)", "approvalStatus": "MARAFIQ Area Stockist", "estYear": 2005}, {"num": 74, "entity": "MAADEN", "tier": "Global OEM", "name": "Weir Group (Weir Minerals)", "country": "🇬🇧 UK", "location": "Regional / Ras Al-Khair", "valveTypes": "Slurry Knife Gate, Pinch, Rubber-Lined", "approvalStatus": "Maaden Approved", "estYear": 2010}, {"num": 75, "entity": "MAADEN", "tier": "Global OEM", "name": "Flowserve Corporation", "country": "🇺🇸 USA", "location": "Dammam", "valveTypes": "Gate, Globe, Check, Ball, Butterfly, Control", "approvalStatus": "Maaden Approved, Aramco AVL", "estYear": 2001}, {"num": 76, "entity": "MAADEN", "tier": "Global OEM", "name": "Metso Outotec (Neles)", "country": "🇫🇮 Finland", "location": "Regional", "valveTypes": "Control Valve, Segment Ball, Butterfly", "approvalStatus": "Maaden Approved", "estYear": 2008}, {"num": 77, "entity": "MAADEN", "tier": "Global OEM", "name": "Emerson / Fisher Valves", "country": "🇺🇸 USA", "location": "Regional", "valveTypes": "Control Valve, Globe, PRV", "approvalStatus": "Maaden Approved", "estYear": 2005}, {"num": 78, "entity": "MAADEN", "tier": "Global OEM", "name": "Crane ChemPharma & Energy", "country": "🇺🇸 USA", "location": "Regional", "valveTypes": "Gate, Globe, Check, Ball", "approvalStatus": "Maaden Approved", "estYear": 2007}, {"num": 79, "entity": "MAADEN", "tier": "Global OEM", "name": "Cameron (Baker Hughes)", "country": "🇺🇸 USA", "location": "Regional", "valveTypes": "Ball Valve, Gate, Globe, Check", "approvalStatus": "Maaden Area Supplier", "estYear": 2009}, {"num": 80, "entity": "MAADEN", "tier": "Regional OEM", "name": "AVK Saudi Valves Mfg (AVKSVMC)", "country": "🇸🇦 Saudi Arabia", "location": "Jeddah", "valveTypes": "Gate, Butterfly, Plug, Globe", "approvalStatus": "Maaden Approved", "estYear": 1985}, {"num": 81, "entity": "MAADEN", "tier": "Regional OEM", "name": "Middle East Valve", "country": "🇸🇦 Saudi Arabia", "location": "Riyadh / Al Khobar", "valveTypes": "Full Range Distribution", "approvalStatus": "Maaden Trusted Supplier", "estYear": 2010}, {"num": 82, "entity": "MAADEN", "tier": "Regional OEM", "name": "IVM OMB Saudi", "country": "🇮🇹 Italy/🇸🇦 KSA", "location": "Dammam", "valveTypes": "Ball Valve, Gate, Check", "approvalStatus": "Maaden Approved, Aramco Approved", "estYear": 2012}, {"num": 83, "entity": "MAADEN", "tier": "Local Approved", "name": "Saudi Valve Manufacturing Co (SVMC)", "country": "🇸🇦 Saudi Arabia", "location": "Jeddah", "valveTypes": "Gate, Check, Globe (Local)", "approvalStatus": "Local IKTVA Manufacturer", "estYear": 2000}, {"num": 84, "entity": "MAADEN", "tier": "Local Approved", "name": "Pan Gulf Valve Services (Valvserve)", "country": "🇸🇦 Saudi Arabia", "location": "Al Jubail", "valveTypes": "Control, Gate, Check (Service)", "approvalStatus": "MARAFIQ + SABIC + Maaden", "estYear": 2003}, {"num": 85, "entity": "MAADEN", "tier": "Local Approved", "name": "ZEBCO Engineering", "country": "🇸🇦 Saudi Arabia", "location": "Al Jubail", "valveTypes": "Ball Valve, Gate Valve", "approvalStatus": "SABIC Approved, Maaden Area", "estYear": 2008}, {"num": 86, "entity": "MAADEN", "tier": "Approved Stockist", "name": "MRC Transmark Middle East", "country": "🇦🇪 UAE", "location": "Jebel Ali FZ", "valveTypes": "All Types (MRO)", "approvalStatus": "Multi-Entity Stockist", "estYear": 2015}, {"num": 87, "entity": "MAADEN", "tier": "Approved Stockist", "name": "Middle East Valve (Stockist)", "country": "🇸🇦 Saudi Arabia", "location": "Al Khobar", "valveTypes": "All Types (Regional Stock)", "approvalStatus": "Maaden Trusted", "estYear": 2010}];
+var SUPPLIERS = [{"num":1,"entity":"Aramco","tier":"Global OEM","name":"Emerson / Fisher Valves","country":"🇺🇸 USA","location":"Jubail + Yanbu","valveTypes":"Control Valve, Digital Valve","approvalStatus":"Aramco AVL, IKTVA Award 2026","estYear":2000},{"num":2,"entity":"Aramco","tier":"Global OEM","name":"Flowserve Corporation (incl. Valbart)","country":"🇺🇸 USA","location":"Dammam","valveTypes":"Gate, Globe, Check, Ball, Trunnion Ball","approvalStatus":"Aramco AVL, Valbart Trunnion Ball","estYear":2001},{"num":3,"entity":"Aramco","tier":"Global OEM","name":"Crane ChemPharma & Energy","country":"🇺🇸 USA","location":"Regional","valveTypes":"Gate, Globe, Check, Ball","approvalStatus":"Aramco AVL","estYear":1998},{"num":4,"entity":"Aramco","tier":"Global OEM","name":"PetrolValves S.p.A.","country":"🇮🇹 Italy","location":"Dammam","valveTypes":"Trunnion Ball, Gate, Check","approvalStatus":"Aramco AVL, API 6D","estYear":2004},{"num":5,"entity":"Aramco","tier":"Global OEM","name":"KITZ Corporation","country":"🇯🇵 Japan","location":"Regional","valveTypes":"Gate, Globe, Check, Ball, Butterfly","approvalStatus":"Aramco AVL, SAMREF AML","estYear":2005},{"num":6,"entity":"Aramco","tier":"Global OEM","name":"PERAR S.p.A.","country":"🇮🇹 Italy","location":"Regional","valveTypes":"Gate, Globe, Check","approvalStatus":"Aramco AVL","estYear":2006},{"num":7,"entity":"Aramco","tier":"Global OEM","name":"Hartmann Valves","country":"🇩🇪 Germany","location":"Regional","valveTypes":"Gate, Globe, Check, Butterfly","approvalStatus":"Aramco AVL","estYear":2007},{"num":8,"entity":"Aramco","tier":"Global OEM","name":"Oliver Valves (part of Oliver Valves Ltd)","country":"🇬🇧 UK","location":"Regional","valveTypes":"Instrumentation Valve, Double Block & Bleed","approvalStatus":"Aramco AVL","estYear":2008},{"num":9,"entity":"Aramco","tier":"Global OEM","name":"Goodwin International","country":"🇬🇧 UK","location":"Regional","valveTypes":"Check Valve, Gate Valve","approvalStatus":"Aramco AVL","estYear":2007},{"num":10,"entity":"Aramco","tier":"Global OEM","name":"Biffi (Emerson Automation)","country":"🇮🇹 Italy","location":"Regional","valveTypes":"Pneumatic & Electric Actuator, Quarter-Turn","approvalStatus":"Aramco AVL","estYear":2005},{"num":11,"entity":"Aramco","tier":"Global OEM","name":"Metso Neles","country":"🇫🇮 Finland","location":"Riyadh","valveTypes":"Segment Ball, Butterfly, Control Valve","approvalStatus":"Aramco AVL","estYear":2010},{"num":12,"entity":"Aramco","tier":"Global OEM","name":"IMI CCI (Truflo)","country":"🇬🇧 UK","location":"Regional","valveTypes":"Severe Service Control Valve","approvalStatus":"Aramco AVL","estYear":2008},{"num":13,"entity":"Aramco","tier":"Regional OEM","name":"IMI Saudi Industry","country":"🇸🇦 Saudi Arabia","location":"Al Jubail","valveTypes":"Gate, Globe, Check, Ball","approvalStatus":"Aramco CPA, IKTVA","estYear":2015},{"num":14,"entity":"Aramco","tier":"Regional OEM","name":"L&T Valves Arabia","country":"🇸🇦 Saudi Arabia","location":"Dammam","valveTypes":"Gate, Globe, Check, Ball, Butterfly","approvalStatus":"Aramco CPA, IKTVA","estYear":2018},{"num":15,"entity":"Aramco","tier":"Regional OEM","name":"AVK Saudi Valves Mfg","country":"🇸🇦 Saudi Arabia","location":"Jeddah","valveTypes":"Gate, Butterfly, Plug, Globe","approvalStatus":"Aramco Approved, IKTVA","estYear":1985},{"num":16,"entity":"Aramco","tier":"Regional OEM","name":"IVM OMB Saudi","country":"🇮🇹 Italy/🇸🇦 KSA","location":"Dammam","valveTypes":"Ball Valve, Gate, Check","approvalStatus":"Aramco AVL, SABIC Approved","estYear":2012},{"num":17,"entity":"Aramco","tier":"Regional OEM","name":"ZEBCO Engineering","country":"🇸🇦 Saudi Arabia","location":"Al Jubail","valveTypes":"Ball Valve, Gate Valve","approvalStatus":"Aramco Approved, SABIC Approved","estYear":2008},{"num":18,"entity":"Aramco","tier":"Regional OEM","name":"GCC Valves","country":"🇦🇪 UAE/🇸🇦 KSA","location":"Dubai / Al Khobar","valveTypes":"Gate, Globe, Check, Ball, Butterfly","approvalStatus":"Aramco AVL, SABIC Approved","estYear":2006},{"num":19,"entity":"Aramco","tier":"Local Approved","name":"Middle East Valve","country":"🇸🇦 Saudi Arabia","location":"Riyadh / Al Khobar","valveTypes":"Full Range Distribution","approvalStatus":"Trusted by Aramco, SABIC, SWCC, Maaden","estYear":2010},{"num":20,"entity":"Aramco","tier":"Local Approved","name":"Pan Gulf Valve Services (Valvserve)","country":"🇸🇦 Saudi Arabia","location":"Al Jubail","valveTypes":"Control, SRV, Gate, Globe","approvalStatus":"Aramco Approved, MARAFIQ Approved","estYear":2003},{"num":21,"entity":"Aramco","tier":"Local Approved","name":"NASICO Industrial Services","country":"🇸🇦 Saudi Arabia","location":"Al Jubail","valveTypes":"Valve Overhaul, Control, Relief","approvalStatus":"Aramco Affiliate Service","estYear":1995},{"num":22,"entity":"Aramco","tier":"Local Approved","name":"Al-Rashid Trading (Valves)","country":"🇸🇦 Saudi Arabia","location":"Al Khobar","valveTypes":"Full Range (Local Stock)","approvalStatus":"Aramco Area Supplier","estYear":1990},{"num":23,"entity":"Aramco","tier":"Approved Stockist","name":"MRC Transmark Middle East","country":"🇦🇪 UAE","location":"Jebel Ali FZ","valveTypes":"All Types (MRO)","approvalStatus":"SABIC Master Contract, Aramco Stockist","estYear":2015},{"num":24,"entity":"Aramco","tier":"Approved Stockist","name":"Saudi Valve & Fitting Co (SVFC)","country":"🇸🇦 Saudi Arabia","location":"Al Jubail","valveTypes":"All Types (Stock)","approvalStatus":"Aramco Area Stockist","estYear":2005},{"num":25,"entity":"Aramco","tier":"Approved Stockist","name":"Al-Aoun Trading","country":"🇸🇦 Saudi Arabia","location":"Dammam","valveTypes":"Gate, Globe, Ball (Stock)","approvalStatus":"Aramco Eastern Province Stockist","estYear":2000},{"num":26,"entity":"Aramco","tier":"Approved Stockist","name":"Haasco (Gulf Supplies)","country":"🇸🇦 Saudi Arabia","location":"Al Khobar","valveTypes":"Full Range","approvalStatus":"Aramco Preferred Stockist","estYear":2002},{"num":27,"entity":"NWC","tier":"Global OEM","name":"AVK International","country":"🇩🇰 Denmark","location":"Jeddah (Local Mfg)","valveTypes":"Resilient Gate, Butterfly, Check","approvalStatus":"NWC Approved, AWWA C509","estYear":1985},{"num":28,"entity":"NWC","tier":"Global OEM","name":"Tyco Water (Pentair)","country":"🇺🇸 USA","location":"Regional","valveTypes":"Gate, Butterfly, Air Release","approvalStatus":"NWC Approved, BS 5163","estYear":2005},{"num":29,"entity":"NWC","tier":"Global OEM","name":"Kennedy Valve (McWane)","country":"🇺🇸 USA","location":"Regional","valveTypes":"Gate, Check, Fire Hydrant Valve","approvalStatus":"NWC Approved, AWWA C509","estYear":2003},{"num":30,"entity":"NWC","tier":"Global OEM","name":"Erhard (AVK Group)","country":"🇩🇪 Germany","location":"Regional","valveTypes":"Gate, Butterfly, Air Valve, Plunger","approvalStatus":"NWC Approved, EN 1171","estYear":2006},{"num":31,"entity":"NWC","tier":"Global OEM","name":"VAG Valves (KSB Group)","country":"🇩🇪 Germany","location":"Regional","valveTypes":"Gate, Butterfly, Pressure Reducing","approvalStatus":"NWC Approved, EN 1171","estYear":2007},{"num":32,"entity":"NWC","tier":"Global OEM","name":"Singer Valve","country":"🇨🇦 Canada","location":"Regional","valveTypes":"Pressure Reducing, Float Control, Check","approvalStatus":"NWC Approved","estYear":2004},{"num":33,"entity":"NWC","tier":"Global OEM","name":"Cla-Val Company","country":"🇺🇸 USA","location":"Regional","valveTypes":"Pressure Reducing, Check, Float","approvalStatus":"NWC Approved","estYear":2003},{"num":34,"entity":"NWC","tier":"Regional OEM","name":"AVK Saudi Valves Mfg (AVKSVMC)","country":"🇸🇦 Saudi Arabia","location":"Jeddah","valveTypes":"Gate, Butterfly, Hydrant Valve","approvalStatus":"NWC Approved, IKTVA","estYear":1985},{"num":35,"entity":"NWC","tier":"Regional OEM","name":"Saudi Valve Manufacturing (SVM)","country":"🇸🇦 Saudi Arabia","location":"Jeddah","valveTypes":"Gate, Globe, Check (Local)","approvalStatus":"NWC Local Mfg, IKTVA","estYear":2000},{"num":36,"entity":"NWC","tier":"Regional OEM","name":"Al-Ahmadi Industrial (Mecca)","country":"🇸🇦 Saudi Arabia","location":"Mecca","valveTypes":"Gate, Butterfly (Local)","approvalStatus":"NWC Western Region","estYear":2008},{"num":37,"entity":"NWC","tier":"Local Approved","name":"Al-Ajlan Trading (Water Valves)","country":"🇸🇦 Saudi Arabia","location":"Riyadh","valveTypes":"Gate, Butterfly, PRV (Stock)","approvalStatus":"NWC Approved Stockist","estYear":2005},{"num":38,"entity":"NWC","tier":"Local Approved","name":"Consolidated Contractors (CCC) Supply","country":"🇱🇧 Lebanon/🇸🇦 KSA","location":"Al Khobar","valveTypes":"Full Range Water Valves","approvalStatus":"NWC EPC Contractor Supply","estYear":2000},{"num":39,"entity":"NWC","tier":"Local Approved","name":"Techno Valley Trading","country":"🇸🇦 Saudi Arabia","location":"Jeddah","valveTypes":"Gate, Globe, Check, PRV","approvalStatus":"NWC Western Region Supplier","estYear":2009},{"num":40,"entity":"NWC","tier":"Approved Stockist","name":"Middle East Valve (Water Div)","country":"🇸🇦 Saudi Arabia","location":"Riyadh","valveTypes":"Full Range Water Valves","approvalStatus":"NWC Trusted Supplier","estYear":2010},{"num":41,"entity":"NWC","tier":"Approved Stockist","name":"National Pipes Company (NPC)","country":"🇸🇦 Saudi Arabia","location":"Riyadh","valveTypes":"Gate, Butterfly (with Pipe)","approvalStatus":"NWC Pipe+Valve Package","estYear":2001},{"num":42,"entity":"NWC","tier":"Approved Stockist","name":"NWPH Saudi","country":"🇸🇦 Saudi Arabia","location":"Al Khobar","valveTypes":"Gate, Butterfly, Non-Return","approvalStatus":"NWC Eastern Region","estYear":2007},{"num":43,"entity":"SABIC","tier":"Global OEM","name":"Emerson / Fisher Valves","country":"🇺🇸 USA","location":"Jubail + Yanbu","valveTypes":"Control Valve, Digital Valve, PRV","approvalStatus":"Aramco AVL, SABIC Approved","estYear":2009},{"num":44,"entity":"SABIC","tier":"Global OEM","name":"Flowserve Corporation","country":"🇺🇸 USA","location":"Dammam","valveTypes":"Gate, Globe, Check, Ball, Butterfly, Control","approvalStatus":"SABIC Approved, Aramco AVL","estYear":2001},{"num":45,"entity":"SABIC","tier":"Global OEM","name":"MRC Global / MRC Transmark ME","country":"🇺🇸 USA","location":"Jebel Ali FZ","valveTypes":"All Valve Types (MRO)","approvalStatus":"SABIC Master Contract","estYear":2015},{"num":46,"entity":"SABIC","tier":"Global OEM","name":"Metso Neles","country":"🇫🇮 Finland","location":"Riyadh","valveTypes":"Control Valve, Ball, Butterfly","approvalStatus":"SABIC Approved","estYear":2010},{"num":47,"entity":"SABIC","tier":"Global OEM","name":"IMI CCI (Truflo)","country":"🇬🇧 UK","location":"Regional","valveTypes":"Severe Service Control Valve","approvalStatus":"SABIC Approved","estYear":2008},{"num":48,"entity":"SABIC","tier":"Global OEM","name":"Tyco / Pentair Valves","country":"🇺🇸 USA","location":"Jubail","valveTypes":"Safety Relief Valve, Gate, Globe","approvalStatus":"SABIC Approved, MARAFIQ AML","estYear":2005},{"num":49,"entity":"SABIC","tier":"Global OEM","name":"Dresser Industries (Baker Hughes)","country":"🇺🇸 USA","location":"Regional","valveTypes":"Safety Relief Valve, Control","approvalStatus":"SABIC Approved","estYear":2000},{"num":50,"entity":"SABIC","tier":"Regional OEM","name":"AVK Saudi Valves Mfg (AVKSVMC)","country":"🇸🇦 Saudi Arabia","location":"Jeddah","valveTypes":"Gate, Butterfly, Plug, Globe","approvalStatus":"SABIC Approved, Maaden Approved","estYear":1985},{"num":51,"entity":"SABIC","tier":"Regional OEM","name":"IVM OMB Saudi","country":"🇮🇹 Italy/🇸🇦 KSA","location":"Dammam","valveTypes":"Ball Valve, Gate, Check","approvalStatus":"SABIC Approved, Aramco Approved","estYear":2012},{"num":52,"entity":"SABIC","tier":"Regional OEM","name":"ZEBCO Engineering","country":"🇸🇦 Saudi Arabia","location":"Al Jubail","valveTypes":"Ball Valve, Gate Valve","approvalStatus":"SABIC Approved, Aramco Approved","estYear":2008},{"num":53,"entity":"SABIC","tier":"Regional OEM","name":"GCC Valves","country":"🇦🇪 UAE/🇸🇦 KSA","location":"Dubai / Al Khobar","valveTypes":"Gate, Globe, Check, Ball, Butterfly","approvalStatus":"SABIC Approved","estYear":2006},{"num":54,"entity":"SABIC","tier":"Local Approved","name":"NASICO Valve Services","country":"🇸🇦 Saudi Arabia","location":"Al Jubail","valveTypes":"Valve Overhaul, Control, SRV","approvalStatus":"SABIC Affiliate Service","estYear":1995},{"num":55,"entity":"SABIC","tier":"Local Approved","name":"Pan Gulf Valve Services (Valvserve)","country":"🇸🇦 Saudi Arabia","location":"Al Jubail","valveTypes":"Control, SRV, Gate","approvalStatus":"SABIC Approved, MARAFIQ Approved","estYear":2003},{"num":56,"entity":"SABIC","tier":"Local Approved","name":"Middle East Valve","country":"🇸🇦 Saudi Arabia","location":"Riyadh / Al Khobar","valveTypes":"Full Range","approvalStatus":"SABIC Trusted Supplier","estYear":2010},{"num":57,"entity":"SABIC","tier":"Approved Stockist","name":"MRC Transmark Middle East","country":"🇦🇪 UAE","location":"Jebel Ali FZ","valveTypes":"All Types (MRO)","approvalStatus":"SABIC Master Contract Stockist","estYear":2015},{"num":58,"entity":"SABIC","tier":"Approved Stockist","name":"Al-Najim Industrial Services","country":"🇸🇦 Saudi Arabia","location":"Al Jubail","valveTypes":"Gate, Globe, Check, SRV (Stock)","approvalStatus":"SABIC Area Stockist","estYear":2001},{"num":59,"entity":"MARAFIQ","tier":"Global OEM","name":"Dresser / Baker Hughes (Masoneilan)","country":"🇺🇸 USA","location":"Regional","valveTypes":"Safety Relief Valve, Control Valve","approvalStatus":"MARAFIQ AML","estYear":2002},{"num":60,"entity":"MARAFIQ","tier":"Global OEM","name":"Anderson Greenwood Crosby (Emerson)","country":"🇺🇸 USA","location":"Regional","valveTypes":"Safety Relief Valve, Pilot Operated","approvalStatus":"MARAFIQ AML","estYear":2000},{"num":61,"entity":"MARAFIQ","tier":"Global OEM","name":"Farris Engineering (Curtiss-Wright)","country":"🇺🇸 USA","location":"Stafford TX","valveTypes":"Safety Relief Valve","approvalStatus":"MARAFIQ AML","estYear":2003},{"num":62,"entity":"MARAFIQ","tier":"Global OEM","name":"Tyco / Pentair (Valves & Controls)","country":"🇺🇸 USA","location":"Jubail / Regional","valveTypes":"Safety Relief, Gate, Globe, Check","approvalStatus":"MARAFIQ AML, SABIC Approved","estYear":2005},{"num":63,"entity":"MARAFIQ","tier":"Global OEM","name":"L&J Technologies","country":"🇺🇸 USA","location":"Manchester TX","valveTypes":"Safety Relief Valve, Level Gauge","approvalStatus":"MARAFIQ AML","estYear":2004},{"num":64,"entity":"MARAFIQ","tier":"Global OEM","name":"Emerson / Fisher Valves","country":"🇺🇸 USA","location":"Jubail + Yanbu","valveTypes":"Control Valve, Pressure Reducing","approvalStatus":"MARAFIQ Approved","estYear":2003},{"num":65,"entity":"MARAFIQ","tier":"Global OEM","name":"Neway Valve (Suzhou)","country":"🇨🇳 China","location":"Regional","valveTypes":"Gate, Globe, Check, Ball","approvalStatus":"MARAFIQ Approved","estYear":2008},{"num":66,"entity":"MARAFIQ","tier":"Regional OEM","name":"AVK Saudi Valves Mfg (AVKSVMC)","country":"🇸🇦 Saudi Arabia","location":"Jeddah","valveTypes":"Gate, Butterfly, Globe, Resilient Seat","approvalStatus":"MARAFIQ Approved","estYear":1985},{"num":67,"entity":"MARAFIQ","tier":"Regional OEM","name":"GCC Valves","country":"🇦🇪 UAE","location":"Dubai / Al Khobar","valveTypes":"Gate, Globe, Check, Ball, Butterfly","approvalStatus":"MARAFIQ Approved","estYear":2006},{"num":68,"entity":"MARAFIQ","tier":"Regional OEM","name":"NWPH Saudi","country":"🇸🇦 Saudi Arabia","location":"Al Khobar","valveTypes":"Gate, Butterfly, Non-Return","approvalStatus":"MARAFIQ Area Supplier","estYear":2007},{"num":69,"entity":"MARAFIQ","tier":"Local Approved","name":"Pan Gulf Valve Services (Valvserve)","country":"🇸🇦 Saudi Arabia","location":"Al Jubail","valveTypes":"Control, SRV, Gate, Globe","approvalStatus":"MARAFIQ Approved, SABIC Approved","estYear":2003},{"num":70,"entity":"MARAFIQ","tier":"Local Approved","name":"NASICO Industrial Services","country":"🇸🇦 Saudi Arabia","location":"Al Jubail","valveTypes":"Valve Overhaul, Control, Relief","approvalStatus":"MARAFIQ Area Service","estYear":1995},{"num":71,"entity":"MARAFIQ","tier":"Local Approved","name":"Al-Najim Valve Services","country":"🇸🇦 Saudi Arabia","location":"Al Jubail","valveTypes":"SRV, Gate, Globe (Service)","approvalStatus":"MARAFIQ Service Provider","estYear":2000},{"num":72,"entity":"MARAFIQ","tier":"Approved Stockist","name":"Middle East Valve","country":"🇸🇦 Saudi Arabia","location":"Riyadh / Al Khobar","valveTypes":"Full Range","approvalStatus":"MARAFIQ Trusted Supplier","estYear":2010},{"num":73,"entity":"MARAFIQ","tier":"Approved Stockist","name":"Saudi Valve & Fitting Co (SVFC)","country":"🇸🇦 Saudi Arabia","location":"Al Jubail","valveTypes":"All Types (Stock)","approvalStatus":"MARAFIQ Area Stockist","estYear":2005},{"num":74,"entity":"MAADEN","tier":"Global OEM","name":"Weir Group (Weir Minerals)","country":"🇬🇧 UK","location":"Regional / Ras Al-Khair","valveTypes":"Slurry Knife Gate, Pinch, Rubber-Lined","approvalStatus":"Maaden Approved","estYear":2010},{"num":75,"entity":"MAADEN","tier":"Global OEM","name":"Flowserve Corporation","country":"🇺🇸 USA","location":"Dammam","valveTypes":"Gate, Globe, Check, Ball, Butterfly, Control","approvalStatus":"Maaden Approved, Aramco AVL","estYear":2001},{"num":76,"entity":"MAADEN","tier":"Global OEM","name":"Metso Outotec (Neles)","country":"🇫🇮 Finland","location":"Regional","valveTypes":"Control Valve, Segment Ball, Butterfly","approvalStatus":"Maaden Approved","estYear":2008},{"num":77,"entity":"MAADEN","tier":"Global OEM","name":"Emerson / Fisher Valves","country":"🇺🇸 USA","location":"Regional","valveTypes":"Control Valve, Globe, PRV","approvalStatus":"Maaden Approved","estYear":2005},{"num":78,"entity":"MAADEN","tier":"Global OEM","name":"Crane ChemPharma & Energy","country":"🇺🇸 USA","location":"Regional","valveTypes":"Gate, Globe, Check, Ball","approvalStatus":"Maaden Approved","estYear":2007},{"num":79,"entity":"MAADEN","tier":"Global OEM","name":"Cameron (Baker Hughes)","country":"🇺🇸 USA","location":"Regional","valveTypes":"Ball Valve, Gate, Globe, Check","approvalStatus":"Maaden Area Supplier","estYear":2009},{"num":80,"entity":"MAADEN","tier":"Regional OEM","name":"AVK Saudi Valves Mfg (AVKSVMC)","country":"🇸🇦 Saudi Arabia","location":"Jeddah","valveTypes":"Gate, Butterfly, Plug, Globe","approvalStatus":"Maaden Approved","estYear":1985},{"num":81,"entity":"MAADEN","tier":"Regional OEM","name":"Middle East Valve","country":"🇸🇦 Saudi Arabia","location":"Riyadh / Al Khobar","valveTypes":"Full Range Distribution","approvalStatus":"Maaden Trusted Supplier","estYear":2010},{"num":82,"entity":"MAADEN","tier":"Regional OEM","name":"IVM OMB Saudi","country":"🇮🇹 Italy/🇸🇦 KSA","location":"Dammam","valveTypes":"Ball Valve, Gate, Check","approvalStatus":"Maaden Approved, Aramco Approved","estYear":2012},{"num":83,"entity":"MAADEN","tier":"Local Approved","name":"Saudi Valve Manufacturing Co (SVMC)","country":"🇸🇦 Saudi Arabia","location":"Jeddah","valveTypes":"Gate, Check, Globe (Local)","approvalStatus":"Local IKTVA Manufacturer","estYear":2000},{"num":84,"entity":"MAADEN","tier":"Local Approved","name":"Pan Gulf Valve Services (Valvserve)","country":"🇸🇦 Saudi Arabia","location":"Al Jubail","valveTypes":"Control, Gate, Check (Service)","approvalStatus":"MARAFIQ + SABIC + Maaden","estYear":2003},{"num":85,"entity":"MAADEN","tier":"Local Approved","name":"ZEBCO Engineering","country":"🇸🇦 Saudi Arabia","location":"Al Jubail","valveTypes":"Ball Valve, Gate Valve","approvalStatus":"SABIC Approved, Maaden Area","estYear":2008},{"num":86,"entity":"MAADEN","tier":"Approved Stockist","name":"MRC Transmark Middle East","country":"🇦🇪 UAE","location":"Jebel Ali FZ","valveTypes":"All Types (MRO)","approvalStatus":"Multi-Entity Stockist","estYear":2015},{"num":87,"entity":"MAADEN","tier":"Approved Stockist","name":"Middle East Valve (Stockist)","country":"🇸🇦 Saudi Arabia","location":"Al Khobar","valveTypes":"All Types (Regional Stock)","approvalStatus":"Maaden Trusted","estYear":2010}];
 
 var ENTITY_ICON = {Aramco:'🛢️',NWC:'💧',SABIC:'⚗️',MARAFIQ:'🏭',MAADEN:'⛏️'};
-var TIER_KEY = {'Global OEM':'global','Regional OEM':'regional','Local Approved':'local','Approved Stockist':'stockist'};
+var TIER_KEY   = {'Global OEM':'global','Regional OEM':'regional','Local Approved':'local','Approved Stockist':'stockist'};
 var currentView = 'grid';
 
 (function(){
-  var countries = [];
-  SUPPLIERS.forEach(function(s){ if(s.country && countries.indexOf(s.country)<0) countries.push(s.country); });
+  var countries=[];
+  SUPPLIERS.forEach(function(s){if(s.country&&countries.indexOf(s.country)<0)countries.push(s.country);});
   countries.sort();
-  var sel = document.getElementById('filterCountry');
-  countries.forEach(function(c){ var o=document.createElement('option'); o.value=c; o.textContent=c; sel.appendChild(o); });
+  var sel=document.getElementById('filterCountry');
+  countries.forEach(function(c){var o=document.createElement('option');o.value=c;o.textContent=c;sel.appendChild(o);});
 })();
 
 function getFiltered(){
-  var q = document.getElementById('searchInput').value.toLowerCase().trim();
-  var entity = document.getElementById('filterEntity').value;
-  var tier = document.getElementById('filterTier').value;
-  var country = document.getElementById('filterCountry').value;
+  var q=document.getElementById('searchInput').value.toLowerCase().trim();
+  var entity=document.getElementById('filterEntity').value;
+  var tier=document.getElementById('filterTier').value;
+  var country=document.getElementById('filterCountry').value;
   return SUPPLIERS.filter(function(s){
-    if(entity && s.entity!==entity) return false;
-    if(tier && s.tier!==tier) return false;
-    if(country && s.country!==country) return false;
-    if(q){
-      var hay=[s.name,s.valveTypes,s.location,s.approvalStatus,s.country].join(' ').toLowerCase();
-      if(hay.indexOf(q)<0) return false;
-    }
+    if(entity&&s.entity!==entity)return false;
+    if(tier&&s.tier!==tier)return false;
+    if(country&&s.country!==country)return false;
+    if(q){var hay=[s.name,s.valveTypes,s.location,s.approvalStatus,s.country].join(' ').toLowerCase();if(hay.indexOf(q)<0)return false;}
     return true;
   });
 }
 
-function tierClass(tier){
-  return 'tag tag-tier tag-tier-'+(TIER_KEY[tier]||'global');
-}
-
-function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function tierClass(tier){return 'sd-tag tt-'+(TIER_KEY[tier]||'global');}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
 function renderCard(s){
-  var icon = ENTITY_ICON[s.entity]||'';
-  return '<div class="supplier-card">'
-    +'<div class="card-top"><div class="card-name">'+esc(s.name)+'</div><div class="card-num">#'+String(s.num).padStart(2,'0')+'</div></div>'
-    +'<div class="card-meta"><span class="tag tag-entity-'+esc(s.entity)+'">'+icon+' '+esc(s.entity)+'</span>'
+  var icon=ENTITY_ICON[s.entity]||'';
+  return '<div class="sd-card">'
+    +'<div class="sd-card-top"><div class="sd-card-name">'+esc(s.name)+'</div><div class="sd-card-num">#'+String(s.num).padStart(2,'0')+'</div></div>'
+    +'<div class="sd-tags"><span class="sd-tag te-'+esc(s.entity)+'">'+icon+' '+esc(s.entity)+'</span>'
     +'<span class="'+tierClass(s.tier)+'">'+esc(s.tier)+'</span></div>'
-    +'<div class="card-info">'
-    +'<div class="card-info-row"><span class="card-info-lbl">Country</span><span class="card-info-val">'+esc(s.country||'—')+'</span></div>'
-    +'<div class="card-info-row"><span class="card-info-lbl">KSA Location</span><span class="card-info-val">'+esc(s.location||'—')+'</span></div>'
-    +(s.estYear?'<div class="card-info-row"><span class="card-info-lbl">Est. Year</span><span class="card-info-val">'+s.estYear+'</span></div>':'')
+    +'<div class="sd-card-info">'
+    +'<div class="sd-info-row"><span class="sd-info-lbl">Country</span><span class="sd-info-val">'+esc(s.country||'—')+'</span></div>'
+    +'<div class="sd-info-row"><span class="sd-info-lbl">KSA Location</span><span class="sd-info-val">'+esc(s.location||'—')+'</span></div>'
+    +(s.estYear?'<div class="sd-info-row"><span class="sd-info-lbl">Est.</span><span class="sd-info-val">'+s.estYear+'</span></div>':'')
     +'</div>'
-    +(s.valveTypes?'<div class="card-valves">&#128295; '+esc(s.valveTypes)+'</div>':'')
-    +(s.approvalStatus?'<div class="card-approval">&#10003; '+esc(s.approvalStatus)+'</div>':'')
+    +(s.valveTypes?'<div class="sd-card-valves">&#128295; '+esc(s.valveTypes)+'</div>':'')
+    +(s.approvalStatus?'<div class="sd-card-status">&#10003; '+esc(s.approvalStatus)+'</div>':'')
     +'</div>';
 }
 
 function renderRow(s){
-  var icon = ENTITY_ICON[s.entity]||'';
+  var icon=ENTITY_ICON[s.entity]||'';
   return '<tr>'
-    +'<td class="num-cell">'+s.num+'</td>'
+    +'<td class="sd-num-cell">'+s.num+'</td>'
     +'<td><strong>'+esc(s.name)+'</strong></td>'
-    +'<td><span class="tag tag-entity-'+esc(s.entity)+'">'+icon+' '+esc(s.entity)+'</span></td>'
+    +'<td><span class="sd-tag te-'+esc(s.entity)+'">'+icon+' '+esc(s.entity)+'</span></td>'
     +'<td><span class="'+tierClass(s.tier)+'">'+esc(s.tier)+'</span></td>'
     +'<td>'+esc(s.country||'—')+'</td>'
     +'<td>'+esc(s.location||'—')+'</td>'
     +'<td style="max-width:180px">'+esc(s.valveTypes||'—')+'</td>'
-    +'<td style="color:#2D6A4F;font-weight:500">'+esc(s.approvalStatus||'—')+'</td>'
+    +'<td style="color:var(--green);font-weight:500">'+esc(s.approvalStatus||'—')+'</td>'
     +'<td>'+esc(s.estYear||'—')+'</td>'
     +'</tr>';
 }
 
 function renderSuppliers(){
-  var filtered = getFiltered();
-  document.getElementById('resultsCount').textContent = filtered.length+' supplier'+(filtered.length!==1?'s':'');
-  var empty = filtered.length===0;
-  document.getElementById('emptyState').style.display = empty?'':'none';
-  document.getElementById('gridView').style.display = (currentView==='grid'&&!empty)?'':'none';
-  document.getElementById('tableView').style.display = (currentView==='table'&&!empty)?'':'none';
-  document.getElementById('gridView').innerHTML = filtered.map(renderCard).join('');
-  document.getElementById('tableBody').innerHTML = filtered.map(renderRow).join('');
+  var filtered=getFiltered();
+  document.getElementById('resultsCount').textContent=filtered.length+' supplier'+(filtered.length!==1?'s':'');
+  var empty=filtered.length===0;
+  document.getElementById('emptyState').style.display=empty?'':'none';
+  document.getElementById('gridView').style.display=(currentView==='grid'&&!empty)?'':'none';
+  document.getElementById('tableView').style.display=(currentView==='table'&&!empty)?'':'none';
+  document.getElementById('gridView').innerHTML=filtered.map(renderCard).join('');
+  document.getElementById('tableBody').innerHTML=filtered.map(renderRow).join('');
 }
 
 function setView(v){
@@ -262,11 +506,67 @@ function setView(v){
   renderSuppliers();
 }
 
+// ── TVH Members API layer ─────────────────────────────────────────────
+// Loads live registered suppliers from the backend.
+// Falls back gracefully to static AVL data if API is not yet live.
+var TVH_MEMBERS = [];
+
+async function loadTvhMembers() {
+  try {
+    var res = await fetch('/api/suppliers?limit=50&tier=P1');
+    if (!res.ok) throw new Error('API not ready');
+    var data = await res.json();
+    if (data.suppliers && data.suppliers.length > 0) {
+      TVH_MEMBERS = data.suppliers;
+      renderMembersSection();
+    }
+  } catch(e) {
+    // Silently fall back — static data still renders
+  }
+}
+
+function pillarLabel(p) {
+  var map = {valves:'Valves',parts:'Parts & Components',machining:'Machining',
+             '3dprint':'3D Printing','tpi':'TPI & Inspection',rental:'Equipment Rental'};
+  return map[p] || p;
+}
+
+function renderMembersSection() {
+  var sec = document.getElementById('tvh-members-section');
+  if (!sec || TVH_MEMBERS.length === 0) return;
+  sec.style.display = 'block';
+  var html = TVH_MEMBERS.map(function(m) {
+    var pillars = (m.pillars||[]).filter(function(p){return p.pillar;})
+      .map(function(p){ return '<span style="background:#EBF7F0;color:#006C35;padding:2px 8px;border-radius:20px;font-size:.73rem;font-weight:600;">'+pillarLabel(p.pillar)+'</span>'; }).join('');
+    var aramco = m.aramco ? '<span style="background:#FFF8E7;color:#C8973A;padding:2px 8px;border-radius:20px;font-size:.73rem;font-weight:700;">✓ Aramco</span>' : '';
+    var sabic  = m.sabic  ? '<span style="background:#EEF4FF;color:#1A3A6B;padding:2px 8px;border-radius:20px;font-size:.73rem;font-weight:700;">✓ SABIC</span>'   : '';
+    var emergency = m.emergency_capable ? '<span style="background:#FFEAEA;color:#C0392B;padding:2px 7px;border-radius:20px;font-size:.73rem;font-weight:700;">⚡ 24/7</span>' : '';
+    var verified  = m.verified ? '<span style="background:#006C35;color:#fff;padding:2px 8px;border-radius:20px;font-size:.73rem;font-weight:700;">✓ TVH Verified</span>' : '';
+    var iktva = m.iktva_score ? '<div style="font-size:.8rem;color:#5A6B62;margin-top:6px;">IKTVA: <strong style="color:#006C35;">'+m.iktva_score+'%</strong></div>' : '';
+    return '<div class="sd-card" style="position:relative;">'
+      + (m.verified ? '<div style="position:absolute;top:10px;right:10px;background:#006C35;color:#fff;font-size:.7rem;font-weight:800;padding:2px 8px;border-radius:20px;">TVH</div>' : '')
+      + '<div class="sd-card-top"><div class="sd-card-name">'+(m.name||'')+'</div></div>'
+      + '<div style="font-size:.82rem;color:#5A6B62;margin-bottom:8px;">📍 '+(m.city||'Saudi Arabia')+'</div>'
+      + '<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;">'+verified+aramco+sabic+emergency+'</div>'
+      + '<div style="display:flex;flex-wrap:wrap;gap:4px;">'+pillars+'</div>'
+      + iktva
+      + (m.description ? '<div style="font-size:.81rem;color:#3A4A3F;margin-top:8px;line-height:1.5;">'+m.description.slice(0,100)+(m.description.length>100?'…':'')+'</div>' : '')
+      + '</div>';
+  }).join('');
+  sec.querySelector('.members-grid').innerHTML = html;
+  sec.querySelector('.members-count').textContent = TVH_MEMBERS.length + ' registered TVH member' + (TVH_MEMBERS.length !== 1 ? 's' : '');
+}
+
+loadTvhMembers();
 renderSuppliers();
 
-window.addEventListener('load',function(){setTimeout(function(){var p=document.getElementById('preloader');if(p)p.classList.add('hidden');},600);});
-var nb=document.getElementById('navbar');window.addEventListener('scroll',function(){if(nb)nb.classList.toggle('scrolled',window.scrollY>40);},{passive:true});
-var hb=document.getElementById('hamburger');if(hb)hb.addEventListener('click',function(){var mn=document.querySelector('.mobile-nav');if(mn)mn.classList.toggle('open');});
+window.addEventListener('load',function(){setTimeout(function(){document.getElementById('preloader').classList.add('hidden');},1200);});
+var nb=document.getElementById('navbar');
+window.addEventListener('scroll',function(){nb.classList.toggle('scrolled',window.scrollY>40);},{passive:true});
+var hb=document.getElementById('hamburger'),mn=document.getElementById('mobileNav');
+hb.addEventListener('click',function(){var o=mn.classList.toggle('open');hb.children[0].style.transform=o?'translateY(7px) rotate(45deg)':'';hb.children[1].style.opacity=o?'0':'';hb.children[2].style.transform=o?'translateY(-7px) rotate(-45deg)':'';});
 </script>
+<script src="js/tvh-api.js"></script>
+<script src="js/navbar-auth.js"></script>
 </body>
 </html>

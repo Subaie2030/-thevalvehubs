@@ -421,8 +421,8 @@ async function loadDashboard() {
       const isAdmin  = user.role === 'ADMIN';
       // Admin sees PENDING, others see APPROVED
       const expUrl   = isAdmin
-        ? 'https://thevalvehubs-backend-production.up.railway.app/api/experts?status=PENDING'
-        : 'https://thevalvehubs-backend-production.up.railway.app/api/experts?status=APPROVED';
+        ? '/api/experts?status=PENDING'
+        : '/api/experts?status=APPROVED';
       const expRes   = await fetch(expUrl, { headers: { Authorization: `Bearer ${token}` } });
       const expData  = expRes.ok ? await expRes.json() : { data: [] };
       const experts  = expData.data || [];
@@ -472,7 +472,7 @@ async function loadDashboard() {
     // â”€â”€ Invoices â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     try {
       const token = API.getToken();
-      const invRes  = await fetch('https://thevalvehubs-backend-production.up.railway.app/api/invoices/my', {
+      const invRes  = await fetch('/api/invoices/my', {
         headers: { Authorization: `Bearer ${token}` },
       });
       const invData = invRes.ok ? await invRes.json() : { data: [] };
@@ -533,7 +533,7 @@ async function reviewExpert(id, status) {
   if (!confirm('Are you sure you want to ' + label + ' this expert profile?')) return;
   try {
     const token = TVH_API.getToken();
-    const res   = await fetch('https://thevalvehubs-backend-production.up.railway.app/api/experts/' + id + '/review', {
+    const res   = await fetch('/api/experts/' + id + '/review', {
       method:  'PATCH',
       headers: { 'Content-Type':'application/json', Authorization: 'Bearer ' + token },
       body:    JSON.stringify({ status }),
@@ -554,6 +554,7 @@ loadDashboard();
 var hb=document.getElementById('hamburger'),mn=document.querySelector('.nav-menu');
 if(hb)hb.addEventListener('click',function(){var o=mn.classList.toggle('open');hb.children[0].style.transform=o?'translateY(7px) rotate(45deg)':'';hb.children[1].style.opacity=o?'0':'';hb.children[2].style.transform=o?'translateY(-7px) rotate(-45deg)':'';});
 </script>
+<script src="js/navbar-auth.js"></script>
 </body>
 </html>
 
@@ -579,7 +580,7 @@ async function reviewExpert(id, status) {
   if (!confirm('Are you sure you want to ' + label + ' this expert profile?')) return;
   try {
     const token = TVH_API.getToken();
-    const res   = await fetch('https://thevalvehubs-backend-production.up.railway.app/api/experts/' + id + '/review', {
+    const res   = await fetch('/api/experts/' + id + '/review', {
       method:  'PATCH',
       headers: { 'Content-Type':'application/json', Authorization: 'Bearer ' + token },
       body:    JSON.stringify({ status }),
