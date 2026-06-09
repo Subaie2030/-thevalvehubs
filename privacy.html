@@ -1,197 +1,310 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Privacy Policy — TheValveHubs</title>
-<meta name="description" content="Privacy Policy for TheValveHubs — how we collect, use, and protect your data on Saudi Arabia's industrial valve marketplace."/>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Privacy Policy — TheValveHubs | Saudi Arabia PDPL Compliant</title>
+<meta name="description" content="TheValveHubs Privacy Policy — how we collect, use and protect your personal data in compliance with Saudi Arabia's Personal Data Protection Law (PDPL) and ZATCA regulations."/>
 <link rel="stylesheet" href="style.css"/>
 <style>
-.legal-hero{background:linear-gradient(145deg,#1A1A2E,#2C4A7C);padding:80px 0 50px;color:#fff;}
-.legal-hero h1{font-size:clamp(1.8rem,3vw,2.6rem);font-weight:900;margin-bottom:8px;}
-.legal-hero p{font-size:.9rem;color:rgba(255,255,255,.65);}
-.legal-body{max-width:820px;margin:0 auto;padding:48px 24px 80px;}
-.legal-body h2{font-size:1.1rem;font-weight:800;color:#1A1A2E;margin:36px 0 10px;padding-bottom:8px;border-bottom:2px solid #EEEEF5;}
-.legal-body h3{font-size:.92rem;font-weight:700;color:#2C4A7C;margin:20px 0 6px;}
-.legal-body p,.legal-body li{font-size:.87rem;color:#3A3A5A;line-height:1.85;margin-bottom:8px;}
-.legal-body ul{padding-left:20px;margin-bottom:12px;}
-.legal-body ul li{list-style:disc;}
-.legal-meta{background:#F4F4F7;border-radius:10px;padding:14px 20px;font-size:.78rem;color:#7A7AAA;margin-bottom:36px;display:flex;gap:24px;flex-wrap:wrap;}
-.legal-meta strong{color:#1A1A2E;}
-.highlight-box{background:#EEF2FF;border-left:4px solid #2C4A7C;border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0;font-size:.85rem;color:#1A1A3A;line-height:1.7;}
-.data-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.82rem;}
-.data-table th{background:#F4F4F7;padding:10px 14px;text-align:left;font-size:.72rem;font-weight:800;color:#7A7AAA;text-transform:uppercase;letter-spacing:.06em;}
-.data-table td{padding:10px 14px;border-bottom:1px solid #EEEEF5;color:#3A3A5A;vertical-align:top;}
-.data-table tr:last-child td{border-bottom:none;}
+.legal-hero{background:linear-gradient(145deg,#003A1A,#006C35,#004A24);padding:90px 0 50px;position:relative;overflow:hidden;}
+.legal-hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:56px 56px;}
+.legal-hero .container{position:relative;z-index:1;}
+.legal-hero h1{font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:900;color:#fff;line-height:1.1;margin-bottom:10px;}
+.legal-hero p{font-size:.9rem;color:rgba(255,255,255,.75);max-width:580px;line-height:1.75;}
+.legal-meta{display:flex;gap:20px;flex-wrap:wrap;margin-top:16px;}
+.legal-meta span{font-size:.74rem;color:rgba(255,255,255,.6);display:flex;align-items:center;gap:5px;}
+.legal-layout{display:grid;grid-template-columns:240px 1fr;gap:32px;max-width:1100px;margin:0 auto;padding:48px 24px;}
+.legal-toc{position:sticky;top:88px;align-self:start;}
+.toc-card{background:#fff;border:1.5px solid #D8E4D8;border-radius:14px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,.06);}
+.toc-card h4{font-size:.72rem;font-weight:800;color:#7A9A7A;text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px;}
+.toc-link{display:block;font-size:.78rem;color:#5A6B62;padding:6px 10px;border-radius:7px;text-decoration:none;line-height:1.4;transition:all .15s;margin-bottom:2px;}
+.toc-link:hover,.toc-link.active{background:#EBF7F0;color:#006C35;font-weight:600;}
+.toc-num{color:#B0C4B0;font-size:.68rem;margin-right:5px;}
+.legal-body{min-width:0;}
+.legal-section{margin-bottom:40px;padding-bottom:40px;border-bottom:1px solid #E8EFE8;}
+.legal-section:last-child{border-bottom:none;}
+.legal-section h2{font-size:1.1rem;font-weight:900;color:#1A2A1A;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.legal-section h2 .sec-num{background:#EBF7F0;border:1px solid rgba(0,108,53,.15);color:#006C35;font-size:.7rem;font-weight:800;padding:3px 9px;border-radius:100px;flex-shrink:0;}
+.legal-section h3{font-size:.92rem;font-weight:800;color:#1A2A1A;margin:18px 0 8px;}
+.legal-section p{font-size:.85rem;color:#3A4A42;line-height:1.8;margin-bottom:10px;}
+.legal-section ul,.legal-section ol{margin:8px 0 14px 18px;}
+.legal-section li{font-size:.85rem;color:#3A4A42;line-height:1.75;margin-bottom:4px;}
+.highlight-box{background:#EBF7F0;border:1.5px solid rgba(0,108,53,.15);border-radius:12px;padding:16px 20px;margin:14px 0;}
+.highlight-box p{margin:0;font-size:.83rem;color:#1A4A1A;line-height:1.7;}
+.highlight-box strong{color:#006C35;}
+.warning-box{background:#FDF3E3;border:1.5px solid rgba(200,151,58,.2);border-radius:12px;padding:16px 20px;margin:14px 0;}
+.warning-box p{margin:0;font-size:.83rem;color:#5A3A00;line-height:1.7;}
+.contact-card{background:#fff;border:1.5px solid #D8E4D8;border-radius:14px;padding:22px 24px;margin-top:16px;display:flex;gap:16px;align-items:flex-start;}
+.contact-card .cc-icon{font-size:1.8rem;flex-shrink:0;}
+.contact-card h4{font-size:.88rem;font-weight:800;color:#1A2A1A;margin-bottom:6px;}
+.contact-card p{font-size:.82rem;color:#5A6B62;line-height:1.65;margin:0;}
+.contact-card a{color:#006C35;font-weight:600;}
+.pdpl-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:100px;padding:5px 14px;font-size:.72rem;font-weight:800;color:#fff;margin-bottom:16px;}
+@media(max-width:900px){.legal-layout{grid-template-columns:1fr;}.legal-toc{display:none;}}
 </style>
 </head>
 <body>
-
+<div id="preloader"><div class="preloader-inner"><div class="preloader-logo">TVH</div><div class="preloader-spinner"></div></div></div>
+<div class="emergency-band" id="emergencyBand">&#128680; Emergency 24/7 &mdash; <a href="emergency.html">Submit RFQ &rarr;</a><button class="band-dismiss" onclick="document.getElementById('emergencyBand').style.display='none'">&times;</button></div>
 <nav class="navbar" id="navbar">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo">
-      <img src="images/tvh-logo-extracted.jpg" alt="TheValveHubs" style="width:220px;height:58px;object-fit:contain;object-position:left center;display:block;"/>
-    </a>
+    <a href="index.html" class="nav-logo"><img src="images/tvh-logo-extracted.jpg" alt="TheValveHubs" style="width:220px;height:58px;object-fit:contain;object-position:left center;display:block;flex-shrink:0;"/></a>
     <ul class="nav-menu">
-      <li class="nav-item"><a href="platform.html" class="nav-link">Platform</a></li>
-      <li class="nav-item"><a href="pricing.html" class="nav-link">Pricing</a></li>
       <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+      <li class="nav-item"><a href="saudi-market.html" class="nav-link">&#127470;&#127474; Saudi Market</a></li>
+      <li class="nav-item"><a href="global-suppliers.html" class="nav-link">&#127760; Global Suppliers</a></li>
+      <li class="nav-item"><a href="emergency.html" class="nav-link emergency-link">&#128680; Emergency</a></li>
+      <li class="nav-item"><a href="pricing.html" class="nav-link">&#128176; Pricing</a></li>
     </ul>
     <div class="nav-cta">
-      <a href="index.html#join" class="btn btn-green">Join Free</a>
+      <a href="index.html#join" class="btn btn-outline-green btn-sm">Join Free</a>
+      <a href="emergency.html" class="btn btn-red btn-sm">&#128680; Emergency</a>
     </div>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
-<div class="legal-hero">
+<section class="legal-hero">
   <div class="container">
+    <div style="font-size:.72rem;color:rgba(255,255,255,.5);margin-bottom:14px;"><a href="index.html" style="color:rgba(255,255,255,.65);">Home</a> &rsaquo; <span>Privacy Policy</span></div>
+    <div class="pdpl-badge">&#127470;&#127474; Saudi PDPL Compliant</div>
     <h1>Privacy Policy</h1>
-    <p>Last updated: June 2026 &nbsp;·&nbsp; Effective date: June 2026</p>
-  </div>
-</div>
-
-<div class="container">
-<div class="legal-body">
-
-  <div class="legal-meta">
-    <span><strong>Platform:</strong> TheValveHubs</span>
-    <span><strong>Data Controller:</strong> TheValveHubs Co. — Al Khobar, Saudi Arabia</span>
-    <span><strong>Contact:</strong> privacy@thevalvehubs.com</span>
-  </div>
-
-  <div class="highlight-box">
-    We respect your privacy. This policy explains what data we collect, why we collect it, and how we protect it — in plain language.
-  </div>
-
-  <h2>1. Who We Are</h2>
-  <p>TheValveHubs Co. operates the TheValveHubs B2B industrial marketplace from Al Khobar, Eastern Province, Kingdom of Saudi Arabia. We connect buyers and suppliers in the industrial valves, parts, machining, and services sector.</p>
-
-  <h2>2. Data We Collect</h2>
-
-  <h3>2.1 Account & Registration Data</h3>
-  <table class="data-table">
-    <thead><tr><th>Data</th><th>Why We Collect It</th></tr></thead>
-    <tbody>
-      <tr><td>Email address</td><td>Account login, notifications, and communications</td></tr>
-      <tr><td>Company name (EN & AR)</td><td>Platform identity and supplier/buyer profiles</td></tr>
-      <tr><td>Commercial Registration (CR) number</td><td>Business verification — Saudi regulatory compliance</td></tr>
-      <tr><td>VAT number</td><td>ZATCA-compliant invoice generation</td></tr>
-      <tr><td>Phone number</td><td>Emergency contact and account security</td></tr>
-      <tr><td>City / Region / Country</td><td>Matching buyers with regional suppliers</td></tr>
-    </tbody>
-  </table>
-
-  <h3>2.2 Supplier Profile Data</h3>
-  <ul>
-    <li>Service pillars (Valves, Parts, Machining, 3D Print, TPI, Rental)</li>
-    <li>IKTVA score and Saudi compliance indicators</li>
-    <li>Aramco / SABIC approval status</li>
-    <li>Certifications (ISO, API, SASO, etc.)</li>
-    <li>Saudization (Nitaqat) percentage</li>
-  </ul>
-
-  <h3>2.3 Transaction Data</h3>
-  <ul>
-    <li>RFQ details — title, description, specifications, quantity, delivery requirements</li>
-    <li>Quotation submissions — pricing, lead times, notes</li>
-    <li>Invoice records — invoice numbers, amounts, VAT</li>
-    <li>Subscription and payment records</li>
-  </ul>
-
-  <h3>2.4 Valve Expert Network Data</h3>
-  <p>If you submit an expert profile, we collect: name, job title, email, phone, nationality, location, experience, skills, certifications, and professional summary. Contact details are visible to administrators only and are not shown publicly.</p>
-
-  <h3>2.5 Technical Data</h3>
-  <ul>
-    <li>IP address and browser type (for security purposes)</li>
-    <li>Session tokens (JWT — stored in browser localStorage)</li>
-    <li>Pages visited and features used (for platform improvement)</li>
-  </ul>
-
-  <h2>3. How We Use Your Data</h2>
-  <ul>
-    <li><strong>Platform operation</strong> — matching buyers with suppliers, processing RFQs, and generating invoices</li>
-    <li><strong>Account management</strong> — registration, login, password reset</li>
-    <li><strong>Notifications</strong> — RFQ alerts, quotation updates, award notifications</li>
-    <li><strong>Compliance</strong> — ZATCA invoice compliance, Saudi regulatory requirements</li>
-    <li><strong>Platform improvement</strong> — understanding usage patterns to improve features</li>
-    <li><strong>Security</strong> — fraud detection and account protection</li>
-  </ul>
-  <p>We do not sell your data to third parties. We do not use your data for advertising profiling.</p>
-
-  <h2>4. Data Sharing</h2>
-  <p>We share data only in these limited circumstances:</p>
-  <ul>
-    <li><strong>Between buyers and suppliers</strong> — when an RFQ is submitted, relevant supplier profiles are matched and notified. When a quote is submitted, the buyer receives the supplier's company name and pricing.</li>
-    <li><strong>Payment processor (Moyasar)</strong> — only transaction amount and reference; we do not store card details</li>
-    <li><strong>Email service provider</strong> — to send notification emails on your behalf</li>
-    <li><strong>Legal requirements</strong> — if required by Saudi law or a valid court order</li>
-  </ul>
-
-  <h2>5. Data Retention</h2>
-  <table class="data-table">
-    <thead><tr><th>Data Type</th><th>Retention Period</th></tr></thead>
-    <tbody>
-      <tr><td>Account data</td><td>Duration of account + 2 years after deletion</td></tr>
-      <tr><td>Invoice records</td><td>10 years (ZATCA regulatory requirement)</td></tr>
-      <tr><td>RFQ & transaction data</td><td>5 years</td></tr>
-      <tr><td>Expert profile (rejected)</td><td>6 months after rejection</td></tr>
-      <tr><td>Session tokens</td><td>30 days or until logout</td></tr>
-    </tbody>
-  </table>
-
-  <h2>6. Your Rights</h2>
-  <p>Under Saudi Arabia's Personal Data Protection Law (PDPL), you have the right to:</p>
-  <ul>
-    <li><strong>Access</strong> — request a copy of your personal data</li>
-    <li><strong>Correction</strong> — update inaccurate or incomplete data</li>
-    <li><strong>Deletion</strong> — request deletion of your account and data (subject to legal retention requirements)</li>
-    <li><strong>Objection</strong> — object to certain uses of your data</li>
-    <li><strong>Portability</strong> — receive your data in a structured, machine-readable format</li>
-  </ul>
-  <p>To exercise any of these rights, email us at <a href="mailto:privacy@thevalvehubs.com" style="color:#2C4A7C;">privacy@thevalvehubs.com</a>. We will respond within 15 business days.</p>
-
-  <h2>7. Security</h2>
-  <p>We protect your data using:</p>
-  <ul>
-    <li>HTTPS encryption for all data in transit</li>
-    <li>Bcrypt hashing for passwords — we never store plain-text passwords</li>
-    <li>JWT tokens with expiry for session authentication</li>
-    <li>PostgreSQL on Railway's secure infrastructure</li>
-    <li>Role-based access control — data is accessible only to authorised roles</li>
-  </ul>
-  <p>No system is 100% secure. In the event of a data breach affecting your rights, we will notify you within 72 hours of becoming aware.</p>
-
-  <h2>8. Cookies & Local Storage</h2>
-  <p>TheValveHubs uses browser <strong>localStorage</strong> (not cookies) to store your authentication token (<code>tvh_token</code>) and basic profile data (<code>tvh_user</code>) for session management. This data stays on your device and is cleared when you log out. We do not use third-party tracking cookies or advertising pixels.</p>
-
-  <h2>9. Third-Party Links</h2>
-  <p>The platform may contain links to external websites (supplier websites, LinkedIn profiles, etc.). We are not responsible for the privacy practices of those sites.</p>
-
-  <h2>10. Children</h2>
-  <p>TheValveHubs is a professional B2B platform intended for business use only. We do not knowingly collect data from individuals under 18 years of age.</p>
-
-  <h2>11. Changes to This Policy</h2>
-  <p>We may update this Privacy Policy as required by law or as our practices change. Material updates will be communicated via email or platform notification. The current version is always available at this URL.</p>
-
-  <h2>12. Contact</h2>
-  <p>For all privacy-related enquiries:</p>
-  <ul>
-    <li>Email: <a href="mailto:privacy@thevalvehubs.com" style="color:#2C4A7C;">privacy@thevalvehubs.com</a></li>
-    <li>Address: TheValveHubs Co., Al Khobar, Eastern Province, Kingdom of Saudi Arabia</li>
-  </ul>
-
-</div>
-</div>
-
-<footer>
-  <div class="container">
-    <div class="footer-bottom">
-      <span>&copy; 2026 TheValveHubs. All rights reserved. Khobar, Saudi Arabia.</span>
-      <span><a href="terms.html" style="color:#9A9AAA;">Terms</a> &nbsp;·&nbsp; <a href="privacy.html" style="color:#9A9AAA;">Privacy</a></span>
+    <p>How TheValveHubs collects, uses, stores and protects your personal data &mdash; in full compliance with Saudi Arabia&rsquo;s Personal Data Protection Law (PDPL) and applicable regulations.</p>
+    <div class="legal-meta">
+      <span>&#128197; Effective: 1 January 2025</span>
+      <span>&#128197; Last Updated: 9 June 2026</span>
+      <span>&#127968; Governing Law: Kingdom of Saudi Arabia</span>
     </div>
   </div>
-</footer>
+</section>
 
+<div class="legal-layout">
+  <aside class="legal-toc">
+    <div class="toc-card">
+      <h4>Contents</h4>
+      <a class="toc-link" href="#s1"><span class="toc-num">1.</span> Who We Are</a>
+      <a class="toc-link" href="#s2"><span class="toc-num">2.</span> Data We Collect</a>
+      <a class="toc-link" href="#s3"><span class="toc-num">3.</span> How We Use Your Data</a>
+      <a class="toc-link" href="#s4"><span class="toc-num">4.</span> Legal Basis (PDPL)</a>
+      <a class="toc-link" href="#s5"><span class="toc-num">5.</span> Data Sharing</a>
+      <a class="toc-link" href="#s6"><span class="toc-num">6.</span> Cookies</a>
+      <a class="toc-link" href="#s7"><span class="toc-num">7.</span> Data Retention</a>
+      <a class="toc-link" href="#s8"><span class="toc-num">8.</span> Your Rights</a>
+      <a class="toc-link" href="#s9"><span class="toc-num">9.</span> International Transfers</a>
+      <a class="toc-link" href="#s10"><span class="toc-num">10.</span> Security</a>
+      <a class="toc-link" href="#s11"><span class="toc-num">11.</span> Children</a>
+      <a class="toc-link" href="#s12"><span class="toc-num">12.</span> Changes</a>
+      <a class="toc-link" href="#s13"><span class="toc-num">13.</span> Contact Us</a>
+    </div>
+  </aside>
+
+  <article class="legal-body">
+    <div class="highlight-box">
+      <p><strong>Summary:</strong> TheValveHubs is a B2B industrial marketplace. We collect professional business information to operate the platform. We do not sell your personal data. You have rights under Saudi PDPL to access, correct and delete your data. Questions? Email <strong>privacy@thevalvehubs.com</strong>.</p>
+    </div>
+
+    <div class="legal-section" id="s1">
+      <h2><span class="sec-num">1</span> Who We Are</h2>
+      <p>TheValveHubs (&ldquo;we&rdquo;, &ldquo;us&rdquo;, &ldquo;our&rdquo;) operates <strong>thevalvehubs.com</strong> &mdash; Saudi Arabia&rsquo;s engineering-governed B2B industrial valve marketplace, connecting buyers with verified Saudi valve suppliers, service providers and technical experts.</p>
+      <ul>
+        <li><strong>Company:</strong> TheValveHubs</li>
+        <li><strong>Founder &amp; CEO:</strong> Abdullah F. AlSubaie</li>
+        <li><strong>Headquarters:</strong> Al Khobar, Eastern Province, Kingdom of Saudi Arabia</li>
+        <li><strong>Privacy Contact:</strong> privacy@thevalvehubs.com</li>
+      </ul>
+    </div>
+
+    <div class="legal-section" id="s2">
+      <h2><span class="sec-num">2</span> Data We Collect</h2>
+      <h3>2.1 Registration &amp; Account Data</h3>
+      <ul>
+        <li>Full name, business email, company name &amp; CR number</li>
+        <li>Job title, phone number (including WhatsApp), city / region</li>
+        <li>Industry sector and password (encrypted &mdash; we cannot read it)</li>
+      </ul>
+      <h3>2.2 Supplier Profile Data</h3>
+      <ul>
+        <li>Company description, products, certifications (ISO, API, Aramco approvals)</li>
+        <li>IKTVA score, company logo, product catalogues</li>
+        <li>Contact details you choose to display publicly</li>
+      </ul>
+      <h3>2.3 RFQ &amp; Transaction Data</h3>
+      <ul>
+        <li>Valve specifications, quantities and urgency level submitted in RFQs</li>
+        <li>Technical drawings uploaded for emergency or fabrication RFQs</li>
+        <li>Subscription payment info (processed by Stripe/Tap &mdash; we do not store card numbers)</li>
+      </ul>
+      <h3>2.4 Expert / CV Data</h3>
+      <ul>
+        <li>CV documents, technical skills, certifications, work experience</li>
+        <li>Availability, preferred engagement type and professional photo (if provided)</li>
+      </ul>
+      <h3>2.5 Usage Data (Auto-Collected)</h3>
+      <ul>
+        <li>IP address, browser type, device type, pages visited, referral source</li>
+        <li>IKTVA Calculator inputs (anonymised)</li>
+      </ul>
+      <div class="highlight-box">
+        <p><strong>We do not collect:</strong> Saudi National ID / Iqama numbers, bank account numbers, health data or biometric data. TheValveHubs is a professional B2B platform &mdash; all data collected is business-related.</p>
+      </div>
+    </div>
+
+    <div class="legal-section" id="s3">
+      <h2><span class="sec-num">3</span> How We Use Your Data</h2>
+      <h3>3.1 Platform Operation</h3>
+      <ul>
+        <li>Create and manage your account; display your supplier profile</li>
+        <li>Match buyers with verified Saudi suppliers; route RFQs by category and IKTVA status</li>
+        <li>Send emergency 24/7 RFQ alerts to Professional and Enterprise subscribers</li>
+      </ul>
+      <h3>3.2 Communication</h3>
+      <ul>
+        <li>RFQ notifications via email and WhatsApp</li>
+        <li>Platform updates, subscription invoices and payment receipts</li>
+      </ul>
+      <h3>3.3 Analytics &amp; Improvement</h3>
+      <ul>
+        <li>Understand platform usage to improve features</li>
+        <li>Generate anonymised industry statistics; monitor for security threats</li>
+      </ul>
+      <h3>3.4 Legal &amp; Regulatory Compliance</h3>
+      <ul>
+        <li>Comply with Saudi PDPL, ZATCA VAT regulations and applicable laws</li>
+        <li>Maintain VAT invoicing records (15% VAT per ZATCA)</li>
+      </ul>
+      <div class="warning-box">
+        <p>&#9888; <strong>Marketing:</strong> You can opt out of marketing emails at any time by clicking &ldquo;unsubscribe&rdquo; or emailing privacy@thevalvehubs.com. Transactional emails (invoices, RFQ confirmations) cannot be opted out of while you hold an active account.</p>
+      </div>
+    </div>
+
+    <div class="legal-section" id="s4">
+      <h2><span class="sec-num">4</span> Legal Basis for Processing (Saudi PDPL)</h2>
+      <p>Under Saudi Arabia&rsquo;s <strong>Personal Data Protection Law (PDPL)</strong> (Royal Decree No. M/19, 9 Safar 1443H), we process your personal data on the following legal bases:</p>
+      <ul>
+        <li><strong>Contractual necessity:</strong> Account management, RFQ routing, supplier directory listing</li>
+        <li><strong>Legitimate interests:</strong> Analytics and platform improvement</li>
+        <li><strong>Legal obligation:</strong> ZATCA VAT compliance and record-keeping</li>
+        <li><strong>Consent:</strong> Optional marketing communications &mdash; withdraw at any time</li>
+      </ul>
+    </div>
+
+    <div class="legal-section" id="s5">
+      <h2><span class="sec-num">5</span> Data Sharing &amp; Third Parties</h2>
+      <p><strong>We do not sell, rent or trade your personal data.</strong></p>
+      <h3>5.1 Between Platform Users (Intended)</h3>
+      <p>Supplier profiles (company name, certifications, products, IKTVA score, chosen contact details) are visible to registered buyers. This is the core purpose of the platform and you consent to this on registration.</p>
+      <h3>5.2 Service Providers</h3>
+      <ul>
+        <li><strong>Netlify</strong> &mdash; website hosting (servers may be outside Saudi Arabia)</li>
+        <li><strong>Stripe / Tap Payments</strong> &mdash; subscription payment processing</li>
+        <li><strong>Google Analytics</strong> &mdash; anonymised usage analytics</li>
+      </ul>
+      <h3>5.3 Legal Requirements</h3>
+      <p>We may disclose data to Saudi government authorities, courts or law enforcement if required by law &mdash; including the NDMO under the PDPL framework.</p>
+    </div>
+
+    <div class="legal-section" id="s6">
+      <h2><span class="sec-num">6</span> Cookies &amp; Tracking</h2>
+      <ul>
+        <li><strong>Essential cookies:</strong> Required for platform function (login sessions, forms). Cannot be disabled.</li>
+        <li><strong>Analytics cookies:</strong> Google Analytics &mdash; anonymised page visits and session data. Opt out via Google&rsquo;s opt-out tool.</li>
+        <li><strong>Preference cookies:</strong> Remember your settings (e.g. billing toggle).</li>
+      </ul>
+      <p>We do not use advertising or cross-site tracking cookies. Manage cookies through your browser settings at any time.</p>
+    </div>
+
+    <div class="legal-section" id="s7">
+      <h2><span class="sec-num">7</span> Data Retention</h2>
+      <ul>
+        <li><strong>Active accounts:</strong> Duration of account + 12 months after closure</li>
+        <li><strong>RFQ records:</strong> 5 years (Saudi commercial record-keeping)</li>
+        <li><strong>Payment / VAT records:</strong> 10 years (ZATCA requirement)</li>
+        <li><strong>CV / expert profiles:</strong> Until deletion request or 24 months of inactivity</li>
+        <li><strong>Analytics:</strong> Anonymised &mdash; retained indefinitely in aggregate form</li>
+      </ul>
+    </div>
+
+    <div class="legal-section" id="s8">
+      <h2><span class="sec-num">8</span> Your Rights Under Saudi PDPL</h2>
+      <ul>
+        <li>&#10003; <strong>Access:</strong> Request a copy of your personal data</li>
+        <li>&#10003; <strong>Correction:</strong> Request correction of inaccurate data</li>
+        <li>&#10003; <strong>Deletion:</strong> Request deletion, subject to legal retention obligations</li>
+        <li>&#10003; <strong>Restriction:</strong> Limit how we use your data in certain circumstances</li>
+        <li>&#10003; <strong>Portability:</strong> Receive your data in a structured, machine-readable format</li>
+        <li>&#10003; <strong>Object:</strong> Object to processing based on legitimate interests or direct marketing</li>
+        <li>&#10003; <strong>Withdraw Consent:</strong> Withdraw consent for marketing at any time</li>
+      </ul>
+      <div class="highlight-box">
+        <p>To exercise any right, email <strong>privacy@thevalvehubs.com</strong> with your full name, company and the right you wish to exercise. We respond within <strong>30 days</strong> as required by PDPL. To escalate, contact the <strong>Saudi National Data Management Office (NDMO)</strong> at ndmo.gov.sa.</p>
+      </div>
+    </div>
+
+    <div class="legal-section" id="s9">
+      <h2><span class="sec-num">9</span> International Data Transfers</h2>
+      <p>TheValveHubs is based in Saudi Arabia. Some service providers (e.g. Netlify hosting) may process data on servers outside the Kingdom. Where this occurs, we ensure appropriate safeguards are in place consistent with PDPL requirements, including contractual data processing agreements with all third-party processors.</p>
+    </div>
+
+    <div class="legal-section" id="s10">
+      <h2><span class="sec-num">10</span> Data Security</h2>
+      <ul>
+        <li>HTTPS / SSL encryption for all data in transit</li>
+        <li>Encrypted password storage (we cannot read your password)</li>
+        <li>Access controls &mdash; only authorised personnel can access personal data</li>
+        <li>Secure file handling for uploaded CVs and technical drawings</li>
+        <li>Regular security reviews of the platform</li>
+      </ul>
+      <div class="warning-box">
+        <p>&#9888; No system is 100% secure. If you suspect a security issue involving your data, contact <strong>privacy@thevalvehubs.com</strong> immediately. We will notify affected users of any significant data breach per PDPL requirements.</p>
+      </div>
+    </div>
+
+    <div class="legal-section" id="s11">
+      <h2><span class="sec-num">11</span> Children&rsquo;s Privacy</h2>
+      <p>TheValveHubs is a professional B2B platform for business users only. We do not knowingly collect personal data from individuals under 18. If you believe a minor has registered, contact privacy@thevalvehubs.com and we will promptly delete the account.</p>
+    </div>
+
+    <div class="legal-section" id="s12">
+      <h2><span class="sec-num">12</span> Changes to This Policy</h2>
+      <p>We may update this Privacy Policy to reflect changes in our practices, platform features or applicable Saudi law. When we make material changes we will update the &ldquo;Last Updated&rdquo; date, display a notice on the homepage for 30 days, and notify registered users by email for significant changes.</p>
+    </div>
+
+    <div class="legal-section" id="s13">
+      <h2><span class="sec-num">13</span> Contact Us</h2>
+      <div class="contact-card">
+        <div class="cc-icon">&#128231;</div>
+        <div><h4>Privacy Email</h4><p><a href="mailto:privacy@thevalvehubs.com">privacy@thevalvehubs.com</a><br/>We respond within 30 days as required by Saudi PDPL.</p></div>
+      </div>
+      <div class="contact-card">
+        <div class="cc-icon">&#128205;</div>
+        <div><h4>Postal Address</h4><p>TheValveHubs &mdash; Al Khobar, Eastern Province, Kingdom of Saudi Arabia</p></div>
+      </div>
+      <div class="contact-card">
+        <div class="cc-icon">&#128241;</div>
+        <div><h4>WhatsApp (urgent data requests)</h4><p><a href="https://wa.me/966501099901" target="_blank" rel="noopener">+966 50 109 9901</a></p></div>
+      </div>
+    </div>
+  </article>
+</div>
+
+<footer><div class="container"><div class="footer-grid"><div class="footer-brand"><div class="footer-logo"><div style="background:#fff;border-radius:10px;padding:10px 20px;display:inline-block;"><img src="images/tvh-logo-extracted.jpg" alt="TheValveHubs" style="height:72px;width:auto;display:block;"/></div></div><p>Saudi Arabia&rsquo;s engineering-governed valve marketplace.</p></div><div class="footer-col"><h5>Legal</h5><ul><li><a href="privacy.html" style="color:#C8973A;">Privacy Policy</a></li><li><a href="terms.html">Terms of Service</a></li></ul></div><div class="footer-col"><h5>Platform</h5><ul><li><a href="saudi-market.html">Saudi Market</a></li><li><a href="emergency.html">Emergency 24/7</a></li><li><a href="pricing.html">Pricing</a></li></ul></div><div class="footer-col"><h5>Company</h5><ul><li><a href="about.html">About Us</a></li><li><a href="index.html#join">Join Free</a></li></ul></div></div></div><div class="container"><div class="footer-bottom"><span>&copy; 2026 TheValveHubs. Khobar, Saudi Arabia. Governed by Saudi PDPL.</span><span><a href="terms.html" style="color:#9A9AAA;">Terms</a> &nbsp;&middot;&nbsp; <a href="privacy.html" style="color:#C8973A;">Privacy</a></span></div></div></footer>
+<a href="https://wa.me/966501099901" class="whatsapp-float" target="_blank" rel="noopener">&#128241;</a>
+<script>
+window.addEventListener('load',function(){setTimeout(function(){var p=document.getElementById('preloader');if(p)p.classList.add('hidden');},800);});
+var nb=document.getElementById('navbar');window.addEventListener('scroll',function(){if(nb)nb.classList.toggle('scrolled',window.scrollY>40);},{passive:true});
+var hb=document.getElementById('hamburger');if(hb)hb.addEventListener('click',function(){var mn=document.querySelector('.mobile-nav');if(mn)mn.classList.toggle('open');});
+var sections=document.querySelectorAll('.legal-section');
+var tocLinks=document.querySelectorAll('.toc-link');
+window.addEventListener('scroll',function(){
+  var scrollY=window.scrollY+120;
+  sections.forEach(function(s){
+    if(s.offsetTop<=scrollY){
+      tocLinks.forEach(function(l){l.classList.remove('active');});
+      var active=document.querySelector('.toc-link[href="#'+s.getAttribute('id')+'"]');
+      if(active)active.classList.add('active');
+    }
+  });
+},{passive:true});
+</script>
 </body>
 </html>

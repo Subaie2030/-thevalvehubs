@@ -1,179 +1,348 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Terms of Service — TheValveHubs</title>
-<meta name="description" content="Terms of Service for TheValveHubs — Saudi Arabia's B2B industrial valve marketplace."/>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Terms of Service — TheValveHubs | Saudi Arabia</title>
+<meta name="description" content="TheValveHubs Terms of Service — rules for using Saudi Arabia's industrial valve marketplace. Supplier obligations, buyer conduct, IKTVA verification, subscription terms and ZATCA VAT compliance."/>
 <link rel="stylesheet" href="style.css"/>
 <style>
-.legal-hero{background:linear-gradient(145deg,#1A1A2E,#2C4A7C);padding:80px 0 50px;color:#fff;}
-.legal-hero h1{font-size:clamp(1.8rem,3vw,2.6rem);font-weight:900;margin-bottom:8px;}
-.legal-hero p{font-size:.9rem;color:rgba(255,255,255,.65);}
-.legal-body{max-width:820px;margin:0 auto;padding:48px 24px 80px;}
-.legal-body h2{font-size:1.1rem;font-weight:800;color:#1A1A2E;margin:36px 0 10px;padding-bottom:8px;border-bottom:2px solid #EEEEF5;}
-.legal-body h3{font-size:.92rem;font-weight:700;color:#2C4A7C;margin:20px 0 6px;}
-.legal-body p,.legal-body li{font-size:.87rem;color:#3A3A5A;line-height:1.85;margin-bottom:8px;}
-.legal-body ul{padding-left:20px;margin-bottom:12px;}
-.legal-body ul li{list-style:disc;}
-.legal-meta{background:#F4F4F7;border-radius:10px;padding:14px 20px;font-size:.78rem;color:#7A7AAA;margin-bottom:36px;display:flex;gap:24px;flex-wrap:wrap;}
-.legal-meta strong{color:#1A1A2E;}
-.highlight-box{background:#EBF7F0;border-left:4px solid #006C35;border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0;font-size:.85rem;color:#1A3A2A;line-height:1.7;}
+.legal-hero{background:linear-gradient(145deg,#0A1628,#163660,#0A2A4A);padding:90px 0 50px;position:relative;overflow:hidden;}
+.legal-hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:56px 56px;}
+.legal-hero .container{position:relative;z-index:1;}
+.legal-hero h1{font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:900;color:#fff;line-height:1.1;margin-bottom:10px;}
+.legal-hero p{font-size:.9rem;color:rgba(255,255,255,.75);max-width:580px;line-height:1.75;}
+.legal-meta{display:flex;gap:20px;flex-wrap:wrap;margin-top:16px;}
+.legal-meta span{font-size:.74rem;color:rgba(255,255,255,.6);}
+.legal-layout{display:grid;grid-template-columns:240px 1fr;gap:32px;max-width:1100px;margin:0 auto;padding:48px 24px;}
+.legal-toc{position:sticky;top:88px;align-self:start;}
+.toc-card{background:#fff;border:1.5px solid #D8E4D8;border-radius:14px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,.06);}
+.toc-card h4{font-size:.72rem;font-weight:800;color:#7A9A7A;text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px;}
+.toc-link{display:block;font-size:.78rem;color:#5A6B62;padding:6px 10px;border-radius:7px;text-decoration:none;line-height:1.4;transition:all .15s;margin-bottom:2px;}
+.toc-link:hover,.toc-link.active{background:#EBF7F0;color:#006C35;font-weight:600;}
+.toc-num{color:#B0C4B0;font-size:.68rem;margin-right:5px;}
+.legal-body{min-width:0;}
+.legal-section{margin-bottom:40px;padding-bottom:40px;border-bottom:1px solid #E8EFE8;}
+.legal-section:last-child{border-bottom:none;}
+.legal-section h2{font-size:1.1rem;font-weight:900;color:#1A2A1A;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.legal-section h2 .sec-num{background:#EEF3FB;border:1px solid rgba(22,54,96,.15);color:#163660;font-size:.7rem;font-weight:800;padding:3px 9px;border-radius:100px;flex-shrink:0;}
+.legal-section h3{font-size:.92rem;font-weight:800;color:#1A2A1A;margin:18px 0 8px;}
+.legal-section p{font-size:.85rem;color:#3A4A42;line-height:1.8;margin-bottom:10px;}
+.legal-section ul,.legal-section ol{margin:8px 0 14px 18px;}
+.legal-section li{font-size:.85rem;color:#3A4A42;line-height:1.75;margin-bottom:4px;}
+.highlight-box{background:#EBF7F0;border:1.5px solid rgba(0,108,53,.15);border-radius:12px;padding:16px 20px;margin:14px 0;}
+.highlight-box p{margin:0;font-size:.83rem;color:#1A4A1A;line-height:1.7;}
+.highlight-box strong{color:#006C35;}
+.warning-box{background:#FEE2E2;border:1.5px solid rgba(192,57,43,.15);border-radius:12px;padding:16px 20px;margin:14px 0;}
+.warning-box p{margin:0;font-size:.83rem;color:#5A0000;line-height:1.7;}
+.navy-box{background:#EEF3FB;border:1.5px solid rgba(22,54,96,.15);border-radius:12px;padding:16px 20px;margin:14px 0;}
+.navy-box p{margin:0;font-size:.83rem;color:#0A1A3A;line-height:1.7;}
+.contact-card{background:#fff;border:1.5px solid #D8E4D8;border-radius:14px;padding:22px 24px;margin-top:16px;display:flex;gap:16px;align-items:flex-start;}
+.contact-card .cc-icon{font-size:1.8rem;flex-shrink:0;}
+.contact-card h4{font-size:.88rem;font-weight:800;color:#1A2A1A;margin-bottom:6px;}
+.contact-card p{font-size:.82rem;color:#5A6B62;line-height:1.65;margin:0;}
+.contact-card a{color:#006C35;font-weight:600;}
+.ksa-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:100px;padding:5px 14px;font-size:.72rem;font-weight:800;color:#fff;margin-bottom:16px;}
+@media(max-width:900px){.legal-layout{grid-template-columns:1fr;}.legal-toc{display:none;}}
 </style>
 </head>
 <body>
-
+<div id="preloader"><div class="preloader-inner"><div class="preloader-logo">TVH</div><div class="preloader-spinner"></div></div></div>
+<div class="emergency-band" id="emergencyBand">&#128680; Emergency 24/7 &mdash; <a href="emergency.html">Submit RFQ &rarr;</a><button class="band-dismiss" onclick="document.getElementById('emergencyBand').style.display='none'">&times;</button></div>
 <nav class="navbar" id="navbar">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo">
-      <img src="images/tvh-logo-extracted.jpg" alt="TheValveHubs" style="width:220px;height:58px;object-fit:contain;object-position:left center;display:block;"/>
-    </a>
+    <a href="index.html" class="nav-logo"><img src="images/tvh-logo-extracted.jpg" alt="TheValveHubs" style="width:220px;height:58px;object-fit:contain;object-position:left center;display:block;flex-shrink:0;"/></a>
     <ul class="nav-menu">
-      <li class="nav-item"><a href="platform.html" class="nav-link">Platform</a></li>
-      <li class="nav-item"><a href="pricing.html" class="nav-link">Pricing</a></li>
       <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+      <li class="nav-item"><a href="saudi-market.html" class="nav-link">&#127470;&#127474; Saudi Market</a></li>
+      <li class="nav-item"><a href="global-suppliers.html" class="nav-link">&#127760; Global Suppliers</a></li>
+      <li class="nav-item"><a href="emergency.html" class="nav-link emergency-link">&#128680; Emergency</a></li>
+      <li class="nav-item"><a href="pricing.html" class="nav-link">&#128176; Pricing</a></li>
     </ul>
     <div class="nav-cta">
-      <a href="index.html#join" class="btn btn-green">Join Free</a>
+      <a href="index.html#join" class="btn btn-outline-green btn-sm">Join Free</a>
+      <a href="emergency.html" class="btn btn-red btn-sm">&#128680; Emergency</a>
     </div>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
-<div class="legal-hero">
+<section class="legal-hero">
   <div class="container">
+    <div style="font-size:.72rem;color:rgba(255,255,255,.5);margin-bottom:14px;"><a href="index.html" style="color:rgba(255,255,255,.65);">Home</a> &rsaquo; <span>Terms of Service</span></div>
+    <div class="ksa-badge">&#127470;&#127474; Governed by Saudi Law</div>
     <h1>Terms of Service</h1>
-    <p>Last updated: June 2026 &nbsp;·&nbsp; Effective date: June 2026</p>
-  </div>
-</div>
-
-<div class="container">
-<div class="legal-body">
-
-  <div class="legal-meta">
-    <span><strong>Platform:</strong> TheValveHubs</span>
-    <span><strong>Operator:</strong> TheValveHubs Co. — Al Khobar, Saudi Arabia</span>
-    <span><strong>Jurisdiction:</strong> Kingdom of Saudi Arabia</span>
-    <span><strong>Contact:</strong> legal@thevalvehubs.com</span>
-  </div>
-
-  <div class="highlight-box">
-    By accessing or using TheValveHubs platform, you agree to be bound by these Terms of Service. Please read them carefully before creating an account or submitting any request.
-  </div>
-
-  <h2>1. About TheValveHubs</h2>
-  <p>TheValveHubs is a B2B industrial marketplace connecting buyers and suppliers of valves, spare parts, machining services, 3D printing, inspection (TPI), and rental equipment — primarily serving the Saudi Arabian industrial sector in alignment with Vision 2030 and IKTVA objectives.</p>
-  <p>The platform is operated from Al Khobar, Eastern Province, Kingdom of Saudi Arabia.</p>
-
-  <h2>2. Eligibility & Account Registration</h2>
-  <p>To access platform features you must:</p>
-  <ul>
-    <li>Be a registered business entity or an authorised representative of one</li>
-    <li>Provide accurate, complete, and current company information</li>
-    <li>Maintain the security of your login credentials</li>
-    <li>Be at least 18 years of age</li>
-  </ul>
-  <p>TheValveHubs reserves the right to suspend or terminate accounts that provide false information or violate these terms.</p>
-
-  <h2>3. User Roles & Responsibilities</h2>
-
-  <h3>3.1 Buyers</h3>
-  <ul>
-    <li>May submit Requests for Quotation (RFQs) for legitimate industrial procurement needs</li>
-    <li>Are responsible for the accuracy of specifications, quantities, and delivery requirements submitted</li>
-    <li>Must honour awarded contracts and agreed payment terms with suppliers</li>
-    <li>May not submit RFQs for speculative or non-genuine procurement purposes</li>
-  </ul>
-
-  <h3>3.2 Suppliers</h3>
-  <ul>
-    <li>Must hold valid Saudi commercial registration (CR) or equivalent international registration</li>
-    <li>Are responsible for the accuracy of their company profile, certifications, and service capabilities</li>
-    <li>Must honour quotations submitted through the platform</li>
-    <li>May not misrepresent IKTVA scores, certifications, or Aramco/SABIC approval status</li>
-    <li>Understand that platform verification does not constitute endorsement of product quality</li>
-  </ul>
-
-  <h3>3.3 Valve Experts</h3>
-  <ul>
-    <li>Profiles submitted through the Expert Network are subject to admin review and approval</li>
-    <li>All information submitted must be accurate and verifiable</li>
-    <li>Approval does not create an employment or contractual relationship with TheValveHubs</li>
-  </ul>
-
-  <h2>4. RFQ & Quotation Process</h2>
-  <p>The platform facilitates the matching of buyers and suppliers through an RFQ system. TheValveHubs is a technology intermediary only and:</p>
-  <ul>
-    <li>Is not a party to any transaction between buyers and suppliers</li>
-    <li>Does not guarantee the availability, quality, or delivery of any goods or services</li>
-    <li>Does not set or control prices quoted by suppliers</li>
-    <li>Provides invoicing tools for record-keeping purposes — actual payment is managed directly between parties</li>
-  </ul>
-
-  <h2>5. Emergency Services</h2>
-  <p>The Emergency 24/7 service is designed for genuine industrial emergencies including plant-down situations. Misuse of the emergency service for non-urgent requests may result in account suspension. Response times are target-based and are not guaranteed.</p>
-
-  <h2>6. Invoices & ZATCA Compliance</h2>
-  <p>Platform-generated invoices include VAT at the applicable rate (currently 15%) in compliance with ZATCA requirements. It is the responsibility of both parties to maintain proper tax records. TheValveHubs is not a tax advisor and platform invoices do not substitute for professional tax advice.</p>
-
-  <h2>7. Subscriptions & Payments</h2>
-  <ul>
-    <li>Subscription fees are charged in Saudi Riyals (SAR) including VAT</li>
-    <li>Payments are processed securely through Moyasar payment gateway</li>
-    <li>Subscriptions renew automatically unless cancelled before the renewal date</li>
-    <li>Refunds are considered on a case-by-case basis — contact support@thevalvehubs.com within 7 days of charge</li>
-  </ul>
-
-  <h2>8. Prohibited Activities</h2>
-  <p>Users may not:</p>
-  <ul>
-    <li>Use the platform for any unlawful purpose under Saudi law</li>
-    <li>Submit false, misleading, or fraudulent information</li>
-    <li>Attempt to circumvent platform matching to avoid subscription fees</li>
-    <li>Harvest or scrape supplier/buyer data from the platform</li>
-    <li>Interfere with platform security or infrastructure</li>
-    <li>Impersonate another company or individual</li>
-  </ul>
-
-  <h2>9. Intellectual Property</h2>
-  <p>All platform content, branding, software, and design — including the TheValveHubs name, logo, and interface — are the property of TheValveHubs Co. Users are granted a limited, non-exclusive licence to use the platform solely for its intended purpose. No content may be reproduced, distributed, or modified without written permission.</p>
-
-  <h2>10. Privacy</h2>
-  <p>Your use of the platform is also governed by our <a href="privacy.html" style="color:#006C35;font-weight:600;">Privacy Policy</a>, which is incorporated into these Terms by reference.</p>
-
-  <h2>11. Limitation of Liability</h2>
-  <p>To the maximum extent permitted by Saudi law, TheValveHubs shall not be liable for:</p>
-  <ul>
-    <li>Any indirect, incidental, or consequential damages arising from platform use</li>
-    <li>Loss of business, revenue, or data</li>
-    <li>The conduct, products, or services of any buyer or supplier</li>
-    <li>Platform downtime, errors, or technical failures</li>
-  </ul>
-  <p>Our total liability in any matter shall not exceed the subscription fees paid by you in the 3 months prior to the claim.</p>
-
-  <h2>12. Governing Law & Disputes</h2>
-  <p>These Terms are governed by the laws of the Kingdom of Saudi Arabia. Any disputes shall first be attempted to be resolved through good-faith negotiation. Unresolved disputes shall be submitted to the competent courts in Al Khobar, Eastern Province, Saudi Arabia.</p>
-
-  <h2>13. Changes to These Terms</h2>
-  <p>We may update these Terms from time to time. Material changes will be communicated via email or platform notification. Continued use after the effective date of changes constitutes acceptance of the revised Terms.</p>
-
-  <h2>14. Contact</h2>
-  <p>For questions about these Terms:</p>
-  <ul>
-    <li>Email: <a href="mailto:legal@thevalvehubs.com" style="color:#006C35;">legal@thevalvehubs.com</a></li>
-    <li>Address: TheValveHubs Co., Al Khobar, Eastern Province, Kingdom of Saudi Arabia</li>
-  </ul>
-
-</div>
-</div>
-
-<footer>
-  <div class="container">
-    <div class="footer-bottom">
-      <span>&copy; 2026 TheValveHubs. All rights reserved. Khobar, Saudi Arabia.</span>
-      <span><a href="terms.html" style="color:#9A9AAA;">Terms</a> &nbsp;·&nbsp; <a href="privacy.html" style="color:#9A9AAA;">Privacy</a></span>
+    <p>These Terms govern your access to and use of TheValveHubs platform. By registering or using the platform, you agree to these Terms. Please read them carefully.</p>
+    <div class="legal-meta">
+      <span>&#128197; Effective: 1 January 2025</span>
+      <span>&#128197; Last Updated: 9 June 2026</span>
+      <span>&#127968; Governing Law: Kingdom of Saudi Arabia</span>
     </div>
   </div>
-</footer>
+</section>
 
+<div class="legal-layout">
+  <aside class="legal-toc">
+    <div class="toc-card">
+      <h4>Contents</h4>
+      <a class="toc-link" href="#t1"><span class="toc-num">1.</span> Acceptance of Terms</a>
+      <a class="toc-link" href="#t2"><span class="toc-num">2.</span> Platform Description</a>
+      <a class="toc-link" href="#t3"><span class="toc-num">3.</span> Account Registration</a>
+      <a class="toc-link" href="#t4"><span class="toc-num">4.</span> Supplier Obligations</a>
+      <a class="toc-link" href="#t5"><span class="toc-num">5.</span> Buyer Obligations</a>
+      <a class="toc-link" href="#t6"><span class="toc-num">6.</span> IKTVA &amp; Verification</a>
+      <a class="toc-link" href="#t7"><span class="toc-num">7.</span> Subscription &amp; Payment</a>
+      <a class="toc-link" href="#t8"><span class="toc-num">8.</span> Emergency RFQ Rules</a>
+      <a class="toc-link" href="#t9"><span class="toc-num">9.</span> Intellectual Property</a>
+      <a class="toc-link" href="#t10"><span class="toc-num">10.</span> Prohibited Conduct</a>
+      <a class="toc-link" href="#t11"><span class="toc-num">11.</span> Disclaimers</a>
+      <a class="toc-link" href="#t12"><span class="toc-num">12.</span> Liability Limitation</a>
+      <a class="toc-link" href="#t13"><span class="toc-num">13.</span> Termination</a>
+      <a class="toc-link" href="#t14"><span class="toc-num">14.</span> Governing Law</a>
+      <a class="toc-link" href="#t15"><span class="toc-num">15.</span> Contact</a>
+    </div>
+  </aside>
+
+  <article class="legal-body">
+    <div class="navy-box">
+      <p><strong>Important:</strong> These Terms of Service constitute a legally binding agreement between you and TheValveHubs, governed by the laws of the Kingdom of Saudi Arabia. By creating an account or using the platform, you confirm you have read, understood and agreed to these Terms.</p>
+    </div>
+
+    <div class="legal-section" id="t1">
+      <h2><span class="sec-num">1</span> Acceptance of Terms</h2>
+      <p>By accessing or using TheValveHubs platform at <strong>thevalvehubs.com</strong> (&ldquo;Platform&rdquo;), you (&ldquo;User&rdquo;) agree to be bound by these Terms of Service (&ldquo;Terms&rdquo;), our <a href="privacy.html" style="color:#006C35;">Privacy Policy</a>, and any additional guidelines posted on the Platform.</p>
+      <p>If you do not agree to these Terms, you must not use the Platform. These Terms apply to all users including suppliers, buyers, technical experts, and visitors.</p>
+      <p>TheValveHubs reserves the right to update these Terms at any time. Continued use of the Platform after updates constitutes acceptance of the revised Terms.</p>
+    </div>
+
+    <div class="legal-section" id="t2">
+      <h2><span class="sec-num">2</span> Platform Description</h2>
+      <p>TheValveHubs is a Saudi Arabia-based B2B industrial marketplace providing:</p>
+      <ul>
+        <li>A directory of verified Saudi valve suppliers, spare parts stockists, machining facilities and rental companies (Priority 1 &mdash; Saudi-first model)</li>
+        <li>Access to international suppliers when Saudi supply is unavailable (Priority 2)</li>
+        <li>Emergency 24/7 RFQ matching for critical plant requirements</li>
+        <li>Tools including the IKTVA Calculator, Valve Wizard and Shutdown Calendar</li>
+        <li>Expert and technical consultant matching services</li>
+        <li>Market intelligence, investment data and Saudi industrial sector information</li>
+      </ul>
+      <div class="highlight-box">
+        <p><strong>TheValveHubs is a marketplace platform only.</strong> We do not manufacture, stock or supply valves, spare parts or services directly. All transactions occur directly between buyers and suppliers. TheValveHubs facilitates introductions and does not act as a principal in any commercial transaction.</p>
+      </div>
+    </div>
+
+    <div class="legal-section" id="t3">
+      <h2><span class="sec-num">3</span> Account Registration</h2>
+      <h3>3.1 Eligibility</h3>
+      <p>You must be at least 18 years old and represent a legitimate registered business to create an account. Personal (non-business) accounts are not permitted.</p>
+      <h3>3.2 Accurate Information</h3>
+      <p>You agree to provide accurate, current and complete information during registration, including your company&rsquo;s Commercial Registration (CR) number, certifications and contact details. False or misleading registration information will result in immediate account suspension.</p>
+      <h3>3.3 Account Security</h3>
+      <p>You are responsible for maintaining the confidentiality of your account credentials. You must notify TheValveHubs immediately at <a href="mailto:info@thevalvehubs.com" style="color:#006C35;">info@thevalvehubs.com</a> if you suspect any unauthorised access to your account.</p>
+      <h3>3.4 One Account Per Company</h3>
+      <p>Each company may maintain one supplier account. Multiple accounts for the same legal entity are not permitted without prior written approval from TheValveHubs.</p>
+    </div>
+
+    <div class="legal-section" id="t4">
+      <h2><span class="sec-num">4</span> Supplier Obligations</h2>
+      <p>Suppliers registered on TheValveHubs agree to the following:</p>
+      <h3>4.1 Accuracy of Listings</h3>
+      <ul>
+        <li>All company information, products, certifications and capabilities listed must be accurate and up to date</li>
+        <li>Certifications displayed (ISO, API, Aramco approval numbers) must be valid and current</li>
+        <li>IKTVA scores declared must be based on actual in-country value add and not inflated</li>
+        <li>You must update your profile within 30 days of any material change (certification expiry, capability change, company restructure)</li>
+      </ul>
+      <h3>4.2 RFQ Response</h3>
+      <ul>
+        <li>Suppliers receiving RFQ notifications agree to respond within the timeframe indicated (2 hours for Critical, 4 hours for Urgent)</li>
+        <li>Failure to respond to 3 consecutive RFQs without valid reason may result in profile downgrading or suspension</li>
+        <li>Responses must be technically accurate and commercially genuine</li>
+      </ul>
+      <h3>4.3 Saudi-First Principle</h3>
+      <p>All Saudi-registered suppliers benefit from Priority 1 placement. In return, suppliers accept that TheValveHubs promotes Saudi-first sourcing in alignment with Vision 2030 and IKTVA objectives.</p>
+      <h3>4.4 Emergency Availability</h3>
+      <p>Suppliers listed as &ldquo;Emergency Ready&rdquo; or &ldquo;24/7&rdquo; must maintain genuine emergency response capability. False emergency claims will result in immediate badge removal and potential account suspension.</p>
+    </div>
+
+    <div class="legal-section" id="t5">
+      <h2><span class="sec-num">5</span> Buyer Obligations</h2>
+      <p>Buyers (EPC contractors, operators, procurement teams) using TheValveHubs agree to:</p>
+      <ul>
+        <li>Submit RFQs only for genuine procurement requirements &mdash; speculative or test RFQs are prohibited</li>
+        <li>Provide accurate technical specifications in RFQ submissions</li>
+        <li>Respond to supplier quotes in a timely and professional manner</li>
+        <li>Not share supplier contact information obtained through the platform with competitors</li>
+        <li>Not attempt to bypass the platform to avoid subscription fees after the initial introduction</li>
+        <li>Upload only authorised technical drawings &mdash; do not upload third-party intellectual property without permission</li>
+      </ul>
+    </div>
+
+    <div class="legal-section" id="t6">
+      <h2><span class="sec-num">6</span> IKTVA &amp; Verification</h2>
+      <p>TheValveHubs supports Saudi Arabia&rsquo;s In-Kingdom Total Value Add (IKTVA) programme as administered by Saudi Aramco and aligned with Vision 2030 objectives.</p>
+      <ul>
+        <li>IKTVA scores displayed on supplier profiles are <strong>self-declared</strong> unless marked as &ldquo;Verified&rdquo;</li>
+        <li>Verified IKTVA scores have been reviewed by TheValveHubs based on submitted documentation</li>
+        <li>TheValveHubs does not guarantee the accuracy of self-declared IKTVA scores</li>
+        <li>Suppliers may not claim Aramco or SABIC vendor approval status unless they hold a valid, current approval &mdash; false claims are a violation of these Terms and may have legal consequences</li>
+      </ul>
+      <div class="warning-box">
+        <p>&#9888; <strong>Fraudulent IKTVA claims</strong> or false certification claims may be referred to the relevant Saudi government authority including the Ministry of Industry and Mineral Resources (MIMR) or Saudi Aramco&rsquo;s vendor management team.</p>
+      </div>
+    </div>
+
+    <div class="legal-section" id="t7">
+      <h2><span class="sec-num">7</span> Subscription &amp; Payment Terms</h2>
+      <h3>7.1 Plans</h3>
+      <p>TheValveHubs offers four tiers: Early Partner (Free), Verified (SAR 199/mo), Professional (SAR 295/mo) and Enterprise (SAR 395/mo). Annual plans are available at a 20% discount. Full details at <a href="pricing.html" style="color:#006C35;">pricing.html</a>.</p>
+      <h3>7.2 Billing</h3>
+      <ul>
+        <li>Monthly plans are billed on the same date each month</li>
+        <li>Annual plans are billed as a single upfront payment</li>
+        <li>Payment is processed via Stripe or Tap Payments in Saudi Riyals (SAR)</li>
+        <li>All prices are exclusive of VAT. <strong>15% VAT</strong> is added to all invoices per ZATCA regulations</li>
+        <li>VAT invoices will be issued within 5 business days of payment</li>
+      </ul>
+      <h3>7.3 Cancellation &amp; Refunds</h3>
+      <ul>
+        <li>Monthly plans may be cancelled at any time; cancellation takes effect at the end of the current billing period</li>
+        <li>Annual plans are non-refundable after 14 days from the billing date</li>
+        <li>Within 14 days of annual plan purchase, a pro-rata refund may be requested at info@thevalvehubs.com</li>
+        <li>TheValveHubs reserves the right to suspend or terminate paid accounts that violate these Terms without refund</li>
+      </ul>
+      <h3>7.4 Failed Payments</h3>
+      <p>If a payment fails, TheValveHubs will attempt to collect payment 3 times over 7 days. After 3 failed attempts, the account will be downgraded to Free tier until payment is resolved.</p>
+    </div>
+
+    <div class="legal-section" id="t8">
+      <h2><span class="sec-num">8</span> Emergency RFQ Rules</h2>
+      <p>The Emergency 24/7 service is provided for genuine industrial emergencies (plant-down situations, critical component failures, urgent shutdowns). Users of the Emergency service agree to:</p>
+      <ul>
+        <li>Only submit Critical or Urgent RFQs for genuine emergencies &mdash; abuse of the emergency tier is prohibited</li>
+        <li>Provide accurate urgency classification (Critical / Urgent / Planned)</li>
+        <li>Ensure uploaded drawings are authorised for sharing with third-party suppliers</li>
+        <li>Accept that emergency response times (2 hours for Critical) are targets, not guarantees, and depend on supplier availability</li>
+      </ul>
+      <div class="warning-box">
+        <p>&#9888; Repeated misuse of the Critical emergency tier for non-emergency requirements will result in emergency access restriction and may lead to account suspension.</p>
+      </div>
+    </div>
+
+    <div class="legal-section" id="t9">
+      <h2><span class="sec-num">9</span> Intellectual Property</h2>
+      <h3>9.1 TheValveHubs Content</h3>
+      <p>All content on the Platform &mdash; including the TheValveHubs name, logo, design, code, text, tools (IKTVA Calculator, Valve Wizard, Shutdown Calendar), market data and original written content &mdash; is the intellectual property of TheValveHubs and is protected by Saudi and international copyright law.</p>
+      <p>You may not copy, reproduce, distribute or create derivative works from TheValveHubs content without prior written consent.</p>
+      <h3>9.2 User-Submitted Content</h3>
+      <p>By uploading company profiles, logos, product catalogues, CVs or technical documents to the Platform, you grant TheValveHubs a non-exclusive, royalty-free licence to display and use that content for platform operations. You confirm you have the right to submit this content.</p>
+      <h3>9.3 Technical Drawings</h3>
+      <p>Technical drawings uploaded for RFQ purposes are shared only with matched suppliers under confidentiality. TheValveHubs does not claim ownership of customer drawings and will delete uploaded drawings upon written request after the RFQ is closed.</p>
+    </div>
+
+    <div class="legal-section" id="t10">
+      <h2><span class="sec-num">10</span> Prohibited Conduct</h2>
+      <p>The following are strictly prohibited on TheValveHubs:</p>
+      <ul>
+        <li>Providing false company information, fake certifications or inflated IKTVA scores</li>
+        <li>Impersonating another company or individual</li>
+        <li>Submitting fake RFQs or bid-fishing (soliciting prices without genuine intent to purchase)</li>
+        <li>Scraping, crawling or automated data extraction from the Platform</li>
+        <li>Using the Platform to harass, spam or send unsolicited commercial communications</li>
+        <li>Attempting to gain unauthorised access to other user accounts or platform systems</li>
+        <li>Circumventing subscription fees after platform-facilitated introductions</li>
+        <li>Listing products or services in categories where you have no genuine capability</li>
+        <li>Any conduct that violates Saudi law including the Anti-Cyber Crime Law (Royal Decree M/17)</li>
+      </ul>
+      <p>Violation of these prohibitions will result in immediate account suspension and may be reported to the relevant Saudi authorities.</p>
+    </div>
+
+    <div class="legal-section" id="t11">
+      <h2><span class="sec-num">11</span> Disclaimers</h2>
+      <p>TheValveHubs provides the Platform on an &ldquo;as is&rdquo; and &ldquo;as available&rdquo; basis. We make no warranties, express or implied, regarding:</p>
+      <ul>
+        <li>The accuracy, completeness or timeliness of supplier profiles, certifications or IKTVA scores</li>
+        <li>The outcome of any commercial transaction between buyers and suppliers introduced through the Platform</li>
+        <li>The uninterrupted or error-free operation of the Platform</li>
+        <li>The suitability of any supplier, product or service for a particular purpose</li>
+      </ul>
+      <div class="highlight-box">
+        <p><strong>Verification responsibility:</strong> While TheValveHubs endeavours to verify supplier certifications and capabilities, buyers remain responsible for conducting their own technical and commercial due diligence before placing orders. TheValveHubs is not a party to any purchase order, contract or agreement between buyers and suppliers.</p>
+      </div>
+    </div>
+
+    <div class="legal-section" id="t12">
+      <h2><span class="sec-num">12</span> Limitation of Liability</h2>
+      <p>To the maximum extent permitted by Saudi law, TheValveHubs shall not be liable for:</p>
+      <ul>
+        <li>Any indirect, incidental, consequential or punitive damages arising from use of the Platform</li>
+        <li>Loss of profits, contracts, data or business opportunities</li>
+        <li>Damages arising from commercial disputes between buyers and suppliers</li>
+        <li>Platform downtime or data loss caused by third-party hosting or infrastructure failures</li>
+      </ul>
+      <p>TheValveHubs&rsquo; total aggregate liability for any claim arising from use of the Platform shall not exceed the total subscription fees paid by the User in the 12 months preceding the claim.</p>
+    </div>
+
+    <div class="legal-section" id="t13">
+      <h2><span class="sec-num">13</span> Account Termination</h2>
+      <h3>13.1 By You</h3>
+      <p>You may close your account at any time by emailing info@thevalvehubs.com. Upon closure, your public profile will be removed within 7 business days. Data retention follows our <a href="privacy.html" style="color:#006C35;">Privacy Policy</a>.</p>
+      <h3>13.2 By TheValveHubs</h3>
+      <p>TheValveHubs may suspend or terminate your account immediately and without notice if you:</p>
+      <ul>
+        <li>Violate any provision of these Terms</li>
+        <li>Provide false or fraudulent information</li>
+        <li>Fail to pay subscription fees after 3 retry attempts</li>
+        <li>Engage in conduct harmful to other users or the platform&rsquo;s reputation</li>
+        <li>Are subject to legal proceedings that affect your ability to trade</li>
+      </ul>
+      <h3>13.3 Effect of Termination</h3>
+      <p>Upon termination, your access to the Platform ceases immediately. Sections 9 (Intellectual Property), 11 (Disclaimers), 12 (Liability) and 14 (Governing Law) survive termination.</p>
+    </div>
+
+    <div class="legal-section" id="t14">
+      <h2><span class="sec-num">14</span> Governing Law &amp; Dispute Resolution</h2>
+      <p>These Terms are governed by and construed in accordance with the laws of the <strong>Kingdom of Saudi Arabia</strong>.</p>
+      <p>Any dispute, controversy or claim arising from or relating to these Terms or use of the Platform shall be subject to the exclusive jurisdiction of the <strong>competent courts of the Kingdom of Saudi Arabia</strong>, in the city of <strong>Al Khobar, Eastern Province</strong>.</p>
+      <p>Before initiating legal proceedings, users agree to first attempt to resolve disputes through good-faith negotiation by contacting TheValveHubs at info@thevalvehubs.com, allowing 30 days for resolution.</p>
+    </div>
+
+    <div class="legal-section" id="t15">
+      <h2><span class="sec-num">15</span> Contact &amp; Legal Notices</h2>
+      <p>For any questions about these Terms, to report violations, or to send formal legal notices:</p>
+      <div class="contact-card">
+        <div class="cc-icon">&#128231;</div>
+        <div><h4>General &amp; Legal Enquiries</h4><p><a href="mailto:info@thevalvehubs.com">info@thevalvehubs.com</a></p></div>
+      </div>
+      <div class="contact-card">
+        <div class="cc-icon">&#128272;</div>
+        <div><h4>Privacy &amp; Data</h4><p><a href="mailto:privacy@thevalvehubs.com">privacy@thevalvehubs.com</a></p></div>
+      </div>
+      <div class="contact-card">
+        <div class="cc-icon">&#128205;</div>
+        <div><h4>Registered Address</h4><p>TheValveHubs &mdash; Al Khobar, Eastern Province, Kingdom of Saudi Arabia</p></div>
+      </div>
+    </div>
+  </article>
+</div>
+
+<footer><div class="container"><div class="footer-grid"><div class="footer-brand"><div class="footer-logo"><div style="background:#fff;border-radius:10px;padding:10px 20px;display:inline-block;"><img src="images/tvh-logo-extracted.jpg" alt="TheValveHubs" style="height:72px;width:auto;display:block;"/></div></div><p>Saudi Arabia&rsquo;s engineering-governed valve marketplace.</p></div><div class="footer-col"><h5>Legal</h5><ul><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html" style="color:#C8973A;">Terms of Service</a></li></ul></div><div class="footer-col"><h5>Platform</h5><ul><li><a href="saudi-market.html">Saudi Market</a></li><li><a href="emergency.html">Emergency 24/7</a></li><li><a href="pricing.html">Pricing</a></li></ul></div><div class="footer-col"><h5>Company</h5><ul><li><a href="about.html">About Us</a></li><li><a href="index.html#join">Join Free</a></li></ul></div></div></div><div class="container"><div class="footer-bottom"><span>&copy; 2026 TheValveHubs. Khobar, Saudi Arabia. Governed by the laws of the Kingdom of Saudi Arabia.</span><span><a href="terms.html" style="color:#C8973A;">Terms</a> &nbsp;&middot;&nbsp; <a href="privacy.html" style="color:#9A9AAA;">Privacy</a></span></div></div></footer>
+<a href="https://wa.me/966501099901" class="whatsapp-float" target="_blank" rel="noopener">&#128241;</a>
+<script>
+window.addEventListener('load',function(){setTimeout(function(){var p=document.getElementById('preloader');if(p)p.classList.add('hidden');},800);});
+var nb=document.getElementById('navbar');window.addEventListener('scroll',function(){if(nb)nb.classList.toggle('scrolled',window.scrollY>40);},{passive:true});
+var hb=document.getElementById('hamburger');if(hb)hb.addEventListener('click',function(){var mn=document.querySelector('.mobile-nav');if(mn)mn.classList.toggle('open');});
+var sections=document.querySelectorAll('.legal-section');
+var tocLinks=document.querySelectorAll('.toc-link');
+window.addEventListener('scroll',function(){
+  var scrollY=window.scrollY+120;
+  sections.forEach(function(s){
+    if(s.offsetTop<=scrollY){
+      tocLinks.forEach(function(l){l.classList.remove('active');});
+      var active=document.querySelector('.toc-link[href="#'+s.getAttribute('id')+'"]');
+      if(active)active.classList.add('active');
+    }
+  });
+},{passive:true});
+</script>
 </body>
 </html>

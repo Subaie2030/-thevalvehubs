@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>TheValveHubs — KPI Tracker & Project Dashboard</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --green:#006C35;--green-dk:#004A24;--green-lt:#EBF7F0;
+  --gold:#C8973A;--gold-lt:#FDF3E3;
+  --red:#C0392B;--red-lt:#FEE2E2;
+  --navy:#163660;--navy-lt:#EEF3FB;
+  --gray:#F8FAF9;--border:#D8E4D8;
+  --text:#1A2A1A;--muted:#7A9A7A;
+}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F2F5F2;color:var(--text);font-size:14px;}
+
+/* HEADER */
+.header{background:linear-gradient(135deg,#003A1A,#006C35);padding:28px 40px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 4px 20px rgba(0,0,0,.2);}
+.header-left h1{color:#fff;font-size:1.5rem;font-weight:900;}
+.header-left p{color:rgba(255,255,255,.7);font-size:.78rem;margin-top:3px;}
+.header-right{display:flex;gap:16px;align-items:center;}
+.hstat{text-align:center;}
+.hstat-num{font-size:1.6rem;font-weight:900;color:#C8973A;display:block;line-height:1;}
+.hstat-lbl{font-size:.62rem;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.08em;}
+.overall-bar-wrap{background:rgba(255,255,255,.15);border-radius:100px;height:8px;width:200px;overflow:hidden;margin-top:8px;}
+.overall-bar-fill{height:100%;background:linear-gradient(90deg,#C8973A,#F0C060);border-radius:100px;transition:width .6s ease;}
+
+/* TABS */
+.tabs{background:#fff;border-bottom:2px solid var(--border);padding:0 40px;display:flex;gap:0;overflow-x:auto;}
+.tab{padding:14px 22px;font-size:.8rem;font-weight:700;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;}
+.tab:hover{color:var(--green);}
+.tab.active{color:var(--green);border-bottom-color:var(--green);}
+
+/* CONTENT */
+.content{max-width:1400px;margin:0 auto;padding:32px 40px;}
+
+/* SECTION */
+.section{margin-bottom:40px;}
+.section-title{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.section-title h2{font-size:1rem;font-weight:900;color:var(--text);}
+.section-title .s-icon{font-size:1.4rem;}
+.sec-prog{margin-left:auto;display:flex;align-items:center;gap:10px;}
+.sec-prog-bar{width:120px;height:7px;background:#E0E5E2;border-radius:100px;overflow:hidden;}
+.sec-prog-fill{height:100%;background:linear-gradient(90deg,var(--green),#009444);border-radius:100px;transition:width .5s ease;}
+.sec-prog-pct{font-size:.75rem;font-weight:800;color:var(--green);min-width:32px;}
+
+/* KPI TABLE */
+.kpi-table{width:100%;border-collapse:collapse;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06);border:1.5px solid var(--border);}
+.kpi-table th{background:var(--green);color:#fff;padding:11px 14px;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;text-align:left;}
+.kpi-table td{padding:11px 14px;border-bottom:1px solid #EEF3EE;vertical-align:middle;font-size:.8rem;}
+.kpi-table tr:last-child td{border-bottom:none;}
+.kpi-table tr:hover td{background:#FAFCFA;}
+
+/* STATUS BADGES */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:100px;font-size:.66rem;font-weight:800;white-space:nowrap;}
+.b-done{background:#EBF7F0;color:#006C35;border:1px solid rgba(0,108,53,.15);}
+.b-prog{background:#FFF9E6;color:#B8860B;border:1px solid rgba(184,134,11,.2);}
+.b-pend{background:#FEE2E2;color:#C0392B;border:1px solid rgba(192,57,43,.15);}
+.b-plan{background:#EEF3FB;color:#163660;border:1px solid rgba(22,54,96,.15);}
+
+/* PRIORITY */
+.pri{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.65rem;font-weight:800;}
+.p-crit{background:#FEE2E2;color:#C0392B;}
+.p-high{background:#FDF3E3;color:#9B7120;}
+.p-med{background:#EBF7F0;color:#006C35;}
+.p-low{background:#EEF3FB;color:#163660;}
+
+/* PROGRESS BAR INLINE */
+.prog-bar{width:80px;height:6px;background:#E0E5E2;border-radius:3px;overflow:hidden;display:inline-block;vertical-align:middle;}
+.prog-fill{height:100%;border-radius:3px;}
+.pf-green{background:var(--green);}
+.pf-gold{background:var(--gold);}
+.pf-red{background:var(--red);}
+
+/* METRIC CARDS */
+.metric-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-bottom:28px;}
+.metric-card{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:18px 20px;box-shadow:0 2px 8px rgba(0,0,0,.05);}
+.metric-card .mc-icon{font-size:1.6rem;margin-bottom:8px;}
+.metric-card .mc-val{font-size:1.7rem;font-weight:900;color:var(--green);line-height:1;}
+.metric-card .mc-lbl{font-size:.72rem;color:var(--muted);margin-top:4px;line-height:1.4;}
+.metric-card .mc-target{font-size:.68rem;color:var(--gold);font-weight:700;margin-top:6px;}
+.metric-card.gold-accent{border-top:3px solid var(--gold);}
+.metric-card.green-accent{border-top:3px solid var(--green);}
+.metric-card.red-accent{border-top:3px solid var(--red);}
+.metric-card.navy-accent{border-top:3px solid var(--navy);}
+
+/* MILESTONE */
+.milestone-list{display:flex;flex-direction:column;gap:0;}
+.milestone{display:flex;gap:0;align-items:stretch;}
+.ms-left{display:flex;flex-direction:column;align-items:center;width:40px;flex-shrink:0;}
+.ms-dot{width:20px;height:20px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:900;color:#fff;margin-top:4px;}
+.ms-dot.done{background:var(--green);}
+.ms-dot.prog{background:var(--gold);}
+.ms-dot.pend{background:#B0BAB4;}
+.ms-line{flex:1;width:2px;background:#E0E5E2;margin:4px auto 0;}
+.milestone:last-child .ms-line{display:none;}
+.ms-body{padding:4px 0 20px 14px;flex:1;}
+.ms-date{font-size:.65rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em;}
+.ms-title{font-size:.88rem;font-weight:800;color:var(--text);margin:2px 0 4px;}
+.ms-desc{font-size:.76rem;color:#5A6B62;line-height:1.55;}
+
+/* TABS CONTENT */
+.tab-pane{display:none;}
+.tab-pane.active{display:block;}
+
+/* NOTES BOX */
+.notes-box{background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:16px 20px;margin-top:12px;}
+.notes-box label{font-size:.72rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;display:block;margin-bottom:6px;}
+.notes-box textarea{width:100%;border:none;outline:none;font-family:inherit;font-size:.82rem;color:var(--text);resize:vertical;min-height:70px;line-height:1.6;}
+
+/* PRINT */
+@media print{
+  .tabs,.header-right .overall-bar-wrap{display:none;}
+  .tab-pane{display:block!important;}
+  .content{padding:16px;}
+  body{background:#fff;}
+}
+@media(max-width:768px){
+  .header{flex-direction:column;gap:16px;padding:20px;}
+  .content{padding:16px;}
+  .tabs{padding:0 16px;}
+  .metric-grid{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <h1>⚙️ TheValveHubs — KPI Tracker</h1>
+    <p>Project Dashboard · Abdullah F. AlSubaie · Updated: <span id="today"></span></p>
+  </div>
+  <div class="header-right">
+    <div class="hstat">
+      <span class="hstat-num" id="overallPct">0%</span>
+      <span class="hstat-lbl">Overall Progress</span>
+      <div class="overall-bar-wrap"><div class="overall-bar-fill" id="overallBar" style="width:0%"></div></div>
+    </div>
+    <div class="hstat">
+      <span class="hstat-num" id="doneCount">0</span>
+      <span class="hstat-lbl">Tasks Done</span>
+    </div>
+    <div class="hstat">
+      <span class="hstat-num" id="pendCount">0</span>
+      <span class="hstat-lbl">Pending</span>
+    </div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('website')">🌐 Website Build</div>
+  <div class="tab" onclick="switchTab('content')">📝 Content Quality</div>
+  <div class="tab" onclick="switchTab('seo')">🔍 SEO & Launch</div>
+  <div class="tab" onclick="switchTab('business')">💼 Business KPIs</div>
+  <div class="tab" onclick="switchTab('revenue')">💰 Revenue Targets</div>
+  <div class="tab" onclick="switchTab('milestones')">🏁 Milestones</div>
+  <div class="tab" onclick="switchTab('notes')">📌 Notes</div>
+</div>
+
+<div class="content">
+
+<!-- ══════════════════ TAB 1: WEBSITE BUILD ══════════════════ -->
+<div class="tab-pane active" id="tab-website">
+
+  <div class="metric-grid">
+    <div class="metric-card green-accent">
+      <div class="mc-icon">📄</div>
+      <div class="mc-val" id="pagesBuilt">12</div>
+      <div class="mc-lbl">Pages Built (V2)</div>
+      <div class="mc-target">Target: 15 pages</div>
+    </div>
+    <div class="metric-card gold-accent">
+      <div class="mc-icon">📱</div>
+      <div class="mc-val">—</div>
+      <div class="mc-lbl">Mobile Responsive Check</div>
+      <div class="mc-target">All pages must pass</div>
+    </div>
+    <div class="metric-card navy-accent">
+      <div class="mc-icon">⚡</div>
+      <div class="mc-val">—</div>
+      <div class="mc-lbl">Page Load Speed</div>
+      <div class="mc-target">Target: &lt; 2.5 sec</div>
+    </div>
+    <div class="metric-card red-accent">
+      <div class="mc-icon">🔗</div>
+      <div class="mc-val">—</div>
+      <div class="mc-lbl">Broken Links Found</div>
+      <div class="mc-target">Target: 0</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">
+      <span class="s-icon">📄</span>
+      <h2>Page Completion Checklist — TheValveHubs V2</h2>
+      <div class="sec-prog">
+        <div class="sec-prog-bar"><div class="sec-prog-fill" id="pages-bar" style="width:0%"></div></div>
+        <span class="sec-prog-pct" id="pages-pct">0%</span>
+      </div>
+    </div>
+    <table class="kpi-table" id="pages-table">
+      <thead><tr>
+        <th style="width:32px">✓</th>
+        <th>Page</th>
+        <th>File</th>
+        <th>Status</th>
+        <th>Priority</th>
+        <th>Notes</th>
+      </tr></thead>
+      <tbody>
+        <tr><td><input type="checkbox" onchange="recalc()" checked></td><td>🏠 Homepage</td><td>index.html</td><td><span class="badge b-done">✅ Done</span></td><td><span class="pri p-crit">CRITICAL</span></td><td>6 pillars, stats, IKTVA strip</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()" checked></td><td>🇸🇦 Saudi Market</td><td>saudi-market.html</td><td><span class="badge b-done">✅ Done</span></td><td><span class="pri p-crit">CRITICAL</span></td><td>Priority 1 local suppliers</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()" checked></td><td>🌍 Global Suppliers</td><td>global-suppliers.html</td><td><span class="badge b-done">✅ Done</span></td><td><span class="pri p-high">HIGH</span></td><td>Priority 2 international OEMs</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()" checked></td><td>🚨 Emergency Hub</td><td>emergency.html</td><td><span class="badge b-done">✅ Done</span></td><td><span class="pri p-crit">CRITICAL</span></td><td>24/7 RFQ, 3 urgency tiers</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()" checked></td><td>ℹ️ About</td><td>about.html</td><td><span class="badge b-prog">🔄 In Progress</span></td><td><span class="pri p-high">HIGH</span></td><td>⚠️ Photo of Abdullah needed</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()" checked></td><td>🏔 Invest in Saudi</td><td>invest-saudi.html</td><td><span class="badge b-done">✅ Done</span></td><td><span class="pri p-high">HIGH</span></td><td>$7.2B TAM, giga projects</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()" checked></td><td>📊 IKTVA Calculator</td><td>iktva-calculator.html</td><td><span class="badge b-done">✅ Done</span></td><td><span class="pri p-med">MED</span></td><td>Interactive SVG donut chart</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()" checked></td><td>🔧 Valve Wizard</td><td>valve-wizard.html</td><td><span class="badge b-done">✅ Done</span></td><td><span class="pri p-med">MED</span></td><td>5-step specification wizard</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()" checked></td><td>📅 Shutdown Calendar</td><td>shutdown-calendar.html</td><td><span class="badge b-done">✅ Done</span></td><td><span class="pri p-med">MED</span></td><td>24 shutdowns 2025–2026</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()" checked></td><td>💳 Pricing</td><td>pricing.html</td><td><span class="badge b-done">✅ Done</span></td><td><span class="pri p-high">HIGH</span></td><td>4 tiers, SAR-denominated</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()" checked></td><td>👷 Experts & Technicians</td><td>experts.html</td><td><span class="badge b-done">✅ Done</span></td><td><span class="pri p-high">HIGH</span></td><td>CV upload + client matching</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()" checked></td><td>⚙️ Manufacturing</td><td>manufacturing.html</td><td><span class="badge b-done">✅ Done</span></td><td><span class="pri p-high">HIGH</span></td><td>Machining, Cladding, Casting, Forging</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>🖨️ 3D Printing & Reverse Eng.</td><td>3d-printing-v2.html</td><td><span class="badge b-pend">❌ Pending</span></td><td><span class="pri p-high">HIGH</span></td><td>Pillar 4 — not yet in V2</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>🏢 Platform Overview</td><td>platform.html</td><td><span class="badge b-pend">❌ Pending</span></td><td><span class="pri p-med">MED</span></td><td>Full platform explainer</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>📞 Contact / Get Started</td><td>contact.html</td><td><span class="badge b-pend">❌ Pending</span></td><td><span class="pri p-high">HIGH</span></td><td>Lead capture form</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>🔒 Privacy Policy</td><td>privacy.html</td><td><span class="badge b-pend">❌ Pending</span></td><td><span class="pri p-med">MED</span></td><td>Required before launch</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>📋 Terms of Service</td><td>terms.html</td><td><span class="badge b-pend">❌ Pending</span></td><td><span class="pri p-med">MED</span></td><td>Required before launch</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <div class="section-title">
+      <span class="s-icon">🎨</span>
+      <h2>Design & UX Checklist</h2>
+      <div class="sec-prog">
+        <div class="sec-prog-bar"><div class="sec-prog-fill" id="design-bar" style="width:0%"></div></div>
+        <span class="sec-prog-pct" id="design-pct">0%</span>
+      </div>
+    </div>
+    <table class="kpi-table">
+      <thead><tr><th style="width:32px">✓</th><th>Item</th><th>Status</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><input type="checkbox" onchange="recalc()" checked></td><td>Saudi Green & Gold color scheme applied</td><td><span class="badge b-done">✅ Done</span></td><td>#006C35 / #C8973A throughout</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()" checked></td><td>Sticky navbar with dropdowns</td><td><span class="badge b-done">✅ Done</span></td><td>About first on left</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()" checked></td><td>Mobile hamburger menu</td><td><span class="badge b-done">✅ Done</span></td><td>Responsive on all pages</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()" checked></td><td>Emergency band (red) at top</td><td><span class="badge b-done">✅ Done</span></td><td>24/7 dismissible</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()" checked></td><td>WhatsApp float button</td><td><span class="badge b-done">✅ Done</span></td><td>Bottom right corner</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()" checked></td><td>Page preloader animation</td><td><span class="badge b-done">✅ Done</span></td><td>TVH spinner</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()" checked></td><td>Scroll reveal animations (IntersectionObserver)</td><td><span class="badge b-done">✅ Done</span></td><td>Cards fade in</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()" checked></td><td>Vision 2030 ticker strip</td><td><span class="badge b-done">✅ Done</span></td><td>Homepage</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>TVH logo placed on all pages</td><td><span class="badge b-prog">🔄 Partial</span></td><td>images/tvh-logo-extracted.jpg</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>Abdullah AlSubaie founder photo</td><td><span class="badge b-pend">❌ Pending</span></td><td>⚠️ Upload photo as abdullah-alsubaie.jpg</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>Favicon set</td><td><span class="badge b-pend">❌ Pending</span></td><td>favicon.ico needed</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>Open Graph / social preview images</td><td><span class="badge b-pend">❌ Pending</span></td><td>og:image for LinkedIn/WhatsApp shares</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════ TAB 2: CONTENT QUALITY ══════════════════ -->
+<div class="tab-pane" id="tab-content">
+  <div class="section">
+    <div class="section-title">
+      <span class="s-icon">📝</span>
+      <h2>Content Completeness per Pillar</h2>
+    </div>
+    <table class="kpi-table">
+      <thead><tr>
+        <th>Pillar</th><th>Saudi Suppliers Listed</th><th>Intl. Suppliers</th><th>Emergency Coverage</th><th>Content Score</th><th>Status</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>⚙️ Pillar 1 — Valves</strong></td>
+          <td>✅ 6 Saudi companies</td><td>✅ Flowserve, Emerson, KSB…</td><td>✅ Critical/Urgent/Planned</td>
+          <td><div class="prog-bar"><div class="prog-fill pf-green" style="width:90%"></div></div> 90%</td>
+          <td><span class="badge b-done">Strong</span></td>
+        </tr>
+        <tr>
+          <td><strong>📦 Pillar 2 — Spare Parts</strong></td>
+          <td>✅ Saudi stockists listed</td><td>✅ International page</td><td>✅ Emergency page</td>
+          <td><div class="prog-bar"><div class="prog-fill pf-green" style="width:80%"></div></div> 80%</td>
+          <td><span class="badge b-done">Good</span></td>
+        </tr>
+        <tr>
+          <td><strong>🔧 Pillar 3 — Machining & Cladding</strong></td>
+          <td>✅ Saudi facilities listed</td><td>✅ SGL, EagleBurgmann…</td><td>✅ Fabrication section</td>
+          <td><div class="prog-bar"><div class="prog-fill pf-green" style="width:85%"></div></div> 85%</td>
+          <td><span class="badge b-done">Strong</span></td>
+        </tr>
+        <tr>
+          <td><strong>🖨️ Pillar 4 — 3D Printing & Reverse Eng.</strong></td>
+          <td>⚠️ V1 only, not in V2</td><td>⚠️ Needs V2 page</td><td>⚠️ Partial</td>
+          <td><div class="prog-bar"><div class="prog-fill pf-gold" style="width:40%"></div></div> 40%</td>
+          <td><span class="badge b-prog">Needs Work</span></td>
+        </tr>
+        <tr>
+          <td><strong>🧑‍💼 Pillar 5 — Technical Consultation</strong></td>
+          <td>✅ experts.html (9 profiles)</td><td>✅ CV upload</td><td>✅ Expert RFQ</td>
+          <td><div class="prog-bar"><div class="prog-fill pf-green" style="width:80%"></div></div> 80%</td>
+          <td><span class="badge b-done">Good</span></td>
+        </tr>
+        <tr>
+          <td><strong>🔄 Pillar 6 — Equipment Rental</strong></td>
+          <td>✅ Rental section in pages</td><td>✅ Listed in global</td><td>✅ Emergency rental</td>
+          <td><div class="prog-bar"><div class="prog-fill pf-green" style="width:70%"></div></div> 70%</td>
+          <td><span class="badge b-prog">Good</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="s-icon">🏢</span><h2>Supplier / Company Data Quality</h2></div>
+    <table class="kpi-table">
+      <thead><tr><th style="width:32px">✓</th><th>Requirement</th><th>Target</th><th>Current</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><input type="checkbox" onchange="recalc()" checked></td><td>Saudi suppliers with IKTVA badges</td><td>All Saudi cards</td><td>✅ Applied</td><td><span class="badge b-done">✅ Done</span></td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()" checked></td><td>SA Approved badges on Saudi companies</td><td>All Saudi cards</td><td>✅ Applied</td><td><span class="badge b-done">✅ Done</span></td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()" checked></td><td>Emergency 🚨 badge on 24/7 capable companies</td><td>All 24/7 companies</td><td>✅ Applied</td><td><span class="badge b-done">✅ Done</span></td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>Real phone numbers / websites on company cards</td><td>100% of cards</td><td>⚠️ Placeholder data</td><td><span class="badge b-pend">❌ Pending</span></td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>Real company logos uploaded</td><td>Top 20 companies</td><td>⚠️ Using initials/text</td><td><span class="badge b-pend">❌ Pending</span></td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>Aramco/SABIC vendor approval numbers</td><td>Verified suppliers</td><td>⚠️ Not added yet</td><td><span class="badge b-pend">❌ Pending</span></td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>Minimum 10 Saudi valve suppliers listed</td><td>10+</td><td>6 currently</td><td><span class="badge b-prog">🔄 In Progress</span></td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>Minimum 10 Saudi service providers listed</td><td>10+</td><td>~6 currently</td><td><span class="badge b-prog">🔄 In Progress</span></td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>Giga project data (NEOM, Aramco) verified</td><td>All figures sourced</td><td>⚠️ Estimates used</td><td><span class="badge b-prog">🔄 In Progress</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="s-icon">🌐</span><h2>Language & Localization</h2></div>
+    <table class="kpi-table">
+      <thead><tr><th style="width:32px">✓</th><th>Item</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><input type="checkbox" onchange="recalc()" checked></td><td>English language — primary throughout</td><td><span class="badge b-done">✅ Done</span></td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>Arabic language version (ar/ folder or lang toggle)</td><td><span class="badge b-plan">📋 Planned</span></td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()" checked></td><td>SAR currency throughout pricing</td><td><span class="badge b-done">✅ Done</span></td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()" checked></td><td>Saudi Vision 2030 messaging woven in</td><td><span class="badge b-done">✅ Done</span></td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>Hijri calendar dates for shutdowns (optional)</td><td><span class="badge b-plan">📋 Planned</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════ TAB 3: SEO & LAUNCH ══════════════════ -->
+<div class="tab-pane" id="tab-seo">
+  <div class="section">
+    <div class="section-title"><span class="s-icon">🔍</span><h2>SEO Essentials</h2>
+      <div class="sec-prog">
+        <div class="sec-prog-bar"><div class="sec-prog-fill" id="seo-bar" style="width:0%"></div></div>
+        <span class="sec-prog-pct" id="seo-pct">0%</span>
+      </div>
+    </div>
+    <table class="kpi-table" id="seo-table">
+      <thead><tr><th style="width:32px">✓</th><th>SEO Item</th><th>Priority</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><input type="checkbox" onchange="recalc()" checked></td><td>Meta title tags on all pages (unique per page)</td><td><span class="pri p-crit">CRITICAL</span></td><td><span class="badge b-done">✅ Done</span></td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()" checked></td><td>Meta description tags on all pages</td><td><span class="pri p-crit">CRITICAL</span></td><td><span class="badge b-done">✅ Done</span></td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>Domain registered: thevalvehubs.com</td><td><span class="pri p-crit">CRITICAL</span></td><td><span class="badge b-pend">❌ Confirm</span></td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>SSL certificate (HTTPS) active</td><td><span class="pri p-crit">CRITICAL</span></td><td><span class="badge b-pend">❌ Pending hosting</span></td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>sitemap.xml created and submitted</td><td><span class="pri p-high">HIGH</span></td><td><span class="badge b-pend">❌ Pending</span></td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>robots.txt created</td><td><span class="pri p-high">HIGH</span></td><td><span class="badge b-pend">❌ Pending</span></td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>Google Search Console setup</td><td><span class="pri p-high">HIGH</span></td><td><span class="badge b-pend">❌ Pending</span></td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>Google Analytics GA4 installed</td><td><span class="pri p-high">HIGH</span></td><td><span class="badge b-pend">❌ Pending</span></td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>Open Graph tags (og:title, og:image, og:description)</td><td><span class="pri p-high">HIGH</span></td><td><span class="badge b-pend">❌ Pending</span></td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>Schema markup (LocalBusiness, Organization)</td><td><span class="pri p-med">MED</span></td><td><span class="badge b-pend">❌ Pending</span></td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>H1 tags unique per page (not duplicated)</td><td><span class="pri p-med">MED</span></td><td><span class="badge b-pend">❌ Audit needed</span></td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>Alt text on all images</td><td><span class="pri p-med">MED</span></td><td><span class="badge b-pend">❌ Pending</span></td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>Page speed optimization (images compressed)</td><td><span class="pri p-med">MED</span></td><td><span class="badge b-pend">❌ Pending</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="s-icon">🚀</span><h2>Launch Readiness Checklist</h2>
+      <div class="sec-prog">
+        <div class="sec-prog-bar"><div class="sec-prog-fill" id="launch-bar" style="width:0%"></div></div>
+        <span class="sec-prog-pct" id="launch-pct">0%</span>
+      </div>
+    </div>
+    <table class="kpi-table" id="launch-table">
+      <thead><tr><th style="width:32px">✓</th><th>Item</th><th>Priority</th><th>Deadline</th></tr></thead>
+      <tbody>
+        <tr><td><input type="checkbox" onchange="recalc()" checked></td><td>All V2 core pages built (12/15)</td><td><span class="pri p-crit">CRITICAL</span></td><td>Now</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>Hosting provider selected (Netlify / Vercel / SiteGround)</td><td><span class="pri p-crit">CRITICAL</span></td><td>Before launch</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>Domain DNS pointed to hosting</td><td><span class="pri p-crit">CRITICAL</span></td><td>Before launch</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>SSL/HTTPS active and verified</td><td><span class="pri p-crit">CRITICAL</span></td><td>Before launch</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>All forms tested (RFQ, CV upload, emergency)</td><td><span class="pri p-crit">CRITICAL</span></td><td>Before launch</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>Mobile test on real devices (iPhone + Android)</td><td><span class="pri p-high">HIGH</span></td><td>Before launch</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>Privacy Policy & Terms pages live</td><td><span class="pri p-high">HIGH</span></td><td>Before launch</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>WhatsApp number verified and active (+966…)</td><td><span class="pri p-high">HIGH</span></td><td>Before launch</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>Contact email set up (info@thevalvehubs.com)</td><td><span class="pri p-high">HIGH</span></td><td>Before launch</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>LinkedIn company page created</td><td><span class="pri p-high">HIGH</span></td><td>Launch week</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>Google My Business listing (Khobar, Saudi Arabia)</td><td><span class="pri p-med">MED</span></td><td>Launch week</td></tr>
+        <tr><td><input type="checkbox" onchange="recalc()"></td><td>404 error page created</td><td><span class="pri p-med">MED</span></td><td>Before launch</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════ TAB 4: BUSINESS KPIs ══════════════════ -->
+<div class="tab-pane" id="tab-business">
+  <div class="metric-grid">
+    <div class="metric-card green-accent">
+      <div class="mc-icon">👁️</div>
+      <div class="mc-val" id="m-visits">0</div>
+      <div class="mc-lbl">Monthly Website Visitors</div>
+      <div class="mc-target">Target Month 3: 500 / Month 12: 5,000</div>
+    </div>
+    <div class="metric-card gold-accent">
+      <div class="mc-icon">📨</div>
+      <div class="mc-val" id="m-leads">0</div>
+      <div class="mc-lbl">RFQ Leads Received</div>
+      <div class="mc-target">Target Month 3: 10 / Month 12: 100</div>
+    </div>
+    <div class="metric-card navy-accent">
+      <div class="mc-icon">🏢</div>
+      <div class="mc-val" id="m-suppliers">0</div>
+      <div class="mc-lbl">Registered Suppliers</div>
+      <div class="mc-target">Target Year 1: 50 suppliers</div>
+    </div>
+    <div class="metric-card red-accent">
+      <div class="mc-icon">👷</div>
+      <div class="mc-val" id="m-experts">0</div>
+      <div class="mc-lbl">Expert CVs Uploaded</div>
+      <div class="mc-target">Target Year 1: 25 experts</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="s-icon">📈</span><h2>Business KPI Tracking Table</h2></div>
+    <table class="kpi-table">
+      <thead><tr>
+        <th>KPI</th><th>Month 1 Target</th><th>Month 3 Target</th><th>Month 6 Target</th><th>Year 1 Target</th><th>Current</th>
+      </tr></thead>
+      <tbody>
+        <tr><td><strong>Website Visitors/Month</strong></td><td>100</td><td>500</td><td>2,000</td><td>10,000</td><td><input type="number" placeholder="Enter" style="width:70px;border:1px solid #D8E4D8;border-radius:6px;padding:3px 6px;font-size:.8rem;"></td></tr>
+        <tr><td><strong>RFQ Submissions</strong></td><td>2</td><td>15</td><td>50</td><td>200</td><td><input type="number" placeholder="Enter" style="width:70px;border:1px solid #D8E4D8;border-radius:6px;padding:3px 6px;font-size:.8rem;"></td></tr>
+        <tr><td><strong>Supplier Registrations</strong></td><td>3</td><td>15</td><td>30</td><td>75</td><td><input type="number" placeholder="Enter" style="width:70px;border:1px solid #D8E4D8;border-radius:6px;padding:3px 6px;font-size:.8rem;"></td></tr>
+        <tr><td><strong>Expert CV Uploads</strong></td><td>2</td><td>10</td><td>20</td><td>50</td><td><input type="number" placeholder="Enter" style="width:70px;border:1px solid #D8E4D8;border-radius:6px;padding:3px 6px;font-size:.8rem;"></td></tr>
+        <tr><td><strong>LinkedIn Followers</strong></td><td>50</td><td>300</td><td>1,000</td><td>5,000</td><td><input type="number" placeholder="Enter" style="width:70px;border:1px solid #D8E4D8;border-radius:6px;padding:3px 6px;font-size:.8rem;"></td></tr>
+        <tr><td><strong>WhatsApp Inquiries</strong></td><td>5</td><td>30</td><td>100</td><td>500</td><td><input type="number" placeholder="Enter" style="width:70px;border:1px solid #D8E4D8;border-radius:6px;padding:3px 6px;font-size:.8rem;"></td></tr>
+        <tr><td><strong>Verified Suppliers (Paid)</strong></td><td>0</td><td>3</td><td>10</td><td>30</td><td><input type="number" placeholder="Enter" style="width:70px;border:1px solid #D8E4D8;border-radius:6px;padding:3px 6px;font-size:.8rem;"></td></tr>
+        <tr><td><strong>IKTVA Calculator Uses</strong></td><td>10</td><td>100</td><td>500</td><td>2,000</td><td><input type="number" placeholder="Enter" style="width:70px;border:1px solid #D8E4D8;border-radius:6px;padding:3px 6px;font-size:.8rem;"></td></tr>
+        <tr><td><strong>Avg. Session Duration (mins)</strong></td><td>1.5</td><td>2.5</td><td>3.5</td><td>4.0</td><td><input type="number" placeholder="Enter" style="width:70px;border:1px solid #D8E4D8;border-radius:6px;padding:3px 6px;font-size:.8rem;"></td></tr>
+        <tr><td><strong>Bounce Rate (%)</strong></td><td>&lt;70%</td><td>&lt;55%</td><td>&lt;45%</td><td>&lt;35%</td><td><input type="number" placeholder="Enter" style="width:70px;border:1px solid #D8E4D8;border-radius:6px;padding:3px 6px;font-size:.8rem;"></td></tr>
+        <tr><td><strong>Google Ranking — "valve supplier Saudi"</strong></td><td>Top 50</td><td>Top 20</td><td>Top 10</td><td>Top 5</td><td><input type="text" placeholder="Enter" style="width:70px;border:1px solid #D8E4D8;border-radius:6px;padding:3px 6px;font-size:.8rem;"></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════ TAB 5: REVENUE TARGETS ══════════════════ -->
+<div class="tab-pane" id="tab-revenue">
+  <div class="metric-grid">
+    <div class="metric-card gold-accent">
+      <div class="mc-icon">💰</div>
+      <div class="mc-val">SAR 0</div>
+      <div class="mc-lbl">Revenue — Month 1</div>
+      <div class="mc-target">Target: SAR 2,250</div>
+    </div>
+    <div class="metric-card gold-accent">
+      <div class="mc-icon">📈</div>
+      <div class="mc-val">SAR 0</div>
+      <div class="mc-lbl">Revenue — Month 6</div>
+      <div class="mc-target">Target: SAR 45,000/mo</div>
+    </div>
+    <div class="metric-card gold-accent">
+      <div class="mc-icon">🏆</div>
+      <div class="mc-val">SAR 0</div>
+      <div class="mc-lbl">Revenue — Year 1</div>
+      <div class="mc-target">Target: SAR 300,000+</div>
+    </div>
+    <div class="metric-card green-accent">
+      <div class="mc-icon">🎯</div>
+      <div class="mc-val">SAR 3.75M</div>
+      <div class="mc-lbl">Target — Month 36 (1M USD)</div>
+      <div class="mc-target">The ultimate goal</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="s-icon">💳</span><h2>Subscription Revenue Model — Monthly Tracking</h2></div>
+    <table class="kpi-table">
+      <thead><tr>
+        <th>Plan</th><th>Price (SAR/mo)</th><th>Target Subs (Yr1)</th><th>Max MRR (SAR)</th><th>Current Subs</th><th>Current MRR</th>
+      </tr></thead>
+      <tbody>
+        <tr><td><strong>🆓 Free</strong></td><td>0</td><td>500 users</td><td>—</td><td><input type="number" placeholder="0" style="width:60px;border:1px solid #D8E4D8;border-radius:6px;padding:3px 6px;font-size:.8rem;"></td><td>SAR 0</td></tr>
+        <tr><td><strong>✅ Verified</strong></td><td>750</td><td>30 suppliers</td><td>SAR 22,500</td><td><input type="number" placeholder="0" style="width:60px;border:1px solid #D8E4D8;border-radius:6px;padding:3px 6px;font-size:.8rem;"></td><td>—</td></tr>
+        <tr><td><strong>⭐ Professional</strong></td><td>2,250</td><td>15 suppliers</td><td>SAR 33,750</td><td><input type="number" placeholder="0" style="width:60px;border:1px solid #D8E4D8;border-radius:6px;padding:3px 6px;font-size:.8rem;"></td><td>—</td></tr>
+        <tr><td><strong>🏢 Enterprise</strong></td><td>7,500</td><td>5 companies</td><td>SAR 37,500</td><td><input type="number" placeholder="0" style="width:60px;border:1px solid #D8E4D8;border-radius:6px;padding:3px 6px;font-size:.8rem;"></td><td>—</td></tr>
+        <tr style="background:#EBF7F0;"><td colspan="2"><strong>Total MRR Potential (Year 1 target)</strong></td><td colspan="2"><strong>SAR 93,750/month</strong></td><td colspan="2"><strong id="totalMRR">SAR 0</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="s-icon">🗺️</span><h2>Revenue Roadmap to SAR 3.75M (USD 1M)</h2></div>
+    <table class="kpi-table">
+      <thead><tr><th>Phase</th><th>Period</th><th>Focus</th><th>MRR Target</th><th>ARR Target</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Phase 0 — Build</strong></td><td>Now → Launch</td><td>Complete website, all 15 pages live</td><td>SAR 0</td><td>—</td><td><span class="badge b-prog">🔄 Active</span></td></tr>
+        <tr><td><strong>Phase 1 — Seed</strong></td><td>Month 1–3</td><td>First 5 paying Verified suppliers, LinkedIn presence</td><td>SAR 3,750</td><td>SAR 45,000</td><td><span class="badge b-pend">❌ Pending</span></td></tr>
+        <tr><td><strong>Phase 2 — Grow</strong></td><td>Month 4–6</td><td>20 Verified + 5 Professional + 1 Enterprise</td><td>SAR 30,000</td><td>SAR 180,000</td><td><span class="badge b-pend">❌ Pending</span></td></tr>
+        <tr><td><strong>Phase 3 — Scale</strong></td><td>Month 7–12</td><td>Full supplier directory, Arabic version, B2B outreach</td><td>SAR 75,000</td><td>SAR 450,000</td><td><span class="badge b-plan">📋 Planned</span></td></tr>
+        <tr><td><strong>Phase 4 — Expand</strong></td><td>Year 2</td><td>GCC expansion (UAE, Kuwait, Qatar, Bahrain)</td><td>SAR 200,000</td><td>SAR 1,200,000</td><td><span class="badge b-plan">📋 Planned</span></td></tr>
+        <tr><td><strong>Phase 5 — Dominate</strong></td><td>Year 3</td><td>$1M USD / SAR 3.75M ARR — Top platform in MENA</td><td>SAR 312,500</td><td>SAR 3,750,000</td><td><span class="badge b-plan">📋 Planned</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════ TAB 6: MILESTONES ══════════════════ -->
+<div class="tab-pane" id="tab-milestones">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;">
+    <div>
+      <div class="section-title"><span class="s-icon">✅</span><h2>Completed Milestones</h2></div>
+      <div class="milestone-list">
+        <div class="milestone">
+          <div class="ms-left"><div class="ms-dot done">✓</div><div class="ms-line"></div></div>
+          <div class="ms-body">
+            <div class="ms-date">Phase 0 · Q4 2024</div>
+            <div class="ms-title">TheValveHubs Concept Defined</div>
+            <div class="ms-desc">6 pillars confirmed: Valves, Spare Parts, Machining & Cladding, 3D Printing, Technical Consultation, Rental. Saudi-first model established.</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="ms-left"><div class="ms-dot done">✓</div><div class="ms-line"></div></div>
+          <div class="ms-body">
+            <div class="ms-date">V1 Website · 2024</div>
+            <div class="ms-title">V1 Website Built (25+ Pages)</div>
+            <div class="ms-desc">ADIPEC dark gold design. OEM directory, spare parts, emergency, workforce, invest-saudi, sealing solutions, valve rental, Saudi services, buyers market.</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="ms-left"><div class="ms-dot done">✓</div><div class="ms-line"></div></div>
+          <div class="ms-body">
+            <div class="ms-date">V2 Website · 2025–2026</div>
+            <div class="ms-title">V2 Website — 12/15 Pages Live</div>
+            <div class="ms-desc">Saudi Vision 2030 aligned. Saudi Green & Gold design. 12 core pages built including IKTVA Calculator, Valve Wizard, Shutdown Calendar, Manufacturing hub.</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="ms-left"><div class="ms-dot done">✓</div><div class="ms-line"></div></div>
+          <div class="ms-body">
+            <div class="ms-date">June 2026</div>
+            <div class="ms-title">Manufacturing Hub Page Created</div>
+            <div class="ms-desc">Machining, Cladding, Casting, Forging & Raw Materials page. 5 categories, 180+ companies directory, RFQ form with drawing upload.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-title"><span class="s-icon">🎯</span><h2>Upcoming Milestones</h2></div>
+      <div class="milestone-list">
+        <div class="milestone">
+          <div class="ms-left"><div class="ms-dot prog">→</div><div class="ms-line"></div></div>
+          <div class="ms-body">
+            <div class="ms-date">Immediate</div>
+            <div class="ms-title">Add Abdullah's Photo + 3 Missing Pages</div>
+            <div class="ms-desc">Upload abdullah-alsubaie.jpg. Build: 3d-printing-v2.html, platform.html, contact.html. Privacy + Terms pages.</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="ms-left"><div class="ms-dot pend"></div><div class="ms-line"></div></div>
+          <div class="ms-body">
+            <div class="ms-date">Week 1–2</div>
+            <div class="ms-title">Website Live on thevalvehubs.com</div>
+            <div class="ms-desc">Select hosting (Netlify recommended). Point domain DNS. SSL certificate. Test all forms. Go live announcement on LinkedIn.</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="ms-left"><div class="ms-dot pend"></div><div class="ms-line"></div></div>
+          <div class="ms-body">
+            <div class="ms-date">Month 1</div>
+            <div class="ms-title">First 5 Paid Supplier Listings</div>
+            <div class="ms-desc">Reach out to 20 Saudi valve suppliers. Target 5 Verified plan subscriptions (SAR 750/mo each = SAR 3,750 MRR).</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="ms-left"><div class="ms-dot pend"></div><div class="ms-line"></div></div>
+          <div class="ms-body">
+            <div class="ms-date">Month 3</div>
+            <div class="ms-title">ADIPEC 2026 Exhibition Presence</div>
+            <div class="ms-desc">Present TheValveHubs at ADIPEC. Target 50 supplier contacts, 10 enterprise inquiries, 500 website visitors from event.</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="ms-left"><div class="ms-dot pend"></div><div class="ms-line"></div></div>
+          <div class="ms-body">
+            <div class="ms-date">Month 6</div>
+            <div class="ms-title">Arabic Language Version Launch</div>
+            <div class="ms-desc">Bilingual Arabic/English site. Target Saudi Aramco, SABIC, NEOM procurement teams. IKTVA calculator in Arabic.</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="ms-left"><div class="ms-dot pend"></div><div class="ms-line"></div></div>
+          <div class="ms-body">
+            <div class="ms-date">Year 2</div>
+            <div class="ms-title">GCC Expansion — UAE + Kuwait + Qatar</div>
+            <div class="ms-desc">Expand supplier directory to UAE (ADNOC), Kuwait (KOC), Qatar (QatarEnergy). Target SAR 200,000 MRR.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ TAB 7: NOTES ══════════════════ -->
+<div class="tab-pane" id="tab-notes">
+  <div class="section">
+    <div class="section-title"><span class="s-icon">📌</span><h2>Project Notes & Decisions</h2></div>
+
+    <div class="notes-box">
+      <label>🔴 Critical Pending Actions</label>
+      <textarea placeholder="e.g. Upload founder photo, finalize hosting, complete 3 missing pages…">• Upload abdullah-alsubaie.jpg to V2 folder → replace AA placeholder on about.html + index.html
+• Choose hosting: Netlify (free/easy) or custom server
+• Build 3 missing pages: 3d-printing-v2.html, platform.html, contact.html
+• Add real contact email to all forms (currently placeholder)</textarea>
+    </div>
+
+    <div class="notes-box" style="margin-top:12px;">
+      <label>💛 Key Business Decisions Made</label>
+      <textarea>• Saudi suppliers ALWAYS listed first (Priority 1)
+• International suppliers activated ONLY when Saudi supply unavailable (Priority 2)
+• Emergency 24/7 overrides all — fastest response regardless of origin
+• 6 pillars: Valves · Spare Parts · Machining & Cladding · 3D Printing · Technical Consultation · Equipment Rental
+• Pricing in SAR (not USD) — Saudi-first positioning
+• Website language: English first, Arabic planned for Month 6
+• Founder: Abdullah F. AlSubaie — Khobar, Saudi Arabia</textarea>
+    </div>
+
+    <div class="notes-box" style="margin-top:12px;">
+      <label>🌐 Website Files Location</label>
+      <textarea>V2 (Active): C:\Users\abdullah\OneDrive\Desktop\TheValveHubs V2\
+V1 (Archive): C:\Users\abdullah\OneDrive\Desktop\TheValveHubs website\
+12 HTML pages · style.css · images/ folder
+KPI Tracker: kpi-tracker.html (this file)</textarea>
+    </div>
+
+    <div class="notes-box" style="margin-top:12px;">
+      <label>📅 Session Log</label>
+      <textarea placeholder="Log important decisions, changes, and updates with dates…">2026-06-09 — manufacturing.html created (73KB, 5 categories: Machining, Cladding, Casting, Forging, Raw Materials)
+2026-06-09 — KPI Tracker created (this file)
+[Add your notes here as the project progresses]</textarea>
+    </div>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<script>
+// ── DATE ──
+document.getElementById('today').textContent = new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+
+// ── TAB SWITCH ──
+function switchTab(name){
+  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+// ── PROGRESS CALC ──
+function calcSection(tableId, barId, pctId){
+  const table=document.getElementById(tableId);
+  if(!table) return {done:0,total:0};
+  const boxes=table.querySelectorAll('input[type=checkbox]');
+  let done=0;
+  boxes.forEach(b=>{if(b.checked)done++;});
+  const pct=boxes.length?Math.round(done/boxes.length*100):0;
+  if(barId) document.getElementById(barId).style.width=pct+'%';
+  if(pctId) document.getElementById(pctId).textContent=pct+'%';
+  return {done,total:boxes.length};
+}
+
+function recalc(){
+  const p=calcSection('pages-table','pages-bar','pages-pct');
+  calcSection('seo-table','seo-bar','seo-pct');
+  calcSection('launch-table','launch-bar','launch-pct');
+
+  // Design section
+  const dboxes=document.querySelectorAll('.kpi-table:not(#pages-table):not(#seo-table):not(#launch-table) input[type=checkbox]');
+  let dDone=0;
+  dboxes.forEach(b=>{if(b.checked)dDone++;});
+  const dPct=dboxes.length?Math.round(dDone/dboxes.length*100):0;
+  const dBar=document.getElementById('design-bar');
+  const dPctEl=document.getElementById('design-pct');
+  if(dBar) dBar.style.width=dPct+'%';
+  if(dPctEl) dPctEl.textContent=dPct+'%';
+
+  // Overall
+  const all=document.querySelectorAll('input[type=checkbox]');
+  let allDone=0;
+  all.forEach(b=>{if(b.checked)allDone++;});
+  const overall=Math.round(allDone/all.length*100);
+  document.getElementById('overallPct').textContent=overall+'%';
+  document.getElementById('overallBar').style.width=overall+'%';
+  document.getElementById('doneCount').textContent=allDone;
+  document.getElementById('pendCount').textContent=all.length-allDone;
+  document.getElementById('pagesBuilt').textContent=p.done+'/'+p.total;
+}
+
+// Init
+recalc();
+</script>
+</body>
+</html>
