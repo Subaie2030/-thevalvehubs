@@ -253,15 +253,22 @@ if (!TVH_API.isLoggedIn()) {
 
 <!-- â”€â”€ Footer Simple â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <div style="background:#1A2620;color:rgba(255,255,255,.5);text-align:center;padding:16px;font-size:.78rem;">
-  Â© 2025 TheValveHubs Â· Khobar, Saudi Arabia Â· Vision 2030 Â· IKTVA
+  © 2026 TheValveHubs Â· Khobar, Saudi Arabia Â· Vision 2030 Â· IKTVA
 </div>
 
 <!-- â”€â”€ Dashboard Script â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <script>
 const API = TVH_API;
 
+// Debug helper — shows step in loading screen
+function dbg(msg) {
+  const el = document.getElementById('dash-loading');
+  if (el) el.innerHTML = '<div class="spinner"></div><div style="margin-top:12px;color:#5A6B62;font-size:.8rem;">' + msg + '</div>';
+}
+
 async function loadDashboard() {
   try {
+    dbg('Connecting to server...');
     // Ø¬Ù„Ø¨ Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…
     const { user } = await API.auth.me();
     const isSupplier = user.role === 'SUPPLIER';
@@ -505,9 +512,60 @@ async function loadDashboard() {
       API.auth.logout();
     } else {
       document.getElementById('dash-loading').innerHTML =
-        `<div style="color:#C0392B;">âš ï¸ Could not load dashboard.<br><small>${err.message}</small><br><br>
-         <strong>Make sure the backend server is running:</strong><br>
-         <code style="background:#f5f5f5;padding:4px 8px;border-radius:4px;">cd thevalvehubs-backend â†’ npm run dev</code></div>`;
+        `
+        <div style="text-align:center;padding:40px 20px;">
+          <div style="font-size:2rem;margin-bottom:12px;">&#x26A0;&#xFE0F;</div>
+          <div style="font-weight:800;font-size:1rem;color:#C0392B;margin-bottom:8px;">Could not connect to TheValveHubs server</div>
+          <div style="font-size:.84rem;color:#5A6B62;margin-bottom:20px;">${err.message || 'Network error — check your internet connection.'}</div>
+          <button onclick="loadDashboard()" style="background:#006C35;color:#fff;border:none;padding:10px 24px;border-radius:8px;font-size:.85rem;font-weight:700;cursor:pointer;margin-right:8px;">&#x1F504; Retry</button>
+          <a href="index.html" style="background:#EBF7F0;color:#006C35;padding:10px 24px;border-radius:8px;font-size:.85rem;font-weight:700;text-decoration:none;display:inline-block;">&larr; Home</a>
+        </div>`;
+    }
+  }
+}
+
+function viewRfq(id) {
+  window.location.href = 'rfq-detail.html?id=' + id;
+}
+
+async function reviewExpert(id, status) {
+  const label = status === 'APPROVED' ? 'approve' : 'reject';
+  if (!confirm('Are you sure you want to ' + label + ' this expert profile?')) return;
+  try {
+    const token = TVH_API.getToken();
+    const res   = await fetch('https://thevalvehubs-backend-production.up.railway.app/api/experts/' + id + '/review', {
+      method:  'PATCH',
+      headers: { 'Content-Type':'application/json', Authorization: 'Bearer ' + token },
+      body:    JSON.stringify({ status }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed');
+    // Reload dashboard section
+    loadDashboard();
+  } catch(e) {
+    alert('Error: ' + e.message);
+  }
+}
+
+// ØªØ­Ù…ÙŠÙ„ Dashboard Ø¹Ù†Ø¯ ÙØªØ­ Ø§Ù„ØµÙØ­Ø©
+loadDashboard();
+
+// Hamburger
+var hb=document.getElementById('hamburger'),mn=document.querySelector('.nav-menu');
+if(hb)hb.addEventListener('click',function(){var o=mn.classList.toggle('open');hb.children[0].style.transform=o?'translateY(7px) rotate(45deg)':'';hb.children[1].style.opacity=o?'0':'';hb.children[2].style.transform=o?'translateY(-7px) rotate(-45deg)':'';});
+</script>
+</body>
+</html>
+
+
+document.getElementById('dash-loading').innerHTML = `
+        <div style="text-align:center;padding:40px 20px;">
+          <div style="font-size:2rem;margin-bottom:12px;">&#x26A0;&#xFE0F;</div>
+          <div style="font-weight:800;font-size:1rem;color:#C0392B;margin-bottom:8px;">Could not connect to TheValveHubs server</div>
+          <div style="font-size:.84rem;color:#5A6B62;margin-bottom:20px;">${err.message || 'Network error — please check your connection.'}</div>
+          <button onclick="loadDashboard()" style="background:#006C35;color:#fff;border:none;padding:10px 24px;border-radius:8px;font-size:.85rem;font-weight:700;cursor:pointer;margin-right:8px;">&#x1F504; Retry</button>
+          <a href="index.html" style="background:#EBF7F0;color:#006C35;padding:10px 24px;border-radius:8px;font-size:.85rem;font-weight:700;text-decoration:none;display:inline-block;">&larr; Home</a>
+        </div>`;
     }
   }
 }

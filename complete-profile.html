@@ -237,6 +237,7 @@
 
   <!-- ═══════════ STEP 2: INDUSTRY & FOCUS ═══════════ -->
   <div id="step-2" class="hidden">
+    <div id="msg-step2"></div>
     <div class="form-card">
       <div class="form-card-header">
         <div class="form-card-icon gold">🏭</div>
@@ -666,8 +667,20 @@ function validate1() {
 }
 
 function validate2() {
-  const sector = document.getElementById('sector').value;
-  if (!sector) return showMsg('msg-global','Please select your primary industry sector','error');
+  const sectorEl = document.getElementById('sector');
+  if (!sectorEl.value) {
+    sectorEl.style.borderColor = '#C62828';
+    sectorEl.style.boxShadow = '0 0 0 3px rgba(198,40,40,.15)';
+    showMsg('msg-step2','⚠️ Please select your Primary Industry Sector to continue','error');
+    sectorEl.focus();
+    sectorEl.addEventListener('change', () => {
+      sectorEl.style.borderColor = '';
+      sectorEl.style.boxShadow = '';
+      clearMsg('msg-step2');
+    }, { once: true });
+    return false;
+  }
+  clearMsg('msg-step2');
   clearMsg('msg-global');
   return true;
 }
@@ -892,7 +905,7 @@ function showMsg(id, msg, type) {
   const el = document.getElementById(id);
   if (!el) return;
   el.innerHTML = `<div class="msg-box msg-${type}">${type==='error'?'⚠️ ':'✅ '}${msg}</div>`;
-  el.scrollIntoView({ behavior:'smooth', block:'nearest' });
+  el.scrollIntoView({ behavior:'smooth', block:'start' });
   return false;
 }
 function clearMsg(id) { const el = document.getElementById(id); if(el) el.innerHTML=''; }
