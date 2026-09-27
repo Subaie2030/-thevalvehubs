@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الأثر الأخضر المستدام</title>
+<meta name="description" content="مبادرة مجتمعية بيئية توعوية تنموية تطلقها جمعية المسؤولية البيئية الأهلية بالتزامن مع اليوم العربي للبيئة 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Reem+Kufi:wght@500;600;700&display=swap">
+<style>
+:root{
+  --ground:#F4F7F1; --surface:#FFFFFF; --tint:#E9F1E4;
+  --ink:#15271C; --muted:#56685C; --line:#D9E3D4;
+  --leaf:#1E6B3C; --sprout:#4E9A36; --sun:#B7850F; --sun-soft:#F6E8C3; --sky:#2A6FA8;
+  --display:"Reem Kufi","IBM Plex Sans Arabic",Tahoma,sans-serif;
+  --body:"IBM Plex Sans Arabic","Segoe UI",Tahoma,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --ground:#0E1712; --surface:#15211A; --tint:#1B2B21;
+    --ink:#E6EEE7; --muted:#9DB0A2; --line:#2A3B30;
+    --leaf:#72C58F; --sprout:#8FCB6F; --sun:#EDBE4C; --sun-soft:#3A3016; --sky:#7DB3E0;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --ground:#0E1712; --surface:#15211A; --tint:#1B2B21;
+  --ink:#E6EEE7; --muted:#9DB0A2; --line:#2A3B30;
+  --leaf:#72C58F; --sprout:#8FCB6F; --sun:#EDBE4C; --sun-soft:#3A3016; --sky:#7DB3E0;
+}
+*{box-sizing:border-box}
+html{direction:rtl}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.85;padding-inline:20px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin-inline:auto}
+h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.35;text-wrap:balance;margin:0}
+p{margin:0}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate;display:inline-block}
+a{color:var(--leaf)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--sun);outline-offset:3px;border-radius:4px}
+
+/* Hero */
+.hero{padding-block:48px 40px;display:grid;gap:36px}
+.brand{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.brand img{height:88px;width:auto}
+.hero-main{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:end}
+.eyebrow{font-size:.82rem;letter-spacing:.02em;color:var(--sprout);font-weight:600}
+.hero h1{font-size:clamp(2.3rem,5.5vw,3.8rem);color:var(--leaf);margin-top:6px}
+.hero .lede{margin-top:14px;font-size:1.12rem;color:var(--muted);max-width:34em}
+.hero .tags{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+.tag{font-size:.82rem;padding:4px 12px;border-radius:999px;background:var(--tint);color:var(--leaf);font-weight:500}
+.golden{border-inline-start:3px solid var(--sun);padding-inline-start:22px}
+.golden .big{font-family:var(--display);font-size:clamp(4rem,11vw,6.6rem);line-height:1;color:var(--sun);font-weight:700}
+.golden p{margin-top:10px;color:var(--muted);font-size:.95rem;max-width:22em}
+
+/* Sections */
+section{padding-block:44px;border-top:1px solid var(--line);display:grid;grid-template-columns:200px 1fr;gap:32px}
+.sec-head{display:grid;gap:6px;align-content:start}
+.sec-head h2{font-size:1.55rem;color:var(--ink)}
+.sec-head .eyebrow{color:var(--sun)}
+.sec-body{display:grid;gap:22px;min-width:0}
+.prose{max-width:62ch;font-size:1.04rem}
+
+.quote{font-family:var(--display);font-size:1.45rem;color:var(--leaf);line-height:1.6}
+.sign{display:flex;flex-direction:column;font-size:.92rem;color:var(--muted)}
+.sign strong{color:var(--ink);font-size:1rem}
+
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+
+.pillar{padding:18px 20px;background:var(--surface);border:1px solid var(--line);border-radius:10px;display:grid;gap:4px}
+.pillar h3{font-size:1.05rem;color:var(--leaf)}
+.pillar p{color:var(--muted);font-size:.93rem;line-height:1.75}
+
+.vm{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.vm h3{font-size:1.15rem;color:var(--sprout);margin-bottom:6px}
+
+.values{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 32px}
+.values li{padding-block:14px;border-bottom:1px dashed var(--line);display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:baseline}
+.values b{font-family:var(--display);font-weight:600;color:var(--leaf);font-size:1.08rem}
+.values span{color:var(--muted);font-size:.95rem}
+
+.goals{list-style:none;margin:0;padding:0;counter-reset:g;display:grid;gap:0}
+.goals li{counter-increment:g;display:grid;grid-template-columns:44px 1fr;gap:14px;padding-block:14px;border-bottom:1px solid var(--line)}
+.goals li::before{content:counter(g);font-family:var(--display);font-size:1.5rem;color:var(--sun);line-height:1.3}
+.goals b{display:block;font-weight:600}
+.goals span{color:var(--muted);font-size:.95rem}
+
+/* Projects */
+.projects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.proj{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:grid;grid-template-columns:1fr auto;gap:4px 16px;align-items:start}
+.proj h3{font-size:1.02rem;color:var(--ink)}
+.proj p{grid-column:1/-1;color:var(--muted);font-size:.9rem;line-height:1.7}
+.proj .metric{text-align:start;font-size:.78rem;color:var(--muted);line-height:1.3;white-space:nowrap}
+.proj .metric .num{font-family:var(--display);font-size:1.3rem;color:var(--sun);font-weight:700;display:block}
+.note{font-size:.88rem;color:var(--muted)}
+
+/* Audience */
+.aud{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.aud .pillar .count{font-size:.85rem;color:var(--sun);font-weight:600}
+.aud .pillar q{font-family:var(--display);color:var(--leaf);font-size:1rem;quotes:"«" "»"}
+
+.refs{display:flex;flex-wrap:wrap;gap:8px}
+.refs span{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:6px 12px;font-size:.9rem}
+.sdg{display:flex;flex-wrap:wrap;gap:8px}
+.sdg span{display:inline-flex;align-items:center;gap:8px;border-radius:6px;padding:6px 12px 6px 10px;background:var(--tint);font-size:.9rem}
+.sdg span b{font-family:var(--display);color:var(--leaf);font-weight:700}
+
+.axes{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 32px}
+.axes li{padding-inline-start:18px;position:relative}
+.axes li::before{content:"";position:absolute;inset-inline-start:0;top:.8em;width:8px;height:8px;border-radius:50% 0;background:var(--sprout)}
+
+/* Forum */
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.facts div{background:var(--surface);padding:14px 16px;display:grid;gap:2px}
+.facts dt{font-size:.8rem;color:var(--muted)}
+.facts dd{margin:0;font-weight:600}
+.roles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 32px;margin:0}
+.roles div{display:grid;grid-template-columns:150px 1fr;gap:12px;padding-block:10px;border-bottom:1px dashed var(--line)}
+.roles dt{color:var(--muted);font-size:.9rem}
+.roles dd{margin:0;font-weight:500}
+
+.agenda-wrap{overflow-x:auto}
+.agenda{width:100%;border-collapse:collapse;font-size:.95rem}
+.agenda th{text-align:start;font-weight:600;color:var(--muted);font-size:.82rem;padding:8px 12px;border-bottom:2px solid var(--leaf)}
+.agenda td{padding:9px 12px;border-bottom:1px solid var(--line)}
+.agenda td:first-child{width:96px;color:var(--leaf);font-weight:600;white-space:nowrap}
+.agenda tr.block td{background:var(--tint);font-weight:600;color:var(--leaf);font-size:.85rem}
+
+/* Roadmap */
+.road{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.phase{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:grid;gap:8px}
+.phase .yrs{font-size:.85rem;color:var(--muted)}
+.phase h3{font-size:1.15rem;color:var(--leaf)}
+.bar{height:8px;border-radius:4px;background:var(--tint);overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--sprout),var(--leaf));border-radius:4px}
+.phase .pct{font-size:.85rem;color:var(--sun);font-weight:600}
+
+/* Targets */
+.targets{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.tcol{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:grid;gap:10px;align-content:start}
+.tcol h3{font-size:1rem;color:var(--sprout);padding-bottom:8px;border-bottom:1px solid var(--line)}
+.tcol ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.tcol li{display:grid;line-height:1.4;font-size:.88rem;color:var(--muted)}
+.tcol li .num{font-family:var(--display);font-size:1.2rem;color:var(--ink);font-weight:600}
+
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.kpi{background:var(--surface);padding:20px;display:grid;gap:4px}
+.kpi .num{font-family:var(--display);font-size:2.1rem;color:var(--sun);font-weight:700;line-height:1.1}
+.kpi b{font-weight:600}
+.kpi span{font-size:.88rem;color:var(--muted)}
+
+.partners{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.partners h3{font-size:1rem;color:var(--sprout);margin-bottom:8px}
+.partners ul{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.partners li{padding-bottom:6px;border-bottom:1px dashed var(--line);font-size:.95rem}
+
+/* Contact */
+.contact{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.contact div{display:grid;gap:2px}
+.contact dt{font-size:.8rem;color:var(--muted)}
+.contact dd{margin:0;font-weight:600;word-break:break-word}
+.hashtags{display:flex;flex-wrap:wrap;gap:8px}
+.hashtags span{color:var(--sky);font-size:.92rem}
+
+footer{border-top:1px solid var(--line);padding-block:40px 56px;display:grid;gap:10px;text-align:center}
+footer .quote{font-size:1.35rem}
+footer small{color:var(--muted)}
+
+@media (max-width:900px){
+  section{grid-template-columns:1fr;gap:18px}
+  .hero-main{grid-template-columns:1fr}
+  .targets{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .road{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .aud,.partners,.g4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .contact{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:600px){
+  body{padding-inline:16px}
+  .brand img{height:64px}
+  .projects,.values,.axes,.vm,.roles,.aud,.partners,.g2,.g3,.g4,.facts,.kpis,.road,.targets,.contact{grid-template-columns:1fr}
+  .values li,.roles div{grid-template-columns:1fr;gap:2px}
+}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="brand">
+    <img src="logo-initiative.png" alt="شعار مبادرة الأثر الأخضر المستدام">
+    <img src="logo-era.png" alt="شعار جمعية المسؤولية البيئية الأهلية">
+  </div>
+  <div class="hero-main">
+    <div>
+      <div class="eyebrow">مبادرة مجتمعية بيئية توعوية تنموية</div>
+      <h1>الأثر الأخضر المستدام</h1>
+      <p class="lede">مبادرة تطلقها جمعية المسؤولية البيئية الأهلية بالتزامن مع اليوم العربي للبيئة 2026، تحت شعار «استدامة المراعي لتعزيز القدرة على الصمود»، وتمتد منظومةً متكاملةً حتى عام 2030.</p>
+      <div class="tags">
+        <span class="tag">رؤية المملكة 2030</span>
+        <span class="tag">مبادرة السعودية الخضراء</span>
+        <span class="tag">اليوم العربي للبيئة 2026</span>
+      </div>
+    </div>
+    <div class="golden">
+      <div class="eyebrow">الرقم الذهبي</div>
+      <div class="big num">2,030</div>
+      <p>مستهدفٌ موحّد لكل مسار من مسارات المبادرة: أشجار وساعات تطوع ومتطوعون ومتدربون ومنتجات وأعمال فنية، ليُصنع الأثر برقمٍ يلتقي مع رؤية 2030.</p>
+    </div>
+  </div>
+</header>
+
+<section id="opening">
+  <div class="sec-head"><span class="eyebrow">كلمة افتتاحية</span><h2>رحلة مستمرة وأثر يتراكم</h2></div>
+  <div class="sec-body">
+    <p class="prose">انطلاقًا من مستهدفات رؤية المملكة العربية السعودية 2030، وما تشهده المملكة من اهتمامٍ متزايد بقضايا البيئة والاستدامة وجودة الحياة، تأتي مبادرة «الأثر الأخضر المستدام» بوصفها مبادرةً مجتمعيةً توعويةً تنمويةً تسعى إلى تعزيز المسؤولية البيئية، وترسيخ ثقافة الاستدامة، وتمكين الشراكات ذات الأثر المستدام.</p>
+    <p class="prose">وتمثّل المبادرة منصةً تجمع الجهات الحكومية والقطاع الخاص والقطاع غير الربحي والخبراء البيئيين، بهدف تبادل الخبرات وبناء شراكاتٍ تُسهم في دعم التنمية البيئية المستدامة وتحقيق المستهدفات الوطنية.</p>
+    <p class="quote">«فالرحلة مستمرة… والأثر يتراكم»</p>
+    <div class="sign"><strong>بجاد بن زايد العتيبي</strong>رئيس مجلس الإدارة — جمعية المسؤولية البيئية الأهلية</div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="sec-head"><span class="eyebrow">نبذة عن المبادرة</span><h2>من فعالية موسمية إلى منظومة حتى 2030</h2></div>
+  <div class="sec-body">
+    <p class="prose">تتحول المبادرة من فعاليةٍ موسمية إلى منظومةٍ متكاملة تمتد حتى عام 2030، تُحوّل المناسبات البيئية إلى تجارب تعليمية ومجتمعية مستدامة، تصنع جيلًا واعيًا قادرًا على صياغة مستقبلٍ بيئي مزدهر.</p>
+    <div class="grid g4">
+      <div class="pillar"><h3>مشاريع نوعية</h3><p>مشاريع مستدامة ذات أثرٍ قابل للقياس.</p></div>
+      <div class="pillar"><h3>برامج تعليمية</h3><p>برامج مجتمعية وتعليمية متكاملة.</p></div>
+      <div class="pillar"><h3>شراكات استراتيجية</h3><p>شراكات فاعلة بين القطاعات الثلاثة.</p></div>
+      <div class="pillar"><h3>ملتقى سنوي</h3><p>منصة سنوية لتبادل الخبرات وقياس الأثر.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="vision">
+  <div class="sec-head"><span class="eyebrow">التوجه الاستراتيجي</span><h2>الرؤية والرسالة</h2></div>
+  <div class="sec-body">
+    <div class="vm">
+      <div><h3>الرؤية</h3><p>أن تكون مبادرة «الأثر الأخضر المستدام» النموذجَ الرائد في تحويل المناسبات البيئية إلى تجارب تعليمية مجتمعية مستدامة، مدعومةً بمنظومة إعلامية متخصصة، وفريق تطوعي احترافي، ومنصة ذكية لإدارة الأثر التنموي.</p></div>
+      <div><h3>الرسالة</h3><p>تفعيل اليوم العربي للبيئة 2026 من خلال مبادرة مجتمعية متكاملة تربط شعار استدامة المراعي بالممارسة الفعلية، وتحوّل المشاركة إلى أثرٍ مستمر وقابل للقياس، عبر شراكات استراتيجية، ومركز إعلامي بيئي، ومنصة ذكية، وفريق تطوعي محترف، وملتقى سنوي.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="values">
+  <div class="sec-head"><span class="eyebrow">ما نؤمن به</span><h2>القيم الجوهرية</h2></div>
+  <div class="sec-body">
+    <ul class="values">
+      <li><b>الاستدامة</b><span>نتائج تتجاوز المناسبة إلى مشاريع مستمرة وأثرٍ قابل للقياس.</span></li>
+      <li><b>المسؤولية</b><span>تكامل الأدوار بين القطاعات الحكومية والخاصة والمجتمعية.</span></li>
+      <li><b>القياس</b><span>كل جهدٍ يُترجَم إلى مؤشرات أداء موثقة وقابلة للمتابعة.</span></li>
+      <li><b>الابتكار</b><span>أساليب غير تقليدية في التوعية البيئية والتطبيق الميداني.</span></li>
+      <li><b>الشفافية</b><span>الإفصاح الكامل عن النتائج والأثر لجميع أصحاب المصلحة.</span></li>
+      <li><b>التمكين</b><span>الطالب صانعُ أثرٍ لا متلقٍّ؛ فالمشاركة تُنتج قياداتٍ بيئية.</span></li>
+      <li><b>التكامل</b><span>الربط بين الإعلام والتقنية والتطوع لتحقيق الأثر المنشود.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="goals">
+  <div class="sec-head"><span class="eyebrow">سبعة أهداف</span><h2>الأهداف الاستراتيجية</h2></div>
+  <div class="sec-body">
+    <ol class="goals">
+      <li><div><b>زيادة الغطاء النباتي ومكافحة التصحر</b><span>زراعة الأشجار والشتلات، وحماية التنوع الحيوي.</span></div></li>
+      <li><div><b>تعزيز الاقتصاد الدائري</b><span>تحويل النفايات عن المرادم، وإعادة التدوير، وإنتاج منتجات مستدامة.</span></div></li>
+      <li><div><b>تمكين التعليم البيئي</b><span>تحويل المدارس إلى مختبرات حية للاستدامة، وبناء السلوك البيئي.</span></div></li>
+      <li><div><b>تفعيل التطوع والمشاركة المجتمعية</b><span>تمكين المتطوعين، وتوثيق الساعات التطوعية، وتوفير الفرص الخضراء.</span></div></li>
+      <li><div><b>تطوير الإعلام والرقمنة</b><span>إعلام الأثر، وإدارة الأثر التنموي رقميًا، وبناء القدرات البشرية.</span></div></li>
+      <li><div><b>بناء البنية التحتية المستدامة</b><span>تطوير طريق أخضر مستدام، ورفع كفاءة المياه، واعتماد الطاقة النظيفة.</span></div></li>
+      <li><div><b>تعزيز الشراكات والاستدامة المؤسسية</b><span>بناء شراكات استراتيجية، والامتثال للمعايير، وضمان استمرارية الأثر.</span></div></li>
+    </ol>
+  </div>
+</section>
+
+<section id="axes">
+  <div class="sec-head"><span class="eyebrow">نطاق العمل</span><h2>المحاور الرئيسية</h2></div>
+  <div class="sec-body">
+    <ul class="axes">
+      <li>إعادة التوازن البيئي وإيجاد الحلول المستدامة</li>
+      <li>حماية البيئة والمحافظة على الموارد الطبيعية</li>
+      <li>زيادة الغطاء النباتي ومكافحة التصحر</li>
+      <li>تعزيز السياحة البيئية</li>
+      <li>نشر الوعي والقيم الأخلاقية والثقافية المرتبطة بالاستدامة البيئية</li>
+      <li>التعليم والتمكين وبناء القدرات الوطنية</li>
+      <li>تعزيز الشراكات والمشاركة المجتمعية المستدامة</li>
+      <li>إدارة تحقيق الأثر التنموي المستدام</li>
+    </ul>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="sec-head"><span class="eyebrow">التدشينات الخضراء</span><h2>مشاريع المبادرة ومستهدفاتها</h2></div>
+  <div class="sec-body">
+    <div class="projects">
+      <div class="proj"><h3>مدرستي الخضراء</h3><div class="metric"><span class="num">2,030</span>شجرة</div><p>تفعيل 15 مدرسة، وتحويل 5 أطنان من النفايات عن المرادم سنويًا.</p></div>
+      <div class="proj"><h3>الطريق الأخضر</h3><div class="metric"><span class="num">2,030</span>ساعة تطوعية</div><p>مشروع تشجير مجتمعي بزراعة 2,030 شجرة.</p></div>
+      <div class="proj"><h3>واحة الاستدامة</h3><div class="metric"><span class="num">2,030</span>شجرة متنوعة</div><p>زراعة أشجار متنوعة، يرافقها معرض فني تعريفي.</p></div>
+      <div class="proj"><h3>غصن الاستدامة</h3><div class="metric"><span class="num">2,030</span>شتلة</div><p>المرحلة الأولى ونواة التوسع في زراعة الشتلات.</p></div>
+      <div class="proj"><h3>الغصن الأخضر</h3><div class="metric"><span class="num">2,030</span>منتج معاد تدويره</div><p>سلسلة متكاملة: تعليم، وتدوير، وعرض، وتسويق.</p></div>
+      <div class="proj"><h3>المسار السياحي البيئي الأخضر</h3><div class="metric"><span class="num">2,030</span>سائح</div><p>تنظيم رحلات بيئية للسياح من داخل المملكة وخارجها.</p></div>
+      <div class="proj"><h3>فريق المسؤولية البيئية التطوعي</h3><div class="metric"><span class="num">2,030</span>متطوع</div><p>عضوية احترافية للمتطوعين في العمل البيئي.</p></div>
+      <div class="proj"><h3>مركز الإعلام البيئي</h3><div class="metric"><span class="num">2,030</span>منتج إعلامي</div><p>مركز إعلامي مؤسسي لإنتاج المحتوى البيئي ونشره.</p></div>
+      <div class="proj"><h3>بناء القدرات والتأهيل الأخضر</h3><div class="metric"><span class="num">2,030</span>متدرب ومتدربة</div><p>برامج تأهيل تفتح أمام المشاركين فرصًا خضراء.</p></div>
+      <div class="proj"><h3>الفن الأخضر المستدام</h3><div class="metric"><span class="num">2,030</span>عمل فني</div><p>معرض فني بيئي يضم لوحات وقطعًا وأعمالًا فنية.</p></div>
+      <div class="proj"><h3>جدارية الأثر الأخضر المستدام</h3><div class="metric"><span class="num">2,030</span>متر ومشارك</div><p>جداريات على أسوار المدارس في المناسبات الوطنية والدولية.</p></div>
+      <div class="proj"><h3>مدونة مشاعر الأثر الأخضر</h3><div class="metric"><span class="num">2,030</span>مشاركة شعورية</div><p>مساحة للتعبير عن الأثر بالكتابة والرسم والتعبير الحر.</p></div>
+      <div class="proj"><h3>منصة المسؤولية الذكية</h3><div class="metric"><span class="num">2,030</span>عملية</div><p>منظومة رقمية ذكية لإدارة تحقيق الأثر التنموي المستدام.</p></div>
+      <div class="proj"><h3>المنصة الرقمية</h3><div class="metric"><span class="num">2,030</span>مشاركة رقمية</div><p>قناة المشاركة الرقمية للجمهور في أنشطة المبادرة.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="audience">
+  <div class="sec-head"><span class="eyebrow">لمن نتوجه</span><h2>الفئات المستهدفة</h2></div>
+  <div class="sec-body">
+    <div class="aud">
+      <div class="pillar"><h3>القطاع الحكومي</h3><span class="count">+15 جهة · الشراكة المؤسسية</span><q>شريك استراتيجي</q></div>
+      <div class="pillar"><h3>القطاع الخاص</h3><span class="count">+10 جهات · المسؤولية الاجتماعية</span><q>استثمر في الأثر</q></div>
+      <div class="pillar"><h3>القطاع غير الربحي</h3><span class="count">+15 جمعية · التكامل والتمكين</span><q>معًا نصنع الأثر</q></div>
+      <div class="pillar"><h3>المؤسسات التعليمية</h3><span class="count">15 مدرسة · التعلم والمشاركة الفعلية</span><q>أنت صانع الأثر</q></div>
+      <div class="pillar"><h3>الإعلاميون وصنّاع المحتوى</h3><span class="count">+5 منصات · القصة والأرقام</span><q>الأثر الذي يستحق النشر</q></div>
+      <div class="pillar"><h3>المجتمع المحلي</h3><span class="count">2,030 مشاركًا · المشاركة المجتمعية</span><q>بيئتك مسؤوليتك</q></div>
+    </div>
+  </div>
+</section>
+
+<section id="refs">
+  <div class="sec-head"><span class="eyebrow">الإطار المرجعي</span><h2>المرجعيات الوطنية والدولية</h2></div>
+  <div class="sec-body">
+    <div class="refs">
+      <span>رؤية المملكة 2030</span><span>مبادرة السعودية الخضراء</span><span>البرنامج الوطني للتشجير</span>
+      <span>الاستراتيجية الوطنية للبيئة</span><span>الاستراتيجية الوطنية للزراعة</span><span>الاستراتيجية الوطنية للمياه</span>
+      <span>الاستراتيجية الوطنية للسياحة</span><span>الاستراتيجية الوطنية للبيانات والذكاء الاصطناعي</span><span>الاستراتيجية الوطنية للمسؤولية الاجتماعية</span>
+      <span>ضوابط واشتراطات المبادرات التطوعية في قطاع إدارة النفايات</span><span>كود الطرق السعودي (الهيئة العامة للطرق)</span>
+    </div>
+    <p class="note">وترتبط المبادرة بأهداف الأمم المتحدة للتنمية المستدامة، وباتفاق باريس للمناخ، واتفاقيات ريو، وإطار كونمينغ-مونتريال العالمي للتنوع البيولوجي. وأبرز الأهداف المرتبطة:</p>
+    <div class="sdg">
+      <span><b class="num">4</b>التعليم الجيد</span>
+      <span><b class="num">6</b>المياه النظيفة والنظافة الصحية</span>
+      <span><b class="num">7</b>طاقة نظيفة وبأسعار معقولة</span>
+      <span><b class="num">9</b>الصناعة والابتكار والهياكل الأساسية</span>
+      <span><b class="num">11</b>مدن ومجتمعات محلية مستدامة</span>
+      <span><b class="num">12</b>الاستهلاك والإنتاج المسؤولان</span>
+      <span><b class="num">13</b>العمل المناخي</span>
+      <span><b class="num">15</b>الحياة في البر</span>
+      <span><b class="num">17</b>عقد الشراكات لتحقيق الأهداف</span>
+    </div>
+  </div>
+</section>
+
+<section id="forum">
+  <div class="sec-head"><span class="eyebrow">حفل الإطلاق</span><h2>ملتقى انطلاق «الأثر الأخضر المستدام»</h2></div>
+  <div class="sec-body">
+    <dl class="facts">
+      <div><dt>المناسبة</dt><dd>اليوم العربي للبيئة 2026</dd></div>
+      <div><dt>التاريخ</dt><dd>الأربعاء 14 أكتوبر 2026</dd></div>
+      <div><dt>المكان</dt><dd>ديوان وزارة البيئة — الرياض</dd></div>
+      <div><dt>الوقت</dt><dd>9:00 ص – 12:45 م</dd></div>
+      <div><dt>الاستقبال والتسجيل</dt><dd>من 8:45 ص</dd></div>
+      <div><dt>الحضور المتوقع</dt><dd>+150 مشاركًا</dd></div>
+    </dl>
+    <dl class="roles">
+      <div><dt>الجهة المنظمة</dt><dd>جمعية المسؤولية البيئية الأهلية</dd></div>
+      <div><dt>الإشراف الفني</dt><dd>وزارة البيئة والمياه والزراعة</dd></div>
+      <div><dt>الإشراف التنظيمي</dt><dd>الإدارة العامة لمنظمات القطاع غير الربحي</dd></div>
+      <div><dt>الراعي الرسمي المستهدف</dt><dd>م. منصور المشيطي — نائب الوزير</dd></div>
+      <div><dt>الشريك الاستراتيجي</dt><dd>الإدارة العامة للتعليم بمنطقة الرياض</dd></div>
+      <div><dt>الشريك المجتمعي</dt><dd>جمعية المسؤولية المجتمعية</dd></div>
+    </dl>
+    <h3 style="font-size:1.1rem">البرنامج الرسمي</h3>
+    <div class="agenda-wrap">
+      <table class="agenda">
+        <thead><tr><th>الوقت</th><th>الفقرة</th></tr></thead>
+        <tbody>
+          <tr class="block"><td colspan="2">الافتتاح</td></tr>
+          <tr><td>8:45 ص</td><td>استقبال الضيوف والتسجيل</td></tr>
+          <tr><td>9:00 ص</td><td>السلام الملكي</td></tr>
+          <tr><td>9:05 ص</td><td>الكلمة الترحيبية</td></tr>
+          <tr><td>9:10 ص</td><td>كلمة الراعي الرسمي</td></tr>
+          <tr><td>9:15 ص</td><td>عرض مرئي: «الأثر الأخضر المستدام»</td></tr>
+          <tr class="block"><td colspan="2">تدشين المشاريع</td></tr>
+          <tr><td>9:20 ص</td><td>فريق المسؤولية البيئية التطوعي</td></tr>
+          <tr><td>9:30 ص</td><td>مشروع الطريق الأخضر</td></tr>
+          <tr><td>9:40 ص</td><td>مشروع مدرستي الخضراء</td></tr>
+          <tr><td>9:50 ص</td><td>مشروع واحة الاستدامة</td></tr>
+          <tr><td>10:00 ص</td><td>مشروع غصن الاستدامة</td></tr>
+          <tr><td>10:10 ص</td><td>المسار السياحي البيئي الأخضر</td></tr>
+          <tr><td>10:20 ص</td><td>مشروع الغصن الأخضر</td></tr>
+          <tr><td>10:30 ص</td><td>بناء القدرات والتأهيل الأخضر</td></tr>
+          <tr><td>10:40 ص</td><td>الفن البيئي الأخضر المستدام</td></tr>
+          <tr><td>10:50 ص</td><td>جدارية الأثر الأخضر المستدام</td></tr>
+          <tr><td>11:00 ص</td><td>مدونة مشاعر الأثر الأخضر المستدام</td></tr>
+          <tr><td>11:10 ص</td><td>مركز الإعلام البيئي</td></tr>
+          <tr><td>11:20 ص</td><td>منصة المسؤولية الذكية</td></tr>
+          <tr class="block"><td colspan="2">الختام</td></tr>
+          <tr><td>11:30 ص</td><td>تكريم شركاء النجاح</td></tr>
+          <tr><td>11:50 ص</td><td>الصورة الجماعية</td></tr>
+          <tr><td>12:00 م</td><td>جولة في المعرض والأنشطة المصاحبة</td></tr>
+          <tr><td>12:30 م</td><td>الختام والتوديع</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="partners">
+  <div class="sec-head"><span class="eyebrow">معًا نصنع الأثر</span><h2>شركاء النجاح</h2></div>
+  <div class="sec-body">
+    <div class="partners">
+      <div><h3>القطاع الحكومي</h3><ul>
+        <li>وزارة البيئة والمياه والزراعة</li><li>المركز الوطني لتنمية القطاع غير الربحي</li><li>وزارة النقل والخدمات اللوجستية (مكتب التشجير)</li><li>مجلس الجمعيات والمؤسسات الأهلية</li><li>الإدارة العامة للتعليم بمنطقة الرياض</li><li>الهيئة العامة للطرق</li><li>المراكز الوطنية ذات العلاقة</li></ul></div>
+      <div><h3>القطاع الخاص</h3><ul>
+        <li>مصنع أسمنت الرياض</li><li>مشاتل الجابر</li><li>شركة سهول الرواد للتدريب</li></ul></div>
+      <div><h3>القطاع غير الربحي</h3><ul>
+        <li>جمعية المسؤولية المجتمعية</li><li>الجمعية السعودية للفنون التشكيلية</li><li>جمعية الرحالة</li><li>جمعية المصدرين الصناعيين</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="roadmap">
+  <div class="sec-head"><span class="eyebrow">2026 — 2030</span><h2>خارطة الطريق</h2></div>
+  <div class="sec-body">
+    <p class="prose">تمتد المبادرة على مراحل متتابعة من 2026 إلى 2030، بتوسعٍ مستمر في المستهدفات والشراكات، وتغطي محاور البيئة والتعليم والسياحة والفنون والاقتصاد الدائري والإعلام الرقمي، لتُحدث تغييرًا ملموسًا في السلوك البيئي والمجتمعي، وتحقق أثرًا تنمويًا مستدامًا قابلًا للقياس عبر منظومة ذكية لإدارة الأثر ودعم القرار.</p>
+    <div class="road">
+      <div class="phase"><span class="yrs num">2026 – 2027</span><h3>التأسيس</h3><div class="bar"><i style="width:25%"></i></div><span class="pct">الإطلاق وبناء المنظومة</span></div>
+      <div class="phase"><span class="yrs num">2027 – 2028</span><h3>التوسع</h3><div class="bar"><i style="width:50%"></i></div><span class="pct">50% من المستهدفات</span></div>
+      <div class="phase"><span class="yrs num">2028 – 2029</span><h3>النمو</h3><div class="bar"><i style="width:75%"></i></div><span class="pct">75% من المستهدفات</span></div>
+      <div class="phase"><span class="yrs num">2029 – 2030</span><h3>الريادة والاستدامة</h3><div class="bar"><i style="width:100%"></i></div><span class="pct">100% من المستهدفات</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="targets">
+  <div class="sec-head"><span class="eyebrow">بحلول 2030</span><h2>المستهدفات الاستراتيجية</h2></div>
+  <div class="sec-body">
+    <div class="targets">
+      <div class="tcol"><h3>بيئي</h3><ul>
+        <li><span class="num">2,030</span>شجرة</li><li><span class="num">2,030</span>بذرة</li><li><span class="num">2,030</span>منتجًا معاد تدويره</li><li><span class="num">+50</span>طنًّا من النفايات المحوّلة عن المرادم</li></ul></div>
+      <div class="tcol"><h3>تعليمي</h3><ul>
+        <li><span class="num">15</span>مدرسة</li><li><span class="num">10</span>مسارات</li><li><span class="num">2,030</span>عملًا فنيًا</li><li><span class="num">2,030</span>مشاركة شعورية</li></ul></div>
+      <div class="tcol"><h3>مجتمعي</h3><ul>
+        <li><span class="num">2,030</span>متطوعًا</li><li><span class="num">2,030</span>ساعة تطوعية</li><li><span class="num">2,030</span>سائحًا</li><li><span class="num">2,030</span>مشاركة رقمية</li></ul></div>
+      <div class="tcol"><h3>إعلامي ورقمي</h3><ul>
+        <li><span class="num">2,030</span>منتجًا إعلاميًا</li><li><span class="num">2,030</span>عملية لإدارة الأثر</li><li><span class="num">2,030</span>متدربًا</li></ul></div>
+      <div class="tcol"><h3>هندسي</h3><ul>
+        <li><span class="num">100</span>كم من الطريق الأخضر</li><li><span class="num">100%</span>ري مستدام</li><li><span class="num">✓</span>إضاءة بالطاقة الشمسية</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="kpis">
+  <div class="sec-head"><span class="eyebrow">كيف نقيس النجاح</span><h2>مؤشرات الأداء الرئيسية</h2></div>
+  <div class="sec-body">
+    <div class="kpis">
+      <div class="kpi"><span class="num">3:1</span><b>العائد الاجتماعي على الاستثمار</b><span>SROI: ثلاثة ريالات من القيمة الاجتماعية مقابل كل ريال يُستثمر.</span></div>
+      <div class="kpi"><span class="num">+100K</span><b>الوصول الرقمي</b><span>مستخدم على المنصات الإعلامية.</span></div>
+      <div class="kpi"><span class="num">+90%</span><b>رضا المشاركين</b><span>معدل الرضا المستهدف وفق منهجية الإدارة بالنتائج (RBM).</span></div>
+      <div class="kpi"><span class="num">+95%</span><b>رضا المتطوعين</b><span>وفق معايير المنصة الوطنية للعمل التطوعي.</span></div>
+      <div class="kpi"><span class="num">+80</span><b>منتجًا إعلاميًا</b><span>من إنتاج مركز الإعلام البيئي.</span></div>
+      <div class="kpi"><span class="num">5</span><b>قصص أثر</b><span>موثقة وقابلة للتحقق.</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="sec-head"><span class="eyebrow">تواصل معنا</span><h2>جمعية المسؤولية البيئية الأهلية</h2></div>
+  <div class="sec-body">
+    <dl class="contact">
+      <div><dt>الهاتف</dt><dd class="num">0501441059</dd></div>
+      <div><dt>البريد الإلكتروني</dt><dd class="num">info@envresp.org.sa</dd></div>
+      <div><dt>الموقع الإلكتروني</dt><dd><a class="num" href="https://www.envresp.org.sa" target="_blank" rel="noopener">www.envresp.org.sa</a></dd></div>
+      <div><dt>حسابات التواصل</dt><dd class="num">@ecodutyksa</dd></div>
+    </dl>
+    <div class="hashtags"><span>#الأثر_الأخضر_المستدام</span><span>#اليوم_العربي_للبيئة_2026</span><span>#مدرستي_الخضراء</span></div>
+  </div>
+</section>
+
+<footer>
+  <p class="quote">من المسرح تبدأ الرسالة… وبالمسؤولية المشتركة ينمو الأثر</p>
+  <small>إعداد: جمعية المسؤولية البيئية الأهلية — الرياض 2026</small>
+</footer>
+
+</div>
+</body>
+</html>
